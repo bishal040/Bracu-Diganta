@@ -160,7 +160,7 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
         
         // Scale down on mobile to prevent the CanSat from being massively zoomed in
         const isMobile = w < 768;
-        const SCALE = isMobile ? 0.45 : 0.80;
+        const SCALE = isMobile ? 0.80 : 0.80;
         
         if (imgRatio > canvasRatio) {
           drawH = h * SCALE;
@@ -170,16 +170,22 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
           drawH = (w / imgRatio) * SCALE;
         }
 
-        const x = (w - drawW) / 2;
-        const y = (h - drawH) / 2;
+        const drawX = (w - drawW) / 2;
+        let drawY = (h - drawH) / 2;
+
+        // Push the image slightly lower on mobile view
+        if (isMobile) {
+          drawY += h * 0.08;
+        }
         
         ctx.globalAlpha = alpha;
-        ctx.drawImage(img, x, y, drawW, drawH);
+        ctx.drawImage(img, drawX, drawY, drawW, drawH);
       };
 
       drawImage(seq1.current[frameIdx1], alpha1);
       drawImage(seq2.current[frameIdx2], alpha2);
       drawImage(seq3.current[frameIdx3], alpha3);
+
       ctx.globalAlpha = 1.0;
 
       rafId = requestAnimationFrame(render);
@@ -192,15 +198,25 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
   return (
     <div
       ref={wrapperRef}
-      className="absolute inset-0 w-full h-full"
-      style={{
-        WebkitMaskImage: 'radial-gradient(circle at center, black 25%, transparent 45%)',
-        maskImage: 'radial-gradient(circle at center, black 25%, transparent 45%)',
-      }}
+      className="absolute top-0 left-0 w-full h-[50dvh] md:inset-0 md:h-full overflow-hidden"
     >
       <canvas
         ref={canvasRef}
         className="w-full h-full"
+      />
+      {/* Mobile Vignette (Oval Frame) */}
+      <div 
+        className="absolute inset-0 pointer-events-none md:hidden"
+        style={{ 
+          background: 'radial-gradient(ellipse at center, transparent 15%, #eef2f5 55%)'
+        }}
+      />
+      {/* Desktop Vignette (Oval Frame) */}
+      <div 
+        className="absolute inset-0 pointer-events-none hidden md:block"
+        style={{ 
+          background: 'radial-gradient(ellipse at center, transparent 30%, #eef2f5 70%)'
+        }}
       />
     </div>
   );
