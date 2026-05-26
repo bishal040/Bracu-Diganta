@@ -204,11 +204,11 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
         ref={canvasRef}
         className="w-full h-full"
       />
-      {/* Mobile Vignette (center subject sharp, all borders softly blended) */}
+      {/* Mobile Vignette (center subject sharp, all borders softly blended, more mask at top) */}
       <div 
         className="absolute inset-0 pointer-events-none md:hidden"
         style={{ 
-          background: 'radial-gradient(ellipse at center 55%, transparent 28%, #eef2f5 62%)'
+          background: 'radial-gradient(ellipse at center 65%, transparent 28%, #eef2f5 62%)'
         }}
       />
       {/* Desktop Vignette (Oval Frame) */}
