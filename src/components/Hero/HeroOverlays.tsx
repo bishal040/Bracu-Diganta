@@ -33,7 +33,11 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
     let rafId: number;
 
     const animate = () => {
-      const { progress } = scrollData.current;
+      let { progress } = scrollData.current;
+      // MAGIC: Since we extended SequenceSection from 700% to 1050% (1.5x longer),
+      // we multiply progress by 1.5 and clamp it at 1.0. This guarantees that 
+      // phases 1-4 execute at the EXACT same scroll wheel speed as they did before!
+      progress = Math.min(1.0, progress * 1.5);
 
       // Phase 1: 0.0 - 0.22
       if (phase1Ref.current) {
