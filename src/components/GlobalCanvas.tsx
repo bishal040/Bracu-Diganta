@@ -160,7 +160,7 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
         
         // Scale down on mobile to prevent the CanSat from being massively zoomed in
         const isMobile = w < 768;
-        const SCALE = isMobile ? 0.80 : 0.80;
+        const SCALE = isMobile ? 0.85 : 0.80;
         
         if (imgRatio > canvasRatio) {
           drawH = h * SCALE;
@@ -173,9 +173,9 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
         const drawX = (w - drawW) / 2;
         let drawY = (h - drawH) / 2;
 
-        // Push the image slightly lower on mobile view
+        // Push the image lower on mobile view
         if (isMobile) {
-          drawY += h * 0.08;
+          drawY += h * 0.10;
         }
         
         ctx.globalAlpha = alpha;
@@ -204,11 +204,11 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
         ref={canvasRef}
         className="w-full h-full"
       />
-      {/* Mobile Vignette (Oval Frame) */}
+      {/* Mobile Vignette (center subject sharp, all borders softly blended) */}
       <div 
         className="absolute inset-0 pointer-events-none md:hidden"
         style={{ 
-          background: 'radial-gradient(ellipse at center, transparent 15%, #eef2f5 55%)'
+          background: 'radial-gradient(ellipse at center 55%, transparent 28%, #eef2f5 62%)'
         }}
       />
       {/* Desktop Vignette (Oval Frame) */}

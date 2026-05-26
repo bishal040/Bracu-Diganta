@@ -67,6 +67,8 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
   const phase7Ref = useRef<HTMLDivElement>(null);
   const phase8Ref = useRef<HTMLDivElement>(null);
   const glitchTextRef = useRef<HTMLDivElement>(null);
+  const leftLabelsRef = useRef<HTMLDivElement>(null);
+  const rightLabelsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const words = ["SYSTEMS", "ONLINE", "TARGET", "LOCKED", "DESCEND"];
@@ -90,6 +92,22 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
     const animate = () => {
       let { progress } = scrollData.current;
       progress = Math.min(1.0, progress * 1.5);
+
+      // Labels slide outward and fade out on scroll
+      const rawP = scrollData.current.progress;
+      const labelOpacity = rawP <= 0.001 ? 1 : Math.max(0, 1 - rawP / 0.015);
+      const slideAmount = Math.min(1, rawP / 0.015) * 120; // px to slide
+
+      if (leftLabelsRef.current) {
+        leftLabelsRef.current.style.opacity = String(labelOpacity);
+        leftLabelsRef.current.style.transform = `translateX(-${slideAmount}px)`;
+        leftLabelsRef.current.style.visibility = labelOpacity === 0 ? 'hidden' : 'visible';
+      }
+      if (rightLabelsRef.current) {
+        rightLabelsRef.current.style.opacity = String(labelOpacity);
+        rightLabelsRef.current.style.transform = `translateX(${slideAmount}px)`;
+        rightLabelsRef.current.style.visibility = labelOpacity === 0 ? 'hidden' : 'visible';
+      }
 
       if (phase1Ref.current) {
         const { opacity, transform } = calculatePhase(progress, 0.00, 0.06, 0.16, 0.22, 'float');
@@ -190,6 +208,56 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
 
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none z-10">
+
+      {/* ── Initial CanSat Labels — Left ── */}
+      <div
+        ref={leftLabelsRef}
+        className="absolute inset-0 w-full h-full transition-none"
+        style={{ opacity: 1 }}
+      >
+        <div className="absolute left-[3%] min-[400px]:left-[5%] md:left-[12%] top-[13%] md:top-[30%] flex items-center gap-1.5 md:gap-3 w-[32%] md:w-max">
+          <div className="text-right shrink-0">
+            <p className="font-orbitron text-[9px] min-[400px]:text-[10px] md:text-base lg:text-lg font-bold text-gray-900 uppercase tracking-wider leading-none md:leading-tight">Avionics Bay</p>
+            <p className="font-mono text-[6px] min-[400px]:text-[7px] md:text-xs text-gray-500 mt-1 md:mt-1">ESP32 Dual-Core OBC</p>
+          </div>
+          <div className="flex-1 md:flex-none md:w-16 h-[1px] bg-gray-400/50 shrink-0" />
+          <div className="w-1.5 md:w-2 h-1.5 md:h-2 shrink-0 rounded-full bg-[#2563EB]" style={{ boxShadow: '0 0 8px #2563EB60' }} />
+        </div>
+
+        <div className="absolute left-[3%] min-[400px]:left-[5%] md:left-[12%] top-[35%] md:top-[58%] flex items-center gap-1.5 md:gap-3 w-[32%] md:w-max">
+          <div className="text-right shrink-0">
+            <p className="font-orbitron text-[9px] min-[400px]:text-[10px] md:text-base lg:text-lg font-bold text-gray-900 uppercase tracking-wider leading-none md:leading-tight">Recovery System</p>
+            <p className="font-mono text-[6px] min-[400px]:text-[7px] md:text-xs text-gray-500 mt-1 md:mt-1">Auto-Rotation Descent</p>
+          </div>
+          <div className="flex-1 md:flex-none md:w-16 h-[1px] bg-gray-400/50 shrink-0" />
+          <div className="w-1.5 md:w-2 h-1.5 md:h-2 shrink-0 rounded-full bg-[#2563EB]" style={{ boxShadow: '0 0 8px #2563EB60' }} />
+        </div>
+      </div>
+
+      {/* ── Initial CanSat Labels — Right ── */}
+      <div
+        ref={rightLabelsRef}
+        className="absolute inset-0 w-full h-full transition-none"
+        style={{ opacity: 1 }}
+      >
+        <div className="absolute right-[3%] min-[400px]:right-[5%] md:right-[12%] top-[13%] md:top-[30%] flex items-center justify-end gap-1.5 md:gap-3 w-[32%] md:w-max">
+          <div className="w-1.5 md:w-2 h-1.5 md:h-2 shrink-0 rounded-full bg-[#2563EB]" style={{ boxShadow: '0 0 8px #2563EB60' }} />
+          <div className="flex-1 md:flex-none md:w-16 h-[1px] bg-gray-400/50 shrink-0" />
+          <div className="text-left shrink-0">
+            <p className="font-orbitron text-[9px] min-[400px]:text-[10px] md:text-base lg:text-lg font-bold text-gray-900 uppercase tracking-wider leading-none md:leading-tight">Sensor Array</p>
+            <p className="font-mono text-[6px] min-[400px]:text-[7px] md:text-xs text-gray-500 mt-1 md:mt-1">BMP280 + MPU6050 IMU</p>
+          </div>
+        </div>
+
+        <div className="absolute right-[3%] min-[400px]:right-[5%] md:right-[12%] top-[35%] md:top-[58%] flex items-center justify-end gap-1.5 md:gap-3 w-[32%] md:w-max">
+          <div className="w-1.5 md:w-2 h-1.5 md:h-2 shrink-0 rounded-full bg-[#2563EB]" style={{ boxShadow: '0 0 8px #2563EB60' }} />
+          <div className="flex-1 md:flex-none md:w-16 h-[1px] bg-gray-400/50 shrink-0" />
+          <div className="text-left shrink-0">
+            <p className="font-orbitron text-[9px] min-[400px]:text-[10px] md:text-base lg:text-lg font-bold text-gray-900 uppercase tracking-wider leading-none md:leading-tight">UHF Telemetry</p>
+            <p className="font-mono text-[6px] min-[400px]:text-[7px] md:text-xs text-gray-500 mt-1 md:mt-1">433 MHz Downlink</p>
+          </div>
+        </div>
+      </div>
 
       {/* ── Phase 1: Hero Title ── */}
       <div
