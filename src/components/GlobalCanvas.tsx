@@ -133,11 +133,8 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
               // We start at +15% and want to go to -35%, which is a total travel of 50%
               translateY = (h * 0.15) - (h * 0.50) * easeUp;
           } else {
-              // - Frames 60+: Fall downward smoothly!
-              const fallDownT = (smoothFrame - 60) / 53; // Remaining 53 frames
-              // Start from the top (-35%) and fall down to the bottom (+65%)
-              // Total distance = 100% of height
-              translateY = -(h * 0.35) + fallDownT * (h * 1.0);
+              // - Frames 60+: Hold position at the top!
+              translateY = -(h * 0.35);
           }
       }
 
@@ -160,7 +157,10 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
         const imgRatio = img.naturalWidth / img.naturalHeight;
         const canvasRatio = w / h;
         let drawW: number, drawH: number;
-        const SCALE = 0.80;
+        
+        // Scale down on mobile to prevent the CanSat from being massively zoomed in
+        const isMobile = w < 768;
+        const SCALE = isMobile ? 0.45 : 0.80;
         
         if (imgRatio > canvasRatio) {
           drawH = h * SCALE;

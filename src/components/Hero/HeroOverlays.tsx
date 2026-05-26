@@ -102,15 +102,15 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
         className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-12 lg:px-24"
         style={{ opacity: 0, visibility: 'hidden' }}
       >
-        <div className="w-full lg:w-[38%]">
-          <p className="text-xs md:text-sm font-mono tracking-[0.4em] text-telemetry-cyan uppercase mb-6 text-left">
+        <div className="w-full lg:w-[38%] max-md:bg-white/40 max-md:backdrop-blur-md max-md:p-8 max-md:rounded-3xl max-md:border max-md:border-white/50 max-md:shadow-xl transition-all">
+          <p className="text-[10px] md:text-sm font-mono tracking-[0.4em] text-telemetry-cyan uppercase mb-4 md:mb-6 text-left">
             BRAC University Aerospace Research
           </p>
-          <h1 className="font-orbitron text-6xl md:text-8xl lg:text-[7rem] font-black text-gray-900 tracking-[-0.04em] leading-[0.9] text-left uppercase">
+          <h1 className="font-orbitron text-[3.5rem] md:text-8xl lg:text-[7rem] font-black text-gray-900 tracking-[-0.04em] leading-[0.9] text-left uppercase">
             BRACU<br />DIGANTA
           </h1>
-          <div className="w-12 h-[3px] bg-telemetry-cyan my-8" />
-          <p className="text-base md:text-lg text-gray-600 text-left max-w-md leading-relaxed">
+          <div className="w-12 h-[3px] bg-telemetry-cyan my-6 md:my-8" />
+          <p className="text-sm md:text-lg text-gray-800 md:text-gray-600 text-left max-w-md leading-relaxed font-medium md:font-normal">
             Democratizing space,<br />one launch at a time.
           </p>
         </div>
@@ -122,16 +122,16 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
         className="absolute inset-0 flex flex-col items-end justify-center px-6 md:px-12 lg:px-24"
         style={{ opacity: 0, visibility: 'hidden' }}
       >
-        <div className="w-full lg:w-[38%] flex flex-col items-end">
-          <span className="text-xs font-mono tracking-[0.5em] text-telemetry-cyan uppercase mb-4 text-right">
+        <div className="w-full lg:w-[38%] flex flex-col items-end max-md:bg-white/40 max-md:backdrop-blur-md max-md:p-8 max-md:rounded-3xl max-md:border max-md:border-white/50 max-md:shadow-xl transition-all">
+          <span className="text-[10px] md:text-xs font-mono tracking-[0.5em] text-telemetry-cyan uppercase mb-3 md:mb-4 text-right">
             Architecture
           </span>
           <h2 className="font-orbitron text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight text-right uppercase">
             Modular by Design
           </h2>
-          <div className="w-12 h-[3px] bg-telemetry-cyan my-8" />
-          <p className="text-base md:text-lg text-gray-600 mt-2 text-right max-w-xl leading-relaxed">
-            A nearly screwless 3D-printed architecture built for<br />rapid assembly and mission reliability.
+          <div className="w-12 h-[3px] bg-telemetry-cyan my-6 md:my-8" />
+          <p className="text-sm md:text-lg text-gray-800 md:text-gray-600 mt-2 text-right max-w-xl leading-relaxed font-medium md:font-normal">
+            A nearly screwless 3D-printed architecture built for<br className="hidden md:block" /> rapid assembly and mission reliability.
           </p>
         </div>
       </div>
@@ -142,15 +142,15 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
         className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-12 lg:px-24"
         style={{ opacity: 0, visibility: 'hidden' }}
       >
-        <div className="w-full lg:w-[38%]">
-          <span className="text-xs font-mono tracking-[0.5em] text-telemetry-cyan uppercase mb-4 text-left block">
+        <div className="w-full lg:w-[38%] max-md:bg-white/40 max-md:backdrop-blur-md max-md:p-8 max-md:rounded-3xl max-md:border max-md:border-white/50 max-md:shadow-xl transition-all">
+          <span className="text-[10px] md:text-xs font-mono tracking-[0.5em] text-telemetry-cyan uppercase mb-3 md:mb-4 text-left block">
             Payload
           </span>
           <h2 className="font-orbitron text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight text-left uppercase">
             Sensor Suite
           </h2>
-          <div className="w-12 h-[3px] bg-telemetry-cyan my-8" />
-          <p className="text-base md:text-lg text-gray-600 mt-2 text-left max-w-xl leading-relaxed">
+          <div className="w-12 h-[3px] bg-telemetry-cyan my-6 md:my-8" />
+          <p className="text-sm md:text-lg text-gray-800 md:text-gray-600 mt-2 text-left max-w-xl leading-relaxed font-medium md:font-normal">
             High-fidelity atmospheric data collection via dual BMP280s, an MPU6050 6-axis IMU, and a Neo-M6N GPS module.
           </p>
         </div>
@@ -162,15 +162,15 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
         className="absolute inset-0 flex flex-col items-end justify-center px-6 md:px-12 lg:px-24"
         style={{ opacity: 0, visibility: 'hidden' }}
       >
-        <div className="w-full lg:w-[38%] flex flex-col items-end">
-          <span className="text-xs font-mono tracking-[0.5em] text-telemetry-cyan uppercase mb-4 text-right block">
+        <div className="w-full lg:w-[38%] flex flex-col items-end max-md:bg-white/40 max-md:backdrop-blur-md max-md:p-8 max-md:rounded-3xl max-md:border max-md:border-white/50 max-md:shadow-xl transition-all">
+          <span className="text-[10px] md:text-xs font-mono tracking-[0.5em] text-telemetry-cyan uppercase mb-3 md:mb-4 text-right block">
             Descent
           </span>
           <h2 className="font-orbitron text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight text-right uppercase">
             Active Aero
           </h2>
-          <div className="w-12 h-[3px] bg-telemetry-cyan my-8" />
-          <p className="text-base md:text-lg text-gray-600 mt-2 text-right max-w-xl leading-relaxed">
+          <div className="w-12 h-[3px] bg-telemetry-cyan my-6 md:my-8" />
+          <p className="text-sm md:text-lg text-gray-800 md:text-gray-600 mt-2 text-right max-w-xl leading-relaxed font-medium md:font-normal">
             Passive auto-rotation stabilization coupled with a custom parafoil recovery system ensures safe touchdown within targeted descent zones.
           </p>
         </div>
@@ -180,36 +180,36 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
       <div 
         id="telemetry-hud"
         ref={hudRef}
-        className="absolute inset-y-0 left-0 w-full md:w-[45%] px-6 md:px-16 lg:px-24 flex flex-col justify-center"
+        className="absolute inset-y-0 left-0 w-full md:w-[45%] px-6 md:px-16 lg:px-24 flex flex-col justify-center max-md:bg-white/40 max-md:backdrop-blur-md transition-all"
         style={{ opacity: 0, visibility: 'hidden' }}
       >
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8 max-md:mt-24">
           <div className="flex items-center gap-3 mb-2">
             <span className="w-2 h-2 rounded-full bg-telemetry-cyan animate-pulse" />
-            <span className="text-xs font-mono tracking-[0.4em] text-telemetry-cyan uppercase">
+            <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] text-telemetry-cyan uppercase">
               System Online
             </span>
           </div>
-          <h3 className="font-orbitron text-4xl md:text-5xl font-black text-gray-900 leading-tight uppercase mb-4">
+          <h3 className="font-orbitron text-4xl md:text-5xl font-black text-gray-900 leading-tight uppercase mb-3 md:mb-4">
             FLIGHT<br/>COMPUTING
           </h3>
-          <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md">
+          <p className="text-gray-800 md:text-gray-600 text-sm md:text-base leading-relaxed max-w-md font-medium md:font-normal">
             Custom-engineered avionics bay featuring redundant sensors, real-time ground station data linking, and active payload deployment systems.
           </p>
         </div>
 
         {/* HUD Data Grid */}
-        <div className="grid grid-cols-2 gap-4 max-w-lg">
+        <div className="grid grid-cols-2 gap-3 md:gap-4 max-w-lg">
           {telemetryStats.map((stat, idx) => (
-            <div key={idx} className="bg-white/40 backdrop-blur-sm border border-gray-200/60 p-5 rounded-xl flex flex-col justify-between">
-              <span className="text-[10px] font-mono tracking-widest text-gray-500 uppercase mb-3">
+            <div key={idx} className="bg-white/60 md:bg-white/40 backdrop-blur-sm border border-gray-200/60 p-4 md:p-5 rounded-xl flex flex-col justify-between shadow-sm">
+              <span className="text-[9px] md:text-[10px] font-mono tracking-widest text-gray-500 uppercase mb-2 md:mb-3">
                 {stat.label}
               </span>
               <div className="flex items-end gap-1.5">
-                <span className="font-orbitron text-2xl font-bold text-gray-900 leading-none">
+                <span className="font-orbitron text-xl md:text-2xl font-bold text-gray-900 leading-none">
                   {stat.value}
                 </span>
-                <span className="text-xs font-mono font-semibold text-telemetry-cyan mb-0.5">
+                <span className="text-[10px] md:text-xs font-mono font-semibold text-telemetry-cyan mb-0.5">
                   {stat.unit}
                 </span>
               </div>
