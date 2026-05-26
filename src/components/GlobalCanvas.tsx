@@ -85,49 +85,52 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
           frameIdx1 = TOTAL_FRAMES - 1;
           frameIdx2 = TOTAL_FRAMES - 1; // Hold on last frame of seq2
 
+          // 1. Shift from Right to Center (p3: 0 to 0.2)
+          let shiftBackEase = 1;
           if (p3 <= 0.2) {
-              // 1. Shift from Right to Center (p3: 0 to 0.2)
-              alpha2 = 1;
               const shiftT = p3 / 0.2;
-              const easeT = shiftT < 0.5 ? 2 * shiftT * shiftT : 1 - Math.pow(-2 * shiftT + 2, 2) / 2;
-              translateX = (w * 0.25) * (1 - easeT);
-              
-              // Stay vertically aligned where seq2 left off
-              translateY = 0;
+              shiftBackEase = shiftT < 0.5 ? 2 * shiftT * shiftT : 1 - Math.pow(-2 * shiftT + 2, 2) / 2;
+          }
+          translateX = (w * 0.25) * (1 - shiftBackEase);
+
+          // 2. HIDE THE CUT IN THE MOTION!
+          // Crossfade from seq2 to seq3 WHILE moving from right to center (p3: 0.05 to 0.15)
+          if (p3 < 0.05) {
+              alpha2 = 1;
+              alpha3 = 0;
+          } else if (p3 <= 0.15) {
+              alpha3 = (p3 - 0.05) / 0.10;
+              alpha2 = 1 - alpha3;
           } else {
-              // 2. Play seq3 and fall down (p3: 0.2 to 1.0)
-              translateX = 0;
-              const fallT = (p3 - 0.2) / 0.8;
-              
-              if (fallT < 0.05) {
-                  // Quick crossfade from seq2 to seq3 to prevent harsh flash
-                  alpha3 = fallT / 0.05;
-                  alpha2 = 1 - alpha3;
-              } else {
-                  alpha3 = 1;
-                  alpha2 = 0;
-              }
-              
-              // Heroimages3 only has 114 frames (index 0 to 113)
-              const maxSeq3Frame = 113;
-              frameIdx3 = Math.min(maxSeq3Frame, Math.floor(fallT * maxSeq3Frame));
-              
-              // Use continuous floating-point frame for perfectly smooth sub-pixel translation
-              const smoothFrame = fallT * maxSeq3Frame;
-              
-              // Choreography:
-              // - Frames 0-35: Stay centered (lower)
-              // - Frames 35-60: Smoothly shoot up to just below the navbar (-35% height)
-              // - Frames 60+: Hold at the top and let the raw image's downward motion fall naturally
-              if (smoothFrame <= 35) {
-                  translateY = 0;
-              } else if (smoothFrame <= 60) {
-                  const moveUpT = (smoothFrame - 35) / 25; // Continuous float from 0.0 to 1.0
-                  const easeUp = moveUpT < 0.5 ? 2 * moveUpT * moveUpT : 1 - Math.pow(-2 * moveUpT + 2, 2) / 2;
-                  translateY = -(h * 0.35) * easeUp;
-              } else {
-                  translateY = -(h * 0.35); // Hold it steady high up!
-              }
+              alpha2 = 0;
+              alpha3 = 1;
+          }
+
+          // 3. Play seq3
+          let fallT = 0;
+          if (p3 > 0.2) {
+              fallT = (p3 - 0.2) / 0.8;
+          }
+          
+          // Heroimages3 only has 114 frames (index 0 to 113)
+          const maxSeq3Frame = 113;
+          frameIdx3 = Math.min(maxSeq3Frame, Math.floor(fallT * maxSeq3Frame));
+          
+          // Use continuous floating-point frame for perfectly smooth sub-pixel translation
+          const smoothFrame = fallT * maxSeq3Frame;
+          
+          // Choreography:
+          // - Frames 0-35: Stay centered (lower)
+          // - Frames 35-60: Smoothly shoot up to just below the navbar (-35% height)
+          // - Frames 60+: Hold at the top and let the raw image's downward motion fall naturally
+          if (smoothFrame <= 35) {
+              translateY = 0;
+          } else if (smoothFrame <= 60) {
+              const moveUpT = (smoothFrame - 35) / 25; // Continuous float from 0.0 to 1.0
+              const easeUp = moveUpT < 0.5 ? 2 * moveUpT * moveUpT : 1 - Math.pow(-2 * moveUpT + 2, 2) / 2;
+              translateY = -(h * 0.35) * easeUp;
+          } else {
+              translateY = -(h * 0.35); // Hold it steady high up!
           }
       }
 
