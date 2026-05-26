@@ -6,9 +6,27 @@ interface HeroOverlaysProps {
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
+const calculatePhase = (progress: number, start: number, fadeStart: number, fadeEnd: number, end: number) => {
+  if (progress <= start || progress >= end) return { opacity: 0, y: 40, scale: 0.96 };
+  
+  if (progress < fadeStart) {
+    const t = easeOutCubic((progress - start) / (fadeStart - start));
+    return { opacity: t, y: 40 * (1 - t), scale: 0.96 + 0.04 * t };
+  }
+  
+  if (progress > fadeEnd) {
+    const t = easeOutCubic((progress - fadeEnd) / (end - fadeEnd));
+    return { opacity: 1 - t, y: -30 * t, scale: 1 - 0.02 * t };
+  }
+  
+  return { opacity: 1, y: 0, scale: 1 };
+};
+
 export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
   const phase1Ref = useRef<HTMLDivElement>(null);
   const phase2Ref = useRef<HTMLDivElement>(null);
+  const phase3Ref = useRef<HTMLDivElement>(null);
+  const phase4Ref = useRef<HTMLDivElement>(null);
   const hudRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -17,73 +35,41 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
     const animate = () => {
       const { progress } = scrollData.current;
 
-      // ─── PHASE 1: Title reveal (0 → 0.35) ───
+      // Phase 1: 0.0 - 0.22
       if (phase1Ref.current) {
-        let opacity = 0;
-        let y = 40;
-        let scale = 0.96;
-
-        if (progress >= 0.02 && progress <= 0.08) {
-          const t = easeOutCubic((progress - 0.02) / 0.06);
-          opacity = t;
-          y = 40 * (1 - t);
-          scale = 0.96 + 0.04 * t;
-        } else if (progress > 0.08 && progress <= 0.28) {
-          opacity = 1;
-          y = 0;
-          scale = 1;
-        } else if (progress > 0.28 && progress <= 0.35) {
-          const t = easeOutCubic((progress - 0.28) / 0.07);
-          opacity = 1 - t;
-          y = -30 * t;
-          scale = 1 - 0.03 * t;
-        }
-
+        const { opacity, y, scale } = calculatePhase(progress, 0.00, 0.06, 0.16, 0.22);
         phase1Ref.current.style.opacity = String(opacity);
         phase1Ref.current.style.transform = `translateY(${y}px) scale(${scale})`;
+        phase1Ref.current.style.visibility = opacity === 0 ? 'hidden' : 'visible';
       }
 
-      // ─── PHASE 2: "Modular by Design" (0.35 → 0.5) ───
+      // Phase 2: 0.18 - 0.40
       if (phase2Ref.current) {
-        let opacity = 0;
-        let y = 50;
-
-        if (progress > 0.36 && progress <= 0.42) {
-          const t = easeOutCubic((progress - 0.36) / 0.06);
-          opacity = t;
-          y = 50 * (1 - t);
-        } else if (progress > 0.42 && progress <= 0.46) {
-          opacity = 1;
-          y = 0;
-        } else if (progress > 0.46 && progress <= 0.5) {
-          const t = easeOutCubic((progress - 0.46) / 0.04);
-          opacity = 1 - t;
-          y = -40 * t;
-        }
-
+        const { opacity, y, scale } = calculatePhase(progress, 0.18, 0.24, 0.34, 0.40);
         phase2Ref.current.style.opacity = String(opacity);
-        phase2Ref.current.style.transform = `translateY(${y}px)`;
+        phase2Ref.current.style.transform = `translateY(${y}px) scale(${scale})`;
+        phase2Ref.current.style.visibility = opacity === 0 ? 'hidden' : 'visible';
       }
 
-      // ─── PHASE 3: Live Telemetry HUD (0.5 → 1.0) ───
+      // Phase 3: 0.36 - 0.58
+      if (phase3Ref.current) {
+        const { opacity, y, scale } = calculatePhase(progress, 0.36, 0.42, 0.52, 0.58);
+        phase3Ref.current.style.opacity = String(opacity);
+        phase3Ref.current.style.transform = `translateY(${y}px) scale(${scale})`;
+        phase3Ref.current.style.visibility = opacity === 0 ? 'hidden' : 'visible';
+      }
+
+      // Phase 4: 0.54 - 0.76
+      if (phase4Ref.current) {
+        const { opacity, y, scale } = calculatePhase(progress, 0.54, 0.60, 0.70, 0.76);
+        phase4Ref.current.style.opacity = String(opacity);
+        phase4Ref.current.style.transform = `translateY(${y}px) scale(${scale})`;
+        phase4Ref.current.style.visibility = opacity === 0 ? 'hidden' : 'visible';
+      }
+
+      // Phase 5: Telemetry HUD (0.72 - 1.0)
       if (hudRef.current) {
-        const p3 = progress > 0.5 ? (progress - 0.5) / 0.5 : 0;
-        let opacity = 0;
-        let y = 30;
-
-        if (p3 > 0.05 && p3 <= 0.15) {
-          const t = easeOutCubic((p3 - 0.05) / 0.1);
-          opacity = t;
-          y = 30 * (1 - t);
-        } else if (p3 > 0.15 && p3 <= 0.85) {
-          opacity = 1;
-          y = 0;
-        } else if (p3 > 0.85 && p3 <= 1.0) {
-          const t = easeOutCubic((p3 - 0.85) / 0.15);
-          opacity = 1 - t;
-          y = -30 * t;
-        }
-
+        const { opacity, y } = calculatePhase(progress, 0.72, 0.78, 0.95, 1.0);
         hudRef.current.style.opacity = String(opacity);
         hudRef.current.style.transform = `translateY(${y}px)`;
         hudRef.current.style.visibility = opacity === 0 ? 'hidden' : 'visible';
@@ -110,7 +96,7 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
       <div
         ref={phase1Ref}
         className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-12 lg:px-24"
-        style={{ opacity: 0 }}
+        style={{ opacity: 0, visibility: 'hidden' }}
       >
         <div className="w-full lg:w-[38%]">
           <p className="text-xs md:text-sm font-mono tracking-[0.4em] text-telemetry-cyan uppercase mb-6 text-left">
@@ -130,7 +116,7 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
       <div
         ref={phase2Ref}
         className="absolute inset-0 flex flex-col items-end justify-center px-6 md:px-12 lg:px-24"
-        style={{ opacity: 0 }}
+        style={{ opacity: 0, visibility: 'hidden' }}
       >
         <div className="w-full lg:w-[38%] flex flex-col items-end">
           <span className="text-xs font-mono tracking-[0.5em] text-telemetry-cyan uppercase mb-4 text-right">
@@ -146,7 +132,47 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
         </div>
       </div>
 
-      {/* ── Phase 3: Telemetry HUD ── */}
+      {/* ── Phase 3: Sensor Suite ── */}
+      <div
+        ref={phase3Ref}
+        className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-12 lg:px-24"
+        style={{ opacity: 0, visibility: 'hidden' }}
+      >
+        <div className="w-full lg:w-[38%]">
+          <span className="text-xs font-mono tracking-[0.5em] text-telemetry-cyan uppercase mb-4 text-left block">
+            Payload
+          </span>
+          <h2 className="font-orbitron text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight text-left uppercase">
+            Sensor Suite
+          </h2>
+          <div className="w-12 h-[3px] bg-telemetry-cyan my-8" />
+          <p className="text-base md:text-lg text-gray-600 mt-2 text-left max-w-xl leading-relaxed">
+            High-fidelity atmospheric data collection via dual BMP280s, an MPU6050 6-axis IMU, and a Neo-M6N GPS module.
+          </p>
+        </div>
+      </div>
+
+      {/* ── Phase 4: Active Aerodynamics ── */}
+      <div
+        ref={phase4Ref}
+        className="absolute inset-0 flex flex-col items-end justify-center px-6 md:px-12 lg:px-24"
+        style={{ opacity: 0, visibility: 'hidden' }}
+      >
+        <div className="w-full lg:w-[38%] flex flex-col items-end">
+          <span className="text-xs font-mono tracking-[0.5em] text-telemetry-cyan uppercase mb-4 text-right block">
+            Descent
+          </span>
+          <h2 className="font-orbitron text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight text-right uppercase">
+            Active Aero
+          </h2>
+          <div className="w-12 h-[3px] bg-telemetry-cyan my-8" />
+          <p className="text-base md:text-lg text-gray-600 mt-2 text-right max-w-xl leading-relaxed">
+            Passive auto-rotation stabilization coupled with a custom parafoil recovery system ensures safe touchdown within targeted descent zones.
+          </p>
+        </div>
+      </div>
+
+      {/* ── Phase 5: Telemetry HUD ── */}
       <div 
         id="telemetry-hud"
         ref={hudRef}

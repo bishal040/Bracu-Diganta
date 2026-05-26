@@ -18,8 +18,8 @@ export const SequenceSection: React.FC = () => {
       pin: true,
       anticipatePin: 1,
       start: 'top top',
-      end: '+=300%',
-      scrub: 0.8,
+      end: '+=700%',
+      scrub: 1.2,
       onUpdate: (self) => {
         scrollData.current.progress = self.progress;
       },
