@@ -120,17 +120,24 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
           const smoothFrame = fallT * maxSeq3Frame;
           
           // Choreography:
-          // - Frames 0-35: Stay centered (lower)
+          // - Frames 0-35: Come slightly down from the center (+15% height)
           // - Frames 35-60: Smoothly shoot up to just below the navbar (-35% height)
           // - Frames 60+: Hold at the top and let the raw image's downward motion fall naturally
           if (smoothFrame <= 35) {
-              translateY = 0;
+              const moveDownT = smoothFrame / 35;
+              const easeDown = moveDownT < 0.5 ? 2 * moveDownT * moveDownT : 1 - Math.pow(-2 * moveDownT + 2, 2) / 2;
+              translateY = (h * 0.15) * easeDown; // Dip down slightly
           } else if (smoothFrame <= 60) {
               const moveUpT = (smoothFrame - 35) / 25; // Continuous float from 0.0 to 1.0
               const easeUp = moveUpT < 0.5 ? 2 * moveUpT * moveUpT : 1 - Math.pow(-2 * moveUpT + 2, 2) / 2;
-              translateY = -(h * 0.35) * easeUp;
+              // We start at +15% and want to go to -35%, which is a total travel of 50%
+              translateY = (h * 0.15) - (h * 0.50) * easeUp;
           } else {
-              translateY = -(h * 0.35); // Hold it steady high up!
+              // - Frames 60+: Fall downward smoothly!
+              const fallDownT = (smoothFrame - 60) / 53; // Remaining 53 frames
+              // Start from the top (-35%) and fall down to the bottom (+65%)
+              // Total distance = 100% of height
+              translateY = -(h * 0.35) + fallDownT * (h * 1.0);
           }
       }
 
