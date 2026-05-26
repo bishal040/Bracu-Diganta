@@ -1,4 +1,16 @@
 import { useEffect, useRef } from 'react';
+import { Hexagon, Triangle, Circle, Square, Command, Anchor, Aperture, Globe } from 'lucide-react';
+
+const SPONSORS = [
+  { name: "AeroTech", icon: <Triangle size={32} strokeWidth={1.5} /> },
+  { name: "Nova Systems", icon: <Hexagon size={32} strokeWidth={1.5} /> },
+  { name: "Quantum Dynamics", icon: <Circle size={32} strokeWidth={1.5} /> },
+  { name: "NexGen", icon: <Square size={32} strokeWidth={1.5} /> },
+  { name: "Nexus", icon: <Command size={32} strokeWidth={1.5} /> },
+  { name: "Horizon", icon: <Anchor size={32} strokeWidth={1.5} /> },
+  { name: "Orbit Systems", icon: <Aperture size={32} strokeWidth={1.5} /> },
+  { name: "Stratos", icon: <Globe size={32} strokeWidth={1.5} /> },
+];
 
 interface HeroOverlaysProps {
   scrollData: React.MutableRefObject<{ progress: number }>;
@@ -66,25 +78,8 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
   const phase6Ref = useRef<HTMLDivElement>(null);
   const phase7Ref = useRef<HTMLDivElement>(null);
   const phase8Ref = useRef<HTMLDivElement>(null);
-  const glitchTextRef = useRef<HTMLDivElement>(null);
   const leftLabelsRef = useRef<HTMLDivElement>(null);
   const rightLabelsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const words = ["SYSTEMS", "ONLINE", "TARGET", "LOCKED", "DESCEND"];
-    let currentIndex = 0;
-    
-    const interval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % words.length;
-      if (glitchTextRef.current) {
-        const word = words[currentIndex];
-        glitchTextRef.current.innerText = word;
-        glitchTextRef.current.setAttribute("data-text", word);
-      }
-    }, 3000);
-    
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     let rafId: number;
@@ -469,93 +464,55 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
         </div>
       </div>
 
-      {/* ── Phase 8: Bottom Center Drive (Glitching Typography) ── */}
+      {/* ── Phase 8: Sponsors Marquee ── */}
       <div 
         ref={phase8Ref}
-        className="absolute bottom-24 left-1/2 flex flex-col items-center justify-center transition-all z-20"
+        className="absolute bottom-24 left-1/2 flex flex-col items-center justify-center transition-all z-20 w-[100vw]"
         style={{ opacity: 0, visibility: 'hidden' }}
       >
-        <style>{`
-          .glitch-text {
-            position: relative;
-            font-size: 3rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: #111827;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            white-space: nowrap;
-          }
-          
-          .glitch-text:hover {
-            transform: scale(1.05);
-          }
-          
-          .glitch-text::before,
-          .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            white-space: nowrap;
-          }
-          
-          .glitch-text::before {
-            left: 3px;
-            text-shadow: -3px 0 rgba(255, 0, 193, 0.8);
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-            animation: glitch-anim 2.5s infinite linear alternate-reverse;
-          }
-          
-          .glitch-text::after {
-            left: -3px;
-            text-shadow: -3px 0 rgba(0, 255, 249, 0.8);
-            clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
-            animation: glitch-anim2 3s infinite linear alternate-reverse;
-          }
-
-          @keyframes glitch-anim {
-            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-            10% { clip-path: inset(50% 0 30% 0); transform: translate(2px, -1px); }
-            20% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, 2px); }
-            30% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
-            40% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 1px); }
-            50% { clip-path: inset(90% 0 2% 0); transform: translate(2px, -1px); }
-            60% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
-            70% { clip-path: inset(15% 0 70% 0); transform: translate(2px, -2px); }
-            80% { clip-path: inset(60% 0 10% 0); transform: translate(-2px, 1px); }
-            90% { clip-path: inset(5% 0 90% 0); transform: translate(2px, -1px); }
-            100% { clip-path: inset(70% 0 20% 0); transform: translate(-2px, 2px); }
-          }
-          
-          @keyframes glitch-anim2 {
-            0% { clip-path: inset(15% 0 60% 0); transform: translate(2px, -1px); }
-            15% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 1px); }
-            30% { clip-path: inset(20% 0 30% 0); transform: translate(2px, 2px); }
-            45% { clip-path: inset(50% 0 40% 0); transform: translate(-2px, -2px); }
-            60% { clip-path: inset(10% 0 80% 0); transform: translate(2px, 1px); }
-            75% { clip-path: inset(90% 0 2% 0); transform: translate(-2px, -1px); }
-            90% { clip-path: inset(30% 0 50% 0); transform: translate(2px, 2px); }
-            100% { clip-path: inset(65% 0 15% 0); transform: translate(-2px, -2px); }
-          }
-        `}</style>
-        
-        <div 
-          ref={glitchTextRef}
-          className="glitch-text font-orbitron md:text-5xl lg:text-7xl" 
-          data-text="SYSTEMS"
-          onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
-        >
-          SYSTEMS
+        <div className="flex flex-col items-center mb-6">
+          <span className="font-mono text-[10px] text-gray-400 tracking-[0.4em] uppercase mb-4">
+            MISSION PARTNERS
+          </span>
         </div>
         
-        <span className="font-mono text-[10px] text-gray-500 tracking-[0.4em] uppercase mt-6">
-          Scroll Down to Continue
-        </span>
+        {/* Marquee Section */}
+        <div className="relative w-full overflow-hidden py-4 pointer-events-auto">
+          {/* Gradient Fades for edges */}
+          <div className="absolute top-0 bottom-0 left-0 w-24 md:w-48 bg-gradient-to-r from-[#eef2f5] to-transparent z-10" />
+          <div className="absolute top-0 bottom-0 right-0 w-24 md:w-48 bg-gradient-to-l from-[#eef2f5] to-transparent z-10" />
+
+          {/* Marquee Track */}
+          <div className="flex whitespace-nowrap animate-marquee w-max items-center gap-16 md:gap-24 px-8">
+            {/* Double the array to create seamless loop */}
+            {[...SPONSORS, ...SPONSORS].map((sponsor, idx) => (
+              <div 
+                key={idx} 
+                className="flex items-center gap-4 text-gray-400 hover:text-[#2563EB] transition-colors duration-300 group cursor-pointer"
+              >
+                <div className="text-gray-400 group-hover:text-[#2563EB] transition-colors duration-300">
+                  {sponsor.icon}
+                </div>
+                <span className="font-orbitron text-2xl md:text-3xl font-bold tracking-wider">
+                  {sponsor.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            animation: marquee 25s linear infinite;
+          }
+          .animate-marquee:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
       </div>
 
     </div>

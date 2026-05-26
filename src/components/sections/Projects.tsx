@@ -1,187 +1,232 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, BookOpen, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, Target, Activity } from 'lucide-react';
+import { MagneticButton } from '../ui/MagneticButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
     id: 1,
-    title: 'CanSat 2024',
-    category: 'Competition / Payload',
+    title: 'CANSAT 2024',
+    category: 'Competition Payload',
     description: 'Design and deployment of a miniaturized satellite within a soda can format. The payload autonomously gathered atmospheric pressure, temperature, and GPS coordinates during its descent via an active auto-rotation mechanism.',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
-    status: 'Completed',
-    date: 'Spring 2024'
+    status: 'Mission Complete',
+    statusColor: 'text-emerald-400',
+    date: 'Spring 2024',
+    stats: [
+      { label: 'Apogee', value: '2,350 ft' },
+      { label: 'Descent', value: '14 m/s' }
+    ]
   },
   {
     id: 2,
-    title: 'Project Aether',
-    category: 'Research / Avionics',
+    title: 'PROJECT AETHER',
+    category: 'Research Avionics',
     description: 'Next-generation flight computing cluster featuring machine learning algorithms for real-time descent trajectory prediction and autonomous correction mechanisms.',
     image: 'https://images.unsplash.com/photo-1541881329562-b91a539b7843?q=80&w=2070&auto=format&fit=crop',
     status: 'In Development',
-    date: 'Fall 2024'
+    statusColor: 'text-amber-400',
+    date: 'Fall 2024',
+    stats: [
+      { label: 'Compute', value: 'Dual STM32' },
+      { label: 'Telemetry', value: '915 MHz' }
+    ]
   },
   {
     id: 3,
-    title: 'Strato-Balloon Telemetry',
-    category: 'Outreach / Data',
+    title: 'STRATO NODE',
+    category: 'High-Altitude Balloon',
     description: 'High-altitude balloon mission designed to test extreme cold weather operations of our new battery management system and long-range LoRaWAN communication module.',
     image: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2072&auto=format&fit=crop',
-    status: 'Planning',
-    date: 'Spring 2025'
+    status: 'Awaiting Launch',
+    statusColor: 'text-cyan-400',
+    date: 'Spring 2025',
+    stats: [
+      { label: 'Target Alt', value: '90K ft' },
+      { label: 'Duration', value: '4 Hours' }
+    ]
   }
 ];
 
 export const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
+  // Initial Section Reveal
   useEffect(() => {
     if (!sectionRef.current) return;
-
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.archive-header',
         { opacity: 0, y: 30 },
         {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 70%',
-          },
+          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' }
         }
       );
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
-  const nextProject = () => {
-    setCurrentIndex((prev) => (prev + 1) % projects.length);
-  };
+  // Animate content inside the active card
+  useEffect(() => {
+    const activeContent = contentRefs.current[activeIndex];
+    if (!activeContent) return;
 
-  const prevProject = () => {
-    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
-  };
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.reveal-item', 
+        { opacity: 0, y: 20 }, 
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'power2.out', delay: 0.3 }
+      );
+    }, activeContent);
+
+    return () => ctx.revert();
+  }, [activeIndex]);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-24 relative z-10 bg-[#eef2f5] overflow-hidden">
+    <section id="projects" ref={sectionRef} className="py-24 relative z-10 bg-[#eef2f5]">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         
-        <div className="archive-header flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20 gap-8">
+        {/* Header */}
+        <div className="archive-header flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8">
           <div>
-            <span className="text-xs md:text-sm font-mono tracking-[0.4em] text-[#2563EB] uppercase mb-4 block">
-              02 // Projects
-            </span>
-            <h2 className="font-orbitron text-4xl md:text-6xl font-bold text-gray-900 tracking-tight uppercase">
-              Mission Archive
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-[1px] bg-[#2563EB]" />
+              <span className="text-xs md:text-sm font-mono tracking-[0.4em] text-[#2563EB] uppercase font-semibold">
+                02 // Mission Archive
+              </span>
+            </div>
+            <h2 className="font-orbitron text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter uppercase leading-none">
+              Project <br /> Showcase
             </h2>
-            <div className="w-16 h-[3px] bg-[#2563EB] mt-6" />
           </div>
           
-          <div className="flex items-center gap-6">
-            <button className="hidden md:flex items-center gap-2 text-sm font-mono tracking-widest text-gray-500 hover:text-gray-900 uppercase transition-colors">
-              View Technical Docs <BookOpen size={16} />
-            </button>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={prevProject}
-                className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:bg-[#2563EB] hover:text-white hover:border-[#2563EB] transition-all"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button 
-                onClick={nextProject}
-                className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:bg-[#2563EB] hover:text-white hover:border-[#2563EB] transition-all"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-          </div>
+          <MagneticButton className="hidden md:flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 rounded-full text-sm font-semibold transition-all">
+            View All Missions <ArrowUpRight size={16} />
+          </MagneticButton>
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative w-full overflow-hidden pb-12">
-          <div 
-            className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {projects.map((project, idx) => (
-              <div key={project.id} className="w-full flex-shrink-0 px-4 md:px-0">
-                <div className={`flex flex-col md:flex-row gap-8 lg:gap-16 items-center transition-opacity duration-700 ${currentIndex === idx ? 'opacity-100' : 'opacity-30'}`}>
+        {/* Expanding Cards Layout */}
+        <div className="archive-header w-full h-[800px] lg:h-[600px] flex flex-col lg:flex-row gap-4">
+          {projects.map((project, index) => {
+            const isActive = activeIndex === index;
+            
+            return (
+              <div 
+                key={project.id}
+                onMouseEnter={() => setActiveIndex(index)}
+                onClick={() => setActiveIndex(index)}
+                className={`group relative overflow-hidden rounded-[2rem] transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer
+                  ${isActive ? 'lg:flex-[3] flex-[4] shadow-2xl' : 'lg:flex-[1] flex-[1] grayscale-[50%] hover:grayscale-0'}`}
+              >
+                {/* Background Image */}
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                
+                {/* Dark Overlays */}
+                <div className={`absolute inset-0 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/80 to-transparent lg:via-[#0a0a0c]/60" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0c]/80 via-transparent to-transparent hidden lg:block" />
+                </div>
+
+                {/* --- INACTIVE STATE CONTENT (Vertical Title) --- */}
+                <div className={`absolute inset-0 flex flex-col justify-end lg:justify-center items-center pb-8 lg:pb-0 transition-opacity duration-500 delay-100 ${isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                  <div className="lg:-rotate-90 flex items-center gap-4">
+                    <span className="text-[10px] font-mono tracking-widest text-[#2563EB] font-bold">
+                      0{index + 1}
+                    </span>
+                    <h3 className="font-orbitron text-xl md:text-2xl font-bold text-white whitespace-nowrap tracking-widest uppercase">
+                      {project.title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* --- ACTIVE STATE CONTENT --- */}
+                <div 
+                  ref={el => contentRefs.current[index] = el}
+                  className={`absolute inset-0 p-6 md:p-8 lg:p-12 flex flex-col justify-end transition-opacity duration-500 ${isActive ? 'opacity-100 delay-200' : 'opacity-0 pointer-events-none'}`}
+                >
                   
-                  {/* Image Container */}
-                  <div className="w-full md:w-1/2 relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-xl group">
-                    <div className="absolute inset-0 bg-gray-900/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
-                    />
-                    {/* Status Badge */}
-                    <div className="absolute top-6 left-6 z-20">
-                      <span className={`px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase font-semibold backdrop-blur-md border shadow-lg ${
-                        project.status === 'Completed' ? 'bg-emerald-500/80 border-emerald-400 text-white' : 
-                        project.status === 'In Development' ? 'bg-amber-500/80 border-amber-400 text-white' :
-                        'bg-white/80 border-white text-gray-900'
-                      }`}>
-                        {project.status}
-                      </span>
-                    </div>
-                    {/* Decorative Target Brackets */}
-                    <div className="absolute inset-6 border border-white/20 z-10 pointer-events-none rounded-xl">
-                      <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-white"></div>
-                      <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-white"></div>
-                      <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-white"></div>
-                      <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-white"></div>
+                  {/* Top Meta Data */}
+                  <div className="reveal-item flex items-center gap-3 mb-auto">
+                    <div className="bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 text-white">
+                      <Activity size={14} className="text-[#2563EB]" />
+                      <span className="text-[10px] font-mono tracking-widest">SYS.ONLINE</span>
                     </div>
                   </div>
 
-                  {/* Content Container */}
-                  <div className="w-full md:w-1/2 flex flex-col justify-center">
-                    <div className="flex items-center gap-4 mb-6">
-                      <span className="text-xs font-mono text-[#2563EB] uppercase tracking-widest font-bold bg-blue-100 px-3 py-1 rounded-full">
+                  {/* Bottom Content Area */}
+                  <div className="max-w-2xl mt-auto">
+                    
+                    <div className="reveal-item flex items-center gap-3 mb-4">
+                      <span className="text-[10px] font-mono tracking-widest text-[#2563EB] uppercase font-bold">
                         {project.category}
                       </span>
-                      <span className="flex items-center gap-2 text-sm font-mono text-gray-500">
-                        <Clock size={14} /> {project.date}
+                      <div className="w-8 h-[1px] bg-gray-600" />
+                      <span className="text-[10px] font-mono tracking-widest text-gray-400 uppercase">
+                        {project.date}
                       </span>
                     </div>
                     
-                    <h3 className="font-orbitron text-4xl lg:text-5xl font-black text-gray-900 mb-6 uppercase tracking-tight flex items-center gap-4 group cursor-pointer">
+                    <h3 className="reveal-item font-orbitron text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 uppercase tracking-tighter leading-none">
                       {project.title}
-                      <div className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shadow-md">
-                        <ArrowUpRight className="text-[#2563EB]" size={24} />
-                      </div>
                     </h3>
                     
-                    <p className="text-gray-600 text-base lg:text-lg leading-relaxed max-w-xl font-medium">
+                    <p className="reveal-item text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-lg hidden md:block">
                       {project.description}
                     </p>
-                    
-                    <div className="mt-10 flex gap-4">
-                       {projects.map((_, dotIdx) => (
-                         <div 
-                           key={dotIdx}
-                           onClick={() => setCurrentIndex(dotIdx)}
-                           className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
-                             dotIdx === currentIndex ? 'w-12 bg-[#2563EB]' : 'w-4 bg-gray-300 hover:bg-gray-400'
-                           }`}
-                         />
-                       ))}
+
+                    <div className="reveal-item flex flex-col sm:flex-row sm:items-center gap-6 justify-between border-t border-gray-800/60 pt-6">
+                      
+                      {/* Stats */}
+                      <div className="flex items-center gap-8">
+                        {project.stats.map((stat, idx) => (
+                          <div key={idx} className="border-l-2 border-[#2563EB]/50 pl-3">
+                            <div className="text-[9px] font-mono text-gray-500 tracking-widest uppercase mb-1">{stat.label}</div>
+                            <div className="font-orbitron text-lg text-white font-semibold">{stat.value}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Status & Action */}
+                      <div className="flex items-center gap-6 mt-4 sm:mt-0">
+                        <div className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" style={{ color: project.statusColor }} />
+                          <span className={`text-[10px] font-mono tracking-widest uppercase font-semibold ${project.statusColor}`}>
+                            {project.status}
+                          </span>
+                        </div>
+                        
+                        <button className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors">
+                          <ArrowUpRight size={16} />
+                        </button>
+                      </div>
+
                     </div>
                   </div>
 
                 </div>
+                
+                {/* Decorative Target crosshairs on Active */}
+                {isActive && (
+                  <div className="absolute top-8 right-8 pointer-events-none hidden lg:block">
+                    <div className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center relative">
+                      <div className="absolute inset-1 border-t-2 border-r-2 border-[#2563EB]/60 rounded-full animate-spin-slow" />
+                      <Target size={16} className="text-[#2563EB]/80" />
+                    </div>
+                  </div>
+                )}
+                
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
       </div>

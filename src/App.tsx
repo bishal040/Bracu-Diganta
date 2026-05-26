@@ -9,6 +9,7 @@ import { Team } from './components/sections/Team';
 import { Contact } from './components/sections/Contact';
 import { Footer } from './components/sections/Footer';
 import { LoadingPage } from './components/pages';
+import { SponsorUs } from './components/sections/SponsorUs';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);

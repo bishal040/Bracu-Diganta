@@ -123,9 +123,13 @@ export const Navbar: React.FC = () => {
             }`}
             onClick={scrollToTop}
           >
-            <div className="relative flex items-center justify-center w-3 h-3">
-               <span className="absolute w-1.5 h-1.5 bg-[#2563EB] rounded-full"></span>
-               <span className="absolute w-3 h-3 border border-[#2563EB] rounded-full animate-ping opacity-75"></span>
+            <div className="relative flex items-center justify-center w-4 h-4">
+              {/* Outer pulsing diamond frame */}
+              <span className="absolute w-full h-full border-[1.5px] border-[#2563EB]/50 rotate-45 animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]"></span>
+              {/* Solid inner diamond */}
+              <span className="absolute w-2 h-2 bg-[#2563EB] rotate-45 shadow-[0_0_8px_#2563eb]"></span>
+              {/* Tiny pinging core */}
+              <span className="absolute w-1 h-1 bg-white rounded-full animate-ping opacity-75"></span>
             </div>
             BRACU<span className="text-[#2563EB]">DIGANTA</span>
           </div>
@@ -199,19 +203,16 @@ export const Navbar: React.FC = () => {
             className="relative w-12 h-12 flex items-center justify-center transition-all duration-500 group cursor-pointer"
             aria-label="Toggle Menu"
           >
-            {/* Gyroscope Rings (Default State) */}
-            <div className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${mobileMenuOpen ? 'opacity-0 scale-50 rotate-90' : 'opacity-100 scale-100 rotate-0'}`}>
-              
-              <div className="absolute inset-0 flex items-center justify-center transition-transform duration-1000 group-hover:rotate-180">
-                <div className="w-7 h-7 border-[1.5px] border-gray-400 group-hover:border-[#2563EB] rounded-full transition-all duration-500 group-hover:scale-110" style={{ transform: 'rotateX(60deg)' }} />
-              </div>
-
-              <div className="absolute inset-0 flex items-center justify-center transition-transform duration-1000 delay-75 group-hover:-rotate-180">
-                <div className="w-7 h-7 border-[1.5px] border-gray-500 group-hover:border-cyan-400 rounded-full transition-all duration-500 group-hover:scale-110" style={{ transform: 'rotateY(60deg)' }} />
-              </div>
-
-              {/* Core Spark */}
-              <div className="w-1.5 h-1.5 bg-gray-800 group-hover:bg-[#2563EB] rounded-full transition-all duration-500 group-hover:shadow-[0_0_10px_#2563EB] group-hover:scale-125" />
+            {/* Staggered Lines Menu (Animated Loop State) */}
+            <div className={`absolute inset-0 flex flex-col items-center justify-center gap-1.5 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${mobileMenuOpen ? 'opacity-0 scale-50 rotate-90' : 'opacity-100 scale-100 rotate-0'}`}>
+               <style>{`
+                 @keyframes lineWave1 { 0%, 100% { width: 24px; } 50% { width: 14px; } }
+                 @keyframes lineWave2 { 0%, 100% { width: 14px; } 50% { width: 24px; } }
+                 @keyframes lineWave3 { 0%, 100% { width: 8px; } 50% { width: 20px; } }
+               `}</style>
+               <div className="w-6 flex justify-end"><span className="h-[2px] bg-gray-800 group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300" style={{ animation: 'lineWave1 2.5s ease-in-out infinite' }} /></div>
+               <div className="w-6 flex justify-end"><span className="h-[2px] bg-gray-800 group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300" style={{ animation: 'lineWave2 3s ease-in-out infinite' }} /></div>
+               <div className="w-6 flex justify-end"><span className="h-[2px] bg-gray-800 group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300" style={{ animation: 'lineWave3 2.5s ease-in-out infinite' }} /></div>
             </div>
 
             {/* Sci-Fi Cross (Open State) */}
@@ -230,7 +231,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Full-Screen Menu Overlay */}
       <div 
-        className={`fixed inset-0 z-40 bg-[#050505]/95 backdrop-blur-3xl border-t border-white/10 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden flex flex-col justify-center px-8 overflow-hidden ${
+        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-3xl border-t border-gray-200 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden flex flex-col justify-center px-8 overflow-hidden ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none delay-200'
         }`}
       >
@@ -269,9 +270,9 @@ export const Navbar: React.FC = () => {
 
             {/* Orbit Paths */}
             <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(37,99,235,0.15)" strokeWidth="0.3" />
-            <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="0.3" strokeDasharray="2 4" />
+            <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(0,0,0,0.08)" strokeWidth="0.3" strokeDasharray="2 4" />
             <circle cx="100" cy="100" r="75" fill="none" stroke="rgba(37,99,235,0.2)" strokeWidth="0.5" />
-            <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.2" strokeDasharray="1 6" />
+            <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(0,0,0,0.05)" strokeWidth="0.2" strokeDasharray="1 6" />
 
             {/* Earth (Center) */}
             <circle cx="100" cy="100" r="6" fill="#2563EB" filter="url(#glow)" className="animate-pulse" />
@@ -279,18 +280,18 @@ export const Navbar: React.FC = () => {
             
             {/* Inner Orbit (ISS / Satellites) */}
             <g className="orbit-fast">
-              <rect x="98" y="68" width="4" height="4" fill="#fff" opacity="0.8" />
+              <rect x="98" y="68" width="4" height="4" fill="#1f2937" opacity="0.8" />
             </g>
 
             {/* Middle Orbit (Asteroid/Probe) */}
             <g className="orbit-rev">
-              <circle cx="100" cy="50" r="1" fill="#fff" opacity="0.6" />
+              <circle cx="100" cy="50" r="1" fill="#1f2937" opacity="0.6" />
             </g>
 
             {/* Outer Orbit (Moon) */}
             <g className="orbit-slow">
-              <circle cx="100" cy="25" r="3" fill="#fff" filter="url(#glow)" />
-              <circle cx="100" cy="25" r="8" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5" />
+              <circle cx="100" cy="25" r="3" fill="#4b5563" filter="url(#glow)" />
+              <circle cx="100" cy="25" r="8" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="0.5" />
             </g>
 
             {/* Telemetry Path: Earth to Moon */}
@@ -307,8 +308,8 @@ export const Navbar: React.FC = () => {
 
         <div className="relative flex flex-col gap-8 items-start text-left z-10">
           <div className={`mb-4 flex items-center gap-3 transition-all duration-500 delay-100 ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
-             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_red]"></span>
-             <span className="font-mono text-[10px] text-red-500 tracking-[0.4em] uppercase">System Override</span>
+             <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse shadow-[0_0_10px_#2563EB]"></span>
+             <span className="font-mono text-[10px] text-[#2563EB] tracking-[0.4em] uppercase">Navigation Active</span>
           </div>
 
           {links.map((link, idx) => (
@@ -316,7 +317,7 @@ export const Navbar: React.FC = () => {
               key={link} 
               href={`#${link.toLowerCase()}`}
               onClick={(e) => handleLinkClick(e, link)}
-              className={`relative flex items-center gap-4 text-3xl font-mono font-bold text-gray-500 hover:text-white transition-all duration-500 group ${
+              className={`relative flex items-center gap-4 text-3xl font-mono font-bold text-gray-400 hover:text-gray-900 transition-all duration-500 group ${
                 mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
               }`}
               style={{ transitionDelay: `${(idx + 2) * 100}ms` }}

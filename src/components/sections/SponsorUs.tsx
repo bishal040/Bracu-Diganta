@@ -1,37 +1,23 @@
 import React from 'react';
 import { SectionReveal } from '../ui/SectionReveal';
-import { GlassmorphismCard } from '../ui/GlassmorphismCard';
+import { Hexagon, Triangle, Circle, Square, Command, Anchor, Aperture, Globe } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 
-const TIERS = [
-  {
-    name: "SILVER",
-    amount: "$500+",
-    accent: "text-gray-500",
-    accentBg: "bg-gray-100",
-    perks: ["Logo on website", "Social media shoutout", "Quarterly newsletter"]
-  },
-  {
-    name: "GOLD",
-    amount: "$2,500+",
-    accent: "text-[#F59E0B]",
-    accentBg: "bg-[#FEF3C7]",
-    featured: true,
-    perks: ["Logo on flight hardware", "Logo on team apparel", "Invitations to launch events", "Dedicated tech talk session"]
-  },
-  {
-    name: "PLATINUM",
-    amount: "$5,000+",
-    accent: "text-[#2563EB]",
-    accentBg: "bg-[#EFF6FF]",
-    perks: ["Title sponsor for specific mission", "Premium logo placement on everything", "Access to engineering data", "VIP Launch access", "Custom partnership initiatives"]
-  }
+const SPONSORS = [
+  { name: "AeroTech", icon: <Triangle size={32} strokeWidth={1.5} /> },
+  { name: "Nova Systems", icon: <Hexagon size={32} strokeWidth={1.5} /> },
+  { name: "Quantum Dynamics", icon: <Circle size={32} strokeWidth={1.5} /> },
+  { name: "NexGen", icon: <Square size={32} strokeWidth={1.5} /> },
+  { name: "Nexus", icon: <Command size={32} strokeWidth={1.5} /> },
+  { name: "Horizon", icon: <Anchor size={32} strokeWidth={1.5} /> },
+  { name: "Orbit Systems", icon: <Aperture size={32} strokeWidth={1.5} /> },
+  { name: "Stratos", icon: <Globe size={32} strokeWidth={1.5} /> },
 ];
 
 export const SponsorUs: React.FC = () => {
   return (
-    <SectionReveal id="sponsor" className="relative">
-      <div className="relative z-10 w-full max-w-7xl mx-auto">
+    <SectionReveal id="sponsor" className="relative py-12 overflow-hidden">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
         
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-6">
@@ -40,7 +26,7 @@ export const SponsorUs: React.FC = () => {
             <span className="text-[#E11D48] font-mono tracking-widest text-sm uppercase">Partnerships</span>
             <div className="h-[2px] w-8 bg-[#E11D48]" />
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight">Support The Mission</h2>
+          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight">Our Beloved Sponsors</h2>
         </div>
         
         <p className="text-lg text-gray-500 text-center max-w-2xl mx-auto mb-16">
@@ -48,43 +34,50 @@ export const SponsorUs: React.FC = () => {
           you invest in the next generation of engineers.
         </p>
 
-        {/* Pricing Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          {TIERS.map((tier, idx) => (
-            <GlassmorphismCard 
-              key={idx} 
-              className={`flex flex-col h-full ${tier.featured ? 'ring-2 ring-[#F59E0B]/40 shadow-lg' : ''}`}
-            >
-              {/* Tier header */}
-              <div className="mb-6 pb-6 border-b border-gray-200">
-                <div className={`inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase mb-4 ${tier.accent} ${tier.accentBg}`}>
-                  {tier.name}
+        {/* Marquee Section */}
+        <div className="relative w-full max-w-[100vw] overflow-hidden -mx-6 md:mx-0 py-10">
+          {/* Gradient Fades for edges */}
+          <div className="absolute top-0 bottom-0 left-0 w-24 md:w-48 bg-gradient-to-r from-[#eef2f5] to-transparent z-10" />
+          <div className="absolute top-0 bottom-0 right-0 w-24 md:w-48 bg-gradient-to-l from-[#eef2f5] to-transparent z-10" />
+
+          {/* Marquee Track */}
+          <div className="flex whitespace-nowrap animate-marquee w-max items-center gap-16 md:gap-24 px-8">
+            {/* Double the array to create seamless loop */}
+            {[...SPONSORS, ...SPONSORS].map((sponsor, idx) => (
+              <div 
+                key={idx} 
+                className="flex items-center gap-4 text-gray-400 hover:text-[#2563EB] transition-colors duration-300 group cursor-pointer"
+              >
+                <div className="text-gray-400 group-hover:text-[#2563EB] transition-colors duration-300">
+                  {sponsor.icon}
                 </div>
-                <div className="text-4xl font-black text-gray-900">{tier.amount}</div>
+                <span className="font-orbitron text-2xl md:text-3xl font-bold tracking-wider">
+                  {sponsor.name}
+                </span>
               </div>
-              
-              {/* Perks */}
-              <ul className="space-y-3 mb-8 flex-grow">
-                {tier.perks.map((perk, i) => (
-                  <li key={i} className="flex items-start text-sm text-gray-600">
-                    <span className={`mr-3 mt-0.5 ${tier.accent}`}>✦</span>
-                    {perk}
-                  </li>
-                ))}
-              </ul>
-              
-              {/* CTA */}
-              <MagneticButton className={`w-full !rounded-xl py-3 text-sm font-semibold tracking-wide ${
-                tier.featured 
-                  ? 'bg-[#2563EB] text-white hover:bg-gray-900 shadow-md' 
-                  : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
-              }`}>
-                Become a Partner
-              </MagneticButton>
-            </GlassmorphismCard>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-16 flex justify-center">
+          <MagneticButton className="bg-gray-900 text-white hover:bg-[#2563EB] py-4 px-8 rounded-full font-mono uppercase tracking-widest text-sm transition-colors shadow-xl shadow-gray-900/10">
+            Become a Partner
+          </MagneticButton>
         </div>
       </div>
+
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 25s linear infinite;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </SectionReveal>
   );
 };

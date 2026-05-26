@@ -54,10 +54,10 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 md:py-32 relative z-10 bg-gray-900 overflow-hidden">
+    <section id="contact" ref={sectionRef} className="py-24 md:py-32 relative z-10 bg-[#eef2f5] overflow-hidden">
       {/* Decorative background glow */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-[150px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px] -translate-x-1/3 translate-y-1/3 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/10 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         {/* ── Header ── */}
@@ -67,10 +67,10 @@ export const Contact: React.FC = () => {
             05 // Contact
             <span className="w-8 h-[1px] bg-[#2563EB]" />
           </span>
-          <h2 className="font-orbitron text-4xl md:text-6xl font-bold text-white tracking-tight uppercase">
+          <h2 className="font-orbitron text-4xl md:text-6xl font-bold text-gray-900 tracking-tight uppercase">
             Establish Link
           </h2>
-          <p className="text-gray-400 max-w-lg mx-auto text-sm md:text-base leading-relaxed mt-6">
+          <p className="text-gray-600 max-w-lg mx-auto text-sm md:text-base leading-relaxed mt-6">
             Whether you're interested in joining the team, sponsoring a mission,
             or collaborating on research — we'd love to hear from you.
           </p>
@@ -81,7 +81,7 @@ export const Contact: React.FC = () => {
           {/* Left column — Info cards */}
           <div className="lg:col-span-2 space-y-6">
             {/* Email card */}
-            <div className="contact-card group bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#2563EB]/30 p-6 md:p-8 rounded-2xl transition-all duration-500 hover:bg-white/[0.07]">
+            <div className="contact-card group bg-white/70 backdrop-blur-md border border-gray-200 hover:border-[#2563EB]/40 p-6 md:p-8 rounded-2xl transition-all duration-500 hover:bg-white shadow-sm hover:shadow-md">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl bg-[#2563EB]/10 flex items-center justify-center shrink-0">
                   <Mail className="text-[#2563EB]" size={20} />
@@ -92,7 +92,7 @@ export const Contact: React.FC = () => {
                   </h4>
                   <a
                     href="mailto:hello@bracudiganta.com"
-                    className="text-base md:text-lg font-bold text-white hover:text-[#2563EB] transition-colors flex items-center gap-2"
+                    className="text-base md:text-lg font-bold text-gray-900 hover:text-[#2563EB] transition-colors flex items-center gap-2"
                   >
                     hello@bracudiganta.com
                     <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -102,7 +102,7 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Location card */}
-            <div className="contact-card group bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#2563EB]/30 p-6 md:p-8 rounded-2xl transition-all duration-500 hover:bg-white/[0.07]">
+            <div className="contact-card group bg-white/70 backdrop-blur-md border border-gray-200 hover:border-[#2563EB]/40 p-6 md:p-8 rounded-2xl transition-all duration-500 hover:bg-white shadow-sm hover:shadow-md">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl bg-[#2563EB]/10 flex items-center justify-center shrink-0">
                   <MapPin className="text-[#2563EB]" size={20} />
@@ -111,10 +111,10 @@ export const Contact: React.FC = () => {
                   <h4 className="font-mono text-[10px] tracking-[0.4em] uppercase text-gray-500 mb-2">
                     Coordinates
                   </h4>
-                  <p className="text-base font-medium text-white leading-relaxed">
+                  <p className="text-base font-medium text-gray-900 leading-relaxed">
                     BRAC University<br />
                     Mohakhali Campus<br />
-                    <span className="text-gray-400 text-sm">Dhaka, Bangladesh</span>
+                    <span className="text-gray-500 text-sm">Dhaka, Bangladesh</span>
                   </p>
                 </div>
               </div>
@@ -126,7 +126,7 @@ export const Contact: React.FC = () => {
                 <a
                   key={s.label}
                   href={s.url}
-                  className="w-11 h-11 rounded-full border border-white/10 hover:border-[#2563EB] hover:bg-[#2563EB]/10 flex items-center justify-center text-gray-500 hover:text-[#2563EB] transition-all duration-300"
+                  className="w-11 h-11 rounded-full bg-white/70 border border-gray-200 hover:border-[#2563EB] hover:bg-[#2563EB]/10 shadow-sm flex items-center justify-center text-gray-600 hover:text-[#2563EB] transition-all duration-300"
                 >
                   <span className="font-mono text-[10px] uppercase font-bold tracking-wider">{s.label}</span>
                 </a>
@@ -135,7 +135,7 @@ export const Contact: React.FC = () => {
           </div>
 
           {/* Right column — Form */}
-          <div className="contact-card lg:col-span-3 bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-10 rounded-3xl">
+          <div className="contact-card lg:col-span-3 bg-white/70 backdrop-blur-md border border-gray-200 shadow-sm p-8 md:p-10 rounded-3xl">
             <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-1.5">
@@ -146,7 +146,7 @@ export const Contact: React.FC = () => {
                     type="text"
                     placeholder="Your name"
                     required
-                    className="bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]/30 transition-all text-sm"
+                    className="bg-white border border-gray-200 rounded-xl px-5 py-3.5 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all text-sm"
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
@@ -157,7 +157,7 @@ export const Contact: React.FC = () => {
                     type="email"
                     placeholder="Email address"
                     required
-                    className="bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]/30 transition-all text-sm"
+                    className="bg-white border border-gray-200 rounded-xl px-5 py-3.5 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all text-sm"
                   />
                 </div>
               </div>
@@ -169,7 +169,7 @@ export const Contact: React.FC = () => {
                 <input
                   type="text"
                   placeholder="What's this about?"
-                  className="bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]/30 transition-all text-sm"
+                  className="bg-white border border-gray-200 rounded-xl px-5 py-3.5 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all text-sm"
                 />
               </div>
 
@@ -181,7 +181,7 @@ export const Contact: React.FC = () => {
                   placeholder="Your message..."
                   rows={5}
                   required
-                  className="bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]/30 transition-all resize-none text-sm"
+                  className="bg-white border border-gray-200 rounded-xl px-5 py-3.5 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all resize-none text-sm"
                 />
               </div>
 
