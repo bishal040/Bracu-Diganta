@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Aeonik';
+    src: url('/fonts/Aeonik-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Aeonik';
+    src: url('/fonts/Aeonik-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Aeonik';
+    src: url('/fonts/Aeonik-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Aeonik';
+    src: url('/fonts/Aeonik-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --text-primary: rgba(15, 23, 42, 0.95); /* Gray-900 */
+    --text-secondary: rgba(71, 85, 105, 0.8); /* Slate-600 */
+  }
+
+  html, body {
+    @apply bg-deep-space text-gray-900 antialiased font-aeonik;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-telemetry-cyan/30 text-white;
+  }
+
+  /* Custom Scrollbar for Lenis smooth scrolling feel */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white border border-gray-200 rounded-2xl overflow-hidden relative shadow-sm hover:shadow-md transition-shadow duration-300;
+  }
+  
+  /* Removed hover gradient pseudo-element to adhere to 'no gradients' and improve visibility */
+
+  .nav-blur {
+    @apply bg-white/80 backdrop-blur-[20px] backdrop-saturate-[180%] border-b border-gray-200;
+  }
+}
+
+/* Utilities for GSAP / Canvas */
+.will-change-transform {
+  will-change: transform;
+}
+.will-change-opacity {
+  will-change: opacity;
+}
