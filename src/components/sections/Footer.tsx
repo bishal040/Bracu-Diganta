@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 pt-32 pb-8">
-        
+
         {/* Pre-footer CTA */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-10">
           <div className="max-w-2xl relative">
@@ -61,8 +61,8 @@ export const Footer: React.FC = () => {
               Join the mission. Support the next generation of aerospace engineers at BRAC University.
             </p>
           </div>
-          
-          <button 
+
+          <button
             className="group relative w-64 h-16 rounded-full bg-gray-100 border border-gray-300 overflow-hidden flex-shrink-0 transition-all duration-500 hover:shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:border-[#2563EB]"
             onClick={() => document.getElementById('sponsor')?.scrollIntoView({ behavior: 'smooth' })}
           >
@@ -72,10 +72,10 @@ export const Footer: React.FC = () => {
                 GET INVOLVED
               </span>
             </div>
-            
+
             {/* The active blue background that sweeps in */}
             <div className="absolute top-0 left-0 h-full w-16 group-hover:w-full bg-[#2563EB] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-0 rounded-full" />
-            
+
             {/* The text inside the blue background */}
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200 z-10">
               <span className="font-mono text-xs tracking-[0.3em] font-bold text-white flex items-center gap-3">
@@ -95,13 +95,13 @@ export const Footer: React.FC = () => {
 
         {/* 3-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-24">
-          
+
           {/* Column 1: Brand & Contact */}
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3">
               <div className="relative flex items-center justify-center w-5 h-5">
-                 <span className="absolute w-2.5 h-2.5 bg-[#2563EB] rounded-full"></span>
-                 <span className="absolute w-5 h-5 border border-[#2563EB] rounded-full animate-ping opacity-75"></span>
+                <span className="absolute w-2.5 h-2.5 bg-[#2563EB] rounded-full"></span>
+                <span className="absolute w-5 h-5 border border-[#2563EB] rounded-full animate-ping opacity-75"></span>
               </div>
               <span className="font-orbitron font-bold text-xl tracking-widest text-gray-900">
                 BRACU<span className="text-[#2563EB]">DIGANTA</span>
@@ -111,7 +111,7 @@ export const Footer: React.FC = () => {
               Pioneering aerospace and satellite technology research at BRAC University, Bangladesh.
             </p>
             <a href="mailto:contact@bracudiganta.com" className="font-mono text-sm font-bold text-gray-900 hover:text-[#2563EB] transition-colors mt-4 inline-flex items-center gap-2 group w-fit">
-              INITIATE COMMS 
+              INITIATE COMMS
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </a>
           </div>
@@ -120,8 +120,8 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col gap-4">
             <h4 className="font-mono text-xs font-bold text-gray-400 tracking-[0.2em] uppercase mb-2">Navigation</h4>
             {['Projects', 'Research', 'Achievements', 'Team'].map((link) => (
-              <a 
-                key={link} 
+              <a
+                key={link}
                 href={`#${link.toLowerCase()}`}
                 className="text-gray-600 hover:text-gray-900 font-medium text-sm transition-colors w-fit group flex items-center gap-2"
               >
@@ -135,8 +135,8 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col gap-4">
             <h4 className="font-mono text-xs font-bold text-gray-400 tracking-[0.2em] uppercase mb-2">Social Network</h4>
             {['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].map((social) => (
-              <a 
-                key={social} 
+              <a
+                key={social}
                 href="#"
                 className="text-gray-600 hover:text-[#2563EB] font-medium text-sm transition-colors w-fit group flex items-center gap-2"
               >
@@ -154,8 +154,8 @@ export const Footer: React.FC = () => {
           <p className="font-mono text-xs text-gray-500 uppercase tracking-wider text-center md:text-left">
             © {new Date().getFullYear()} BRACU DIGANTA. ALL SYSTEMS NOMINAL.
           </p>
-          
-          <button 
+
+          <button
             onClick={scrollToTop}
             className="flex items-center gap-3 font-mono text-xs font-bold text-gray-900 uppercase tracking-widest hover:text-[#2563EB] transition-colors group"
           >
