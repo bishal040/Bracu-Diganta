@@ -23,8 +23,6 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
 
     const ctx = canvas.getContext('2d', { alpha: false })!;
     let rafId: number;
-    let lastFrameIdx = -1;
-    let lastSeqId = -1;
 
     const render = () => {
       const rect = canvas.getBoundingClientRect();

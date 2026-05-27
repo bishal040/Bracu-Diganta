@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /* ── Glitching text effect ── */
 const GlitchText: React.FC<{ text: string; className?: string }> = ({ text, className = '' }) => (

@@ -96,7 +96,7 @@ export const Achievements: React.FC = () => {
     }, START_TIME);
 
     // 2. Sync the Typography Panels and Altitude Labels
-    NEWS_UPDATES.forEach((item, i) => {
+    NEWS_UPDATES.forEach((_item, i) => {
       // Setup initial states
       if (i === 0) {
         gsap.set(`.panel-${i}`, { opacity: 1, x: 0 });

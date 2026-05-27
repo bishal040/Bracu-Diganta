@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Menu, X } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -76,7 +75,7 @@ export const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
   };
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+  const handleLinkClick = () => {
     setMobileMenuOpen(false);
   };
 
@@ -299,7 +298,7 @@ export const Navbar: React.FC = () => {
               <path d="M 100 90 L 100 35" fill="none" stroke="#2563EB" strokeWidth="0.5" strokeDasharray="1 3" className="opacity-40" />
               {/* Traveling Ship Dot */}
               <circle cx="100" cy="90" r="1.5" fill="cyan" filter="url(#glow)">
-                <animate attributeName="cy" values="90;35;90" dur="8s" repeatCount="indefinite" ease="ease-in-out" />
+                <animate attributeName="cy" values="90;35;90" dur="8s" repeatCount="indefinite" />
                 <animate attributeName="opacity" values="0;1;0" dur="8s" repeatCount="indefinite" />
               </circle>
             </g>
@@ -316,7 +315,7 @@ export const Navbar: React.FC = () => {
             <a 
               key={link} 
               href={`#${link.toLowerCase()}`}
-              onClick={(e) => handleLinkClick(e, link)}
+              onClick={handleLinkClick}
               className={`relative flex items-center gap-4 text-3xl font-mono font-bold text-gray-400 hover:text-gray-900 transition-all duration-500 group ${
                 mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
               }`}

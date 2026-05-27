@@ -150,7 +150,7 @@ export const Projects: React.FC = () => {
 
                 {/* --- ACTIVE STATE CONTENT --- */}
                 <div 
-                  ref={el => contentRefs.current[index] = el}
+                  ref={el => { contentRefs.current[index] = el; }}
                   className={`absolute inset-0 p-6 md:p-8 lg:p-12 flex flex-col justify-end transition-opacity duration-500 ${isActive ? 'opacity-100 delay-200' : 'opacity-0 pointer-events-none'}`}
                 >
                   
