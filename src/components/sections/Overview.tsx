@@ -60,6 +60,7 @@ export const Overview: React.FC = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
+      // Reveal animation
       gsap.fromTo(
         '.reveal-elem',
         { opacity: 0, y: 50 },
@@ -69,6 +70,17 @@ export const Overview: React.FC = () => {
           scrollTrigger: { trigger: sectionRef.current, start: 'top 70%' },
         }
       );
+
+      // Pin the section to create a "pause" while scrolling
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: '+=75%', // pause duration (75% of viewport height)
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+      });
+
     }, sectionRef);
     return () => ctx.revert();
   }, []);

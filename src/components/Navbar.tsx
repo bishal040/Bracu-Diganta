@@ -103,48 +103,42 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav 
+      <nav
         ref={navRef}
-        className="fixed top-6 left-0 w-full px-4 md:px-8 z-50 transition-all duration-700 ease-out pointer-events-none flex justify-between items-center"
+        className="fixed top-2 left-0 w-full px-4 md:px-8 z-50 transition-all duration-700 ease-out pointer-events-none flex justify-between items-start pt-2"
       >
         {/* 1. LOGO PILL */}
-        <div 
+        <div
           className="pointer-events-auto"
           ref={logoMagnetic.ref}
           onMouseMove={logoMagnetic.handleMouseMove}
           onMouseLeave={logoMagnetic.handleMouseLeave}
         >
-          <div 
-            className={`font-orbitron font-bold text-sm md:text-base tracking-widest cursor-pointer flex items-center gap-3 transition-all duration-500 rounded-full ${
-              scrolled || mobileMenuOpen 
-                ? 'py-3 px-6 bg-white/30 backdrop-blur-2xl backdrop-saturate-[2.0] border border-white/50 shadow-[0_8px_32px_rgba(37,99,235,0.15)] text-gray-900' 
-                : 'py-2 px-0 bg-transparent border-transparent text-gray-800'
-            }`}
+          {/* Logo */}
+          <div
+            className="cursor-pointer flex items-center gap-3 shrink-0 p-2"
             onClick={scrollToTop}
           >
-            <div className="relative flex items-center justify-center w-4 h-4">
-              {/* Outer pulsing diamond frame */}
-              <span className="absolute w-full h-full border-[1.5px] border-[#2563EB]/50 rotate-45 animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]"></span>
-              {/* Solid inner diamond */}
-              <span className="absolute w-2 h-2 bg-[#2563EB] rotate-45 shadow-[0_0_8px_#2563eb]"></span>
-              {/* Tiny pinging core */}
-              <span className="absolute w-1 h-1 bg-white rounded-full animate-ping opacity-75"></span>
-            </div>
-            BRACU<span className="text-[#2563EB]">DIGANTA</span>
+            {/* MASSIVE SIZING */}
+            <img 
+              src="/Diganta%20Logo.png" 
+              alt="BRACU Diganta Logo" 
+              className={`object-contain transition-all duration-700 -mt-6 md:-mt-10 ${scrolled ? 'h-32 md:h-40' : 'h-40 md:h-60'}`} 
+              style={{ mixBlendMode: 'multiply', clipPath: 'inset(15% 0 15% 0)' }} 
+            />
           </div>
         </div>
 
         {/* 2. LINKS DOCK */}
-        <div 
+        <div
           ref={dockRef}
           onMouseLeave={handleLinkLeave}
-          className={`pointer-events-auto hidden lg:flex items-center gap-1 transition-all duration-700 rounded-full p-1.5 relative ${
-            scrolled 
-              ? 'bg-white/30 backdrop-blur-2xl backdrop-saturate-[2.0] border border-white/50 shadow-[0_8px_32px_rgba(37,99,235,0.15)] opacity-100 translate-y-0' 
-              : 'bg-transparent border-transparent opacity-0 -translate-y-4'
-        }`}>
+          className={`pointer-events-auto hidden lg:flex items-center gap-1 transition-all duration-700 rounded-full p-1.5 relative ${scrolled
+            ? 'bg-white/30 backdrop-blur-2xl backdrop-saturate-[2.0] border border-white/50 shadow-[0_8px_32px_rgba(37,99,235,0.15)] opacity-100 translate-y-0'
+            : 'bg-transparent border-transparent opacity-0 -translate-y-4'
+            }`}>
           {/* Sliding Magic Highlight Pill */}
-          <div 
+          <div
             className="absolute top-1.5 bottom-1.5 bg-white/70 rounded-full transition-all duration-300 ease-out shadow-sm border border-white/50 pointer-events-none"
             style={{
               left: `${hoverRect.left}px`,
@@ -155,8 +149,8 @@ export const Navbar: React.FC = () => {
           />
 
           {links.map((link) => (
-            <a 
-              key={link} 
+            <a
+              key={link}
               href={`#${link.toLowerCase()}`}
               onMouseEnter={handleLinkHover}
               className="group relative px-6 py-2.5 text-gray-700 hover:text-[#2563EB] text-[11px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden"
@@ -170,15 +164,14 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* 3. CTA PILL */}
-        <div className={`pointer-events-auto hidden lg:block transition-all duration-700 ${
-            scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-        }`}>
+        <div className={`pointer-events-auto hidden lg:block transition-all duration-700 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+          }`}>
           <div
             ref={ctaMagnetic.ref}
             onMouseMove={ctaMagnetic.handleMouseMove}
             onMouseLeave={ctaMagnetic.handleMouseLeave}
           >
-            <button 
+            <button
               className="relative overflow-hidden group bg-[#2563EB] text-white rounded-full px-8 py-3 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-blue-700 shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] flex items-center gap-3"
               onClick={() => document.getElementById('sponsor')?.scrollIntoView({ behavior: 'smooth' })}
             >
@@ -192,51 +185,49 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div className={`pointer-events-auto lg:hidden flex items-center transition-all duration-500 rounded-full z-50 ${
-          scrolled || mobileMenuOpen 
-            ? 'bg-white/30 backdrop-blur-2xl border border-white/50 shadow-sm p-2 opacity-100' 
-            : 'opacity-0 pointer-events-none p-2'
-        }`}>
-          <button 
+        <div className={`pointer-events-auto lg:hidden flex items-center transition-all duration-500 rounded-full z-50 ${scrolled || mobileMenuOpen
+          ? 'bg-white/30 backdrop-blur-2xl border border-white/50 shadow-sm p-2 opacity-100'
+          : 'opacity-0 pointer-events-none p-2'
+          }`}>
+          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="relative w-12 h-12 flex items-center justify-center transition-all duration-500 group cursor-pointer"
             aria-label="Toggle Menu"
           >
             {/* Staggered Lines Menu (Animated Loop State) */}
             <div className={`absolute inset-0 flex flex-col items-center justify-center gap-1.5 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${mobileMenuOpen ? 'opacity-0 scale-50 rotate-90' : 'opacity-100 scale-100 rotate-0'}`}>
-               <style>{`
+              <style>{`
                  @keyframes lineWave1 { 0%, 100% { width: 24px; } 50% { width: 14px; } }
                  @keyframes lineWave2 { 0%, 100% { width: 14px; } 50% { width: 24px; } }
                  @keyframes lineWave3 { 0%, 100% { width: 8px; } 50% { width: 20px; } }
                `}</style>
-               <div className="w-6 flex justify-end"><span className="h-[2px] bg-gray-800 group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300" style={{ animation: 'lineWave1 2.5s ease-in-out infinite' }} /></div>
-               <div className="w-6 flex justify-end"><span className="h-[2px] bg-gray-800 group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300" style={{ animation: 'lineWave2 3s ease-in-out infinite' }} /></div>
-               <div className="w-6 flex justify-end"><span className="h-[2px] bg-gray-800 group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300" style={{ animation: 'lineWave3 2.5s ease-in-out infinite' }} /></div>
+              <div className="w-6 flex justify-end"><span className="h-[2px] bg-gray-800 group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300" style={{ animation: 'lineWave1 2.5s ease-in-out infinite' }} /></div>
+              <div className="w-6 flex justify-end"><span className="h-[2px] bg-gray-800 group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300" style={{ animation: 'lineWave2 3s ease-in-out infinite' }} /></div>
+              <div className="w-6 flex justify-end"><span className="h-[2px] bg-gray-800 group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300" style={{ animation: 'lineWave3 2.5s ease-in-out infinite' }} /></div>
             </div>
 
             {/* Sci-Fi Cross (Open State) */}
             <div className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${mobileMenuOpen ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 -rotate-180'}`}>
-               <div className="relative w-6 h-6">
-                 {/* X Lines */}
-                 <span className="absolute top-1/2 left-0 w-full h-[1.5px] bg-gray-900 rounded-full -translate-y-1/2 rotate-45 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-                 <span className="absolute top-1/2 left-0 w-full h-[1.5px] bg-gray-900 rounded-full -translate-y-1/2 -rotate-45 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-                 {/* Diamond Border */}
-                 <div className="absolute inset-[-6px] border-[1.5px] border-gray-900/30 rotate-45 scale-[0.7]" />
-               </div>
+              <div className="relative w-6 h-6">
+                {/* X Lines */}
+                <span className="absolute top-1/2 left-0 w-full h-[1.5px] bg-gray-900 rounded-full -translate-y-1/2 rotate-45 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+                <span className="absolute top-1/2 left-0 w-full h-[1.5px] bg-gray-900 rounded-full -translate-y-1/2 -rotate-45 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+                {/* Diamond Border */}
+                <div className="absolute inset-[-6px] border-[1.5px] border-gray-900/30 rotate-45 scale-[0.7]" />
+              </div>
             </div>
           </button>
         </div>
       </nav>
 
       {/* Mobile Full-Screen Menu Overlay */}
-      <div 
-        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-3xl border-t border-gray-200 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden flex flex-col justify-center px-8 overflow-hidden ${
-          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none delay-200'
-        }`}
+      <div
+        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-3xl border-t border-gray-200 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden flex flex-col justify-center px-8 overflow-hidden ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none delay-200'
+          }`}
       >
         {/* Deep Space Background with Stars */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(37,99,235,0.1)_0%,transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(37,99,235,0.05)_0%,transparent_50%)] pointer-events-none" />
-        
+
         {/* Solar System SVG Diagram */}
         <div className={`absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[160vw] h-[160vw] max-w-[800px] max-h-[800px] pointer-events-none transition-all duration-[1500ms] ease-out ${mobileMenuOpen ? 'scale-100 opacity-100' : 'scale-75 opacity-0'}`}>
           <svg viewBox="0 0 200 200" className="w-full h-full opacity-60">
@@ -246,10 +237,10 @@ export const Navbar: React.FC = () => {
                 <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
               </radialGradient>
               <filter id="glow">
-                <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
                 <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
             </defs>
@@ -276,7 +267,7 @@ export const Navbar: React.FC = () => {
             {/* Earth (Center) */}
             <circle cx="100" cy="100" r="6" fill="#2563EB" filter="url(#glow)" className="animate-pulse" />
             <circle cx="100" cy="100" r="14" fill="url(#earthGlow)" className="animate-ping opacity-30" style={{ animationDuration: '3s' }} />
-            
+
             {/* Inner Orbit (ISS / Satellites) */}
             <g className="orbit-fast">
               <rect x="98" y="68" width="4" height="4" fill="#1f2937" opacity="0.8" />
@@ -307,18 +298,17 @@ export const Navbar: React.FC = () => {
 
         <div className="relative flex flex-col gap-8 items-start text-left z-10">
           <div className={`mb-4 flex items-center gap-3 transition-all duration-500 delay-100 ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
-             <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse shadow-[0_0_10px_#2563EB]"></span>
-             <span className="font-mono text-[10px] text-[#2563EB] tracking-[0.4em] uppercase">Navigation Active</span>
+            <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse shadow-[0_0_10px_#2563EB]"></span>
+            <span className="font-mono text-[10px] text-[#2563EB] tracking-[0.4em] uppercase">Navigation Active</span>
           </div>
 
           {links.map((link, idx) => (
-            <a 
-              key={link} 
+            <a
+              key={link}
               href={`#${link.toLowerCase()}`}
               onClick={handleLinkClick}
-              className={`relative flex items-center gap-4 text-3xl font-mono font-bold text-gray-400 hover:text-gray-900 transition-all duration-500 group ${
-                mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
-              }`}
+              className={`relative flex items-center gap-4 text-3xl font-mono font-bold text-gray-400 hover:text-gray-900 transition-all duration-500 group ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
+                }`}
               style={{ transitionDelay: `${(idx + 2) * 100}ms` }}
             >
               <span className="text-[#2563EB] text-xl opacity-0 group-hover:opacity-100 transition-all font-mono tracking-widest translate-x-4 group-hover:translate-x-0">[</span>
@@ -326,14 +316,13 @@ export const Navbar: React.FC = () => {
               <span className="text-[#2563EB] text-xl opacity-0 group-hover:opacity-100 transition-all font-mono tracking-widest -translate-x-4 group-hover:translate-x-0">]</span>
             </a>
           ))}
-          
-          <div 
-            className={`mt-12 transition-all duration-500 ${
-              mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
-            }`}
+
+          <div
+            className={`mt-12 transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
+              }`}
             style={{ transitionDelay: `${(links.length + 2) * 100}ms` }}
           >
-            <button 
+            <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 document.getElementById('sponsor')?.scrollIntoView({ behavior: 'smooth' });

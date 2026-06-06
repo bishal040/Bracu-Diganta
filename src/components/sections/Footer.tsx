@@ -151,9 +151,16 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="font-mono text-xs text-gray-500 uppercase tracking-wider text-center md:text-left">
-            © {new Date().getFullYear()} BRACU DIGANTA. ALL SYSTEMS NOMINAL.
-          </p>
+          <div className="flex flex-col items-center md:items-start gap-4">
+            <div className="flex flex-wrap justify-center md:justify-start items-center gap-6 md:gap-10">
+              <img src="/Bracu%20Logo.png" alt="BRAC University Logo" className="h-20 md:h-28 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
+              <img src="/Lasset%20Logo.png" alt="Lasset Logo" className="h-20 md:h-28 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
+              <img src="/Diganta%20Logo.png" alt="Diganta Logo" className="h-[160px] md:h-[224px] object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply', clipPath: 'inset(15% 0 15% 0)' }} />
+            </div>
+            <p className="font-mono text-xs text-gray-500 uppercase tracking-wider text-center md:text-left mt-2 md:mt-0">
+              © {new Date().getFullYear()} BRACU DIGANTA. ALL SYSTEMS NOMINAL.
+            </p>
+          </div>
 
           <button
             onClick={scrollToTop}
