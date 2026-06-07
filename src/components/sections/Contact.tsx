@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, ArrowRight, Send } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,16 +12,11 @@ export const Contact: React.FC = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
-      // Stagger the bento boxes in
       gsap.fromTo(
-        '.bento-card',
-        { opacity: 0, y: 50 },
+        '.contact-reveal',
+        { opacity: 0, y: 40 },
         {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
+          opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
         }
       );
@@ -37,170 +32,143 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 md:py-32 relative bg-[#F4F4F6] overflow-hidden">
+    <section id="contact" ref={sectionRef} className="py-24 md:py-32 relative bg-transparent overflow-hidden border-t border-black/10 dark:border-white/20">
       
-      {/* Background Graphic (Huge Watermark) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] z-0">
-        <h1 className="font-orbitron font-black text-[20vw] text-slate-900 tracking-tighter whitespace-nowrap">
-          CONTACT
-        </h1>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         
-        {/* ── Left Column: Widgets ── */}
-        <div className="lg:col-span-5 flex flex-col gap-6">
-          
-          {/* Title Card */}
-          <div className="bento-card bg-white rounded-[2.5rem] p-10 md:p-12 shadow-sm border border-slate-100 flex-1 flex flex-col justify-center">
-            <span className="text-blue-600 font-mono text-xs font-bold tracking-[0.2em] uppercase mb-4">
-              05 // Establish Link
-            </span>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-4xl xl:text-5xl font-black text-slate-900 uppercase tracking-tighter leading-[0.9] mb-6 break-words">
-              Start<br/>
-              <span className="text-blue-600">Transmission</span>
-            </h2>
-            <p className="text-slate-500 text-base leading-relaxed">
-              Reach out to our command center for sponsorships, team applications, or general inquiries. Our comms are always open.
-            </p>
-          </div>
-          
-          {/* Mini Cards Row */}
-          <div className="grid grid-cols-2 gap-6">
-             
-             {/* Email Widget */}
-             <a 
-               href="mailto:hello@bracudiganta.com" 
-               className="bento-card block bg-blue-600 text-white rounded-[2rem] p-8 aspect-square relative overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
-             >
-                <div className="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10 h-full flex flex-col justify-between">
-                  <div className="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
-                    <Mail size={24} className="text-white" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-white/70 uppercase tracking-widest font-mono mb-1">Direct Line</p>
-                    <p className="font-bold text-sm md:text-base leading-tight">hello@<br/>bracudiganta.com</p>
-                  </div>
-                </div>
-             </a>
-
-             {/* Location Widget (Interactive Radar) */}
-             <div className="bento-card bg-white rounded-[2rem] p-8 aspect-square relative overflow-hidden shadow-sm border border-slate-100 group">
-                
-                {/* CSS Animated Radar Background */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.2)_1px,transparent_1px)] bg-[size:15px_15px]" />
-                  <div className="absolute w-[150%] h-[150%] rounded-full border border-blue-500/30" />
-                  <div className="absolute w-[100%] h-[100%] rounded-full border border-blue-500/40" />
-                  <div className="absolute w-[50%] h-[50%] rounded-full border border-blue-500/50" />
-                  <div 
-                    className="absolute w-full h-full rounded-full origin-center" 
-                    style={{ background: 'conic-gradient(from 0deg, transparent 75%, rgba(37,99,235,0.4) 100%)', animation: 'radar-spin 3s linear infinite' }} 
-                  />
-                  {/* Blip */}
-                  <div className="absolute w-2 h-2 bg-blue-600 rounded-full top-[40%] right-[30%] shadow-[0_0_10px_rgba(37,99,235,1)] animate-pulse" />
-                </div>
-
-                <div className="relative z-10 h-full flex flex-col justify-between pointer-events-none">
-                  <div className="bg-slate-50 w-12 h-12 rounded-full flex items-center justify-center border border-slate-100">
-                    <MapPin size={24} className="text-slate-900" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500 uppercase tracking-widest font-mono mb-1">HQ Coordinates</p>
-                    <p className="font-bold text-slate-900 text-sm md:text-base leading-tight">BRAC University<br/>Dhaka, BD</p>
-                  </div>
-                </div>
-             </div>
-
-          </div>
+        {/* Header */}
+        <div className="contact-reveal text-center max-w-2xl mx-auto mb-16">
+          <span className="text-[10px] font-mono tracking-[0.3em] text-slate-500 dark:text-slate-400 uppercase font-bold mb-4 block">Mission Control</span>
+          <h2 className="text-4xl md:text-5xl font-black text-black dark:text-white tracking-tighter uppercase mb-6">
+            Establish Link
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-mono leading-relaxed max-w-xl mx-auto">
+            Interested in sponsoring, joining the team, or just want to say hello? Drop us a transmission.
+          </p>
         </div>
 
-        {/* ── Right Column: Form Card ── */}
-        <div className="bento-card lg:col-span-7 bg-white rounded-[2.5rem] p-10 md:p-14 shadow-sm border border-slate-100">
-          <form className="flex flex-col gap-8 h-full justify-between" onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          {/* Left — Info Cards */}
+          <div className="lg:col-span-4 flex flex-col gap-6">
             
-            <div className="space-y-8">
-              {/* Row 1 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-3">
-                  <label htmlFor="name" className="text-xs font-bold text-slate-900 uppercase tracking-[0.2em]">Name</label>
-                  <input 
-                    type="text" 
-                    id="name"
-                    required
-                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all font-medium" 
-                    placeholder="John Doe" 
-                  />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <label htmlFor="email" className="text-xs font-bold text-slate-900 uppercase tracking-[0.2em]">Email</label>
-                  <input 
-                    type="email" 
-                    id="email"
-                    required
-                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all font-medium" 
-                    placeholder="john@example.com" 
-                  />
-                </div>
+            {/* Email Card */}
+            <a 
+              href="mailto:hello@bracudiganta.com" 
+              className="contact-reveal bg-white/40 dark:bg-black/40 backdrop-blur-md border border-black/10 dark:border-white/10 p-8 hover:bg-black/5 dark:hover:bg-white/5 transition-colors group flex items-start gap-4"
+            >
+              <div className="w-10 h-10 border border-black/20 dark:border-white/20 bg-white/50 dark:bg-black/50 flex items-center justify-center shrink-0 group-hover:border-black dark:group-hover:border-white transition-colors">
+                <Mail className="w-4 h-4 text-black dark:text-white" />
               </div>
-
-              {/* Row 2 */}
-              <div className="flex flex-col gap-3">
-                <label htmlFor="subject" className="text-xs font-bold text-slate-900 uppercase tracking-[0.2em]">Subject</label>
-                <input 
-                  type="text" 
-                  id="subject"
-                  required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all font-medium" 
-                  placeholder="What is this transmission regarding?" 
-                />
+              <div>
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-2">Secure Channel</p>
+                <p className="font-mono text-black dark:text-white text-xs tracking-wider">hello@bracudiganta.com</p>
               </div>
+            </a>
 
-              {/* Row 3 */}
-              <div className="flex flex-col gap-3">
-                <label htmlFor="message" className="text-xs font-bold text-slate-900 uppercase tracking-[0.2em]">Message Payload</label>
-                <textarea 
-                  id="message"
-                  rows={5} 
-                  required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all resize-none font-medium" 
-                  placeholder="Transmit your message details here..." 
-                />
+            {/* Location Card */}
+            <div className="contact-reveal bg-white/40 dark:bg-black/40 backdrop-blur-md border border-black/10 dark:border-white/10 p-8 flex items-start gap-4">
+              <div className="w-10 h-10 border border-black/20 dark:border-white/20 bg-white/50 dark:bg-black/50 flex items-center justify-center shrink-0">
+                <MapPin className="w-4 h-4 text-black dark:text-white" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-2">Base Coordinates</p>
+                <p className="font-mono text-black dark:text-white text-xs tracking-wider mb-1">BRAC University</p>
+                <p className="font-mono text-slate-600 dark:text-slate-400 text-xs tracking-wider">Dhaka, Bangladesh</p>
               </div>
             </div>
 
-            <button 
-              type="submit"
-              disabled={formStatus !== 'idle'}
-              className="mt-8 w-full bg-slate-900 text-white font-orbitron font-bold uppercase tracking-[0.2em] py-6 rounded-2xl hover:bg-blue-600 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_15px_40px_rgba(37,99,235,0.3)] disabled:bg-slate-300 disabled:shadow-none flex items-center justify-center gap-3 group"
-            >
-              {formStatus === 'idle' && (
-                <>
-                  Send Transmission
-                  <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
-                </>
-              )}
-              {formStatus === 'sending' && (
-                 <>
-                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                   Transmitting...
-                 </>
-              )}
-              {formStatus === 'sent' && '✓ Link Established'}
-            </button>
+            {/* Quick Note */}
+            <div className="contact-reveal bg-white dark:bg-black border border-black/10 dark:border-white/20 p-8 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')] opacity-10 dark:opacity-20 grayscale bg-cover bg-center mix-blend-overlay group-hover:scale-105 transition-transform duration-1000" />
+              <div className="relative z-10">
+                <h4 className="font-black text-black dark:text-white text-lg uppercase tracking-widest mb-4">For Sponsors</h4>
+                <p className="text-slate-600 dark:text-slate-400 font-mono text-[10px] uppercase tracking-widest leading-relaxed mb-6">
+                  Select "Strategic Partnership" in the form and our relations team will transmit the full sponsorship manifest within 24 hours.
+                </p>
+                <a href="#sponsorship" className="inline-flex items-center gap-3 text-black dark:text-white font-mono text-xs tracking-widest uppercase font-bold hover:text-slate-500 dark:hover:text-slate-400 transition-colors">
+                  View Packages <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </div>
 
-          </form>
+          {/* Right — Form */}
+          <div className="contact-reveal lg:col-span-8 bg-white/40 dark:bg-black/40 backdrop-blur-md p-8 md:p-12 border border-black/10 dark:border-white/10">
+            <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex flex-col gap-3">
+                  <label htmlFor="contact-name" className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <span className="w-1 h-1 bg-black dark:bg-white" /> Ident
+                  </label>
+                  <input 
+                    type="text" 
+                    id="contact-name"
+                    required
+                    className="w-full bg-black/5 dark:bg-black/50 border-b border-black/20 dark:border-white/20 px-0 py-3 text-black dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-black dark:focus:border-white transition-colors text-xs font-mono rounded-none" 
+                    placeholder="ENTER NAME" 
+                  />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <label htmlFor="contact-email" className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <span className="w-1 h-1 bg-black dark:bg-white" /> Comms Link
+                  </label>
+                  <input 
+                    type="email" 
+                    id="contact-email"
+                    required
+                    className="w-full bg-black/5 dark:bg-black/50 border-b border-black/20 dark:border-white/20 px-0 py-3 text-black dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-black dark:focus:border-white transition-colors text-xs font-mono rounded-none" 
+                    placeholder="ENTER EMAIL" 
+                  />
+                </div>
+              </div>
+
+              {/* Inquiry Type Dropdown */}
+              <div className="flex flex-col gap-3">
+                <label htmlFor="contact-type" className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-1 h-1 bg-black dark:bg-white" /> Transmission Type
+                </label>
+                <select 
+                  id="contact-type"
+                  className="w-full bg-black/5 dark:bg-black/50 border-b border-black/20 dark:border-white/20 px-0 py-3 text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white transition-colors text-xs font-mono appearance-none cursor-pointer rounded-none"
+                  defaultValue=""
+                >
+                  <option value="" disabled className="text-slate-500 dark:text-slate-600">SELECT INQUIRY TYPE</option>
+                  <option value="sponsorship" className="bg-white dark:bg-black text-black dark:text-white">Strategic Partnership</option>
+                  <option value="recruitment" className="bg-white dark:bg-black text-black dark:text-white">Crew Application</option>
+                  <option value="media" className="bg-white dark:bg-black text-black dark:text-white">Press & Media</option>
+                  <option value="general" className="bg-white dark:bg-black text-black dark:text-white">General Comms</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <label htmlFor="contact-message" className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-1 h-1 bg-black dark:bg-white" /> Data Payload
+                </label>
+                <textarea 
+                  id="contact-message"
+                  rows={4} 
+                  required
+                  className="w-full bg-black/5 dark:bg-black/50 border border-black/20 dark:border-white/20 p-4 text-black dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-black dark:focus:border-white transition-colors text-xs font-mono resize-none rounded-none" 
+                  placeholder="ENTER MESSAGE..." 
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={formStatus !== 'idle'}
+                className="w-full bg-black dark:bg-white text-white dark:text-black py-4 font-mono text-xs tracking-widest font-bold uppercase transition-all hover:bg-slate-800 dark:hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 mt-4"
+              >
+                {formStatus === 'idle' && <><Send className="w-4 h-4" /> Transmit Signal</>}
+                {formStatus === 'sending' && <span className="animate-pulse">Encrypting & Sending...</span>}
+                {formStatus === 'sent' && 'Transmission Received'}
+              </button>
+            </form>
+          </div>
+
         </div>
-
       </div>
-
-      <style>{`
-        @keyframes radar-spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </section>
   );
 };

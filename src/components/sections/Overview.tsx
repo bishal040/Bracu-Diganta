@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, Orbit } from 'lucide-react';
-import { MagneticButton } from '../ui/MagneticButton';
+import { ArrowUpRight, Activity } from 'lucide-react';
+import { useTheme } from '../../App';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,19 +35,19 @@ const MinimalStat: React.FC<{ end: number; suffix?: string; label: string }> = (
   }, [end]);
 
   return (
-    <div className="flex flex-col items-start group">
-      <div className="flex items-center mb-2">
+    <div className="flex flex-col items-start group border-l border-black/20 dark:border-white/20 pl-4 py-1">
+      <div className="flex items-center mb-1">
         <span
           ref={countRef}
-          className="font-orbitron text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tabular-nums group-hover:text-[#2563EB] transition-colors duration-300 leading-none tracking-tighter"
+          className="font-mono text-3xl md:text-4xl lg:text-5xl font-light text-black dark:text-white tabular-nums group-hover:text-slate-500 dark:group-hover:text-slate-300 transition-colors duration-300 leading-none tracking-tight"
         >
           0
         </span>
-        <span className="font-orbitron text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 group-hover:text-[#2563EB] transition-colors duration-300 leading-none tracking-tighter">
+        <span className="font-mono text-2xl md:text-3xl lg:text-4xl font-light text-black dark:text-white group-hover:text-slate-500 dark:group-hover:text-slate-300 transition-colors duration-300 leading-none tracking-tight">
           {suffix}
         </span>
       </div>
-      <span className="text-[10px] md:text-xs font-mono tracking-widest text-gray-500 uppercase max-w-[140px] leading-tight font-semibold group-hover:text-gray-900 transition-colors">
+      <span className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-slate-500 uppercase leading-tight mt-2 transition-colors">
         {label}
       </span>
     </div>
@@ -56,6 +56,7 @@ const MinimalStat: React.FC<{ end: number; suffix?: string; label: string }> = (
 
 export const Overview: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -71,31 +72,21 @@ export const Overview: React.FC = () => {
         }
       );
 
-      // Pin the section to create a "pause" while scrolling
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: '+=75%', // pause duration (75% of viewport height)
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-      });
-
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="overview" ref={sectionRef} className="py-24 relative z-10 bg-[#eef2f5] overflow-hidden min-h-screen flex items-center">
+    <section id="overview" ref={sectionRef} className="py-24 md:py-32 relative z-10 bg-white dark:bg-black overflow-hidden border-t border-black/10 dark:border-white/20">
       
       {/* Massive Background Text */}
-      <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-full overflow-hidden flex justify-center pointer-events-none opacity-[0.03] select-none">
-        <h1 className="font-orbitron font-black text-[18vw] leading-none whitespace-nowrap text-gray-900 tracking-tighter">
+      <div className="absolute top-0 left-0 w-full overflow-hidden flex justify-center pointer-events-none select-none opacity-[0.03] dark:opacity-[0.01]">
+        <h1 className="font-mono font-black text-[25vw] leading-none whitespace-nowrap text-black dark:text-white tracking-tighter">
           DIGANTA
         </h1>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full mt-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full">
         
         {/* Main Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
@@ -103,78 +94,83 @@ export const Overview: React.FC = () => {
           {/* Left Column: Narrative & Stats */}
           <div className="lg:col-span-5 flex flex-col justify-between h-full reveal-elem">
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm mb-8">
-                <Orbit size={14} className="text-[#2563EB] animate-spin-slow" />
-                <span className="text-[10px] font-mono tracking-widest text-gray-600 uppercase font-semibold">
-                  AEROSPACE RESEARCH
+              <div className="inline-flex items-center gap-3 px-3 py-1 bg-black/5 dark:bg-black/40 border border-black/10 dark:border-white/20 mb-8 backdrop-blur-sm">
+                <Activity size={14} className="text-black dark:text-white" />
+                <span className="text-[10px] font-mono tracking-[0.3em] text-black dark:text-white uppercase font-bold">
+                  Status: Operational
                 </span>
               </div>
               
-              <h2 className="text-4xl md:text-5xl font-orbitron font-bold text-gray-900 leading-[1.1] mb-6 uppercase tracking-tight">
-                Pioneering <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-cyan-500">
+              <h2 className="text-4xl md:text-5xl font-sans font-black text-black dark:text-white leading-[1.1] mb-6 tracking-tighter uppercase">
+                Pushing <br/>
+                <span className="text-transparent" style={{ WebkitTextStroke: isDark ? '1px white' : '1px black' }}>
                   The Exosphere
                 </span>
               </h2>
               
-              <p className="text-gray-500 text-base leading-relaxed mb-10 max-w-md">
+              <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed mb-10 max-w-md font-mono">
                 We are a student-led engineering team dedicated to democratizing space technology. By developing low-cost, high-reliability modular CanSats, we push the boundaries of atmospheric science and orbital mechanics.
               </p>
               
-              <MagneticButton className="inline-flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 rounded-full font-semibold transition-all group">
-                Download Portfolio
-                <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </MagneticButton>
+              <a href="#projects" className="inline-flex items-center gap-3 bg-black dark:bg-white text-white dark:text-black hover:bg-slate-800 dark:hover:bg-slate-200 px-6 py-3 text-xs font-mono font-bold tracking-widest uppercase transition-all shadow-none">
+                Explore Projects
+                <ArrowUpRight size={14} />
+              </a>
             </div>
 
             {/* 2x2 Grid for the Stats */}
-            <div className="mt-8 grid grid-cols-2 gap-x-8 gap-y-8">
+            <div className="mt-16 grid grid-cols-2 gap-x-8 gap-y-12">
               <MinimalStat end={6} suffix="+" label="Successful Missions" />
               <MinimalStat end={32} label="Active Engineers" />
-              <MinimalStat end={15} suffix="K" label="Altitude Reached (ft)" />
+              <MinimalStat end={15} suffix="K" label="Max Altitude (ft)" />
               <MinimalStat end={98} suffix="%" label="Recovery Rate" />
             </div>
           </div>
 
-          {/* Right Column: Major Announcement & News Card */}
+          {/* Right Column: Technical Panel */}
           <div className="lg:col-span-7 reveal-elem">
-            <div className="relative w-full aspect-[4/5] md:aspect-square bg-gray-900 rounded-[2.5rem] overflow-hidden shadow-2xl group flex flex-col justify-end p-8 md:p-12">
+            <div className="w-full bg-white/60 dark:bg-black/60 backdrop-blur-md overflow-hidden border border-black/10 dark:border-white/10 group flex flex-col relative">
               
-              {/* Background Image */}
+              {/* Technical grid background */}
               <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                className="absolute inset-0 bg-[size:20px_20px] pointer-events-none" 
+                style={{ 
+                  backgroundImage: isDark 
+                    ? 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)' 
+                    : 'linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)'
+                }}
+              />
+
+              {/* Background Image - Desaturated */}
+              <div 
+                className="w-full aspect-video bg-cover bg-center opacity-40 dark:opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700"
                 style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=2070&auto=format&fit=crop")' }}
               />
-              
-              {/* Dark Gradient Overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-gray-900/10 opacity-90 transition-opacity duration-500 group-hover:opacity-80" />
 
-              {/* Content Overlay */}
-              <div className="relative z-10 w-full">
+              {/* Content Box */}
+              <div className="p-8 md:p-10 flex flex-col justify-end relative z-10 border-t border-black/10 dark:border-white/10 bg-white/80 dark:bg-black/80">
                 
                 <div className="flex justify-between items-start mb-6">
-                  <div className="bg-[#2563EB]/80 backdrop-blur-md border border-[#2563EB] px-3 py-1.5 rounded-2xl flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                    <span className="text-white text-[10px] font-mono tracking-widest uppercase font-semibold">Latest Announcement</span>
+                  <div className="border border-black/20 dark:border-white/20 px-3 py-1 flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-black dark:bg-white animate-pulse" />
+                    <span className="text-black dark:text-white text-[10px] font-mono tracking-[0.2em] uppercase font-bold">Log: 2026.1</span>
                   </div>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-orbitron font-bold text-white mb-3 uppercase leading-[1.1]">
+                <h3 className="text-2xl md:text-3xl font-sans font-black text-black dark:text-white mb-3 leading-[1.2] uppercase tracking-tight">
                   Diganta Selected for <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
-                    CANSAT 2026
-                  </span>
+                  <span className="text-transparent" style={{ WebkitTextStroke: isDark ? '1px white' : '1px black' }}>CANSAT 2026</span>
                 </h3>
                 
-                <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-6 max-w-md">
+                <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed mb-8 max-w-md font-mono">
                   We are thrilled to announce that Team Diganta has officially qualified for the International CanSat Competition. Our latest modular payload design scored in the top 5% of global submissions.
                 </p>
 
-                {/* Glassmorphism Button */}
-                <MagneticButton className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-xl text-white px-6 py-3 rounded-full text-sm font-semibold transition-all w-full sm:w-auto">
-                  Read Full Story
-                  <ArrowUpRight size={16} />
-                </MagneticButton>
+                {/* Minimal Button */}
+                <button className="inline-flex items-center justify-center gap-3 bg-transparent text-black dark:text-white px-6 py-3 text-xs font-mono font-bold tracking-widest uppercase transition-all w-full sm:w-auto border border-black/20 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/10">
+                  Read Full Report
+                  <ArrowUpRight size={14} />
+                </button>
                 
               </div>
             </div>

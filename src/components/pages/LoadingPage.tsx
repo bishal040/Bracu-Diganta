@@ -5,9 +5,9 @@ export const LoadingPage: React.FC<{ onComplete?: () => void }> = ({ onComplete 
 
   useEffect(() => {
     // in → hold → out
-    const t1 = setTimeout(() => setPhase('hold'), 100);
-    const t2 = setTimeout(() => setPhase('out'), 2200);
-    const t3 = setTimeout(() => onComplete?.(), 2800);
+    const t1 = setTimeout(() => setPhase('hold'), 50);
+    const t2 = setTimeout(() => setPhase('out'), 400);
+    const t3 = setTimeout(() => onComplete?.(), 700);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [onComplete]);
 
@@ -37,7 +37,7 @@ export const LoadingPage: React.FC<{ onComplete?: () => void }> = ({ onComplete 
           <div
             className="absolute inset-y-0 left-0 bg-[#2563EB] rounded-full"
             style={{
-              animation: 'lineLoad 2s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+              animation: 'lineLoad 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards',
             }}
           />
         </div>

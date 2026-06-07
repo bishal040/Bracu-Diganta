@@ -104,7 +104,7 @@ export const ErrorPage: React.FC<{
         </div>
 
         {/* Title */}
-        <h1 className="font-orbitron text-2xl md:text-3xl font-bold text-white uppercase tracking-wider mb-4">
+        <h1 className="font-orbitron text-2xl md:text-3xl font-bold text-black dark:text-white uppercase tracking-wider mb-4">
           {title}
         </h1>
 

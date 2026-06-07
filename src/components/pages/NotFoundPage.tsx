@@ -124,7 +124,7 @@ export const NotFoundPage: React.FC = () => {
           </h1>
         </div>
 
-        <h2 className="font-orbitron text-xl md:text-2xl font-bold text-white uppercase tracking-wider mb-3">
+        <h2 className="font-orbitron text-xl md:text-2xl font-bold text-black dark:text-white uppercase tracking-wider mb-3">
           Signal Lost
         </h2>
 
