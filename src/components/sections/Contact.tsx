@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
 import { ArrowRight, Lock, Plus } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -8,6 +9,15 @@ gsap.registerPlugin(ScrollTrigger);
 export const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+
+  const initialSponsors = [
+    { id: 'aerospace', name: 'Aerospace', color: 'blue', content: <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center font-orbitron font-black text-white text-3xl shadow-[0_10px_20px_rgba(37,99,235,0.3)] group-hover:scale-110 transition-transform duration-500 relative z-10">A</div> },
+    { id: 'orbital', name: 'Orbital', color: 'indigo', content: <div className="w-16 h-16 rounded-full border-[4px] border-indigo-500 shadow-[0_10px_20px_rgba(79,70,229,0.2)] group-hover:scale-110 group-hover:bg-indigo-50 transition-all duration-500 relative z-10" /> },
+    { id: 'novadyn', name: 'Nova Dyn.', color: 'cyan', content: <div className="w-16 h-16 border-[4px] border-cyan-500 rotate-45 shadow-[0_10px_20px_rgba(6,182,212,0.2)] group-hover:rotate-90 group-hover:bg-cyan-50 transition-all duration-500 relative z-10" /> },
+    { id: 'stellar', name: 'Stellar', color: 'violet', content: <div className="w-16 h-16 bg-violet-500 rounded-full shadow-[0_10px_20px_rgba(139,92,246,0.3)] group-hover:scale-110 transition-transform duration-500 relative z-10" /> }
+  ];
+  
+  const [sponsors, setSponsors] = useState(initialSponsors);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -27,16 +37,33 @@ export const Contact: React.FC = () => {
         }
       );
       
-      // Gentle floating animation for the empty slot
+      // Minimalist pulsing for the empty slot
       gsap.to('.fomo-pulse', {
-        y: -8,
-        duration: 2.5,
+        scale: 1.02,
+        duration: 2,
         repeat: -1,
         yoyo: true,
         ease: 'power1.inOut'
       });
+      
     }, sectionRef);
-    return () => ctx.revert();
+    
+    // Physical Shuffling Interval (No fade out, just raw position swapping)
+    const shuffleInterval = setInterval(() => {
+      setSponsors(prev => {
+        const arr = [...prev];
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      });
+    }, 4000);
+
+    return () => {
+      ctx.revert();
+      clearInterval(shuffleInterval);
+    };
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -50,7 +77,6 @@ export const Contact: React.FC = () => {
     <section id="contact" ref={sectionRef} className="min-h-[100vh] w-full relative bg-[#F4F4F6] overflow-hidden flex flex-col justify-center pt-32 pb-28 lg:pb-16 border-t border-slate-200/60 z-0">
       
       {/* ── MASSIVE CRAZY GLOWING ORBS (OPTIMIZED) ── */}
-      {/* Replaced heavy blur-[150px] and mix-blend-multiply with standard radial gradients for instant rendering */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10" 
            style={{
              background: 'radial-gradient(circle at 30% 30%, rgba(147, 197, 253, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(165, 180, 252, 0.3) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(165, 243, 252, 0.2) 0%, transparent 60%)'
@@ -100,8 +126,9 @@ export const Contact: React.FC = () => {
               </h3>
             </div>
 
-            <form className="flex flex-col gap-5 h-full relative z-10" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-5">
+            {/* Changed to stack vertically for a "broader" description field layout */}
+            <form className="flex flex-col gap-6 h-full relative z-10" onSubmit={handleSubmit}>
+              <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-2">
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-2">Target Organization</label>
                   <input type="text" required className="w-full bg-white/90 border-2 border-slate-200 rounded-2xl px-5 py-4 text-sm font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="Enter Name..." />
@@ -112,10 +139,10 @@ export const Contact: React.FC = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-2 flex-1">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-2">Mission Proposal</label>
-                <textarea required className="w-full h-full min-h-[120px] bg-white/90 border-2 border-slate-200 rounded-2xl px-5 py-4 text-sm font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="Initiate partnership sequence..." />
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-2">Mission Proposal (Broad Field)</label>
+                <textarea required className="w-full h-full min-h-[160px] bg-white/90 border-2 border-slate-200 rounded-2xl px-5 py-4 text-sm font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="Initiate partnership sequence..." />
               </div>
-              <button type="submit" disabled={formStatus !== 'idle'} className="w-full bg-slate-900 hover:bg-blue-600 text-white font-orbitron font-bold text-sm uppercase tracking-widest py-5 rounded-2xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.35)] hover:-translate-y-1 flex items-center justify-center gap-3 mt-4 disabled:bg-slate-300 disabled:shadow-none disabled:transform-none">
+              <button type="submit" disabled={formStatus !== 'idle'} className="w-full bg-slate-900 hover:bg-blue-600 text-white font-orbitron font-bold text-sm uppercase tracking-widest py-5 rounded-2xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.35)] hover:-translate-y-1 flex items-center justify-center gap-3 mt-2 disabled:bg-slate-300 disabled:shadow-none disabled:transform-none">
                 {formStatus === 'idle' && <>Transmit Proposal <ArrowRight size={20} /></>}
                 {formStatus === 'sending' && <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Encrypting...</>}
                 {formStatus === 'sent' && '✓ Transmission Secure'}
@@ -124,58 +151,39 @@ export const Contact: React.FC = () => {
           </div>
 
           {/* RIGHT: High-End Glassmorphic Prestige Grid */}
-          <div className="h-full grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6 content-start">
+          <div className="h-full grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6 content-start relative">
             
-            {/* Sponsor 1: Aerospace */}
-            <div className="bento-reveal bg-white/95 border border-white rounded-[2rem] p-6 flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:shadow-[0_20px_40px_rgba(37,99,235,0.1)] hover:-translate-y-2 group aspect-square relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] will-change-transform">
-              <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center font-orbitron font-black text-white text-3xl shadow-[0_10px_20px_rgba(37,99,235,0.3)] group-hover:scale-110 transition-transform duration-500 relative z-10">A</div>
-              <span className="font-orbitron font-black text-xs tracking-widest uppercase text-slate-800 relative z-10">Aerospace</span>
-            </div>
+            {sponsors.map((sponsor) => (
+              <motion.div 
+                layout
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                key={sponsor.id} 
+                className="sponsor-item bento-reveal bg-white/95 border border-white rounded-[2rem] p-6 flex flex-col items-center justify-center gap-3 transition-colors duration-300 hover:shadow-[0_20px_40px_rgba(37,99,235,0.1)] group aspect-square relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] will-change-transform z-10 hover:z-20"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-b from-${sponsor.color}-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity`} />
+                {sponsor.content}
+                <span className="font-orbitron font-black text-xs tracking-widest uppercase text-slate-800 relative z-10">{sponsor.name}</span>
+              </motion.div>
+            ))}
 
-            {/* Sponsor 2: Orbital */}
-            <div className="bento-reveal bg-white/95 border border-white rounded-[2rem] p-6 flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:shadow-[0_20px_40px_rgba(79,70,229,0.1)] hover:-translate-y-2 group aspect-square relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] will-change-transform">
-              <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="w-16 h-16 rounded-full border-[4px] border-indigo-500 shadow-[0_10px_20px_rgba(79,70,229,0.2)] group-hover:scale-110 group-hover:bg-indigo-50 transition-all duration-500 relative z-10" />
-              <span className="font-orbitron font-black text-xs tracking-widest uppercase text-slate-800 relative z-10">Orbital</span>
-            </div>
-
-            {/* Sponsor 3: Nova Dyn */}
-            <div className="bento-reveal bg-white/95 border border-white rounded-[2rem] p-6 flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)] hover:-translate-y-2 group aspect-square relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] will-change-transform">
-              <div className="absolute inset-0 bg-gradient-to-b from-cyan-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="w-16 h-16 border-[4px] border-cyan-500 rotate-45 shadow-[0_10px_20px_rgba(6,182,212,0.2)] group-hover:rotate-90 group-hover:bg-cyan-50 transition-all duration-500 relative z-10" />
-              <span className="font-orbitron font-black text-xs tracking-widest uppercase text-slate-800 relative z-10">Nova Dyn.</span>
-            </div>
-
-            {/* Sponsor 4: Stellar */}
-            <div className="bento-reveal bg-white/95 border border-white rounded-[2rem] p-6 flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:shadow-[0_20px_40px_rgba(139,92,246,0.1)] hover:-translate-y-2 group aspect-square relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] will-change-transform">
-              <div className="absolute inset-0 bg-gradient-to-b from-violet-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="w-16 h-16 bg-violet-500 rounded-full shadow-[0_10px_20px_rgba(139,92,246,0.3)] group-hover:scale-110 transition-transform duration-500 relative z-10" />
-              <span className="font-orbitron font-black text-xs tracking-widest uppercase text-slate-800 relative z-10">Stellar</span>
-            </div>
-
-            {/* THE INSANE FOMO SLOT (Spans 2 columns) */}
-            <div className="bento-reveal fomo-pulse sm:col-span-2 relative bg-blue-50/95 border-2 border-dashed border-blue-400 rounded-[2rem] p-6 flex flex-col items-center justify-center gap-4 transition-all duration-300 hover:bg-white hover:border-blue-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)] cursor-pointer group overflow-hidden min-h-[160px] sm:min-h-0 will-change-transform">
-              
-              {/* Crazy scanning line and background glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/20 to-blue-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
-              <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none rounded-[2rem]">
-                <div className="w-full h-1 bg-blue-400 absolute top-0 shadow-[0_0_20px_rgba(37,99,235,0.8)] animate-[scan_3s_ease-in-out_infinite] will-change-transform" />
-              </div>
-
-              <div className="w-16 h-16 bg-white rounded-full shadow-[0_10px_30px_rgba(37,99,235,0.2)] flex items-center justify-center group-hover:scale-125 group-hover:rotate-90 transition-all duration-500 z-10 border border-blue-100 relative">
-                <Plus size={28} className="text-blue-600 relative z-10" />
-                <div className="absolute inset-0 rounded-full bg-blue-400/40 animate-ping" />
+            {/* THE MINIMALIST FOMO SLOT (Spans 2 columns) */}
+            <motion.div 
+              layout
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="bento-reveal fomo-pulse sm:col-span-2 relative bg-blue-50/50 border-2 border-dashed border-blue-300 rounded-[2rem] p-6 flex flex-col items-center justify-center gap-4 transition-colors duration-300 hover:bg-white hover:border-blue-400 hover:shadow-md cursor-pointer group overflow-hidden min-h-[160px] sm:min-h-0 will-change-transform z-0"
+            >
+              <div className="w-14 h-14 bg-white rounded-full shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300 z-10 border border-blue-100">
+                <Plus size={24} className="text-blue-500" />
               </div>
               <div className="text-center z-10">
-                <span className="font-orbitron font-black text-base md:text-lg tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 leading-tight block mb-1">
+                <span className="font-orbitron font-bold text-sm md:text-base tracking-widest uppercase text-blue-800 block mb-1">
                   Awaiting Partner
                 </span>
-                <span className="font-mono text-[9px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-widest shadow-md inline-block">
+                <span className="font-mono text-[9px] font-medium text-slate-500 uppercase tracking-wider group-hover:text-blue-600 transition-colors">
                   Secure Your Position
                 </span>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -216,12 +224,6 @@ export const Contact: React.FC = () => {
       </div>
 
       <style>{`
-        @keyframes scan {
-          0% { transform: translateY(-10px); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { transform: translateY(180px); opacity: 0; }
-        }
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
