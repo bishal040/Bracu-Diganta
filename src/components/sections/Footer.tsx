@@ -1,9 +1,77 @@
 import React from 'react';
 import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  </svg>
+);
+
+const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+    <rect width="4" height="12" x="2" y="9"/>
+    <circle cx="4" cy="4" r="2"/>
+  </svg>
+);
+
+const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+  </svg>
+);
+
+const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+  </svg>
+);
 
 export const Footer: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!isHomePage) {
+      navigate('/');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const navLinks = [
+    { label: 'Home', type: 'route', target: '/' },
+    { label: 'Projects', type: 'hash', target: 'projects' },
+    { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
+    { label: 'Achievements', type: 'hash', target: 'achievements' },
+    { label: 'Team', type: 'route', target: '/team' }
+  ];
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+    e.preventDefault();
+
+    if (link.type === 'route') {
+      navigate(link.target);
+      if (link.target === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      return;
+    }
+
+    if (!isHomePage) {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(link.target)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById(link.target)?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -119,14 +187,15 @@ export const Footer: React.FC = () => {
           {/* Column 2: Navigation */}
           <div className="flex flex-col gap-4">
             <h4 className="font-mono text-xs font-bold text-gray-400 tracking-[0.2em] uppercase mb-2">Navigation</h4>
-            {['Projects', 'Research', 'Achievements', 'Team'].map((link) => (
+            {navLinks.map((link) => (
               <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
+                key={link.label}
+                href={link.type === 'route' ? link.target : `#${link.target}`}
+                onClick={(e) => handleLinkClick(e, link)}
                 className="text-gray-600 hover:text-gray-900 font-medium text-sm transition-colors w-fit group flex items-center gap-2"
               >
                 <span className="w-0 h-px bg-[#2563EB] group-hover:w-4 transition-all duration-300" />
-                {link}
+                {link.label}
               </a>
             ))}
           </div>
@@ -134,14 +203,20 @@ export const Footer: React.FC = () => {
           {/* Column 3: Socials */}
           <div className="flex flex-col gap-4">
             <h4 className="font-mono text-xs font-bold text-gray-400 tracking-[0.2em] uppercase mb-2">Social Network</h4>
-            {['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].map((social) => (
+            {[
+              { name: 'Facebook', icon: <FacebookIcon className="w-4 h-4" /> },
+              { name: 'LinkedIn', icon: <LinkedinIcon className="w-4 h-4" /> },
+              { name: 'Instagram', icon: <InstagramIcon className="w-4 h-4" /> },
+              { name: 'Twitter', icon: <TwitterIcon className="w-4 h-4" /> }
+            ].map((social) => (
               <a
-                key={social}
+                key={social.name}
                 href="#"
-                className="text-gray-600 hover:text-[#2563EB] font-medium text-sm transition-colors w-fit group flex items-center gap-2"
+                className="text-gray-600 hover:text-[#2563EB] font-medium text-sm transition-colors w-fit group flex items-center gap-3"
               >
-                {social}
-                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                {social.icon}
+                {social.name}
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ml-1" />
               </a>
             ))}
           </div>
@@ -153,9 +228,9 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex flex-wrap justify-center md:justify-start items-center gap-6 md:gap-10">
-              <img src="/Bracu%20Logo.png" alt="BRAC University Logo" className="h-20 md:h-28 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
-              <img src="/Lasset%20Logo.png" alt="Lasset Logo" className="h-20 md:h-28 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
-              <img src="/Diganta%20Logo.png" alt="Diganta Logo" className="h-[160px] md:h-[224px] object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply', clipPath: 'inset(15% 0 15% 0)' }} />
+              <img src="/Bracu%20Logo.png" alt="BRAC University Logo" className="h-16 md:h-20 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
+              <img src="/Lasset%20Logo.png" alt="Lasset Logo" className="h-16 md:h-20 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
+              <img src="/Diganta%20Logo.png" alt="Diganta Logo" className="h-16 md:h-20 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
             </div>
             <p className="font-mono text-xs text-gray-500 uppercase tracking-wider text-center md:text-left mt-2 md:mt-0">
               © {new Date().getFullYear()} BRACU DIGANTA. ALL SYSTEMS NOMINAL.

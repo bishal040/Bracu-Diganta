@@ -87,7 +87,14 @@ export const Navbar: React.FC = () => {
     };
   }, [mobileMenuOpen]);
 
-  const links = ['Projects', 'Achievements', 'Team', 'Contact'];
+  const navLinks = [
+    { label: 'Home', type: 'route', target: '/' },
+    { label: 'Projects', type: 'hash', target: 'projects' },
+    { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
+    { label: 'Achievements', type: 'hash', target: 'achievements' },
+    { label: 'Team', type: 'route', target: '/team' },
+    { label: 'Contact', type: 'hash', target: 'contact' }
+  ];
 
   const scrollToTop = () => {
     if (!isHomePage) {
@@ -98,17 +105,28 @@ export const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
   };
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+
+    if (link.type === 'route') {
+      navigate(link.target);
+      if (link.target === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      return;
+    }
+
     if (!isHomePage) {
       navigate('/');
       // Delay scrolling to allow homepage to mount
       setTimeout(() => {
-        document.getElementById(link.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById(link.target)?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     } else {
-      document.getElementById(link.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(link.target)?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -149,16 +167,19 @@ export const Navbar: React.FC = () => {
         >
           {/* Logo */}
           <div
-            className="cursor-pointer flex items-center gap-3 shrink-0 p-2"
+            className={`cursor-pointer flex items-center gap-3 shrink-0 transition-all duration-700 rounded-full bg-white/30 backdrop-blur-2xl backdrop-saturate-[2.0] border border-white/50 shadow-[0_8px_32px_rgba(37,99,235,0.15)] ${
+              scrolled ? 'px-4 py-2' : 'px-5 py-3'
+            }`}
             onClick={scrollToTop}
           >
-            {/* MASSIVE SIZING */}
             <img 
               src="/Diganta%20Logo.png" 
               alt="BRACU Diganta Logo" 
-              className={`object-contain transition-all duration-700 -mt-6 md:-mt-10 ${scrolled ? 'h-32 md:h-40' : 'h-40 md:h-60'}`} 
-              style={{ mixBlendMode: 'multiply', clipPath: 'inset(15% 0 15% 0)' }} 
+              className={`object-contain transition-all duration-500 ${scrolled ? 'h-8' : 'h-12'}`} 
             />
+            <span className={`font-orbitron font-black tracking-widest text-slate-900 uppercase transition-all duration-500 ${scrolled ? 'text-sm' : 'text-lg'}`}>
+              Diganta
+            </span>
           </div>
         </div>
 
@@ -166,10 +187,8 @@ export const Navbar: React.FC = () => {
         <div
           ref={dockRef}
           onMouseLeave={handleLinkLeave}
-          className={`pointer-events-auto hidden lg:flex items-center gap-1 transition-all duration-700 rounded-full p-1.5 relative ${scrolled
-            ? 'bg-white/30 backdrop-blur-2xl backdrop-saturate-[2.0] border border-white/50 shadow-[0_8px_32px_rgba(37,99,235,0.15)] opacity-100 translate-y-0'
-            : 'bg-transparent border-transparent opacity-0 -translate-y-4'
-            }`}>
+          className="pointer-events-auto hidden lg:flex items-center gap-1 transition-all duration-700 rounded-full p-1.5 relative bg-white/30 backdrop-blur-2xl backdrop-saturate-[2.0] border border-white/50 shadow-[0_8px_32px_rgba(37,99,235,0.15)] opacity-100 translate-y-0"
+        >
           {/* Sliding Magic Highlight Pill */}
           <div
             className="absolute top-1.5 bottom-1.5 bg-white/70 rounded-full transition-all duration-300 ease-out shadow-sm border border-white/50 pointer-events-none"
@@ -181,25 +200,24 @@ export const Navbar: React.FC = () => {
             }}
           />
 
-          {links.map((link) => (
+          {navLinks.map((link) => (
             <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
+              key={link.label}
+              href={link.type === 'route' ? link.target : `#${link.target}`}
               onClick={(e) => handleLinkClick(e, link)}
               onMouseEnter={handleLinkHover}
               className="group relative px-6 py-2.5 text-gray-700 hover:text-[#2563EB] text-[11px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] opacity-0 group-hover:opacity-100 transition-opacity scale-0 group-hover:scale-100 duration-300" />
-                {link}
+                {link.label}
               </span>
             </a>
           ))}
         </div>
 
         {/* 3. CTA PILL */}
-        <div className={`pointer-events-auto hidden lg:block transition-all duration-700 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-          }`}>
+        <div className="pointer-events-auto hidden lg:block transition-all duration-700 opacity-100 translate-y-0">
           <div
             ref={ctaMagnetic.ref}
             onMouseMove={ctaMagnetic.handleMouseMove}
@@ -229,10 +247,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div className={`pointer-events-auto lg:hidden flex items-center transition-all duration-500 rounded-full z-50 ${scrolled || mobileMenuOpen
-          ? 'bg-white/30 backdrop-blur-2xl border border-white/50 shadow-sm p-2 opacity-100'
-          : 'opacity-0 pointer-events-none p-2'
-          }`}>
+        <div className="pointer-events-auto lg:hidden flex items-center transition-all duration-500 rounded-full z-50 bg-white/30 backdrop-blur-2xl border border-white/50 shadow-sm p-2 opacity-100">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="relative w-12 h-12 flex items-center justify-center transition-all duration-500 group cursor-pointer"
@@ -346,17 +361,17 @@ export const Navbar: React.FC = () => {
             <span className="font-mono text-[10px] text-[#2563EB] tracking-[0.4em] uppercase">Navigation Active</span>
           </div>
 
-          {links.map((link, idx) => (
+          {navLinks.map((link, idx) => (
             <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
+              key={link.label}
+              href={link.type === 'route' ? link.target : `#${link.target}`}
               onClick={(e) => handleLinkClick(e, link)}
               className={`relative flex items-center gap-4 text-3xl font-mono font-bold text-gray-400 hover:text-gray-900 transition-all duration-500 group ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
                 }`}
               style={{ transitionDelay: `${(idx + 2) * 100}ms` }}
             >
               <span className="text-[#2563EB] text-xl opacity-0 group-hover:opacity-100 transition-all font-mono tracking-widest translate-x-4 group-hover:translate-x-0">[</span>
-              {link.toUpperCase()}
+              {link.label.toUpperCase()}
               <span className="text-[#2563EB] text-xl opacity-0 group-hover:opacity-100 transition-all font-mono tracking-widest -translate-x-4 group-hover:translate-x-0">]</span>
             </a>
           ))}
@@ -364,7 +379,7 @@ export const Navbar: React.FC = () => {
           <div
             className={`mt-12 transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
               }`}
-            style={{ transitionDelay: `${(links.length + 2) * 100}ms` }}
+            style={{ transitionDelay: `${(navLinks.length + 2) * 100}ms` }}
           >
             <button
               onClick={(e) => {

@@ -21,7 +21,6 @@ export const HomeHero: React.FC = () => {
       
       {/* Scroll indicator */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce z-10">
-        <span className="text-white/70 font-mono text-xs tracking-widest uppercase mb-2">Scroll to initialize</span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-telemetry-cyan">
           <path d="M12 5v14M19 12l-7 7-7-7" />
         </svg>
