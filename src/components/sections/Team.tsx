@@ -1,105 +1,78 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { teamData, getFlattenedCrewData, type TeamMember as TeamMemberType } from '../../data/team';
+import { TeamMemberModal } from '../ui/TeamMemberModal';
 
 gsap.registerPlugin(ScrollTrigger);
-
-// Base data
-const teamHierarchy = {
-  advisors: [
-    { name: 'Dr. John Doe', role: 'Faculty Advisor', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop' },
-    { name: 'Dr. Jane Smith', role: 'Aerospace Consultant', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop' },
-  ],
-  lead: { name: 'Alex Johnson', role: 'Team Lead', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop' },
-  core: [
-    { name: 'Sarah Lee', role: 'Lead Avionics', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop' },
-    { name: 'Michael Chen', role: 'Structures Head', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop' },
-    { name: 'Emily Davis', role: 'Recovery Systems', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop' },
-  ],
-  alumni: [
-    { name: 'David Wilson', role: 'Former Team Lead', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop' },
-    { name: 'Jessica Brown', role: 'Propulsion', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop' },
-  ]
-};
-
-// Flattened data with responsive CSS Grid assignments (Bento Box style)
-const crewData = [
-  { ...teamHierarchy.advisors[0], col: 'col-span-12 md:col-span-6 lg:col-span-6', height: 'h-[300px]', tier: 'LVL-5 // ADVISOR' },
-  { ...teamHierarchy.advisors[1], col: 'col-span-12 md:col-span-6 lg:col-span-6', height: 'h-[300px]', tier: 'LVL-5 // ADVISOR' },
-  { ...teamHierarchy.lead,        col: 'col-span-12 md:col-span-12 lg:col-span-4', height: 'h-[400px]', tier: 'LVL-4 // COMMAND' },
-  { ...teamHierarchy.core[0],     col: 'col-span-12 md:col-span-6 lg:col-span-4',  height: 'h-[400px]', tier: 'LVL-3 // CORE' },
-  { ...teamHierarchy.core[1],     col: 'col-span-12 md:col-span-6 lg:col-span-4',  height: 'h-[400px]', tier: 'LVL-3 // CORE' },
-  { ...teamHierarchy.core[2],     col: 'col-span-12 md:col-span-12 lg:col-span-6', height: 'h-[300px]', tier: 'LVL-3 // CORE' },
-  { ...teamHierarchy.alumni[0],   col: 'col-span-12 md:col-span-6 lg:col-span-3',  height: 'h-[300px]', tier: 'LVL-X // ALUMNI' },
-  { ...teamHierarchy.alumni[1],   col: 'col-span-12 md:col-span-6 lg:col-span-3',  height: 'h-[300px]', tier: 'LVL-X // ALUMNI' },
-];
 
 // Sci-Fi Chamfered corner clip-path
 const sciFiClip = 'polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px)';
 
-const CrewCard = ({ member }: { member: typeof crewData[0] }) => (
-  <div className={`crew-card ${member.col} ${member.height} relative group cursor-pointer`}>
+const CrewCard = ({ member, onClick }: { member: ReturnType<typeof getFlattenedCrewData>[0], onClick: () => void }) => (
+  <div onClick={onClick} className={`crew-card ${member.col} ${member.height} relative group cursor-pointer`}>
     
     {/* Border Wrapper (creates a 1px border that perfectly follows the clip-path) */}
     <div 
-      className="absolute inset-0 bg-slate-300 group-hover:bg-blue-500 transition-colors duration-500 z-0"
+      className="absolute inset-0 bg-blue-200 group-hover:bg-blue-400 transition-colors duration-500 z-0"
       style={{ clipPath: sciFiClip }}
     />
     
     {/* Inner Content Container */}
     <div 
-      className="absolute inset-[1px] bg-slate-900 z-10 overflow-hidden"
+      className="absolute inset-[1px] bg-white z-10 overflow-hidden"
       style={{ clipPath: sciFiClip }}
     >
       {/* Background Image */}
       <img 
         src={member.image} 
         alt={member.name}
-        className="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 ease-out"
+        className="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 ease-out"
       />
       
-      {/* Gradient Overlay for Text Readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent pointer-events-none" />
+      {/* Gradient Overlay for Text Readability - Light Glassmorphism Version */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none transition-all duration-500 group-hover:from-black/70 group-hover:via-black/30" />
 
       {/* Top Left Tier Badge */}
-      <div className="absolute top-4 left-4 flex gap-2 items-center z-20 bg-slate-900/50 backdrop-blur-sm px-2 py-1 rounded">
-        <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-        <span className="font-mono text-[9px] md:text-[10px] text-white/90 tracking-widest uppercase font-bold">
+      <div className="absolute top-4 left-4 flex gap-2 items-center z-20 bg-white/10 border border-white/20 backdrop-blur-md px-2 py-1 rounded shadow-sm">
+        <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
+        <span className="font-mono text-[9px] md:text-[10px] text-white tracking-widest uppercase font-bold">
           {member.tier}
         </span>
       </div>
 
       {/* Top Right Tech Detail Icon */}
       <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-        <ArrowUpRight className="w-5 h-5 text-white" />
+        <ArrowUpRight className="w-5 h-5 text-white drop-shadow-sm" />
       </div>
 
-      {/* Bottom Text Info */}
-      <div className="absolute bottom-0 left-0 w-full p-6 z-20 flex flex-col justify-end">
-        <span className="block font-mono text-[10px] md:text-xs text-blue-400 font-bold tracking-[0.2em] uppercase opacity-70 group-hover:opacity-100 transition-all duration-300 mb-1">
+      {/* Bottom Content Area */}
+      <div className="absolute bottom-0 left-0 w-full p-6 z-20 flex flex-col justify-end transition-all duration-300 transform group-hover:-translate-y-2">
+        <span className="block font-mono text-[10px] md:text-xs text-blue-300 font-bold tracking-[0.2em] uppercase mb-1">
           {member.role}
         </span>
-        <h3 className="font-orbitron font-black text-2xl md:text-3xl text-white uppercase tracking-wider">
+        <h3 className="font-orbitron font-black text-2xl md:text-3xl text-white uppercase tracking-wider mb-2">
           {member.name}
         </h3>
       </div>
-      
-      {/* Scanline overlay (subtle CRT effect) */}
-      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100%_4px] mix-blend-overlay z-10" />
-      
     </div>
   </div>
 );
 
 export const Team: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [selectedMember, setSelectedMember] = useState<TeamMemberType | null>(null);
+  
+  // Get 2024 data for the home page showcase
+  const currentYearData = teamData.find(d => d.year === '2024') || teamData[0];
+  const crewData = getFlattenedCrewData(currentYearData);
 
   useEffect(() => {
     if (!sectionRef.current) return;
     
     const ctx = gsap.context(() => {
-      // Staggered entrance animation for all crew cards
       gsap.fromTo('.crew-card', 
         { opacity: 0, y: 100, scale: 0.95 },
         { 
@@ -148,18 +121,37 @@ export const Team: React.FC = () => {
             Command Crew
           </h2>
           <p className="font-mono text-sm md:text-base text-slate-500 uppercase tracking-widest">
-            // Active Personnel Deployment
+            // Active Personnel Deployment ({currentYearData.year})
           </p>
         </div>
 
         {/* The Bento Grid Container */}
-        <div className="grid grid-cols-12 gap-4 md:gap-6">
+        <div className="grid grid-cols-12 gap-4 md:gap-6 mb-16">
           {crewData.map((member, i) => (
-            <CrewCard key={i} member={member} />
+            <CrewCard key={i} member={member} onClick={() => setSelectedMember(member)} />
           ))}
         </div>
 
+        {/* View All Crew CTA */}
+        <div className="flex justify-center">
+          <Link 
+            to="/team" 
+            className="group relative inline-flex items-center justify-center px-10 py-5 font-mono text-sm font-bold tracking-[0.2em] text-white uppercase bg-blue-600 overflow-hidden shadow-[0_10px_40px_rgba(37,99,235,0.3)] hover:shadow-[0_10px_50px_rgba(37,99,235,0.5)] transition-all duration-300"
+            style={{ clipPath: 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)' }}
+          >
+            <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] group-hover:animate-[shimmer_1.5s_linear_infinite]" />
+            <span className="relative z-10 flex items-center gap-3">
+              <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
+              View All Crew History
+              <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </span>
+          </Link>
+        </div>
+
       </div>
+      
+      {/* Central Modal Dialog */}
+      <TeamMemberModal member={selectedMember} onClose={() => setSelectedMember(null)} />
     </section>
   );
 };

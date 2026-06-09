@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -39,13 +40,29 @@ function useMagnetic(strength = 0.2) {
 
 export const Navbar: React.FC = () => {
   const navRef = useRef<HTMLElement>(null);
-  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === '/';
+  
+  const [scrolled, setScrolled] = useState(!isHomePage);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (!navRef.current) return;
 
-    // Show solid navbar after scrolling past the hero sequence
+    if (!isHomePage) {
+      setScrolled(true);
+      return;
+    }
+
+    // On homepage, check initial scroll position
+    if (window.scrollY > window.innerHeight) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+
+    // Show solid navbar after scrolling past the hero sequence on homepage
     const st = ScrollTrigger.create({
       trigger: document.body,
       start: '100vh top',
@@ -53,8 +70,10 @@ export const Navbar: React.FC = () => {
       onLeaveBack: () => setScrolled(false),
     });
 
-    return () => st.kill();
-  }, []);
+    return () => {
+      if (st) st.kill();
+    };
+  }, [isHomePage]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -68,15 +87,29 @@ export const Navbar: React.FC = () => {
     };
   }, [mobileMenuOpen]);
 
-  const links = ['Projects', 'Research', 'Achievements', 'Team', 'Contact'];
+  const links = ['Projects', 'Achievements', 'Team', 'Contact'];
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!isHomePage) {
+      navigate('/');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     setMobileMenuOpen(false);
   };
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+    e.preventDefault();
     setMobileMenuOpen(false);
+    if (!isHomePage) {
+      navigate('/');
+      // Delay scrolling to allow homepage to mount
+      setTimeout(() => {
+        document.getElementById(link.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById(link.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const dockRef = useRef<HTMLDivElement>(null);
@@ -152,6 +185,7 @@ export const Navbar: React.FC = () => {
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
+              onClick={(e) => handleLinkClick(e, link)}
               onMouseEnter={handleLinkHover}
               className="group relative px-6 py-2.5 text-gray-700 hover:text-[#2563EB] text-[11px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden"
             >
@@ -173,7 +207,17 @@ export const Navbar: React.FC = () => {
           >
             <button
               className="relative overflow-hidden group bg-[#2563EB] text-white rounded-full px-8 py-3 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-blue-700 shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] flex items-center gap-3"
-              onClick={() => document.getElementById('sponsor')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={(e) => {
+                e.preventDefault();
+                if (!isHomePage) {
+                  navigate('/');
+                  setTimeout(() => {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                } else {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
               <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.3)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] animate-[shimmer_2.5s_linear_infinite]" />
               <span className="relative z-10 flex items-center gap-2">
@@ -306,7 +350,7 @@ export const Navbar: React.FC = () => {
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
-              onClick={handleLinkClick}
+              onClick={(e) => handleLinkClick(e, link)}
               className={`relative flex items-center gap-4 text-3xl font-mono font-bold text-gray-400 hover:text-gray-900 transition-all duration-500 group ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
                 }`}
               style={{ transitionDelay: `${(idx + 2) * 100}ms` }}
@@ -323,9 +367,17 @@ export const Navbar: React.FC = () => {
             style={{ transitionDelay: `${(links.length + 2) * 100}ms` }}
           >
             <button
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 setMobileMenuOpen(false);
-                document.getElementById('sponsor')?.scrollIntoView({ behavior: 'smooth' });
+                if (!isHomePage) {
+                  navigate('/');
+                  setTimeout(() => {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                } else {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }
               }}
               className="relative overflow-hidden group bg-transparent border border-[#2563EB] text-[#2563EB] hover:text-white px-10 py-5 rounded-none text-xs font-mono tracking-[0.2em] uppercase transition-all duration-300"
             >
