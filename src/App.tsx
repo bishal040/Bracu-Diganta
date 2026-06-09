@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { SmoothScroll } from './components/SmoothScroll';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './components/pages/HomePage';
+import { CansatPage } from './components/pages/CansatPage';
 import { Footer } from './components/sections/Footer';
 import { LoadingPage } from './components/pages';
 
@@ -13,7 +15,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <Router>
       {isLoading && <LoadingPage onComplete={handleLoadingComplete} />}
 
       <div className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
@@ -21,13 +23,16 @@ function App() {
           <div className="min-h-screen font-aeonik overflow-x-hidden bg-[#eef2f5]">
             <Navbar />
             <main>
-              <HomePage />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/project/cansat-2024" element={<CansatPage />} />
+              </Routes>
             </main>
             <Footer />
           </div>
         </SmoothScroll>
       </div>
-    </>
+    </Router>
   );
 }
 

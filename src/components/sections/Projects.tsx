@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, Target, Activity } from 'lucide-react';
@@ -52,14 +53,16 @@ const projects = [
 ];
 
 export const Projects: React.FC = () => {
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Initial Section Reveal
+  // Initial Section Reveal and Pinning
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
+      // Header reveal animation
       gsap.fromTo(
         '.archive-header',
         { opacity: 0, y: 30 },
@@ -68,6 +71,16 @@ export const Projects: React.FC = () => {
           scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' }
         }
       );
+
+      // Pin the section to create a pause for exploration
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: '+=100%', // Pause for 1 viewport height of scrolling
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -119,7 +132,12 @@ export const Projects: React.FC = () => {
               <div 
                 key={project.id}
                 onMouseEnter={() => setActiveIndex(index)}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => {
+                  setActiveIndex(index);
+                  if (project.id === 1) {
+                    navigate('/project/cansat-2024');
+                  }
+                }}
                 className={`group relative overflow-hidden rounded-[2rem] transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer
                   ${isActive ? 'lg:flex-[3] flex-[4] shadow-2xl' : 'lg:flex-[1] flex-[1] grayscale-[50%] hover:grayscale-0'}`}
               >
@@ -204,7 +222,15 @@ export const Projects: React.FC = () => {
                           </span>
                         </div>
                         
-                        <button className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors">
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (project.id === 1) {
+                              navigate('/project/cansat-2024');
+                            }
+                          }}
+                          className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"
+                        >
                           <ArrowUpRight size={16} />
                         </button>
                       </div>
