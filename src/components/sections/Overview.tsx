@@ -71,15 +71,7 @@ export const Overview: React.FC = () => {
         }
       );
 
-      // Pin the section to create a "pause" while scrolling
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: '+=75%', // pause duration (75% of viewport height)
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-      });
+
 
     }, sectionRef);
     return () => ctx.revert();

@@ -1,12 +1,7 @@
 import { useState, useCallback } from 'react';
 import { SmoothScroll } from './components/SmoothScroll';
 import { Navbar } from './components/Navbar';
-import { SequenceSection } from './components/SequenceSection';
-import { Overview } from './components/sections/Overview';
-import { Projects } from './components/sections/Projects';
-import { Achievements } from './components/sections/Achievements';
-import { Team } from './components/sections/Team';
-import { Contact } from './components/sections/Contact';
+import { HomePage } from './components/pages/HomePage';
 import { Footer } from './components/sections/Footer';
 import { LoadingPage } from './components/pages';
 
@@ -26,15 +21,7 @@ function App() {
           <div className="min-h-screen font-aeonik overflow-x-hidden bg-[#eef2f5]">
             <Navbar />
             <main>
-              <SequenceSection />
-              
-              <div className="relative z-20 bg-[#eef2f5] rounded-t-[3rem] -mt-12 overflow-hidden shadow-[0_-20px_40px_rgba(0,0,0,0.05)]">
-                <Overview />
-                <Projects />
-                <Achievements />
-                <Team />
-                <Contact />
-              </div>
+              <HomePage />
             </main>
             <Footer />
           </div>

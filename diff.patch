@@ -1,0 +1,1440 @@
+diff --git a/index.html b/index.html
+index 84600c0..c352de2 100644
+--- a/index.html
++++ b/index.html
+@@ -1,32 +1,36 @@
+ <!doctype html>
+ <html lang="en">
+-  <head>
+-    <meta charset="UTF-8" />
+-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+-    
+-    <!-- Preload fonts to prevent FOUT -->
+-    <link rel="preload" href="/fonts/Aeonik-Black.woff2" as="font" type="font/woff2" crossorigin>
+-    <link rel="preload" href="/fonts/Aeonik-Bold.woff2" as="font" type="font/woff2" crossorigin>
+-    <link rel="preload" href="/fonts/Aeonik-Medium.woff2" as="font" type="font/woff2" crossorigin>
+-    <link rel="preload" href="/fonts/Aeonik-Regular.woff2" as="font" type="font/woff2" crossorigin>
+ 
+-    <link rel="preconnect" href="https://fonts.googleapis.com">
+-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
++<head>
++  <meta charset="UTF-8" />
++  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+-    <!-- SEO Meta Tags -->
+-    <title>BRACU Diganta | Aerospace & CanSat Research</title>
+-    <meta name="description" content="BRAC University's autonomous student-led aerospace research team designing, building, and launching sophisticated CanSat systems.">
+-    <meta name="theme-color" content="#030508">
+-    
+-    <!-- Open Graph -->
+-    <meta property="og:title" content="BRACU Diganta">
+-    <meta property="og:description" content="Democratizing space, one launch at a time.">
+-    <meta property="og:type" content="website">
+-  </head>
+-  <body class="bg-[#eef2f5] antialiased">
+-    <div id="root"></div>
+-    <script type="module" src="/src/main.tsx"></script>
+-  </body>
+-</html>
++  <!-- Preload fonts to prevent FOUT -->
++  <link rel="preload" href="/fonts/Aeonik-Black.woff2" as="font" type="font/woff2" crossorigin>
++  <link rel="preload" href="/fonts/Aeonik-Bold.woff2" as="font" type="font/woff2" crossorigin>
++  <link rel="preload" href="/fonts/Aeonik-Medium.woff2" as="font" type="font/woff2" crossorigin>
++  <link rel="preload" href="/fonts/Aeonik-Regular.woff2" as="font" type="font/woff2" crossorigin>
++
++  <link rel="preconnect" href="https://fonts.googleapis.com">
++  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
++
++  <!-- SEO Meta Tags -->
++  <title>BRACU Diganta | Aerospace & CanSat Research</title>
++  <meta name="description"
++    content="BRAC University's autonomous student-led aerospace research team designing, building, and launching sophisticated CanSat systems.">
++  <meta name="theme-color" content="#030508">
++
++  <!-- Open Graph -->
++  <meta property="og:title" content="BRACU Diganta">
++  <meta property="og:description" content="Democratizing space, one launch at a time.">
++  <meta property="og:type" content="website">
++</head>
++
++<body class="bg-[#eef2f5] antialiased">
++  <div id="root"></div>
++  <script type="module" src="/src/main.tsx"></script>
++</body>
++
++</html>
+\ No newline at end of file
+diff --git a/package-lock.json b/package-lock.json
+index 5268f20..4257b98 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -9,11 +9,14 @@
+       "version": "0.0.0",
+       "dependencies": {
+         "@studio-freight/lenis": "^1.0.42",
++        "daisyui": "^5.5.23",
++        "framer-motion": "^12.40.0",
+         "gsap": "^3.15.0",
+         "lenis": "^1.3.23",
+         "lucide-react": "^1.16.0",
+         "react": "^19.2.6",
+-        "react-dom": "^19.2.6"
++        "react-dom": "^19.2.6",
++        "react-router-dom": "^7.17.0"
+       },
+       "devDependencies": {
+         "@eslint/js": "^10.0.1",
+@@ -289,9 +292,9 @@
+       }
+     },
+     "node_modules/@emnapi/wasi-threads": {
+-      "version": "1.2.1",
+-      "resolved": "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.1.tgz",
+-      "integrity": "sha512-uTII7OYF+/Mes/MrcIOYp5yOtSMLBWSIoLPpcgwipoiKbli6k322tcoFsxoIIxPDqW01SQGAgko4EzZi2BNv2w==",
++      "version": "1.2.2",
++      "resolved": "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.2.tgz",
++      "integrity": "sha512-c95qOXkHdydNKhscBTebqEC1CVAZpyqOfVfBzQ1qgzyl3gfeldUjIggDbIZgDKsHLgnsM+igH7TJ/eAasaVuMA==",
+       "dev": true,
+       "license": "MIT",
+       "optional": true,
+@@ -833,6 +836,40 @@
+         "node": "^20.19.0 || >=22.12.0"
+       }
+     },
++    "node_modules/@rolldown/binding-wasm32-wasi/node_modules/@emnapi/core": {
++      "version": "1.10.0",
++      "resolved": "https://registry.npmjs.org/@emnapi/core/-/core-1.10.0.tgz",
++      "integrity": "sha512-yq6OkJ4p82CAfPl0u9mQebQHKPJkY7WrIuk205cTYnYe+k2Z8YBh11FrbRG/H6ihirqcacOgl2BIO8oyMQLeXw==",
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "dependencies": {
++        "@emnapi/wasi-threads": "1.2.1",
++        "tslib": "^2.4.0"
++      }
++    },
++    "node_modules/@rolldown/binding-wasm32-wasi/node_modules/@emnapi/runtime": {
++      "version": "1.10.0",
++      "resolved": "https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.10.0.tgz",
++      "integrity": "sha512-ewvYlk86xUoGI0zQRNq/mC+16R1QeDlKQy21Ki3oSYXNgLb45GV1P6A0M+/s6nyCuNDqe5VpaY84BzXGwVbwFA==",
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "dependencies": {
++        "tslib": "^2.4.0"
++      }
++    },
++    "node_modules/@rolldown/binding-wasm32-wasi/node_modules/@emnapi/wasi-threads": {
++      "version": "1.2.1",
++      "resolved": "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.1.tgz",
++      "integrity": "sha512-uTII7OYF+/Mes/MrcIOYp5yOtSMLBWSIoLPpcgwipoiKbli6k322tcoFsxoIIxPDqW01SQGAgko4EzZi2BNv2w==",
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "dependencies": {
++        "tslib": "^2.4.0"
++      }
++    },
+     "node_modules/@rolldown/binding-win32-arm64-msvc": {
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/@rolldown/binding-win32-arm64-msvc/-/binding-win32-arm64-msvc-1.0.2.tgz",
+@@ -1802,6 +1839,19 @@
+       "dev": true,
+       "license": "MIT"
+     },
++    "node_modules/cookie": {
++      "version": "1.1.1",
++      "resolved": "https://registry.npmjs.org/cookie/-/cookie-1.1.1.tgz",
++      "integrity": "sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=18"
++      },
++      "funding": {
++        "type": "opencollective",
++        "url": "https://opencollective.com/express"
++      }
++    },
+     "node_modules/cross-spawn": {
+       "version": "7.0.6",
+       "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz",
+@@ -1837,6 +1887,15 @@
+       "dev": true,
+       "license": "MIT"
+     },
++    "node_modules/daisyui": {
++      "version": "5.5.23",
++      "resolved": "https://registry.npmjs.org/daisyui/-/daisyui-5.5.23.tgz",
++      "integrity": "sha512-xuheNUSL4T6ZVtWXoioqcNkjoyGX85QTDz4HTw2aBPfqk4fuMjax5HDo8qCmpV6M1YN8bGvfx5BpYCoDeRlt+A==",
++      "license": "MIT",
++      "funding": {
++        "url": "https://github.com/saadeghi/daisyui?sponsor=1"
++      }
++    },
+     "node_modules/debug": {
+       "version": "4.4.3",
+       "resolved": "https://registry.npmjs.org/debug/-/debug-4.4.3.tgz",
+@@ -2280,6 +2339,33 @@
+         "url": "https://github.com/sponsors/rawify"
+       }
+     },
++    "node_modules/framer-motion": {
++      "version": "12.40.0",
++      "resolved": "https://registry.npmjs.org/framer-motion/-/framer-motion-12.40.0.tgz",
++      "integrity": "sha512-uaBd3qC1v3KQqBEjwTUd183K6PbS+j0yR9w9VmEOLWA/tnUcSn8Xa3uck7t4dgpDoUss8xQTcj8W2L07lrnLFg==",
++      "license": "MIT",
++      "dependencies": {
++        "motion-dom": "^12.40.0",
++        "motion-utils": "^12.39.0",
++        "tslib": "^2.4.0"
++      },
++      "peerDependencies": {
++        "@emotion/is-prop-valid": "*",
++        "react": "^18.0.0 || ^19.0.0",
++        "react-dom": "^18.0.0 || ^19.0.0"
++      },
++      "peerDependenciesMeta": {
++        "@emotion/is-prop-valid": {
++          "optional": true
++        },
++        "react": {
++          "optional": true
++        },
++        "react-dom": {
++          "optional": true
++        }
++      }
++    },
+     "node_modules/fsevents": {
+       "version": "2.3.3",
+       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
+@@ -2971,6 +3057,21 @@
+         "url": "https://github.com/sponsors/isaacs"
+       }
+     },
++    "node_modules/motion-dom": {
++      "version": "12.40.0",
++      "resolved": "https://registry.npmjs.org/motion-dom/-/motion-dom-12.40.0.tgz",
++      "integrity": "sha512-HxU3ZaBwNPVQUBQf1xxgq+7JrPNZvjLVxgbpEZL7RrWJnsxOf0/OM+yrHG9ogLQ31Do/r57Oz2gQWPK+6q62mg==",
++      "license": "MIT",
++      "dependencies": {
++        "motion-utils": "^12.39.0"
++      }
++    },
++    "node_modules/motion-utils": {
++      "version": "12.39.0",
++      "resolved": "https://registry.npmjs.org/motion-utils/-/motion-utils-12.39.0.tgz",
++      "integrity": "sha512-8nadJAJjTtqRkmRF36FoJTrywK9nnFmnPwnSMyxaOCU7GDjN9RTMJIxx9De8ErM+vpPhMccr/6fo5WciyQLnMQ==",
++      "license": "MIT"
++    },
+     "node_modules/ms": {
+       "version": "2.1.3",
+       "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",
+@@ -3394,6 +3495,7 @@
+       "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-19.2.6.tgz",
+       "integrity": "sha512-0prMI+hvBbPjsWnxDLxlCGyM8PN6UuWjEUCYmZhO67xIV9Xasa/r/vDnq+Xyq4Lo27g8QSbO5YzARu0D1Sps3g==",
+       "license": "MIT",
++      "peer": true,
+       "dependencies": {
+         "scheduler": "^0.27.0"
+       },
+@@ -3401,6 +3503,44 @@
+         "react": "^19.2.6"
+       }
+     },
++    "node_modules/react-router": {
++      "version": "7.17.0",
++      "resolved": "https://registry.npmjs.org/react-router/-/react-router-7.17.0.tgz",
++      "integrity": "sha512-FDELK7rTMlCHO5+reyXsPlmfr7N1F91lPHsWYfMEGQm/KQ+F4JFM8jGoeQDmDvdTs93Fw9aSilH+uKRb4/jXvQ==",
++      "license": "MIT",
++      "dependencies": {
++        "cookie": "^1.0.1",
++        "set-cookie-parser": "^2.6.0"
++      },
++      "engines": {
++        "node": ">=20.0.0"
++      },
++      "peerDependencies": {
++        "react": ">=18",
++        "react-dom": ">=18"
++      },
++      "peerDependenciesMeta": {
++        "react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/react-router-dom": {
++      "version": "7.17.0",
++      "resolved": "https://registry.npmjs.org/react-router-dom/-/react-router-dom-7.17.0.tgz",
++      "integrity": "sha512-fyU2yjGups/hE6Xz0I5ZYbVL8Gx29eCjgpHaRaTaVU+OOAdfRX05KsvyRm0GO8YQwOkhpU3MurW1jyMUJn+zSw==",
++      "license": "MIT",
++      "dependencies": {
++        "react-router": "7.17.0"
++      },
++      "engines": {
++        "node": ">=20.0.0"
++      },
++      "peerDependencies": {
++        "react": ">=18",
++        "react-dom": ">=18"
++      }
++    },
+     "node_modules/read-cache": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/read-cache/-/read-cache-1.0.0.tgz",
+@@ -3544,6 +3684,12 @@
+         "semver": "bin/semver.js"
+       }
+     },
++    "node_modules/set-cookie-parser": {
++      "version": "2.7.2",
++      "resolved": "https://registry.npmjs.org/set-cookie-parser/-/set-cookie-parser-2.7.2.tgz",
++      "integrity": "sha512-oeM1lpU/UvhTxw+g3cIfxXHyJRc/uidd3yK1P242gzHds0udQBYzs3y8j4gCCW+ZJ7ad0yctld8RYO+bdurlvw==",
++      "license": "MIT"
++    },
+     "node_modules/shebang-command": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+@@ -3752,9 +3898,7 @@
+       "version": "2.8.1",
+       "resolved": "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz",
+       "integrity": "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==",
+-      "dev": true,
+-      "license": "0BSD",
+-      "optional": true
++      "license": "0BSD"
+     },
+     "node_modules/type-check": {
+       "version": "0.4.0",
+diff --git a/package.json b/package.json
+index 94b4f5a..c6bfbf7 100644
+--- a/package.json
++++ b/package.json
+@@ -11,11 +11,14 @@
+   },
+   "dependencies": {
+     "@studio-freight/lenis": "^1.0.42",
++    "daisyui": "^5.5.23",
++    "framer-motion": "^12.40.0",
+     "gsap": "^3.15.0",
+     "lenis": "^1.3.23",
+     "lucide-react": "^1.16.0",
+     "react": "^19.2.6",
+-    "react-dom": "^19.2.6"
++    "react-dom": "^19.2.6",
++    "react-router-dom": "^7.17.0"
+   },
+   "devDependencies": {
+     "@eslint/js": "^10.0.1",
+diff --git a/src/App.tsx b/src/App.tsx
+index acdd775..889afc9 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -1,46 +1,15 @@
+-import { useState, useCallback } from 'react';
+-import { SmoothScroll } from './components/SmoothScroll';
+-import { Navbar } from './components/Navbar';
+-import { SequenceSection } from './components/SequenceSection';
+-import { Overview } from './components/sections/Overview';
+-import { Projects } from './components/sections/Projects';
+-import { Achievements } from './components/sections/Achievements';
+-import { Team } from './components/sections/Team';
+-import { Contact } from './components/sections/Contact';
+-import { Footer } from './components/sections/Footer';
+-import { LoadingPage } from './components/pages';
++import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
++import { HomePage } from './components/pages/HomePage';
++import { CansatPage } from './components/pages/CansatPage';
+ 
+ function App() {
+-  const [isLoading, setIsLoading] = useState(true);
+-
+-  const handleLoadingComplete = useCallback(() => {
+-    setIsLoading(false);
+-  }, []);
+-
+   return (
+-    <>
+-      {isLoading && <LoadingPage onComplete={handleLoadingComplete} />}
+-
+-      <div className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
+-        <SmoothScroll>
+-          <div className="min-h-screen font-aeonik overflow-x-hidden bg-[#eef2f5]">
+-            <Navbar />
+-            <main>
+-              <SequenceSection />
+-              
+-              <div className="relative z-20 bg-[#eef2f5] rounded-t-[3rem] -mt-12 overflow-hidden shadow-[0_-20px_40px_rgba(0,0,0,0.05)]">
+-                <Overview />
+-                <Projects />
+-                <Achievements />
+-                <Team />
+-                <Contact />
+-              </div>
+-            </main>
+-            <Footer />
+-          </div>
+-        </SmoothScroll>
+-      </div>
+-    </>
++    <Router>
++      <Routes>
++        <Route path="/" element={<HomePage />} />
++        <Route path="/project/cansat-2024" element={<CansatPage />} />
++      </Routes>
++    </Router>
+   );
+ }
+ 
+diff --git a/src/components/Navbar.tsx b/src/components/Navbar.tsx
+index d7c883e..076b45c 100644
+--- a/src/components/Navbar.tsx
++++ b/src/components/Navbar.tsx
+@@ -120,11 +120,11 @@ export const Navbar: React.FC = () => {
+             onClick={scrollToTop}
+           >
+             {/* MASSIVE SIZING */}
+-            <img 
+-              src="/Diganta%20Logo.png" 
+-              alt="BRACU Diganta Logo" 
+-              className={`object-contain transition-all duration-700 -mt-6 md:-mt-10 ${scrolled ? 'h-32 md:h-40' : 'h-40 md:h-60'}`} 
+-              style={{ mixBlendMode: 'multiply', clipPath: 'inset(15% 0 15% 0)' }} 
++            <img
++              src="/Diganta%20Logo.png"
++              alt="BRACU Diganta Logo"
++              className={`object-contain transition-all duration-700 -mt-6 md:-mt-10 ${scrolled ? 'h-32 md:h-40' : 'h-40 md:h-60'}`}
++              style={{ mixBlendMode: 'multiply', clipPath: 'inset(15% 0 15% 0)' }}
+             />
+           </div>
+         </div>
+@@ -135,7 +135,7 @@ export const Navbar: React.FC = () => {
+           onMouseLeave={handleLinkLeave}
+           className={`pointer-events-auto hidden lg:flex items-center gap-1 transition-all duration-700 rounded-full p-1.5 relative ${scrolled
+             ? 'bg-white/30 backdrop-blur-2xl backdrop-saturate-[2.0] border border-white/50 shadow-[0_8px_32px_rgba(37,99,235,0.15)] opacity-100 translate-y-0'
+-            : 'bg-transparent border-transparent opacity-0 -translate-y-4'
++            : 'bg-transparent border-transparent opacity-100 translate-y-0'
+             }`}>
+           {/* Sliding Magic Highlight Pill */}
+           <div
+@@ -164,8 +164,7 @@ export const Navbar: React.FC = () => {
+         </div>
+ 
+         {/* 3. CTA PILL */}
+-        <div className={`pointer-events-auto hidden lg:block transition-all duration-700 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+-          }`}>
++        <div className="pointer-events-auto hidden lg:block transition-all duration-700 opacity-100 translate-y-0">
+           <div
+             ref={ctaMagnetic.ref}
+             onMouseMove={ctaMagnetic.handleMouseMove}
+@@ -187,7 +186,7 @@ export const Navbar: React.FC = () => {
+         {/* Mobile Menu Toggle */}
+         <div className={`pointer-events-auto lg:hidden flex items-center transition-all duration-500 rounded-full z-50 ${scrolled || mobileMenuOpen
+           ? 'bg-white/30 backdrop-blur-2xl border border-white/50 shadow-sm p-2 opacity-100'
+-          : 'opacity-0 pointer-events-none p-2'
++          : 'opacity-100 p-2'
+           }`}>
+           <button
+             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+diff --git a/src/components/sections/Achievements.tsx b/src/components/sections/Achievements.tsx
+index 954a270..c3c5afd 100644
+--- a/src/components/sections/Achievements.tsx
++++ b/src/components/sections/Achievements.tsx
+@@ -6,52 +6,52 @@ import { Activity, Radio, Cpu, Award } from 'lucide-react';
+ gsap.registerPlugin(ScrollTrigger);
+ 
+ const NEWS_UPDATES = [
+-  { 
+-    id: 1, 
++  {
++    id: 1,
+     day: '24',
+     month: 'OCT',
+     year: '2024',
+-    category: 'COMPETITION', 
+-    title: 'National CanSat Champions', 
++    category: 'COMPETITION',
++    title: 'National CanSat Champions',
+     desc: 'Bracu-Diganta secures 1st place overall, demonstrating unprecedented telemetry accuracy and perfect payload recovery.',
+     icon: Award,
+     image: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=1600&auto=format&fit=crop',
+     color: 'from-blue-500 to-cyan-400',
+     maskClass: 'rounded-[2rem] md:rounded-[3rem] md:rounded-tr-[12rem]' // Sweeping top-right corner
+   },
+-  { 
+-    id: 2, 
++  {
++    id: 2,
+     day: '12',
+     month: 'SEP',
+     year: '2024',
+-    category: 'ENGINEERING', 
+-    title: 'Next-Gen Avionics Tested', 
++    category: 'ENGINEERING',
++    title: 'Next-Gen Avionics Tested',
+     desc: 'Successfully integrated our proprietary flight computer featuring dual-redundant sensors and a long-range LoRa module.',
+     icon: Cpu,
+     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop',
+     color: 'from-emerald-500 to-teal-400',
+     maskClass: 'rounded-[2rem] rounded-t-[8rem] md:rounded-t-[20rem]' // Arch window shape
+   },
+-  { 
+-    id: 3, 
++  {
++    id: 3,
+     day: '05',
+     month: 'AUG',
+     year: '2024',
+-    category: 'LAUNCH LOG', 
+-    title: 'Sub-Orbital Flight Alpha', 
++    category: 'LAUNCH LOG',
++    title: 'Sub-Orbital Flight Alpha',
+     desc: 'Atmospheric deployment executed perfectly at 10,000 ft. Parachutes deployed nominally with 100% data retention.',
+     icon: Activity,
+     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop',
+     color: 'from-purple-500 to-pink-400',
+     maskClass: 'rounded-[2rem] rounded-tl-[6rem] rounded-br-[6rem] md:rounded-tl-[12rem] md:rounded-br-[12rem]' // Aerodynamic leaf shape
+   },
+-  { 
+-    id: 4, 
++  {
++    id: 4,
+     day: '18',
+     month: 'JUN',
+     year: '2024',
+-    category: 'COMMUNITY', 
+-    title: 'Global Aerospace Summit', 
++    category: 'COMMUNITY',
++    title: 'Global Aerospace Summit',
+     desc: 'Our leads presented Diganta’s modular rocket architecture to international researchers, earning the prestigious Innovation Award.',
+     icon: Radio,
+     image: 'https://images.unsplash.com/photo-1506443432602-ac2fcd6f54e0?q=80&w=1600&auto=format&fit=crop',
+@@ -68,19 +68,22 @@ export const Achievements: React.FC = () => {
+     if (!containerRef.current || !scrollWrapperRef.current) return;
+ 
+     const ctx = gsap.context(() => {
+-      const sections = gsap.utils.toArray('.h-slide');
+-
+       // Calculate total horizontal scroll width
+       const scrollWidth = scrollWrapperRef.current!.scrollWidth - window.innerWidth;
+ 
+-      gsap.to(sections, {
+-        xPercent: -100 * (sections.length - 1),
++      // PERFORMANCE BOOST: Animate the single wrapper container instead of individual elements
++      gsap.to(scrollWrapperRef.current, {
++        x: -scrollWidth,
+         ease: 'none',
+         scrollTrigger: {
+           trigger: containerRef.current,
+           pin: true,
+-          scrub: 1,
+-          snap: 1 / (sections.length - 1), // Snaps gracefully to each section
++          scrub: 0.5, // Smoother scrubbing response
++          snap: {
++            snapTo: 1 / (NEWS_UPDATES.length - 1),
++            duration: { min: 0.2, max: 0.5 },
++            ease: "power1.inOut"
++          },
+           end: () => `+=${scrollWidth}`,
+         }
+       });
+@@ -90,101 +93,98 @@ export const Achievements: React.FC = () => {
+   }, []);
+ 
+   return (
+-    <section 
+-      id="achievements" 
+-      ref={containerRef} 
++    <section
++      id="achievements"
++      ref={containerRef}
+       className="relative bg-[#f8fafc] h-screen overflow-hidden flex items-center"
+     >
+       {/* High-End Background Grid */}
+       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none opacity-50" />
+-      
++
+       {/* Floating Global Header (Stays Fixed) */}
+-      <div className="absolute top-8 left-8 md:top-16 md:left-16 z-50 pointer-events-none">
++      <div className="absolute top-8 left-6 md:top-16 md:left-16 z-50 pointer-events-none">
+         <h2 className="font-orbitron text-2xl md:text-4xl font-black text-slate-900 tracking-widest uppercase">Flight Log</h2>
+-        <div className="flex items-center gap-3 mt-3 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200 w-max shadow-sm">
++        <div className="flex items-center gap-3 mt-3 bg-white/95 md:bg-white/90 md:backdrop-blur-md px-4 py-2 rounded-full border border-slate-200 w-max shadow-sm">
+           <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
+           <span className="font-mono text-[10px] md:text-xs text-blue-600 tracking-[0.3em] font-bold">LIVE TELEMETRY // SECURE</span>
+         </div>
+       </div>
+ 
+-      {/* Horizontal Scroll Wrapper */}
+-      <div ref={scrollWrapperRef} className="flex h-full w-[400vw]">
++      {/* Horizontal Scroll Wrapper - Optimized for hardware acceleration */}
++      <div ref={scrollWrapperRef} className="flex h-full w-[400vw] will-change-transform transform-gpu">
+         {NEWS_UPDATES.map((item) => (
+-          <div key={item.id} className="h-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-8 md:p-24 relative">
+-             
+-             {/* Huge background number graphic */}
+-             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-orbitron text-[50vw] font-black text-slate-900/[0.03] pointer-events-none z-0 leading-none">
+-                0{item.id}
+-             </div>
+-             
+-             {/* Left Column: Cinematic Image Panel */}
+-             <div 
+-                className={`w-full md:w-[45%] h-[40vh] md:h-[70vh] relative z-10 overflow-hidden border border-slate-200 group shadow-[0_30px_60px_rgba(0,0,0,0.1)] mt-24 md:mt-0 ${item.maskClass}`}
+-                style={{
+-                  // Fixes WebKit bug where border-radius disappears during child transform transitions
+-                  transform: 'translateZ(0)',
+-                  WebkitMaskImage: '-webkit-radial-gradient(white, black)'
+-                }}
+-             >
+-                <img src={item.image} className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s] grayscale opacity-90 mix-blend-multiply" />
+-                <div className={`absolute inset-0 bg-gradient-to-tr ${item.color} opacity-10 mix-blend-multiply`} />
+-                
+-                {/* Image Overlay HUD */}
+-                <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-xl border border-slate-200 px-5 py-2.5 rounded-full flex items-center gap-3 shadow-sm">
+-                   <item.icon size={16} className="text-blue-600" />
+-                   <span className="text-slate-900 font-mono text-[10px] tracking-[0.2em] uppercase font-bold">{item.category}</span>
++          <div key={item.id} className="h-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-24 relative">
++
++            {/* Huge background number graphic */}
++            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-orbitron text-[45vw] md:text-[50vw] font-black text-slate-900/[0.03] pointer-events-none z-0 leading-none">
++              0{item.id}
++            </div>
++
++            {/* Left Column: Cinematic Image Panel */}
++            <div
++              className={`w-full md:w-[45%] h-[40vh] md:h-[70vh] relative z-10 overflow-hidden border border-slate-200 group shadow-[0_20px_40px_rgba(0,0,0,0.08)] mt-24 md:mt-0 ${item.maskClass} transform-gpu`}
++            >
++              {/* PERFORMANCE BOOST: Removed mix-blend-multiply, WebKit mask, and grayscale for extreme mobile smoothness */}
++              <img src={item.image} className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s]" />
++              <div className={`absolute inset-0 bg-gradient-to-tr ${item.color} opacity-20 pointer-events-none`} />
++              <div className="absolute inset-0 bg-black/10 pointer-events-none" />
++
++              {/* Image Overlay HUD */}
++              <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-white/95 md:bg-white/90 md:backdrop-blur-xl border border-slate-200 px-4 md:px-5 py-2 md:py-2.5 rounded-full flex items-center gap-2 md:gap-3 shadow-sm">
++                <item.icon size={16} className="text-blue-600" />
++                <span className="text-slate-900 font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-bold">{item.category}</span>
++              </div>
++
++              {/* Decorative Crosshair */}
++              <div className="absolute inset-0 pointer-events-none hidden md:block">
++                <div className="absolute top-1/2 left-0 w-4 h-[1px] bg-white/50" />
++                <div className="absolute top-1/2 right-0 w-4 h-[1px] bg-white/50" />
++                <div className="absolute top-0 left-1/2 w-[1px] h-4 bg-white/50" />
++                <div className="absolute bottom-0 left-1/2 w-[1px] h-4 bg-white/50" />
++              </div>
++            </div>
++
++            {/* Right Column: Data & Typography */}
++            <div className="w-full md:w-[55%] relative z-10 mt-6 md:mt-0 md:pl-24 flex flex-col justify-center">
++
++              <div className="flex items-end gap-4 md:gap-6 mb-4 md:mb-8">
++                <span className="font-orbitron text-6xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-slate-900 to-slate-400 leading-none">
++                  {item.day}
++                </span>
++                <div className="flex flex-col pb-1 md:pb-4">
++                  <span className="font-orbitron text-2xl md:text-4xl text-blue-600 tracking-widest uppercase font-bold leading-none">{item.month}</span>
++                  <span className="font-mono text-[10px] md:text-sm text-slate-500 tracking-[0.3em] font-bold mt-1 md:mt-2">{item.year}</span>
+                 </div>
+-                
+-                {/* Decorative Crosshair */}
+-                <div className="absolute inset-0 pointer-events-none">
+-                   <div className="absolute top-1/2 left-0 w-4 h-[1px] bg-slate-400" />
+-                   <div className="absolute top-1/2 right-0 w-4 h-[1px] bg-slate-400" />
+-                   <div className="absolute top-0 left-1/2 w-[1px] h-4 bg-slate-400" />
+-                   <div className="absolute bottom-0 left-1/2 w-[1px] h-4 bg-slate-400" />
++              </div>
++
++              <h3 className="font-orbitron text-2xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.1] mb-3 md:mb-8 tracking-tight uppercase max-w-2xl">
++                {item.title}
++              </h3>
++
++              <p className="text-slate-600 text-sm md:text-xl max-w-xl leading-relaxed font-medium mb-6 md:mb-12">
++                {item.desc}
++              </p>
++
++              {/* Tech Specs Grid */}
++              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 border-t border-slate-200 pt-6 md:pt-8 max-w-xl">
++                <div>
++                  <span className="block font-mono text-[9px] md:text-xs text-slate-500 tracking-[0.2em] mb-1 md:mb-2 uppercase">System Status</span>
++                  <span className="font-orbitron text-xs md:text-base text-slate-900 tracking-widest flex items-center gap-2">
++                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
++                    NOMINAL
++                  </span>
+                 </div>
+-             </div>
+-
+-             {/* Right Column: Data & Typography */}
+-             <div className="w-full md:w-[55%] relative z-10 mt-12 md:mt-0 md:pl-24 flex flex-col justify-center">
+-                
+-                <div className="flex items-end gap-6 mb-8">
+-                   <span className="font-orbitron text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-slate-900 to-slate-400 leading-none">
+-                     {item.day}
+-                   </span>
+-                   <div className="flex flex-col pb-2 md:pb-4">
+-                     <span className="font-orbitron text-3xl md:text-4xl text-blue-600 tracking-widest uppercase font-bold leading-none">{item.month}</span>
+-                     <span className="font-mono text-sm text-slate-500 tracking-[0.3em] font-bold mt-2">{item.year}</span>
+-                   </div>
++                <div>
++                  <span className="block font-mono text-[9px] md:text-xs text-slate-500 tracking-[0.2em] mb-1 md:mb-2 uppercase">Record ID</span>
++                  <span className="font-orbitron text-xs md:text-base text-slate-900 tracking-widest">SYS-{item.id}X9</span>
+                 </div>
+-
+-                <h3 className="font-orbitron text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.1] mb-8 tracking-tight uppercase max-w-2xl">
+-                  {item.title}
+-                </h3>
+-                
+-                <p className="text-slate-600 text-base md:text-xl max-w-xl leading-relaxed font-medium mb-12">
+-                  {item.desc}
+-                </p>
+-
+-                {/* Tech Specs Grid */}
+-                <div className="grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-slate-200 pt-8 max-w-xl">
+-                   <div>
+-                     <span className="block font-mono text-[10px] md:text-xs text-slate-500 tracking-[0.2em] mb-2 uppercase">System Status</span>
+-                     <span className="font-orbitron text-sm md:text-base text-slate-900 tracking-widest flex items-center gap-2">
+-                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+-                       NOMINAL
+-                     </span>
+-                   </div>
+-                   <div>
+-                     <span className="block font-mono text-[10px] md:text-xs text-slate-500 tracking-[0.2em] mb-2 uppercase">Record ID</span>
+-                     <span className="font-orbitron text-sm md:text-base text-slate-900 tracking-widest">SYS-{item.id}X9</span>
+-                   </div>
+-                   <div className="hidden md:block">
+-                     <span className="block font-mono text-[10px] md:text-xs text-slate-500 tracking-[0.2em] mb-2 uppercase">Encryption</span>
+-                     <span className="font-orbitron text-sm md:text-base text-blue-600 tracking-widest">AES-256</span>
+-                   </div>
++                <div className="hidden md:block">
++                  <span className="block font-mono text-[9px] md:text-xs text-slate-500 tracking-[0.2em] mb-1 md:mb-2 uppercase">Encryption</span>
++                  <span className="font-orbitron text-xs md:text-base text-blue-600 tracking-widest">AES-256</span>
+                 </div>
++              </div>
+ 
+-             </div>
++            </div>
+           </div>
+         ))}
+       </div>
+diff --git a/src/components/sections/Contact.tsx b/src/components/sections/Contact.tsx
+index aa41fe0..c4accca 100644
+--- a/src/components/sections/Contact.tsx
++++ b/src/components/sections/Contact.tsx
+@@ -38,7 +38,7 @@ export const Contact: React.FC = () => {
+ 
+   return (
+     <section id="contact" ref={sectionRef} className="py-24 md:py-32 relative bg-[#F4F4F6] overflow-hidden">
+-      
++
+       {/* Background Graphic (Huge Watermark) */}
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] z-0">
+         <h1 className="font-orbitron font-black text-[20vw] text-slate-900 tracking-tighter whitespace-nowrap">
+@@ -47,71 +47,71 @@ export const Contact: React.FC = () => {
+       </div>
+ 
+       <div className="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6">
+-        
++
+         {/* ── Left Column: Widgets ── */}
+         <div className="lg:col-span-5 flex flex-col gap-6">
+-          
++
+           {/* Title Card */}
+           <div className="bento-card bg-white rounded-[2.5rem] p-10 md:p-12 shadow-sm border border-slate-100 flex-1 flex flex-col justify-center">
+             <span className="text-blue-600 font-mono text-xs font-bold tracking-[0.2em] uppercase mb-4">
+               05 // Establish Link
+             </span>
+             <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-4xl xl:text-5xl font-black text-slate-900 uppercase tracking-tighter leading-[0.9] mb-6 break-words">
+-              Start<br/>
++              Start<br />
+               <span className="text-blue-600">Transmission</span>
+             </h2>
+             <p className="text-slate-500 text-base leading-relaxed">
+               Reach out to our command center for sponsorships, team applications, or general inquiries. Our comms are always open.
+             </p>
+           </div>
+-          
++
+           {/* Mini Cards Row */}
+           <div className="grid grid-cols-2 gap-6">
+-             
+-             {/* Email Widget */}
+-             <a 
+-               href="mailto:hello@bracudiganta.com" 
+-               className="bento-card block bg-blue-600 text-white rounded-[2rem] p-8 aspect-square relative overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
+-             >
+-                <div className="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+-                <div className="relative z-10 h-full flex flex-col justify-between">
+-                  <div className="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+-                    <Mail size={24} className="text-white" />
+-                  </div>
+-                  <div>
+-                    <p className="text-xs text-white/70 uppercase tracking-widest font-mono mb-1">Direct Line</p>
+-                    <p className="font-bold text-sm md:text-base leading-tight">hello@<br/>bracudiganta.com</p>
+-                  </div>
++
++            {/* Email Widget */}
++            <a
++              href="mailto:hello@bracudiganta.com"
++              className="bento-card block bg-blue-600 text-white rounded-[2rem] p-8 aspect-square relative overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
++            >
++              <div className="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
++              <div className="relative z-10 h-full flex flex-col justify-between">
++                <div className="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
++                  <Mail size={24} className="text-white" />
+                 </div>
+-             </a>
+-
+-             {/* Location Widget (Interactive Radar) */}
+-             <div className="bento-card bg-white rounded-[2rem] p-8 aspect-square relative overflow-hidden shadow-sm border border-slate-100 group">
+-                
+-                {/* CSS Animated Radar Background */}
+-                <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.2)_1px,transparent_1px)] bg-[size:15px_15px]" />
+-                  <div className="absolute w-[150%] h-[150%] rounded-full border border-blue-500/30" />
+-                  <div className="absolute w-[100%] h-[100%] rounded-full border border-blue-500/40" />
+-                  <div className="absolute w-[50%] h-[50%] rounded-full border border-blue-500/50" />
+-                  <div 
+-                    className="absolute w-full h-full rounded-full origin-center" 
+-                    style={{ background: 'conic-gradient(from 0deg, transparent 75%, rgba(37,99,235,0.4) 100%)', animation: 'radar-spin 3s linear infinite' }} 
+-                  />
+-                  {/* Blip */}
+-                  <div className="absolute w-2 h-2 bg-blue-600 rounded-full top-[40%] right-[30%] shadow-[0_0_10px_rgba(37,99,235,1)] animate-pulse" />
++                <div>
++                  <p className="text-xs text-white/70 uppercase tracking-widest font-mono mb-1">Direct Line</p>
++                  <p className="font-bold text-sm md:text-base leading-tight">hello@<br />bracudiganta.com</p>
+                 </div>
++              </div>
++            </a>
++
++            {/* Location Widget (Interactive Radar) */}
++            <div className="bento-card bg-white rounded-[2rem] p-8 aspect-square relative overflow-hidden shadow-sm border border-slate-100 group">
++
++              {/* CSS Animated Radar Background */}
++              <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
++                <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.2)_1px,transparent_1px)] bg-[size:15px_15px]" />
++                <div className="absolute w-[150%] h-[150%] rounded-full border border-blue-500/30" />
++                <div className="absolute w-[100%] h-[100%] rounded-full border border-blue-500/40" />
++                <div className="absolute w-[50%] h-[50%] rounded-full border border-blue-500/50" />
++                <div
++                  className="absolute w-full h-full rounded-full origin-center"
++                  style={{ background: 'conic-gradient(from 0deg, transparent 75%, rgba(37,99,235,0.4) 100%)', animation: 'radar-spin 3s linear infinite' }}
++                />
++                {/* Blip */}
++                <div className="absolute w-2 h-2 bg-blue-600 rounded-full top-[40%] right-[30%] shadow-[0_0_10px_rgba(37,99,235,1)] animate-pulse" />
++              </div>
+ 
+-                <div className="relative z-10 h-full flex flex-col justify-between pointer-events-none">
+-                  <div className="bg-slate-50 w-12 h-12 rounded-full flex items-center justify-center border border-slate-100">
+-                    <MapPin size={24} className="text-slate-900" />
+-                  </div>
+-                  <div>
+-                    <p className="text-xs text-slate-500 uppercase tracking-widest font-mono mb-1">HQ Coordinates</p>
+-                    <p className="font-bold text-slate-900 text-sm md:text-base leading-tight">BRAC University<br/>Dhaka, BD</p>
+-                  </div>
++              <div className="relative z-10 h-full flex flex-col justify-between pointer-events-none">
++                <div className="bg-slate-50 w-12 h-12 rounded-full flex items-center justify-center border border-slate-100">
++                  <MapPin size={24} className="text-slate-900" />
+                 </div>
+-             </div>
++                <div>
++                  <p className="text-xs text-slate-500 uppercase tracking-widest font-mono mb-1">HQ Coordinates</p>
++                  <p className="font-bold text-slate-900 text-sm md:text-base leading-tight">BRAC University<br />Dhaka, BD</p>
++                </div>
++              </div>
++            </div>
+ 
+           </div>
+         </div>
+@@ -119,28 +119,28 @@ export const Contact: React.FC = () => {
+         {/* ── Right Column: Form Card ── */}
+         <div className="bento-card lg:col-span-7 bg-white rounded-[2.5rem] p-10 md:p-14 shadow-sm border border-slate-100">
+           <form className="flex flex-col gap-8 h-full justify-between" onSubmit={handleSubmit}>
+-            
++
+             <div className="space-y-8">
+               {/* Row 1 */}
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 <div className="flex flex-col gap-3">
+                   <label htmlFor="name" className="text-xs font-bold text-slate-900 uppercase tracking-[0.2em]">Name</label>
+-                  <input 
+-                    type="text" 
++                  <input
++                    type="text"
+                     id="name"
+                     required
+-                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all font-medium" 
+-                    placeholder="John Doe" 
++                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all font-medium"
++                    placeholder="John Doe"
+                   />
+                 </div>
+                 <div className="flex flex-col gap-3">
+                   <label htmlFor="email" className="text-xs font-bold text-slate-900 uppercase tracking-[0.2em]">Email</label>
+-                  <input 
+-                    type="email" 
++                  <input
++                    type="email"
+                     id="email"
+                     required
+-                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all font-medium" 
+-                    placeholder="john@example.com" 
++                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all font-medium"
++                    placeholder="john@example.com"
+                   />
+                 </div>
+               </div>
+@@ -148,29 +148,29 @@ export const Contact: React.FC = () => {
+               {/* Row 2 */}
+               <div className="flex flex-col gap-3">
+                 <label htmlFor="subject" className="text-xs font-bold text-slate-900 uppercase tracking-[0.2em]">Subject</label>
+-                <input 
+-                  type="text" 
++                <input
++                  type="text"
+                   id="subject"
+                   required
+-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all font-medium" 
+-                  placeholder="What is this transmission regarding?" 
++                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all font-medium"
++                  placeholder="What is this transmission regarding?"
+                 />
+               </div>
+ 
+               {/* Row 3 */}
+               <div className="flex flex-col gap-3">
+                 <label htmlFor="message" className="text-xs font-bold text-slate-900 uppercase tracking-[0.2em]">Message Payload</label>
+-                <textarea 
++                <textarea
+                   id="message"
+-                  rows={5} 
++                  rows={5}
+                   required
+-                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all resize-none font-medium" 
+-                  placeholder="Transmit your message details here..." 
++                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 transition-all resize-none font-medium"
++                  placeholder="Transmit your message details here..."
+                 />
+               </div>
+             </div>
+ 
+-            <button 
++            <button
+               type="submit"
+               disabled={formStatus !== 'idle'}
+               className="mt-8 w-full bg-slate-900 text-white font-orbitron font-bold uppercase tracking-[0.2em] py-6 rounded-2xl hover:bg-blue-600 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_15px_40px_rgba(37,99,235,0.3)] disabled:bg-slate-300 disabled:shadow-none flex items-center justify-center gap-3 group"
+@@ -182,10 +182,10 @@ export const Contact: React.FC = () => {
+                 </>
+               )}
+               {formStatus === 'sending' && (
+-                 <>
+-                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+-                   Transmitting...
+-                 </>
++                <>
++                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
++                  Transmitting...
++                </>
+               )}
+               {formStatus === 'sent' && '✓ Link Established'}
+             </button>
+diff --git a/src/components/sections/Overview.tsx b/src/components/sections/Overview.tsx
+index b187e65..cc9b4a0 100644
+--- a/src/components/sections/Overview.tsx
++++ b/src/components/sections/Overview.tsx
+@@ -20,7 +20,7 @@ const MinimalStat: React.FC<{ end: number; suffix?: string; label: string }> = (
+       onEnter: () => {
+         if (hasAnimated.current) return;
+         hasAnimated.current = true;
+-        
++
+         const counter = { val: 0 };
+         gsap.to(counter, {
+           val: end,
+@@ -70,24 +70,13 @@ export const Overview: React.FC = () => {
+           scrollTrigger: { trigger: sectionRef.current, start: 'top 70%' },
+         }
+       );
+-
+-      // Pin the section to create a "pause" while scrolling
+-      ScrollTrigger.create({
+-        trigger: sectionRef.current,
+-        start: 'top top',
+-        end: '+=75%', // pause duration (75% of viewport height)
+-        pin: true,
+-        pinSpacing: true,
+-        anticipatePin: 1,
+-      });
+-
+     }, sectionRef);
+     return () => ctx.revert();
+   }, []);
+ 
+   return (
+     <section id="overview" ref={sectionRef} className="py-24 relative z-10 bg-[#eef2f5] overflow-hidden min-h-screen flex items-center">
+-      
++
+       {/* Massive Background Text */}
+       <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-full overflow-hidden flex justify-center pointer-events-none opacity-[0.03] select-none">
+         <h1 className="font-orbitron font-black text-[18vw] leading-none whitespace-nowrap text-gray-900 tracking-tighter">
+@@ -96,10 +85,10 @@ export const Overview: React.FC = () => {
+       </div>
+ 
+       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full mt-12">
+-        
++
+         {/* Main Split Layout */}
+         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+-          
++
+           {/* Left Column: Narrative & Stats */}
+           <div className="lg:col-span-5 flex flex-col justify-between h-full reveal-elem">
+             <div>
+@@ -109,18 +98,18 @@ export const Overview: React.FC = () => {
+                   AEROSPACE RESEARCH
+                 </span>
+               </div>
+-              
++
+               <h2 className="text-4xl md:text-5xl font-orbitron font-bold text-gray-900 leading-[1.1] mb-6 uppercase tracking-tight">
+-                Pioneering <br/>
++                Pioneering <br />
+                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-cyan-500">
+                   The Exosphere
+                 </span>
+               </h2>
+-              
++
+               <p className="text-gray-500 text-base leading-relaxed mb-10 max-w-md">
+                 We are a student-led engineering team dedicated to democratizing space technology. By developing low-cost, high-reliability modular CanSats, we push the boundaries of atmospheric science and orbital mechanics.
+               </p>
+-              
++
+               <MagneticButton className="inline-flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 rounded-full font-semibold transition-all group">
+                 Download Portfolio
+                 <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+@@ -139,19 +128,19 @@ export const Overview: React.FC = () => {
+           {/* Right Column: Major Announcement & News Card */}
+           <div className="lg:col-span-7 reveal-elem">
+             <div className="relative w-full aspect-[4/5] md:aspect-square bg-gray-900 rounded-[2.5rem] overflow-hidden shadow-2xl group flex flex-col justify-end p-8 md:p-12">
+-              
++
+               {/* Background Image */}
+-              <div 
++              <div
+                 className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                 style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=2070&auto=format&fit=crop")' }}
+               />
+-              
++
+               {/* Dark Gradient Overlay for text readability */}
+               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-gray-900/10 opacity-90 transition-opacity duration-500 group-hover:opacity-80" />
+ 
+               {/* Content Overlay */}
+               <div className="relative z-10 w-full">
+-                
++
+                 <div className="flex justify-between items-start mb-6">
+                   <div className="bg-[#2563EB]/80 backdrop-blur-md border border-[#2563EB] px-3 py-1.5 rounded-2xl flex items-center gap-2">
+                     <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+@@ -160,12 +149,12 @@ export const Overview: React.FC = () => {
+                 </div>
+ 
+                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-orbitron font-bold text-white mb-3 uppercase leading-[1.1]">
+-                  Diganta Selected for <br/>
++                  Diganta Selected for <br />
+                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+                     CANSAT 2026
+                   </span>
+                 </h3>
+-                
++
+                 <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-6 max-w-md">
+                   We are thrilled to announce that Team Diganta has officially qualified for the International CanSat Competition. Our latest modular payload design scored in the top 5% of global submissions.
+                 </p>
+@@ -175,7 +164,7 @@ export const Overview: React.FC = () => {
+                   Read Full Story
+                   <ArrowUpRight size={16} />
+                 </MagneticButton>
+-                
++
+               </div>
+             </div>
+           </div>
+diff --git a/src/components/sections/Projects.tsx b/src/components/sections/Projects.tsx
+index 1fd18e7..7b52045 100644
+--- a/src/components/sections/Projects.tsx
++++ b/src/components/sections/Projects.tsx
+@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
+ import gsap from 'gsap';
+ import { ScrollTrigger } from 'gsap/ScrollTrigger';
+ import { ArrowUpRight, Target, Activity } from 'lucide-react';
++import { useNavigate } from 'react-router-dom';
+ import { MagneticButton } from '../ui/MagneticButton';
+ 
+ gsap.registerPlugin(ScrollTrigger);
+@@ -55,6 +56,7 @@ export const Projects: React.FC = () => {
+   const sectionRef = useRef<HTMLElement>(null);
+   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+   const [activeIndex, setActiveIndex] = useState(0);
++  const navigate = useNavigate();
+ 
+   // Initial Section Reveal
+   useEffect(() => {
+@@ -68,6 +70,15 @@ export const Projects: React.FC = () => {
+           scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' }
+         }
+       );
++
++      gsap.fromTo(
++        '.project-card',
++        { opacity: 0, y: 50, scale: 0.95 },
++        {
++          opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
++          scrollTrigger: { trigger: sectionRef.current, start: 'top 60%' }
++        }
++      );
+     }, sectionRef);
+     return () => ctx.revert();
+   }, []);
+@@ -78,8 +89,8 @@ export const Projects: React.FC = () => {
+     if (!activeContent) return;
+ 
+     const ctx = gsap.context(() => {
+-      gsap.fromTo('.reveal-item', 
+-        { opacity: 0, y: 20 }, 
++      gsap.fromTo('.reveal-item',
++        { opacity: 0, y: 20 },
+         { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'power2.out', delay: 0.3 }
+       );
+     }, activeContent);
+@@ -90,7 +101,7 @@ export const Projects: React.FC = () => {
+   return (
+     <section id="projects" ref={sectionRef} className="py-24 relative z-10 bg-[#eef2f5]">
+       <div className="max-w-7xl mx-auto px-6 md:px-8">
+-        
++
+         {/* Header */}
+         <div className="archive-header flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8">
+           <div>
+@@ -104,7 +115,7 @@ export const Projects: React.FC = () => {
+               Project <br /> Showcase
+             </h2>
+           </div>
+-          
++
+           <MagneticButton className="hidden md:flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 rounded-full text-sm font-semibold transition-all">
+             View All Missions <ArrowUpRight size={16} />
+           </MagneticButton>
+@@ -114,22 +125,28 @@ export const Projects: React.FC = () => {
+         <div className="archive-header w-full h-[800px] lg:h-[600px] flex flex-col lg:flex-row gap-4">
+           {projects.map((project, index) => {
+             const isActive = activeIndex === index;
+-            
++
+             return (
+-              <div 
++              <div
+                 key={project.id}
+                 onMouseEnter={() => setActiveIndex(index)}
+-                onClick={() => setActiveIndex(index)}
+-                className={`group relative overflow-hidden rounded-[2rem] transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer
++                onClick={() => {
++                  if (project.title === 'CANSAT 2024') {
++                    navigate('/project/cansat-2024');
++                  } else {
++                    setActiveIndex(index);
++                  }
++                }}
++                className={`project-card group relative overflow-hidden rounded-[2rem] transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer
+                   ${isActive ? 'lg:flex-[3] flex-[4] shadow-2xl' : 'lg:flex-[1] flex-[1] grayscale-[50%] hover:grayscale-0'}`}
+               >
+                 {/* Background Image */}
+-                <img 
+-                  src={project.image} 
++                <img
++                  src={project.image}
+                   alt={project.title}
+                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                 />
+-                
++
+                 {/* Dark Overlays */}
+                 <div className={`absolute inset-0 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/80 to-transparent lg:via-[#0a0a0c]/60" />
+@@ -149,11 +166,11 @@ export const Projects: React.FC = () => {
+                 </div>
+ 
+                 {/* --- ACTIVE STATE CONTENT --- */}
+-                <div 
++                <div
+                   ref={el => { contentRefs.current[index] = el; }}
+                   className={`absolute inset-0 p-6 md:p-8 lg:p-12 flex flex-col justify-end transition-opacity duration-500 ${isActive ? 'opacity-100 delay-200' : 'opacity-0 pointer-events-none'}`}
+                 >
+-                  
++
+                   {/* Top Meta Data */}
+                   <div className="reveal-item flex items-center gap-3 mb-auto">
+                     <div className="bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 text-white">
+@@ -164,7 +181,7 @@ export const Projects: React.FC = () => {
+ 
+                   {/* Bottom Content Area */}
+                   <div className="max-w-2xl mt-auto">
+-                    
++
+                     <div className="reveal-item flex items-center gap-3 mb-4">
+                       <span className="text-[10px] font-mono tracking-widest text-[#2563EB] uppercase font-bold">
+                         {project.category}
+@@ -174,17 +191,17 @@ export const Projects: React.FC = () => {
+                         {project.date}
+                       </span>
+                     </div>
+-                    
++
+                     <h3 className="reveal-item font-orbitron text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 uppercase tracking-tighter leading-none">
+                       {project.title}
+                     </h3>
+-                    
++
+                     <p className="reveal-item text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-lg hidden md:block">
+                       {project.description}
+                     </p>
+ 
+                     <div className="reveal-item flex flex-col sm:flex-row sm:items-center gap-6 justify-between border-t border-gray-800/60 pt-6">
+-                      
++
+                       {/* Stats */}
+                       <div className="flex items-center gap-8">
+                         {project.stats.map((stat, idx) => (
+@@ -203,8 +220,16 @@ export const Projects: React.FC = () => {
+                             {project.status}
+                           </span>
+                         </div>
+-                        
+-                        <button className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors">
++
++                        <button
++                          className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"
++                          onClick={(e) => {
++                            if (project.title === 'CANSAT 2024') {
++                              e.stopPropagation();
++                              navigate('/project/cansat-2024');
++                            }
++                          }}
++                        >
+                           <ArrowUpRight size={16} />
+                         </button>
+                       </div>
+@@ -213,7 +238,7 @@ export const Projects: React.FC = () => {
+                   </div>
+ 
+                 </div>
+-                
++
+                 {/* Decorative Target crosshairs on Active */}
+                 {isActive && (
+                   <div className="absolute top-8 right-8 pointer-events-none hidden lg:block">
+@@ -223,7 +248,7 @@ export const Projects: React.FC = () => {
+                     </div>
+                   </div>
+                 )}
+-                
++
+               </div>
+             );
+           })}
+diff --git a/src/components/sections/Team.tsx b/src/components/sections/Team.tsx
+index 59db1c1..7f241c3 100644
+--- a/src/components/sections/Team.tsx
++++ b/src/components/sections/Team.tsx
+@@ -27,12 +27,12 @@ const teamHierarchy = {
+ const crewData = [
+   { ...teamHierarchy.advisors[0], col: 'col-span-12 md:col-span-6 lg:col-span-6', height: 'h-[300px]', tier: 'LVL-5 // ADVISOR' },
+   { ...teamHierarchy.advisors[1], col: 'col-span-12 md:col-span-6 lg:col-span-6', height: 'h-[300px]', tier: 'LVL-5 // ADVISOR' },
+-  { ...teamHierarchy.lead,        col: 'col-span-12 md:col-span-12 lg:col-span-4', height: 'h-[400px]', tier: 'LVL-4 // COMMAND' },
+-  { ...teamHierarchy.core[0],     col: 'col-span-12 md:col-span-6 lg:col-span-4',  height: 'h-[400px]', tier: 'LVL-3 // CORE' },
+-  { ...teamHierarchy.core[1],     col: 'col-span-12 md:col-span-6 lg:col-span-4',  height: 'h-[400px]', tier: 'LVL-3 // CORE' },
+-  { ...teamHierarchy.core[2],     col: 'col-span-12 md:col-span-12 lg:col-span-6', height: 'h-[300px]', tier: 'LVL-3 // CORE' },
+-  { ...teamHierarchy.alumni[0],   col: 'col-span-12 md:col-span-6 lg:col-span-3',  height: 'h-[300px]', tier: 'LVL-X // ALUMNI' },
+-  { ...teamHierarchy.alumni[1],   col: 'col-span-12 md:col-span-6 lg:col-span-3',  height: 'h-[300px]', tier: 'LVL-X // ALUMNI' },
++  { ...teamHierarchy.lead, col: 'col-span-12 md:col-span-12 lg:col-span-4', height: 'h-[400px]', tier: 'LVL-4 // COMMAND' },
++  { ...teamHierarchy.core[0], col: 'col-span-12 md:col-span-6 lg:col-span-4', height: 'h-[400px]', tier: 'LVL-3 // CORE' },
++  { ...teamHierarchy.core[1], col: 'col-span-12 md:col-span-6 lg:col-span-4', height: 'h-[400px]', tier: 'LVL-3 // CORE' },
++  { ...teamHierarchy.core[2], col: 'col-span-12 md:col-span-12 lg:col-span-6', height: 'h-[300px]', tier: 'LVL-3 // CORE' },
++  { ...teamHierarchy.alumni[0], col: 'col-span-12 md:col-span-6 lg:col-span-3', height: 'h-[300px]', tier: 'LVL-X // ALUMNI' },
++  { ...teamHierarchy.alumni[1], col: 'col-span-12 md:col-span-6 lg:col-span-3', height: 'h-[300px]', tier: 'LVL-X // ALUMNI' },
+ ];
+ 
+ // Sci-Fi Chamfered corner clip-path
+@@ -40,25 +40,25 @@ const sciFiClip = 'polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 2
+ 
+ const CrewCard = ({ member }: { member: typeof crewData[0] }) => (
+   <div className={`crew-card ${member.col} ${member.height} relative group cursor-pointer`}>
+-    
++
+     {/* Border Wrapper (creates a 1px border that perfectly follows the clip-path) */}
+-    <div 
++    <div
+       className="absolute inset-0 bg-slate-300 group-hover:bg-blue-500 transition-colors duration-500 z-0"
+       style={{ clipPath: sciFiClip }}
+     />
+-    
++
+     {/* Inner Content Container */}
+-    <div 
++    <div
+       className="absolute inset-[1px] bg-slate-900 z-10 overflow-hidden"
+       style={{ clipPath: sciFiClip }}
+     >
+       {/* Background Image */}
+-      <img 
+-        src={member.image} 
++      <img
++        src={member.image}
+         alt={member.name}
+         className="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 ease-out"
+       />
+-      
++
+       {/* Gradient Overlay for Text Readability */}
+       <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent pointer-events-none" />
+ 
+@@ -84,10 +84,10 @@ const CrewCard = ({ member }: { member: typeof crewData[0] }) => (
+           {member.name}
+         </h3>
+       </div>
+-      
++
+       {/* Scanline overlay (subtle CRT effect) */}
+       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100%_4px] mix-blend-overlay z-10" />
+-      
++
+     </div>
+   </div>
+ );
+@@ -97,17 +97,17 @@ export const Team: React.FC = () => {
+ 
+   useEffect(() => {
+     if (!sectionRef.current) return;
+-    
++
+     const ctx = gsap.context(() => {
+       // Staggered entrance animation for all crew cards
+-      gsap.fromTo('.crew-card', 
++      gsap.fromTo('.crew-card',
+         { opacity: 0, y: 100, scale: 0.95 },
+-        { 
+-          opacity: 1, 
+-          y: 0, 
+-          scale: 1, 
+-          duration: 1, 
+-          stagger: 0.1, 
++        {
++          opacity: 1,
++          y: 0,
++          scale: 1,
++          duration: 1,
++          stagger: 0.1,
+           ease: 'power3.out',
+           scrollTrigger: {
+             trigger: sectionRef.current,
+@@ -122,21 +122,21 @@ export const Team: React.FC = () => {
+ 
+   return (
+     <section id="team" ref={sectionRef} className="bg-slate-50 min-h-screen py-32 relative overflow-hidden">
+-      
++
+       {/* Background Texture */}
+       <div className="absolute inset-0 pointer-events-none z-0">
+         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] mix-blend-multiply" />
+       </div>
+-      
++
+       {/* Massive Background Watermark */}
+       <div className="absolute top-0 right-0 p-8 pointer-events-none opacity-[0.03] z-0">
+         <h1 className="font-orbitron font-black text-[12vw] text-slate-900 tracking-tighter leading-none text-right">
+-          MISSION<br/>ROSTER
++          MISSION<br />ROSTER
+         </h1>
+       </div>
+ 
+       <div className="relative max-w-[90rem] mx-auto px-6 md:px-8 z-10">
+-        
++
+         {/* Section Header */}
+         <div className="mb-16">
+           <div className="flex gap-1 mb-4">
+diff --git a/src/index.css b/src/index.css
+index ad6331a..7e58339 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -10,7 +10,7 @@
+     font-style: normal;
+     font-display: swap;
+   }
+-  
++
+   @font-face {
+     font-family: 'Aeonik';
+     src: url('/fonts/Aeonik-Bold.woff2') format('woff2');
+@@ -36,13 +36,15 @@
+   }
+ 
+   :root {
+-    --text-primary: rgba(15, 23, 42, 0.95); /* Gray-900 */
+-    --text-secondary: rgba(71, 85, 105, 0.8); /* Slate-600 */
++    --text-primary: rgba(15, 23, 42, 0.95);
++    /* Gray-900 */
++    --text-secondary: rgba(71, 85, 105, 0.8);
++    /* Slate-600 */
+   }
+ 
+-  html, body {
++  html,
++  body {
+     @apply bg-deep-space text-gray-900 antialiased font-aeonik;
+-    overflow-x: hidden;
+   }
+ 
+   ::selection {
+@@ -53,15 +55,15 @@
+   ::-webkit-scrollbar {
+     width: 6px;
+   }
+-  
++
+   ::-webkit-scrollbar-track {
+     @apply bg-gray-100;
+   }
+-  
++
+   ::-webkit-scrollbar-thumb {
+     @apply bg-gray-300 rounded-full;
+   }
+-  
++
+   ::-webkit-scrollbar-thumb:hover {
+     @apply bg-gray-400;
+   }
+@@ -71,7 +73,7 @@
+   .glass-card {
+     @apply bg-white border border-gray-200 rounded-2xl overflow-hidden relative shadow-sm hover:shadow-md transition-shadow duration-300;
+   }
+-  
++
+   /* Removed hover gradient pseudo-element to adhere to 'no gradients' and improve visibility */
+ 
+   .nav-blur {
+@@ -83,6 +85,7 @@
+ .will-change-transform {
+   will-change: transform;
+ }
++
+ .will-change-opacity {
+   will-change: opacity;
+-}
++}
+\ No newline at end of file
