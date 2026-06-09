@@ -7,51 +7,7 @@ import { MagneticButton } from '../ui/MagneticButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const projects = [
-  {
-    id: 1,
-    title: 'CANSAT 2024',
-    category: 'Competition Payload',
-    description: 'Design and deployment of a miniaturized satellite within a soda can format. The payload autonomously gathered atmospheric pressure, temperature, and GPS coordinates during its descent via an active auto-rotation mechanism.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
-    status: 'Mission Complete',
-    statusColor: 'text-emerald-400',
-    date: 'Spring 2024',
-    stats: [
-      { label: 'Apogee', value: '2,350 ft' },
-      { label: 'Descent', value: '14 m/s' }
-    ]
-  },
-  {
-    id: 2,
-    title: 'PROJECT AETHER',
-    category: 'Research Avionics',
-    description: 'Next-generation flight computing cluster featuring machine learning algorithms for real-time descent trajectory prediction and autonomous correction mechanisms.',
-    image: 'https://images.unsplash.com/photo-1541881329562-b91a539b7843?q=80&w=2070&auto=format&fit=crop',
-    status: 'In Development',
-    statusColor: 'text-amber-400',
-    date: 'Fall 2024',
-    stats: [
-      { label: 'Compute', value: 'Dual STM32' },
-      { label: 'Telemetry', value: '915 MHz' }
-    ]
-  },
-  {
-    id: 3,
-    title: 'STRATO NODE',
-    category: 'High-Altitude Balloon',
-    description: 'High-altitude balloon mission designed to test extreme cold weather operations of our new battery management system and long-range LoRaWAN communication module.',
-    image: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2072&auto=format&fit=crop',
-    status: 'Awaiting Launch',
-    statusColor: 'text-cyan-400',
-    date: 'Spring 2025',
-    stats: [
-      { label: 'Target Alt', value: '90K ft' },
-      { label: 'Duration', value: '4 Hours' }
-    ]
-  }
-];
-
+import { missionsData as projects } from '../../data/missions';
 export const Projects: React.FC = () => {
   const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
@@ -119,7 +75,9 @@ export const Projects: React.FC = () => {
           </div>
           
           <MagneticButton className="hidden md:flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 rounded-full text-sm font-semibold transition-all">
-            View All Missions <ArrowUpRight size={16} />
+            <button onClick={() => { navigate('/missions'); window.scrollTo(0, 0); }} className="flex items-center gap-3">
+              View All Missions <ArrowUpRight size={16} />
+            </button>
           </MagneticButton>
         </div>
 
@@ -134,8 +92,9 @@ export const Projects: React.FC = () => {
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => {
                   setActiveIndex(index);
-                  if (project.id === 1) {
-                    navigate('/project/cansat-2024');
+                  if (project.route) {
+                    navigate(project.route);
+                    window.scrollTo(0, 0);
                   }
                 }}
                 className={`group relative overflow-hidden rounded-[2rem] transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer
@@ -225,8 +184,9 @@ export const Projects: React.FC = () => {
                         <button 
                           onClick={(e) => {
                             e.stopPropagation();
-                            if (project.id === 1) {
-                              navigate('/project/cansat-2024');
+                            if (project.route) {
+                              navigate(project.route);
+                              window.scrollTo(0, 0);
                             }
                           }}
                           className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"
