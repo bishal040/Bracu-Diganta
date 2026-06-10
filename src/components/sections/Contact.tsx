@@ -6,7 +6,7 @@ import { ArrowRight, Lock, Plus } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const SponsorPage: React.FC = () => {
+export const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
 
@@ -74,7 +74,7 @@ export const SponsorPage: React.FC = () => {
   };
 
   return (
-    <section id="sponsor-page" ref={sectionRef} className="min-h-screen w-full relative bg-[#F4F4F6] overflow-hidden flex flex-col justify-center pt-28 lg:pt-32 pb-16 lg:pb-20 z-0">
+    <section id="contact" ref={sectionRef} className="h-[100dvh] w-full relative bg-[#F4F4F6] overflow-hidden flex flex-col justify-center pt-20 lg:pt-24 pb-16 lg:pb-20 border-t border-slate-200/60 z-0">
 
       {/* ── MASSIVE CRAZY GLOWING ORBS (OPTIMIZED) ── */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10"

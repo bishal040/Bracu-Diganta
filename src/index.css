@@ -86,3 +86,23 @@
 .will-change-opacity {
   will-change: opacity;
 }
+
+@keyframes bulb-blink {
+  0%, 100% {
+    background-color: #0f172a; /* slate-900 */
+    color: white;
+  }
+  50% {
+    background-color: #2563eb; /* blue-600 */
+    color: white;
+  }
+}
+
+.animate-bulb {
+  animation: bulb-blink 2.5s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}

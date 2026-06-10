@@ -94,10 +94,16 @@ export const Footer: React.FC = () => {
               <button 
                 onClick={(e) => {
                   e.preventDefault();
-                  navigate('/sponsor');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  if (!isHomePage) {
+                    navigate('/');
+                    setTimeout(() => {
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  } else {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }}
-                className="group/btn relative w-full overflow-hidden rounded-2xl bg-slate-900 px-6 py-5 text-white shadow-xl transition-all hover:bg-blue-600"
+                className="group/btn relative w-full overflow-hidden rounded-2xl px-6 py-5 shadow-xl transition-all hover:scale-[1.02] animate-bulb"
               >
                 <div className="relative z-10 flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
                   Become a Sponsor
@@ -218,10 +224,10 @@ export const Footer: React.FC = () => {
 
         {/* Deep Footer Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 px-4">
-          <div className="flex items-center gap-8">
-            <img src="/Bracu%20Logo.png" alt="BRAC University Logo" className="h-10 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
-            <img src="/Lasset%20Logo.png" alt="Lasset Logo" className="h-10 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
-            <img src="/Diganta%20Logo.png" alt="Diganta Logo" className="h-16 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+          <div className="flex flex-wrap justify-center md:justify-start items-center gap-8 md:gap-12">
+            <img src="/Bracu%20Logo.png" alt="BRAC University Logo" className="h-14 md:h-16 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+            <img src="/Lasset%20Logo.png" alt="Lasset Logo" className="h-14 md:h-16 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+            <img src="/Diganta%20Logo.png" alt="Diganta Logo" className="h-20 md:h-24 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
           </div>
 
           <p className="font-mono text-[10px] text-slate-400 uppercase tracking-widest text-center">

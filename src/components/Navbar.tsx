@@ -82,7 +82,8 @@ export const Navbar: React.FC = () => {
     { label: 'Missions', type: 'route', target: '/missions' },
     { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
     { label: 'Achievements', type: 'hash', target: 'achievements' },
-    { label: 'Team', type: 'route', target: '/team' }
+    { label: 'Team', type: 'route', target: '/team' },
+    { label: 'Contact', type: 'hash', target: 'contact' }
   ];
 
   // ScrollSpy for Active Hash
@@ -283,8 +284,14 @@ export const Navbar: React.FC = () => {
               className="relative overflow-hidden group bg-[#2563EB] text-white rounded-full px-8 py-3 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-blue-700 shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] flex items-center gap-3"
               onClick={(e) => {
                 e.preventDefault();
-                navigate('/sponsor');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (!isHomePage) {
+                  navigate('/');
+                  setTimeout(() => {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                } else {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }
               }}
             >
               <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.3)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] animate-[shimmer_2.5s_linear_infinite]" />
@@ -445,8 +452,14 @@ export const Navbar: React.FC = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setMobileMenuOpen(false);
-                navigate('/sponsor');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (!isHomePage) {
+                  navigate('/');
+                  setTimeout(() => {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                } else {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }
               }}
               className="relative overflow-hidden group bg-transparent border border-[#2563EB] text-[#2563EB] hover:text-white px-10 py-5 rounded-none text-xs font-mono tracking-[0.2em] uppercase transition-all duration-300"
             >
