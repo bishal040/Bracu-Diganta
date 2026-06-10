@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,6 +12,7 @@ interface SmoothScrollProps {
 
 export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   const lenisRef = useRef<Lenis | null>(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -37,6 +39,15 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
       lenis.destroy();
     };
   }, []);
+
+  // Reset scroll position on route change
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
 
   return <>{children}</>;
 };

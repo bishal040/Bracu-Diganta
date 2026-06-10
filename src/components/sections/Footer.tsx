@@ -1,15 +1,16 @@
-import React from 'react';
-import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import React, { useRef } from 'react';
+import { ArrowUp, ArrowUpRight, Send, MapPin } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { MouseCrosshair } from '../ui/MouseCrosshair';
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
   </svg>
 );
 
 const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
     <rect width="4" height="12" x="2" y="9"/>
     <circle cx="4" cy="4" r="2"/>
@@ -17,16 +18,10 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
     <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-  </svg>
-);
-
-const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
   </svg>
 );
 
@@ -34,6 +29,7 @@ export const Footer: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const footerRef = useRef<HTMLElement>(null);
 
   const scrollToTop = () => {
     if (!isHomePage) {
@@ -44,206 +40,201 @@ export const Footer: React.FC = () => {
   };
 
   const navLinks = [
-    { label: 'Home', type: 'route', target: '/' },
-    { label: 'Projects', type: 'hash', target: 'projects' },
-    { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
-    { label: 'Achievements', type: 'hash', target: 'achievements' },
-    { label: 'Team', type: 'route', target: '/team' }
+    { label: 'Mission Overview', type: 'route', target: '/' },
+    { label: 'Project Archive', type: 'route', target: '/missions' },
+    { label: 'CanSat 2024', type: 'route', target: '/project/cansat-2024' },
+    { label: 'Crew Directory', type: 'route', target: '/team' }
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
     e.preventDefault();
-
     if (link.type === 'route') {
       navigate(link.target);
-      if (link.target === '/') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      }
+      window.scrollTo({ top: 0, behavior: link.target === '/' ? 'smooth' : 'instant' });
       return;
     }
-
     if (!isHomePage) {
       navigate('/');
-      setTimeout(() => {
-        document.getElementById(link.target)?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      setTimeout(() => document.getElementById(link.target)?.scrollIntoView({ behavior: 'smooth' }), 100);
     } else {
       document.getElementById(link.target)?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <footer className="relative bg-white w-full overflow-hidden border-t border-gray-200/50">
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes pulseGlow {
-          0%, 100% { opacity: 0.05; }
-          50% { opacity: 0.15; }
-        }
-        @keyframes scanline {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(100vh); }
-        }
-      `}</style>
+    <footer ref={footerRef} className="relative bg-[#eef2f5] w-full pt-20 pb-8 px-4 md:px-8 border-t border-slate-200 overflow-hidden">
+      
+      {/* Background tracking crosshair (restricted to footer) */}
+      <MouseCrosshair parentRef={footerRef} />
 
-      {/* Subtle pulsing bottom radial glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[radial-gradient(ellipse_at_bottom,rgba(37,99,235,0.15)_0%,rgba(255,255,255,0)_70%)] pointer-events-none animate-[pulseGlow_4s_ease-in-out_infinite]" />
-
-      {/* Retro CRT Scanline overlay */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30 z-0">
-        <div className="w-full h-12 bg-gradient-to-b from-transparent via-[#2563EB]/10 to-transparent animate-[scanline_6s_linear_infinite]" />
-      </div>
-
-      {/* Infinite Scrolling Marquee Background Typography */}
-      <div className="absolute top-[40%] left-0 w-[200%] overflow-hidden pointer-events-none flex opacity-[0.02] select-none z-0" style={{ animation: 'marquee 40s linear infinite' }}>
-        <h2 className="font-orbitron font-black text-[18vw] leading-none whitespace-nowrap text-gray-900 pr-[10vw]">
-          BRACU DIGANTA
-        </h2>
-        <h2 className="font-orbitron font-black text-[18vw] leading-none whitespace-nowrap text-gray-900 pr-[10vw]">
-          BRACU DIGANTA
-        </h2>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 pt-32 pb-8">
-
-        {/* Pre-footer CTA */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-10">
-          <div className="max-w-2xl relative">
-            <h3 className="font-orbitron font-bold text-5xl md:text-7xl text-gray-900 mb-6 leading-tight tracking-tight relative z-10">
-              READY TO <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-cyan-400 to-[#2563EB] bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite]">LAUNCH?</span>
-            </h3>
-            {/* Glitch layers behind the text */}
-            <h3 className="font-orbitron font-bold text-5xl md:text-7xl text-[#2563EB]/20 absolute top-0 left-1 blur-[2px] animate-pulse pointer-events-none">
-              READY TO <br /> LAUNCH?
-            </h3>
-            <h3 className="font-orbitron font-bold text-5xl md:text-7xl text-cyan-500/20 absolute -top-1 -left-1 blur-[1px] animate-[pulse_2s_ease-in-out_infinite_reverse] pointer-events-none">
-              READY TO <br /> LAUNCH?
-            </h3>
-            <p className="text-gray-500 text-lg md:text-xl font-medium max-w-md mt-4 relative z-10">
-              Join the mission. Support the next generation of aerospace engineers at BRAC University.
-            </p>
-          </div>
-
-          <button
-            className="group relative w-64 h-16 rounded-full bg-gray-100 border border-gray-300 overflow-hidden flex-shrink-0 transition-all duration-500 hover:shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:border-[#2563EB]"
-            onClick={() => document.getElementById('sponsor')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            {/* Background Base Text */}
-            <div className="absolute inset-0 flex items-center justify-center pl-10">
-              <span className="font-mono text-xs tracking-[0.3em] font-bold text-gray-400 group-hover:text-transparent transition-colors duration-300 z-10">
-                GET INVOLVED
-              </span>
-            </div>
-
-            {/* The active blue background that sweeps in */}
-            <div className="absolute top-0 left-0 h-full w-16 group-hover:w-full bg-[#2563EB] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-0 rounded-full" />
-
-            {/* The text inside the blue background */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200 z-10">
-              <span className="font-mono text-xs tracking-[0.3em] font-bold text-white flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-white rounded-full animate-ping" />
-                INITIATE
-              </span>
-            </div>
-
-            {/* The Slider Handle */}
-            <div className="absolute top-1 left-1 w-14 h-14 bg-white rounded-full shadow-md flex items-center justify-center group-hover:translate-x-[192px] transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] z-20 border border-gray-200">
-              <ArrowUpRight className="w-5 h-5 text-gray-900 group-hover:text-[#2563EB] transition-colors" />
-            </div>
-          </button>
-        </div>
-
-        <div className="w-full h-px bg-gray-200 mb-16" />
-
-        {/* 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-24">
-
-          {/* Column 1: Brand & Contact */}
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-3">
-              <div className="relative flex items-center justify-center w-5 h-5">
-                <span className="absolute w-2.5 h-2.5 bg-[#2563EB] rounded-full"></span>
-                <span className="absolute w-5 h-5 border border-[#2563EB] rounded-full animate-ping opacity-75"></span>
+      <div className="relative z-10 max-w-[90rem] mx-auto">
+        
+        {/* BENTO GRID LAYOUT */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 mb-16">
+          
+          {/* Main Hero Bento (Left) */}
+          <div className="lg:col-span-5 bg-white rounded-3xl p-8 md:p-12 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between group hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full font-mono text-[10px] tracking-widest font-bold uppercase mb-8">
+                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+                BRAC University
               </div>
-              <span className="font-orbitron font-bold text-xl tracking-widest text-gray-900">
-                BRACU<span className="text-[#2563EB]">DIGANTA</span>
-              </span>
+              
+              <h3 className="font-orbitron font-black text-5xl md:text-6xl text-slate-900 tracking-tighter uppercase leading-[0.9] mb-6">
+                BRACU<br />
+                <span className="text-blue-600">DIGANTA</span>
+              </h3>
+              
+              <p className="text-slate-500 font-medium leading-relaxed max-w-sm mb-4">
+                Pioneering autonomous telemetry, satellite systems, and next-generation aerospace research in Bangladesh.
+              </p>
             </div>
-            <p className="text-gray-500 font-medium text-sm max-w-xs leading-relaxed">
-              Pioneering aerospace and satellite technology research at BRAC University, Bangladesh.
-            </p>
-            <a href="mailto:contact@bracudiganta.com" className="font-mono text-sm font-bold text-gray-900 hover:text-[#2563EB] transition-colors mt-4 inline-flex items-center gap-2 group w-fit">
-              INITIATE COMMS
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </a>
+
+            <div className="flex flex-col gap-6 w-full mt-8">
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/sponsor');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="group/btn relative w-full overflow-hidden rounded-2xl bg-slate-900 px-6 py-5 text-white shadow-xl transition-all hover:bg-blue-600"
+              >
+                <div className="relative z-10 flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
+                  Become a Sponsor
+                  <ArrowUpRight className="h-5 w-5 transition-transform group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1" />
+                </div>
+              </button>
+
+              {/* Animated Sponsor Marquee inside the bento */}
+              <div className="w-full relative bg-slate-50 border border-slate-100 rounded-[1.5rem] py-3 z-30 shadow-inner overflow-hidden">
+                <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none rounded-l-[1.5rem]" />
+                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none rounded-r-[1.5rem]" />
+
+                <div className="flex w-max animate-[marquee_20s_linear_infinite]">
+                  {[1, 2].map((set) => (
+                    <div key={set} className="flex items-center gap-8 px-4 shrink-0">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-blue-600 rounded flex items-center justify-center font-orbitron font-black text-white text-[10px] shadow-sm">A</div>
+                        <span className="font-orbitron font-black text-[10px] tracking-widest uppercase text-slate-500">Aerospace</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full border-[2px] border-indigo-500 shadow-sm" />
+                        <span className="font-orbitron font-black text-[10px] tracking-widest uppercase text-slate-500">Orbital</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 border-[2px] border-cyan-500 rotate-45 shadow-sm" />
+                        <span className="font-orbitron font-black text-[10px] tracking-widest uppercase text-slate-500">Nova Dyn.</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-violet-500 rounded-full shadow-sm" />
+                        <span className="font-orbitron font-black text-[10px] tracking-widest uppercase text-slate-500">Stellar</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Column 2: Navigation */}
-          <div className="flex flex-col gap-4">
-            <h4 className="font-mono text-xs font-bold text-gray-400 tracking-[0.2em] uppercase mb-2">Navigation</h4>
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.type === 'route' ? link.target : `#${link.target}`}
-                onClick={(e) => handleLinkClick(e, link)}
-                className="text-gray-600 hover:text-gray-900 font-medium text-sm transition-colors w-fit group flex items-center gap-2"
-              >
-                <span className="w-0 h-px bg-[#2563EB] group-hover:w-4 transition-all duration-300" />
-                {link.label}
-              </a>
-            ))}
-          </div>
+          {/* Right Column (Stacked Bentos) */}
+          <div className="lg:col-span-7 flex flex-col gap-4 md:gap-6">
+            
+            {/* Top Wide Bento: Newsletter / Contact */}
+            <div className="bg-white rounded-3xl p-8 md:p-10 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 flex flex-col md:flex-row gap-8 items-center justify-between relative overflow-hidden">
+              {/* Decorative graphic inside the card */}
+              <div className="absolute -right-10 -top-10 text-slate-50 opacity-50 pointer-events-none transform rotate-12">
+                <Send size={180} strokeWidth={0.5} />
+              </div>
 
-          {/* Column 3: Socials */}
-          <div className="flex flex-col gap-4">
-            <h4 className="font-mono text-xs font-bold text-gray-400 tracking-[0.2em] uppercase mb-2">Social Network</h4>
-            {[
-              { name: 'Facebook', icon: <FacebookIcon className="w-4 h-4" /> },
-              { name: 'LinkedIn', icon: <LinkedinIcon className="w-4 h-4" /> },
-              { name: 'Instagram', icon: <InstagramIcon className="w-4 h-4" /> },
-              { name: 'Twitter', icon: <TwitterIcon className="w-4 h-4" /> }
-            ].map((social) => (
-              <a
-                key={social.name}
-                href="#"
-                className="text-gray-600 hover:text-[#2563EB] font-medium text-sm transition-colors w-fit group flex items-center gap-3"
-              >
-                {social.icon}
-                {social.name}
-                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ml-1" />
-              </a>
-            ))}
+              <div className="relative z-10 w-full md:w-auto">
+                <h4 className="font-orbitron font-bold text-2xl text-slate-900 uppercase mb-2">Initialize Comm Link</h4>
+                <p className="text-slate-500 text-sm max-w-xs font-medium">Join our secure channel for mission updates and research breakthroughs.</p>
+              </div>
+
+              <div className="relative z-10 w-full md:w-auto flex-1 max-w-md">
+                <div className="flex p-1 bg-slate-50 border border-slate-200 rounded-2xl">
+                  <input 
+                    type="email" 
+                    placeholder="ENTER DESIGNATION (EMAIL)" 
+                    className="w-full bg-transparent border-none outline-none px-4 py-3 font-mono text-xs text-slate-900 placeholder:text-slate-400 font-bold tracking-wider"
+                  />
+                  <button className="bg-blue-600 hover:bg-slate-900 text-white rounded-xl px-6 py-3 font-mono text-[10px] tracking-widest font-bold uppercase transition-colors flex items-center gap-2">
+                    <Send size={14} /> Transmit
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Split Bentos: Navigation & Network */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 h-full">
+              
+              {/* Navigation Bento */}
+              <div className="bg-white rounded-3xl p-8 md:p-10 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 flex flex-col justify-between">
+                <h4 className="font-mono text-[10px] font-bold text-slate-400 tracking-widest uppercase mb-6 flex items-center gap-2">
+                  <MapPin size={12} /> System Navigation
+                </h4>
+                <div className="flex flex-col gap-4">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.type === 'route' ? link.target : `#${link.target}`}
+                      onClick={(e) => handleLinkClick(e, link)}
+                      className="text-slate-600 hover:text-blue-600 font-semibold text-sm transition-colors w-fit group flex items-center gap-3"
+                    >
+                      <span className="w-6 h-[1px] bg-slate-200 group-hover:w-8 group-hover:bg-blue-600 transition-all duration-300" />
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Social Network Bento */}
+              <div className="bg-white rounded-3xl p-8 md:p-10 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 flex flex-col justify-between">
+                <h4 className="font-mono text-[10px] font-bold text-slate-400 tracking-widest uppercase mb-6 flex items-center gap-2">
+                  <ArrowUpRight size={12} /> Social Network
+                </h4>
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { name: 'Facebook', icon: <FacebookIcon className="w-5 h-5" /> },
+                    { name: 'LinkedIn', icon: <LinkedinIcon className="w-5 h-5" /> },
+                    { name: 'Instagram', icon: <InstagramIcon className="w-5 h-5" /> }
+                  ].map((social) => (
+                    <a
+                      key={social.name}
+                      href="#"
+                      className="flex flex-col items-center justify-center gap-3 p-4 rounded-2xl bg-slate-50 hover:bg-blue-50 text-slate-500 hover:text-blue-600 font-mono text-[10px] uppercase tracking-widest font-bold transition-all border border-transparent hover:border-blue-100"
+                    >
+                      {social.icon}
+                      {social.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+
           </div>
         </div>
 
-        <div className="w-full h-px bg-gray-200 mb-8" />
-
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col items-center md:items-start gap-4">
-            <div className="flex flex-wrap justify-center md:justify-start items-center gap-6 md:gap-10">
-              <img src="/Bracu%20Logo.png" alt="BRAC University Logo" className="h-16 md:h-20 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
-              <img src="/Lasset%20Logo.png" alt="Lasset Logo" className="h-16 md:h-20 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
-              <img src="/Diganta%20Logo.png" alt="Diganta Logo" className="h-16 md:h-20 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style={{ mixBlendMode: 'multiply' }} />
-            </div>
-            <p className="font-mono text-xs text-gray-500 uppercase tracking-wider text-center md:text-left mt-2 md:mt-0">
-              © {new Date().getFullYear()} BRACU DIGANTA. ALL SYSTEMS NOMINAL.
-            </p>
+        {/* Deep Footer Bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 px-4">
+          <div className="flex items-center gap-8">
+            <img src="/Bracu%20Logo.png" alt="BRAC University Logo" className="h-10 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+            <img src="/Lasset%20Logo.png" alt="Lasset Logo" className="h-10 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+            <img src="/Diganta%20Logo.png" alt="Diganta Logo" className="h-16 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
           </div>
+
+          <p className="font-mono text-[10px] text-slate-400 uppercase tracking-widest text-center">
+            © {new Date().getFullYear()} BRACU DIGANTA. ALL RIGHTS RESERVED.
+          </p>
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-3 font-mono text-xs font-bold text-gray-900 uppercase tracking-widest hover:text-[#2563EB] transition-colors group"
+            className="flex items-center gap-2 font-mono text-[10px] font-bold text-slate-900 uppercase tracking-widest hover:text-blue-600 transition-colors group"
           >
-            Back to Top
-            <div className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center group-hover:border-[#2563EB] group-hover:bg-blue-50 transition-all">
-              <ArrowUp size={16} className="group-hover:-translate-y-1 transition-transform" />
+            Return to Top
+            <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center group-hover:border-blue-600 transition-all">
+              <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform" />
             </div>
           </button>
         </div>

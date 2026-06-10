@@ -6,7 +6,7 @@ import { ArrowRight, Lock, Plus } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const Contact: React.FC = () => {
+export const SponsorPage: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
 
@@ -74,7 +74,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="h-[100dvh] w-full relative bg-[#F4F4F6] overflow-hidden flex flex-col justify-center pt-20 lg:pt-24 pb-16 lg:pb-20 border-t border-slate-200/60 z-0">
+    <section id="sponsor-page" ref={sectionRef} className="min-h-screen w-full relative bg-[#F4F4F6] overflow-hidden flex flex-col justify-center pt-28 lg:pt-32 pb-16 lg:pb-20 z-0">
 
       {/* ── MASSIVE CRAZY GLOWING ORBS (OPTIMIZED) ── */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10"
@@ -143,7 +143,7 @@ export const Contact: React.FC = () => {
                 <textarea required className="w-full h-full min-h-0 bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="Initiate partnership sequence..." />
               </div>
               <button type="submit" disabled={formStatus !== 'idle'} className="shrink-0 w-full bg-slate-900 hover:bg-blue-600 text-white font-orbitron font-bold text-sm lg:text-base uppercase tracking-widest py-3 lg:py-4 rounded-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.35)] hover:-translate-y-1 flex items-center justify-center gap-3 disabled:bg-slate-300 disabled:shadow-none disabled:transform-none">
-                {formStatus === 'idle' && <>Transmit Proposal <ArrowRight size={20} /></>}
+                {formStatus === 'idle' && <>Become a Sponsor <ArrowRight size={20} /></>}
                 {formStatus === 'sending' && <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Encrypting...</>}
                 {formStatus === 'sent' && '✓ Transmission Secure'}
               </button>
