@@ -18,7 +18,7 @@ export const HomeHero: React.FC = () => {
           Democratizing space, one launch at a time.
         </p>
       </div>
-      
+
       {/* Scroll indicator */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce z-10">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-telemetry-cyan">
@@ -31,18 +31,18 @@ export const HomeHero: React.FC = () => {
   return (
     <div className="relative w-full h-screen overflow-hidden bg-transparent hero-cover-wrapper">
       {/* LEFT HALF */}
-      <div 
+      <div
         className="hero-left-half absolute inset-0 w-full h-full will-change-transform"
         style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)' }}
       >
         <HeroContent />
-        
+
         {/* Tear edge styling (optional cool glowing line) */}
         <div className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-telemetry-cyan/50 shadow-[0_0_15px_#00e5ff] z-20" />
       </div>
 
       {/* RIGHT HALF */}
-      <div 
+      <div
         className="hero-right-half absolute inset-0 w-full h-full will-change-transform"
         style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' }}
       >

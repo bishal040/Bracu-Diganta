@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { teamData, getFlattenedCrewData, type TeamMember as TeamMemberType } from '../../data/team';
+import { teamData, type TeamMember as TeamMemberType } from '../../data/team';
 import { TeamMemberModal } from '../ui/TeamMemberModal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,8 +11,15 @@ gsap.registerPlugin(ScrollTrigger);
 // Sci-Fi Chamfered corner clip-path
 const sciFiClip = 'polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px)';
 
-const CrewCard = ({ member, onClick }: { member: ReturnType<typeof getFlattenedCrewData>[0], onClick: () => void }) => (
-  <div onClick={onClick} className={`crew-card ${member.col} ${member.height} relative group cursor-pointer`}>
+// Add layout prop for bento grid since it was removed from data
+interface CrewCardProps {
+  member: TeamMemberType;
+  layout: { col: string; height: string };
+  onClick: () => void;
+}
+
+const CrewCard = ({ member, layout, onClick }: CrewCardProps) => (
+  <div onClick={onClick} className={`crew-card ${layout.col} ${layout.height} relative group cursor-pointer`}>
     
     {/* Border Wrapper (creates a 1px border that perfectly follows the clip-path) */}
     <div 
@@ -32,14 +39,14 @@ const CrewCard = ({ member, onClick }: { member: ReturnType<typeof getFlattenedC
         className="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 ease-out"
       />
       
-      {/* Gradient Overlay for Text Readability - Light Glassmorphism Version */}
+      {/* Gradient Overlay for Text Readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none transition-all duration-500 group-hover:from-black/70 group-hover:via-black/30" />
 
-      {/* Top Left Tier Badge */}
+      {/* Top Left Tier Badge (replacing dynamic tier with COMMAND CREW to match old aesthetic) */}
       <div className="absolute top-4 left-4 flex gap-2 items-center z-20 bg-white/10 border border-white/20 backdrop-blur-md px-2 py-1 rounded shadow-sm">
         <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
         <span className="font-mono text-[9px] md:text-[10px] text-white tracking-widest uppercase font-bold">
-          {member.tier}
+          COMMAND CREW
         </span>
       </div>
 
@@ -67,7 +74,26 @@ export const Team: React.FC = () => {
   
   // Get 2024 data for the home page showcase
   const currentYearData = teamData.find(d => d.year === '2024') || teamData[0];
-  const crewData = getFlattenedCrewData(currentYearData);
+  
+  // Reconstruct a subset of crew for the Home page bento grid
+  const crewData = [
+    ...currentYearData.supervisors,
+    ...currentYearData.advisors,
+    ...currentYearData.teamLeads,
+    ...currentYearData.subTeamLeads,
+    ...currentYearData.teamMembers
+  ].slice(0, 7);
+
+  // Original Bento Layout Maps
+  const bentoLayouts = [
+    { col: "col-span-12 md:col-span-8", height: "h-[400px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-[400px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-[300px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-[300px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-[300px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-[350px]" },
+    { col: "col-span-12 md:col-span-8", height: "h-[350px]" },
+  ];
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -128,7 +154,12 @@ export const Team: React.FC = () => {
         {/* The Bento Grid Container */}
         <div className="grid grid-cols-12 gap-4 md:gap-6 mb-16">
           {crewData.map((member, i) => (
-            <CrewCard key={i} member={member} onClick={() => setSelectedMember(member)} />
+            <CrewCard 
+              key={i} 
+              member={member} 
+              layout={bentoLayouts[i % bentoLayouts.length]} 
+              onClick={() => setSelectedMember(member)} 
+            />
           ))}
         </div>
 

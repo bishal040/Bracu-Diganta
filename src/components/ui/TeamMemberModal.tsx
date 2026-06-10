@@ -74,7 +74,7 @@ export const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, onClos
               <div className="absolute bottom-4 left-4 flex gap-2 items-center bg-white/20 border border-white/30 backdrop-blur-md px-3 py-1.5 rounded shadow-sm">
                 <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
                 <span className="font-mono text-[10px] text-white tracking-widest uppercase font-bold">
-                  {member.tier || "CREW MEMBER"}
+                  {member.role || "CREW MEMBER"}
                 </span>
               </div>
             </div>
