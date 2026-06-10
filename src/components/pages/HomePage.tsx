@@ -36,13 +36,15 @@ export const HomePage: React.FC = () => {
         // Overview starts scaled down slightly and darker
         gsap.set(overviewContainer, { scale: 0.85, opacity: 0 });
 
-        // Tearing animation happens in the first 50% of the scroll timeline
-        tl.to(leftHalf, { xPercent: -100, ease: 'power2.inOut' }, 0)
-          .to(rightHalf, { xPercent: 100, ease: 'power2.inOut' }, 0)
-          // The Overview page "pops" from the inside (scale 0.85 -> 1.0, opacity 0 -> 1)
-          .to(overviewContainer, { scale: 1, opacity: 1, ease: 'power2.out' }, 0)
-          // Add a dummy tween to hold the timeline open for the remaining duration (the Projects slide up)
-          .to({}, { duration: 1 });
+        // Tearing animation happens cleanly (duration: 1)
+        tl.to(leftHalf, { xPercent: -100, ease: 'power2.inOut', duration: 1 }, 0)
+          .to(rightHalf, { xPercent: 100, ease: 'power2.inOut', duration: 1 }, 0)
+          .to(overviewContainer, { scale: 1, opacity: 1, ease: 'power2.out', duration: 1 }, 0)
+          
+        // INSTEAD of a dead hold (which feels like lag), we apply a slow, continuous cinematic zoom 
+        // to the overview page. This provides visual feedback that the user is still scrolling,
+        // while giving them time to read before the 3rd page naturally slides up.
+        tl.to(overviewContainer, { scale: 1.05, ease: 'none', duration: 1.5 }, 1);
       }
     });
 
@@ -54,9 +56,9 @@ export const HomePage: React.FC = () => {
       
       {/* 
         THE SCROLL WRAPPER
-        This div provides 300vh of scrollable space. 
+        Provides 400vh for a balanced scroll: Tear -> Slow Zoom -> Next Page Slides Up
       */}
-      <div ref={wrapperRef} className="relative w-full h-[300vh]">
+      <div ref={wrapperRef} className="relative w-full h-[400vh]">
         
         {/* 
           THE PINNED CONTAINER

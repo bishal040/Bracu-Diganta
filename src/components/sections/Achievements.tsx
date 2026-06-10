@@ -100,7 +100,7 @@ export const Achievements: React.FC = () => {
 
       {/* Floating Global Header (Stays Fixed) */}
       <div className="absolute top-8 left-8 md:top-16 md:left-16 z-50 pointer-events-none">
-        <h2 className="font-orbitron text-2xl md:text-4xl font-black text-slate-900 tracking-widest uppercase">Flight Log</h2>
+        <h2 className="font-orbitron text-2xl md:text-4xl font-black text-slate-900 tracking-widest uppercase">Timeline</h2>
         <div className="flex items-center gap-3 mt-3 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200 w-max shadow-sm">
           <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
           <span className="font-mono text-[10px] md:text-xs text-blue-600 tracking-[0.3em] font-bold">LIVE TELEMETRY // SECURE</span>

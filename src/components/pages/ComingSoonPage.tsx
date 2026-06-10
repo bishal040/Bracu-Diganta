@@ -12,16 +12,16 @@ export const ComingSoonPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#fafbfc] flex items-center justify-center relative overflow-hidden font-sans selection:bg-blue-100 selection:text-blue-900 px-6">
-      
+
       {/* Architectural Background Grid */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="w-full h-full border-x border-slate-200 max-w-[100rem] mx-auto flex justify-between opacity-50">
-           <div className="w-[1px] h-full bg-slate-200" />
-           <div className="w-[1px] h-full bg-slate-200" />
-           <div className="w-[1px] h-full bg-slate-200" />
-           <div className="w-[1px] h-full bg-slate-200" />
+          <div className="w-[1px] h-full bg-slate-200" />
+          <div className="w-[1px] h-full bg-slate-200" />
+          <div className="w-[1px] h-full bg-slate-200" />
+          <div className="w-[1px] h-full bg-slate-200" />
         </div>
-        
+
         {/* Subtle Watermark */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] flex items-center justify-center">
           <Hexagon className="w-[80vw] h-[80vw] stroke-[0.5]" />
@@ -29,9 +29,9 @@ export const ComingSoonPage: React.FC = () => {
       </div>
 
       <div className="relative z-10 w-full max-w-4xl bg-white border border-slate-200 shadow-2xl p-12 md:p-24 flex flex-col items-center text-center">
-        
+
         {/* Top Floating Badge */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -41,7 +41,7 @@ export const ComingSoonPage: React.FC = () => {
           <span>Restricted Archive Access</span>
         </motion.div>
 
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -51,13 +51,13 @@ export const ComingSoonPage: React.FC = () => {
           <span className="text-slate-300">Classified</span>
         </motion.h1>
 
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="font-serif text-lg md:text-2xl text-slate-500 max-w-2xl leading-relaxed mb-16"
         >
-          The archival data for this mission version is currently undergoing declassification. Telemetry, blueprints, and flight logs will be available in a future update.
+          The archival data for this mission version is currently undergoing declassification. Telemetry, blueprints, and Timelines will be available in a future update.
         </motion.p>
 
         <motion.div
@@ -65,7 +65,7 @@ export const ComingSoonPage: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <button 
+          <button
             onClick={() => navigate(-1)}
             className="group relative inline-flex items-center justify-center px-8 py-4 font-mono text-sm font-bold tracking-[0.2em] text-slate-900 uppercase bg-transparent overflow-hidden border-2 border-slate-900 hover:text-white transition-colors duration-500"
           >
