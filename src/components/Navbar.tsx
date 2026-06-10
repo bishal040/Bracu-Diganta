@@ -46,6 +46,7 @@ export const Navbar: React.FC = () => {
   
   const [scrolled, setScrolled] = useState(!isHomePage);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeHash, setActiveHash] = useState<string>('');
 
   useEffect(() => {
     if (!navRef.current) return;
@@ -75,6 +76,45 @@ export const Navbar: React.FC = () => {
     };
   }, [isHomePage]);
 
+  const navLinksList = [
+    { label: 'Home', type: 'route', target: '/' },
+    { label: 'Projects', type: 'hash', target: 'projects' },
+    { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
+    { label: 'Achievements', type: 'hash', target: 'achievements' },
+    { label: 'Team', type: 'route', target: '/team' },
+    { label: 'Contact', type: 'hash', target: 'contact' }
+  ];
+
+  // ScrollSpy for Active Hash
+  useEffect(() => {
+    if (!isHomePage) {
+      setActiveHash('');
+      return;
+    }
+
+    const handleScroll = () => {
+      const hashTargets = navLinksList.filter(l => l.type === 'hash').map(l => l.target);
+      let current = '';
+
+      for (const target of hashTargets) {
+        const element = document.getElementById(target);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.4) {
+            current = target;
+          }
+        }
+      }
+      setActiveHash(current);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Run once on mount
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHomePage]);
+
   // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -87,14 +127,19 @@ export const Navbar: React.FC = () => {
     };
   }, [mobileMenuOpen]);
 
-  const navLinks = [
-    { label: 'Home', type: 'route', target: '/' },
-    { label: 'Projects', type: 'hash', target: 'projects' },
-    { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
-    { label: 'Achievements', type: 'hash', target: 'achievements' },
-    { label: 'Team', type: 'route', target: '/team' },
-    { label: 'Contact', type: 'hash', target: 'contact' }
-  ];
+  const navLinks = navLinksList;
+
+  const isLinkActive = (link: typeof navLinksList[0]) => {
+    if (link.type === 'route') {
+      if (link.target === '/') {
+        return isHomePage && activeHash === '';
+      }
+      return location.pathname.startsWith(link.target);
+    } else if (link.type === 'hash') {
+      return isHomePage && activeHash === link.target;
+    }
+    return false;
+  };
 
   const scrollToTop = () => {
     if (!isHomePage) {
@@ -203,20 +248,28 @@ export const Navbar: React.FC = () => {
             }}
           />
 
-          {navLinks.map((link) => (
+          {navLinks.map((link) => {
+            const active = isLinkActive(link);
+            return (
             <a
               key={link.label}
               href={link.type === 'route' ? link.target : `#${link.target}`}
               onClick={(e) => handleLinkClick(e, link)}
               onMouseEnter={handleLinkHover}
-              className={`group relative px-6 py-2.5 hover:text-[#2563EB] text-[11px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden ${scrolled ? 'text-gray-700' : 'text-white'}`}
+              className={`group relative px-6 py-2.5 text-[11px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden ${
+                scrolled 
+                  ? active ? 'text-[#2563EB]' : 'text-gray-700 hover:text-[#2563EB]'
+                  : active ? 'text-[#2563EB]' : 'text-white hover:text-[#2563EB]'
+              }`}
             >
               <span className="relative z-10 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] opacity-0 group-hover:opacity-100 transition-opacity scale-0 group-hover:scale-100 duration-300" />
+                <span className={`w-1.5 h-1.5 rounded-full bg-[#2563EB] transition-all duration-300 ${
+                  active ? 'opacity-100 scale-100' : 'opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100'
+                }`} />
                 {link.label}
               </span>
             </a>
-          ))}
+          )})}
         </div>
 
         {/* 3. CTA PILL */}
@@ -367,20 +420,27 @@ export const Navbar: React.FC = () => {
             <span className="font-mono text-[10px] text-[#2563EB] tracking-[0.4em] uppercase">Navigation Active</span>
           </div>
 
-          {navLinks.map((link, idx) => (
+          {navLinks.map((link, idx) => {
+            const active = isLinkActive(link);
+            return (
             <a
               key={link.label}
               href={link.type === 'route' ? link.target : `#${link.target}`}
               onClick={(e) => handleLinkClick(e, link)}
-              className={`relative flex items-center gap-4 text-3xl font-mono font-bold text-gray-400 hover:text-gray-900 transition-all duration-500 group ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
-                }`}
+              className={`relative flex items-center gap-4 text-3xl font-mono font-bold hover:text-gray-900 transition-all duration-500 group ${
+                mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
+              } ${active ? 'text-gray-900' : 'text-gray-400'}`}
               style={{ transitionDelay: `${(idx + 2) * 100}ms` }}
             >
-              <span className="text-[#2563EB] text-xl opacity-0 group-hover:opacity-100 transition-all font-mono tracking-widest translate-x-4 group-hover:translate-x-0">[</span>
+              <span className={`text-[#2563EB] text-xl transition-all font-mono tracking-widest ${
+                active ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'
+              }`}>[</span>
               {link.label.toUpperCase()}
-              <span className="text-[#2563EB] text-xl opacity-0 group-hover:opacity-100 transition-all font-mono tracking-widest -translate-x-4 group-hover:translate-x-0">]</span>
+              <span className={`text-[#2563EB] text-xl transition-all font-mono tracking-widest ${
+                active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'
+              }`}>]</span>
             </a>
-          ))}
+          )})}
 
           <div
             className={`mt-12 transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
