@@ -73,8 +73,8 @@ export const Achievements: React.FC = () => {
       // Calculate total horizontal scroll width
       const scrollWidth = scrollWrapperRef.current!.scrollWidth - window.innerWidth;
 
-      gsap.to(sections, {
-        xPercent: -100 * (sections.length - 1),
+      gsap.to(scrollWrapperRef.current, {
+        x: -scrollWidth,
         ease: 'none',
         scrollTrigger: {
           trigger: containerRef.current,
@@ -101,14 +101,14 @@ export const Achievements: React.FC = () => {
       {/* Floating Global Header (Stays Fixed) */}
       <div className="absolute top-8 left-8 md:top-16 md:left-16 z-50 pointer-events-none">
         <h2 className="font-orbitron text-2xl md:text-4xl font-black text-slate-900 tracking-widest uppercase">Timeline</h2>
-        <div className="flex items-center gap-3 mt-3 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200 w-max shadow-sm">
+        <div className="flex items-center gap-3 mt-3 bg-white/95 md:bg-white/80 md:backdrop-blur-md px-4 py-2 rounded-full border border-slate-200 w-max shadow-sm">
           <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
           <span className="font-mono text-[10px] md:text-xs text-blue-600 tracking-[0.3em] font-bold">LIVE TELEMETRY // SECURE</span>
         </div>
       </div>
 
       {/* Horizontal Scroll Wrapper */}
-      <div ref={scrollWrapperRef} className="flex h-full w-[400vw]">
+      <div ref={scrollWrapperRef} className="flex h-full w-[400vw] will-change-transform">
         {NEWS_UPDATES.map((item) => (
           <div key={item.id} className="h-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-8 md:p-24 relative">
 
@@ -126,11 +126,11 @@ export const Achievements: React.FC = () => {
                 WebkitMaskImage: '-webkit-radial-gradient(white, black)'
               }}
             >
-              <img src={item.image} className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s] grayscale opacity-90 mix-blend-multiply" />
-              <div className={`absolute inset-0 bg-gradient-to-tr ${item.color} opacity-10 mix-blend-multiply`} />
+              <img src={item.image} className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s] grayscale opacity-90 md:mix-blend-multiply" />
+              <div className={`absolute inset-0 bg-gradient-to-tr ${item.color} opacity-20 md:opacity-10 md:mix-blend-multiply`} />
 
               {/* Image Overlay HUD */}
-              <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-xl border border-slate-200 px-5 py-2.5 rounded-full flex items-center gap-3 shadow-sm">
+              <div className="absolute top-6 left-6 bg-white/95 md:bg-white/90 md:backdrop-blur-xl border border-slate-200 px-5 py-2.5 rounded-full flex items-center gap-3 shadow-sm">
                 <item.icon size={16} className="text-blue-600" />
                 <span className="text-slate-900 font-mono text-[10px] tracking-[0.2em] uppercase font-bold">{item.category}</span>
               </div>

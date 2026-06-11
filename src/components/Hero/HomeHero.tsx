@@ -36,9 +36,6 @@ export const HomeHero: React.FC = () => {
         style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)' }}
       >
         <HeroContent />
-
-        {/* Tear edge styling (optional cool glowing line) */}
-        <div className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-telemetry-cyan/50 shadow-[0_0_15px_#00e5ff] z-20" />
       </div>
 
       {/* RIGHT HALF */}
