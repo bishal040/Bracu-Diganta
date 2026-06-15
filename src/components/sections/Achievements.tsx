@@ -68,21 +68,23 @@ export const Achievements: React.FC = () => {
     if (!containerRef.current || !scrollWrapperRef.current) return;
 
     const ctx = gsap.context(() => {
-      const sections = gsap.utils.toArray('.h-slide');
+      let mm = gsap.matchMedia();
 
-      // Calculate total horizontal scroll width
-      const scrollWidth = scrollWrapperRef.current!.scrollWidth - window.innerWidth;
+      mm.add("(min-width: 768px)", () => {
+        const sections = gsap.utils.toArray('.h-slide');
+        const scrollWidth = scrollWrapperRef.current!.scrollWidth - window.innerWidth;
 
-      gsap.to(scrollWrapperRef.current, {
-        x: -scrollWidth,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          pin: true,
-          scrub: 1,
-          snap: 1 / (sections.length - 1), // Snaps gracefully to each section
-          end: () => `+=${scrollWidth}`,
-        }
+        gsap.to(scrollWrapperRef.current, {
+          x: -scrollWidth,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            pin: true,
+            scrub: 1,
+            snap: 1 / (sections.length - 1),
+            end: () => `+=${scrollWidth}`,
+          }
+        });
       });
     }, containerRef);
 
@@ -93,13 +95,13 @@ export const Achievements: React.FC = () => {
     <section
       id="achievements"
       ref={containerRef}
-      className="relative bg-[#f8fafc] h-screen overflow-hidden flex items-center"
+      className="relative bg-[#f8fafc] min-h-screen md:h-screen md:overflow-hidden block md:flex md:items-center pt-24 md:pt-0"
     >
       {/* High-End Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none opacity-50" />
 
       {/* Floating Global Header (Stays Fixed) */}
-      <div className="absolute top-8 left-8 md:top-16 md:left-16 z-50 pointer-events-none">
+      <div className="absolute top-8 left-6 md:top-16 md:left-16 z-50 pointer-events-none">
         <h2 className="font-orbitron text-2xl md:text-4xl font-black text-slate-900 tracking-widest uppercase">Timeline</h2>
         <div className="flex items-center gap-3 mt-3 bg-white/95 md:bg-white/80 md:backdrop-blur-md px-4 py-2 rounded-full border border-slate-200 w-max shadow-sm">
           <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
@@ -108,9 +110,13 @@ export const Achievements: React.FC = () => {
       </div>
 
       {/* Horizontal Scroll Wrapper */}
-      <div ref={scrollWrapperRef} className="flex h-full w-[400vw] will-change-transform">
-        {NEWS_UPDATES.map((item) => (
-          <div key={item.id} className="h-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-8 md:p-24 relative">
+      <div ref={scrollWrapperRef} className="flex flex-col md:flex-row h-auto md:h-full w-full md:w-[400vw] will-change-transform pb-[10vh] md:pb-0 relative">
+        {NEWS_UPDATES.map((item, index) => (
+          <div 
+            key={item.id} 
+            className="h-slide w-full md:w-screen h-auto md:h-full flex flex-col md:flex-row items-center justify-center py-8 px-6 md:p-24 relative min-h-[85vh] md:min-h-0 bg-white md:bg-transparent rounded-t-[2.5rem] md:rounded-none shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-none border-t border-slate-200 md:border-none sticky md:static z-10"
+            style={{ top: `calc(10vh + ${index * 16}px)` }}
+          >
 
             {/* Huge background number graphic */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-orbitron text-[50vw] font-black text-slate-900/[0.03] pointer-events-none z-0 leading-none">
@@ -119,7 +125,7 @@ export const Achievements: React.FC = () => {
 
             {/* Left Column: Cinematic Image Panel */}
             <div
-              className={`w-full md:w-[45%] h-[40vh] md:h-[70vh] relative z-10 overflow-hidden border border-slate-200 group shadow-[0_30px_60px_rgba(0,0,0,0.1)] mt-24 md:mt-0 ${item.maskClass}`}
+              className={`w-full md:w-[45%] h-[25vh] md:h-[70vh] relative z-10 overflow-hidden border border-slate-200 group shadow-[0_30px_60px_rgba(0,0,0,0.1)] mt-4 md:mt-0 ${item.maskClass}`}
               style={{
                 // Fixes WebKit bug where border-radius disappears during child transform transitions
                 transform: 'translateZ(0)',
@@ -145,42 +151,42 @@ export const Achievements: React.FC = () => {
             </div>
 
             {/* Right Column: Data & Typography */}
-            <div className="w-full md:w-[55%] relative z-10 mt-12 md:mt-0 md:pl-24 flex flex-col justify-center">
+            <div className="w-full md:w-[55%] relative z-10 mt-6 md:mt-0 md:pl-24 flex flex-col justify-center">
 
-              <div className="flex items-end gap-6 mb-8">
-                <span className="font-orbitron text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-slate-900 to-slate-400 leading-none">
+              <div className="flex items-end gap-4 md:gap-6 mb-4 md:mb-8">
+                <span className="font-orbitron text-5xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-slate-900 to-slate-400 leading-none">
                   {item.day}
                 </span>
-                <div className="flex flex-col pb-2 md:pb-4">
-                  <span className="font-orbitron text-3xl md:text-4xl text-blue-600 tracking-widest uppercase font-bold leading-none">{item.month}</span>
-                  <span className="font-mono text-sm text-slate-500 tracking-[0.3em] font-bold mt-2">{item.year}</span>
+                <div className="flex flex-col pb-1 md:pb-4">
+                  <span className="font-orbitron text-xl md:text-4xl text-blue-600 tracking-widest uppercase font-bold leading-none">{item.month}</span>
+                  <span className="font-mono text-[10px] md:text-sm text-slate-500 tracking-[0.3em] font-bold mt-1 md:mt-2">{item.year}</span>
                 </div>
               </div>
 
-              <h3 className="font-orbitron text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.1] mb-8 tracking-tight uppercase max-w-2xl">
+              <h3 className="font-orbitron text-2xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.1] mb-4 md:mb-8 tracking-tight uppercase max-w-2xl">
                 {item.title}
               </h3>
 
-              <p className="text-slate-600 text-base md:text-xl max-w-xl leading-relaxed font-medium mb-12">
+              <p className="text-slate-600 text-sm md:text-xl max-w-xl leading-relaxed font-medium mb-6 md:mb-12">
                 {item.desc}
               </p>
 
               {/* Tech Specs Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-slate-200 pt-8 max-w-xl">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 border-t border-slate-200 pt-4 md:pt-8 max-w-xl">
                 <div>
                   <span className="block font-mono text-[10px] md:text-xs text-slate-500 tracking-[0.2em] mb-2 uppercase">System Status</span>
-                  <span className="font-orbitron text-sm md:text-base text-slate-900 tracking-widest flex items-center gap-2">
+                  <span className="font-orbitron text-xs md:text-base text-slate-900 tracking-widest flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                     NOMINAL
                   </span>
                 </div>
                 <div>
                   <span className="block font-mono text-[10px] md:text-xs text-slate-500 tracking-[0.2em] mb-2 uppercase">Record ID</span>
-                  <span className="font-orbitron text-sm md:text-base text-slate-900 tracking-widest">SYS-{item.id}X9</span>
+                  <span className="font-orbitron text-xs md:text-base text-slate-900 tracking-widest">SYS-{item.id}X9</span>
                 </div>
                 <div className="hidden md:block">
                   <span className="block font-mono text-[10px] md:text-xs text-slate-500 tracking-[0.2em] mb-2 uppercase">Encryption</span>
-                  <span className="font-orbitron text-sm md:text-base text-blue-600 tracking-widest">AES-256</span>
+                  <span className="font-orbitron text-xs md:text-base text-blue-600 tracking-widest">AES-256</span>
                 </div>
               </div>
 

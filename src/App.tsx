@@ -20,7 +20,7 @@ function App() {
 
       <div className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
         <SmoothScroll>
-          <div className="min-h-screen font-aeonik overflow-x-hidden bg-[#eef2f5]">
+          <div className="min-h-screen font-aeonik bg-[#eef2f5]">
             <Navbar />
             <main>
               <Routes>

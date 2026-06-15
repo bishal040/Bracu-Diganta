@@ -106,7 +106,7 @@ export const HomePage: React.FC = () => {
         This naturally slides over the sticky-container when the user reaches the end of the wrapper.
         -mt-[100vh] pulls it up visually so it overlaps the end of the sticky container.
       */}
-      <div className="relative z-20 bg-[#eef2f5] rounded-t-[3rem] -mt-[100vh] shadow-[0_-20px_60px_rgba(0,0,0,0.15)] overflow-hidden">
+      <div className="relative z-20 bg-[#eef2f5] rounded-t-[3rem] -mt-[100vh] shadow-[0_-20px_60px_rgba(0,0,0,0.15)]">
         <Projects />
         <Achievements />
         <Team />
