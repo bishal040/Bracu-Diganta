@@ -22,29 +22,45 @@ export const HomePage: React.FC = () => {
       const stickyContainer = document.querySelector('.sticky-container');
       
       if (leftHalf && rightHalf && overviewContainer && stickyContainer && wrapperRef.current) {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: wrapperRef.current,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 1.2,
-            pin: stickyContainer,
-            anticipatePin: 1,
+        
+        const mm = gsap.matchMedia();
+        
+        mm.add({
+          isDesktop: "(min-width: 768px)",
+          isMobile: "(max-width: 767px)"
+        }, (context) => {
+          const { isMobile } = context.conditions as { isMobile: boolean };
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: wrapperRef.current,
+              start: 'top top',
+              end: 'bottom bottom',
+              scrub: 1.2,
+              pin: stickyContainer,
+              anticipatePin: 1,
+            }
+          });
+
+          // Overview starts scaled down slightly and darker
+          gsap.set(overviewContainer, { scale: 0.85, opacity: 0 });
+
+          // Tearing animation happens cleanly (duration: 1)
+          if (isMobile) {
+            tl.to(leftHalf, { yPercent: -100, ease: 'power2.inOut', duration: 1 }, 0)
+              .to(rightHalf, { yPercent: 100, ease: 'power2.inOut', duration: 1 }, 0);
+          } else {
+            tl.to(leftHalf, { xPercent: -100, ease: 'power2.inOut', duration: 1 }, 0)
+              .to(rightHalf, { xPercent: 100, ease: 'power2.inOut', duration: 1 }, 0);
           }
-        });
-
-        // Overview starts scaled down slightly and darker
-        gsap.set(overviewContainer, { scale: 0.85, opacity: 0 });
-
-        // Tearing animation happens cleanly (duration: 1)
-        tl.to(leftHalf, { xPercent: -100, ease: 'power2.inOut', duration: 1 }, 0)
-          .to(rightHalf, { xPercent: 100, ease: 'power2.inOut', duration: 1 }, 0)
-          .to(overviewContainer, { scale: 1, opacity: 1, ease: 'power2.out', duration: 1 }, 0)
           
-        // INSTEAD of a dead hold (which feels like lag), we apply a slow, continuous cinematic zoom 
-        // to the overview page. This provides visual feedback that the user is still scrolling,
-        // while giving them time to read before the 3rd page naturally slides up.
-        tl.to(overviewContainer, { scale: 1.05, ease: 'none', duration: 1.5 }, 1);
+          tl.to(overviewContainer, { scale: 1, opacity: 1, ease: 'power2.out', duration: 1 }, 0);
+            
+          // INSTEAD of a dead hold (which feels like lag), we apply a slow, continuous cinematic zoom 
+          // to the overview page. This provides visual feedback that the user is still scrolling,
+          // while giving them time to read before the 3rd page naturally slides up.
+          tl.to(overviewContainer, { scale: 1.05, ease: 'none', duration: 1.5 }, 1);
+        });
       }
     });
 

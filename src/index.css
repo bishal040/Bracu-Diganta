@@ -3,37 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: 'Aeonik';
-    src: url('/fonts/Aeonik-Black.woff2') format('woff2');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Aeonik';
-    src: url('/fonts/Aeonik-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Aeonik';
-    src: url('/fonts/Aeonik-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Aeonik';
-    src: url('/fonts/Aeonik-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Orbitron:wght@400;500;700;900&display=swap');
 
   :root {
     --text-primary: rgba(15, 23, 42, 0.95); /* Gray-900 */

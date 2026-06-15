@@ -221,9 +221,9 @@ export const Navbar: React.FC = () => {
             <img 
               src="/Diganta%20Logo.png" 
               alt="BRACU Diganta Logo" 
-              className={`object-contain transition-all duration-500 ${scrolled ? 'h-8' : 'h-12 brightness-0 invert'}`} 
+              className={`object-contain transition-all duration-500 ${scrolled ? 'h-8' : 'h-12 brightness-0'}`} 
             />
-            <span className={`font-orbitron font-black tracking-widest uppercase transition-all duration-500 ${scrolled ? 'text-sm text-slate-900' : 'text-lg text-white'}`}>
+            <span className={`font-orbitron font-black tracking-widest uppercase transition-all duration-500 ${scrolled ? 'text-sm text-slate-900' : 'text-lg text-gray-900'}`}>
               Diganta
             </span>
           </div>
@@ -240,7 +240,7 @@ export const Navbar: React.FC = () => {
         >
           {/* Sliding Magic Highlight Pill */}
           <div
-            className={`absolute top-1.5 bottom-1.5 rounded-full transition-all duration-300 ease-out shadow-sm border pointer-events-none ${scrolled ? 'bg-white/70 border-white/50' : 'bg-white/10 border-white/20 backdrop-blur-md'}`}
+            className={`absolute top-1.5 bottom-1.5 rounded-full transition-all duration-300 ease-out shadow-sm border pointer-events-none ${scrolled ? 'bg-white/70 border-white/50' : 'bg-black/5 border-black/10 backdrop-blur-md'}`}
             style={{
               left: `${hoverRect.left}px`,
               width: `${hoverRect.width}px`,
@@ -260,7 +260,7 @@ export const Navbar: React.FC = () => {
               className={`group relative px-6 py-2.5 text-[11px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden ${
                 scrolled 
                   ? active ? 'text-[#2563EB]' : 'text-gray-700 hover:text-[#2563EB]'
-                  : active ? 'text-[#2563EB]' : 'text-white hover:text-[#2563EB]'
+                  : active ? 'text-[#2563EB]' : 'text-gray-900 hover:text-[#2563EB]'
               }`}
             >
               <span className="relative z-10 flex items-center gap-2">
@@ -320,17 +320,17 @@ export const Navbar: React.FC = () => {
                  @keyframes lineWave2 { 0%, 100% { width: 14px; } 50% { width: 24px; } }
                  @keyframes lineWave3 { 0%, 100% { width: 8px; } 50% { width: 20px; } }
                `}</style>
-              <div className="w-6 flex justify-end"><span className={`h-[2px] group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300 ${scrolled ? 'bg-gray-800' : 'bg-white'}`} style={{ animation: 'lineWave1 2.5s ease-in-out infinite' }} /></div>
-              <div className="w-6 flex justify-end"><span className={`h-[2px] group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300 ${scrolled ? 'bg-gray-800' : 'bg-white'}`} style={{ animation: 'lineWave2 3s ease-in-out infinite' }} /></div>
-              <div className="w-6 flex justify-end"><span className={`h-[2px] group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300 ${scrolled ? 'bg-gray-800' : 'bg-white'}`} style={{ animation: 'lineWave3 2.5s ease-in-out infinite' }} /></div>
+              <div className="w-6 flex justify-end"><span className={`h-[2px] group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300 ${scrolled ? 'bg-gray-800' : 'bg-gray-900'}`} style={{ animation: 'lineWave1 2.5s ease-in-out infinite' }} /></div>
+              <div className="w-6 flex justify-end"><span className={`h-[2px] group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300 ${scrolled ? 'bg-gray-800' : 'bg-gray-900'}`} style={{ animation: 'lineWave2 3s ease-in-out infinite' }} /></div>
+              <div className="w-6 flex justify-end"><span className={`h-[2px] group-hover:bg-[#2563EB] group-hover:shadow-[0_0_8px_#2563EB] rounded-full transition-colors duration-300 ${scrolled ? 'bg-gray-800' : 'bg-gray-900'}`} style={{ animation: 'lineWave3 2.5s ease-in-out infinite' }} /></div>
             </div>
 
             {/* Sci-Fi Cross (Open State) */}
             <div className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${mobileMenuOpen ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 -rotate-180'}`}>
               <div className="relative w-6 h-6">
                 {/* X Lines */}
-                <span className={`absolute top-1/2 left-0 w-full h-[1.5px] rounded-full -translate-y-1/2 rotate-45 shadow-[0_0_10px_rgba(255,255,255,0.8)] ${scrolled ? 'bg-gray-900' : 'bg-white'}`} />
-                <span className={`absolute top-1/2 left-0 w-full h-[1.5px] rounded-full -translate-y-1/2 -rotate-45 shadow-[0_0_10px_rgba(255,255,255,0.8)] ${scrolled ? 'bg-gray-900' : 'bg-white'}`} />
+                <span className={`absolute top-1/2 left-0 w-full h-[1.5px] rounded-full -translate-y-1/2 rotate-45 shadow-[0_0_10px_rgba(255,255,255,0.8)] ${scrolled ? 'bg-gray-900' : 'bg-gray-900'}`} />
+                <span className={`absolute top-1/2 left-0 w-full h-[1.5px] rounded-full -translate-y-1/2 -rotate-45 shadow-[0_0_10px_rgba(255,255,255,0.8)] ${scrolled ? 'bg-gray-900' : 'bg-gray-900'}`} />
                 {/* Diamond Border */}
                 <div className={`absolute inset-[-6px] border-[1.5px] rotate-45 scale-[0.7] ${scrolled ? 'border-gray-900/30' : 'border-white/30'}`} />
               </div>
