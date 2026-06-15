@@ -91,61 +91,93 @@ export const Contact: React.FC = () => {
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 flex flex-col h-full z-10 relative">
 
         {/* ── TOP: Horizontal Hook Texts ── */}
-        <div className="bento-reveal flex flex-col gap-2 mb-4 lg:mb-6 shrink-0 relative z-20 will-change-transform">
-          <div>
-            <div className="inline-flex items-center gap-2 mb-2 lg:mb-3 bg-white/90 px-3 py-1.5 rounded-full border border-white/60 shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
-              <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse shadow-[0_0_10px_rgba(37,99,235,0.5)]" />
-              <span className="text-[9px] lg:text-[11px] font-orbitron font-bold tracking-widest uppercase text-blue-700">
-                Classified // Corporate Partnership
-              </span>
+        <div className="bento-reveal flex flex-col gap-4 mb-6 lg:mb-8 shrink-0 relative z-20 will-change-transform">
+          <h2 className="font-orbitron text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 tracking-tighter leading-[1.1]">
+            Fuel Our Next <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 pb-1">Breakthrough</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl">
+            {/* Sponsors Space */}
+            <div className="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white/50 shadow-[0_8px_30px_rgba(37,99,235,0.04)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.1)] transition-all">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
+                </div>
+                <h3 className="font-orbitron font-bold text-sm lg:text-base text-slate-900 uppercase tracking-widest">Sponsorship</h3>
+              </div>
+              <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                Gain premium brand visibility. Interact directly with our latest aerospace missions and secure your spot on our flagship rovers and satellites.
+              </p>
             </div>
-            <h2 className="font-orbitron text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 uppercase tracking-tighter leading-[1.1]">
-              We have the blueprints.<br />
-              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 pb-1">We need your fuel.</span>
-            </h2>
+            
+            {/* Investment Space */}
+            <div className="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white/50 shadow-[0_8px_30px_rgba(37,99,235,0.04)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.1)] transition-all">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
+                <h3 className="font-orbitron font-bold text-sm lg:text-base text-slate-900 uppercase tracking-widest">Investment & Support</h3>
+              </div>
+              <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                Drive our research forward. We invite companies to provide technological resources, financial investments, and collaborative expertise.
+              </p>
+            </div>
           </div>
-          <p className="text-slate-600 text-sm md:text-base lg:text-lg leading-relaxed font-semibold max-w-3xl bg-white/60 p-4 rounded-xl border border-white/40 shadow-sm">
-            Join an elite circle of aerospace pioneers. We are pushing the boundaries of what is possible.
-          </p>
         </div>
 
         {/* ── MIDDLE: 50/50 Split (Form & Grid) ── */}
         <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 relative z-20">
 
-          {/* LEFT: Crazy Glassmorphic Form UI */}
+          {/* LEFT: Clean Modern Form UI */}
           <div className="bento-reveal h-full bg-white/95 rounded-[2rem] border border-white shadow-[0_20px_40px_rgba(37,99,235,0.06)] p-6 flex flex-col relative overflow-hidden group will-change-transform">
             {/* Glossy highlight */}
             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/80 to-transparent pointer-events-none rounded-t-[2rem]" />
 
             <div className="flex items-center gap-3 mb-4 lg:mb-6 border-b border-blue-100 pb-3 relative z-10 shrink-0">
               <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center">
-                <Lock size={14} className="text-blue-600" />
+                <svg className="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
               </div>
               <h3 className="font-orbitron font-bold text-xs lg:text-sm text-slate-900 uppercase tracking-widest">
-                Secure Comm Link
+                Initiate Partnership
               </h3>
             </div>
 
-            {/* Changed to stack vertically for a "broader" description field layout */}
-            <form className="flex flex-col gap-3 lg:gap-5 h-full relative z-10 min-h-0" onSubmit={handleSubmit}>
+            <form className="flex flex-col gap-3 lg:gap-4 h-full relative z-10 min-h-0" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-3 lg:gap-4 shrink-0">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Target Organization</label>
-                  <input type="text" required className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="Enter Name..." />
+                <div className="flex gap-3 lg:gap-4">
+                  <div className="flex flex-col gap-1.5 flex-1">
+                    <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Organization</label>
+                    <input type="text" required className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="Company Name" />
+                  </div>
+                  <div className="flex flex-col gap-1.5 flex-1">
+                    <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Email Address</label>
+                    <input type="email" required className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="contact@domain.com" />
+                  </div>
                 </div>
+
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Clearance Email</label>
-                  <input type="email" required className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="director@domain.com" />
+                  <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Partnership Type</label>
+                  <select 
+                    className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all appearance-none cursor-pointer" 
+                    required 
+                    defaultValue=""
+                  >
+                    <option value="" disabled>Select Interest...</option>
+                    <option value="sponsor">Sponsorship & Brand Visibility</option>
+                    <option value="invest">Corporate Investment</option>
+                    <option value="resource">Resource & Tech Support</option>
+                    <option value="other">Other Inquiry</option>
+                  </select>
                 </div>
               </div>
+
               <div className="flex flex-col gap-1.5 flex-1 min-h-0">
-                <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2 shrink-0">Mission Proposal (Broad Field)</label>
-                <textarea required className="w-full h-full min-h-0 bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="Initiate partnership sequence..." />
+                <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2 shrink-0">Message / Proposal</label>
+                <textarea required className="w-full h-full min-h-0 bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="How would you like to collaborate with us?" />
               </div>
-              <button type="submit" disabled={formStatus !== 'idle'} className="shrink-0 w-full bg-slate-900 hover:bg-blue-600 text-white font-orbitron font-bold text-sm lg:text-base uppercase tracking-widest py-3 lg:py-4 rounded-xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.35)] hover:-translate-y-1 flex items-center justify-center gap-3 disabled:bg-slate-300 disabled:shadow-none disabled:transform-none">
-                {formStatus === 'idle' && <>Become a Sponsor <ArrowRight size={20} /></>}
-                {formStatus === 'sending' && <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Encrypting...</>}
-                {formStatus === 'sent' && '✓ Transmission Secure'}
+              <button type="submit" disabled={formStatus !== 'idle'} className="shrink-0 w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-orbitron font-bold text-sm lg:text-base uppercase tracking-widest py-3 rounded-xl transition-all duration-300 shadow-[0_10px_20px_rgba(37,99,235,0.2)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 flex items-center justify-center gap-3 disabled:bg-slate-300 disabled:shadow-none disabled:transform-none">
+                {formStatus === 'idle' && <>Submit Request <ArrowRight size={18} /></>}
+                {formStatus === 'sending' && <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Sending...</>}
+                {formStatus === 'sent' && '✓ Received'}
               </button>
             </form>
           </div>

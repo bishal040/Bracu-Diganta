@@ -33,7 +33,7 @@ export const News: React.FC = () => {
           </div>
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight text-center">Latest News</h2>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {NEWS_ITEMS.map((item, idx) => (
             <GlassmorphismCard key={idx} className="group flex flex-col justify-between cursor-pointer p-6">
@@ -42,12 +42,12 @@ export const News: React.FC = () => {
                 <h3 className="text-lg font-bold mb-3 leading-snug group-hover:text-telemetry-cyan transition-colors">{item.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">{item.excerpt}</p>
               </div>
-              
+
               <div className="flex items-center gap-2 text-gray-500 group-hover:text-gray-900 transition-colors uppercase text-xs tracking-widest font-bold">
                 Read Article
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
-              
+
               {/* Hover top border gradient */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-telemetry-cyan to-mission-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </GlassmorphismCard>

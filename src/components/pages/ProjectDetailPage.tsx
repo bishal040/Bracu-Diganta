@@ -18,7 +18,7 @@ export const ProjectDetailPage: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     if (!project || !project.details || !pageRef.current) return;
 
     const ctx = gsap.context(() => {
@@ -35,7 +35,7 @@ export const ProjectDetailPage: React.FC = () => {
       });
 
       // 2. Scrollytelling Text Reveal
-      gsap.fromTo('.reveal-text', 
+      gsap.fromTo('.reveal-text',
         { opacity: 0.2, y: 20 },
         {
           opacity: 1,
@@ -87,7 +87,7 @@ export const ProjectDetailPage: React.FC = () => {
 
   return (
     <div ref={pageRef} className="bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white font-sans overflow-x-hidden relative">
-      
+
       {/* Background Orbs - Light Mode */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[10%] left-[-10%] w-[50vw] h-[50vw] bg-blue-400/10 blur-[150px] rounded-full mix-blend-multiply" />
@@ -97,8 +97,8 @@ export const ProjectDetailPage: React.FC = () => {
 
       {/* Navigation */}
       <nav className="fixed top-24 left-6 md:left-12 z-50">
-        <button 
-          onClick={() => navigate('/missions')} 
+        <button
+          onClick={() => navigate('/missions')}
           className="flex items-center gap-2 px-5 py-2.5 bg-white/80 hover:bg-white backdrop-blur-xl border border-slate-200 hover:border-blue-300 rounded-full text-slate-700 hover:text-blue-600 transition-all shadow-lg hover:shadow-xl group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
@@ -113,7 +113,7 @@ export const ProjectDetailPage: React.FC = () => {
           {/* Lighter gradient for hero */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/70 to-slate-50" />
         </div>
-        
+
         <div className="relative z-10 flex flex-col items-center text-center px-6 mt-20">
           <div className="flex items-center gap-4 mb-8">
             <span className="text-[10px] font-mono text-blue-700 border border-blue-200 px-5 py-2 rounded-full tracking-[0.3em] uppercase backdrop-blur-md bg-white/80 shadow-sm font-bold">
@@ -124,7 +124,7 @@ export const ProjectDetailPage: React.FC = () => {
               <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-slate-800 font-bold">{project.status}</span>
             </div>
           </div>
-          
+
           <h1 className="font-orbitron text-5xl md:text-7xl lg:text-[9rem] font-black uppercase tracking-tighter leading-none mb-6 drop-shadow-xl text-slate-900">
             {project.title}
           </h1>
@@ -152,7 +152,7 @@ export const ProjectDetailPage: React.FC = () => {
           <h3 className="font-orbitron text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-32 max-w-5xl text-slate-900 font-bold">
             {project.details.objective}
           </h3>
-          
+
           <div className="max-w-5xl ml-auto border-l-4 border-blue-100 pl-8 md:pl-16 relative">
             <div className="absolute top-0 left-[-13px] w-6 h-6 bg-blue-50 rounded-full border-4 border-blue-200" />
             <h2 className="text-slate-500 font-mono text-xs tracking-[0.3em] uppercase mb-12 font-bold">Technical Overview</h2>
@@ -173,14 +173,14 @@ export const ProjectDetailPage: React.FC = () => {
         </div>
 
         <div ref={horizontalContainerRef} className="flex items-center gap-12 md:gap-24 px-6 md:px-24 h-[70vh] md:h-[65vh] mt-12 md:mt-0">
-          
+
           {/* Tech Specs Cards */}
           {project.details.technicalSpecs.map((spec, idx) => (
             <div key={idx} className="w-[85vw] md:w-[480px] h-full flex-shrink-0 bg-white border border-slate-200 rounded-[2.5rem] p-10 md:p-14 flex flex-col justify-center hover:border-blue-300 transition-all duration-500 shadow-xl hover:shadow-2xl group">
               <h4 className="font-mono text-xs text-blue-600 tracking-widest uppercase font-bold mb-12 flex items-center">
                 <span className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 mr-4 border border-blue-100">
                   {idx + 1}
-                </span> 
+                </span>
                 {spec.category}
               </h4>
               <ul className="flex flex-col gap-8">
@@ -206,7 +206,7 @@ export const ProjectDetailPage: React.FC = () => {
               </div>
             </div>
           ))}
-          
+
           {/* End padding block to ensure scroll completion */}
           <div className="w-[10vw] flex-shrink-0" />
         </div>

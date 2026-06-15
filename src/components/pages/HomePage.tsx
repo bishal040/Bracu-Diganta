@@ -12,18 +12,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const HomePage: React.FC = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       const leftHalf = document.querySelector('.hero-left-half');
       const rightHalf = document.querySelector('.hero-right-half');
       const overviewContainer = document.querySelector('.overview-layer');
       const stickyContainer = document.querySelector('.sticky-container');
-      
+
       if (leftHalf && rightHalf && overviewContainer && stickyContainer && wrapperRef.current) {
-        
+
         const mm = gsap.matchMedia();
-        
+
         mm.add({
           isDesktop: "(min-width: 768px)",
           isMobile: "(max-width: 767px)"
@@ -55,9 +55,9 @@ export const HomePage: React.FC = () => {
             tl.to(leftHalf, { xPercent: -100, ease: 'power2.inOut', duration: 0.5 }, 0)
               .to(rightHalf, { xPercent: 100, ease: 'power2.inOut', duration: 0.5 }, 0);
           }
-          
+
           tl.to(overviewContainer, { scale: 1, opacity: 1, ease: 'power2.out', duration: 0.5 }, 0);
-            
+
           // 0.5 to 2.0 (remaining 75% of scroll): Very slow zoom. 
           // The user has ample time to read the overview before the CSS stacking overlap reaches the screen.
           tl.to(overviewContainer, { scale: 1.02, ease: 'none', duration: 1.5 }, 0.5);
@@ -70,7 +70,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="w-full bg-[#eef2f5]">
-      
+
       {/* 
         THE SCROLL WRAPPER
         h-[300vh] provides 200vh of pure scroll distance.
@@ -79,34 +79,34 @@ export const HomePage: React.FC = () => {
         - Last 100vh: Projects page slides up using CSS negative margins.
       */}
       <div ref={wrapperRef} className="relative w-full h-[300vh]">
-        
+
         {/* 
           THE PINNED CONTAINER
           This is pinned by GSAP to the top of the viewport for the entire duration.
         */}
         <div className="sticky-container w-full h-screen overflow-hidden">
-          
+
           {/* Layer 0: The Overview page that gets revealed */}
           <div className="overview-layer absolute inset-0 z-0 bg-[#eef2f5]">
             <Overview />
           </div>
-          
+
           {/* Layer 1: The Hero cover that tears apart */}
           <div className="absolute inset-0 z-10 pointer-events-none">
             <div className="h-full">
               <HomeHero />
             </div>
           </div>
-          
+
         </div>
       </div>
 
       {/* 
         THE STACKING SLIDE ANIMATION
         This naturally slides over the sticky-container when the user reaches the end of the wrapper.
-        -mt-[100vh] pulls it up visually, and -mb-[100vh] removes the resulting empty white space at the bottom.
+        -mt-[100vh] pulls it up visually so it overlaps the end of the sticky container.
       */}
-      <div className="relative z-20 bg-[#eef2f5] rounded-t-[3rem] -mt-[100vh] -mb-[100vh] shadow-[0_-20px_60px_rgba(0,0,0,0.15)] overflow-hidden">
+      <div className="relative z-20 bg-[#eef2f5] rounded-t-[3rem] -mt-[100vh] shadow-[0_-20px_60px_rgba(0,0,0,0.15)] overflow-hidden">
         <Projects />
         <Achievements />
         <Team />

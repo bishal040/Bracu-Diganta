@@ -6,7 +6,7 @@ export const Outreach: React.FC = () => {
   return (
     <SectionReveal id="outreach" className="relative">
       <div className="relative z-10 w-full max-w-7xl mx-auto">
-        
+
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-16">
           <div className="flex items-center gap-4 mb-4">
@@ -16,20 +16,20 @@ export const Outreach: React.FC = () => {
           </div>
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight">Inspiring The Next Generation</h2>
         </div>
-        
+
         {/* Two-column layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          
+
           {/* Text */}
           <div className="space-y-6">
             <p className="text-lg text-gray-600 leading-relaxed">
-              We believe that the future of aerospace engineering in Bangladesh depends on accessible STEM education today. 
+              We believe that the future of aerospace engineering in Bangladesh depends on accessible STEM education today.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
               Through our community outreach programs, we conduct workshops at local schools, host rocketry camps, and provide mentorship to high school students interested in space sciences.
             </p>
           </div>
-          
+
           {/* Stats */}
           <div className="grid grid-cols-2 gap-4">
             <GlassmorphismCard className="!p-8 text-center">

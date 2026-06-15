@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
     { label: 'Projects', type: 'hash', target: 'projects' },
     { label: 'Missions', type: 'route', target: '/missions' },
     { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
-    { label: 'Achievements', type: 'hash', target: 'achievements' },
+    { label: 'Timeline', type: 'hash', target: 'achievements' },
     { label: 'Team', type: 'route', target: '/team' },
     { label: 'Contact', type: 'hash', target: 'contact' }
   ];

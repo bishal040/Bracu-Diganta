@@ -6,3 +6,4 @@ export { MissionsPage } from './MissionsPage';
 export { ProjectDetailPage } from './ProjectDetailPage';
 export { ComingSoonPage } from './ComingSoonPage';
 export { NewsCansat2026Page } from './NewsCansat2026Page';
+export { CareersPage } from './CareersPage';

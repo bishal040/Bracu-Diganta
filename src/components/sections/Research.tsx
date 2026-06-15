@@ -49,10 +49,10 @@ const PremiumCard = ({ children, className = '', glowColor = "rgba(255, 255, 255
           maskImage: `url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='none' rx='32' ry='32' stroke='white' stroke-width='2'/%3E%3C/svg%3E")`
         }}
       />
-      
+
       {/* Inner subtle noise texture for realism */}
       <div className="absolute inset-0 opacity-[0.015] z-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
-      
+
       <div className="relative z-10 h-full p-8 md:p-10 flex flex-col">
         {children}
       </div>
@@ -63,14 +63,14 @@ const PremiumCard = ({ children, className = '', glowColor = "rgba(255, 255, 255
 export const Research: React.FC = () => {
   return (
     <section id="research" className="relative py-32 bg-[#eef2f5] overflow-hidden text-slate-900">
-      
+
       {/* Center ambient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-400/10 rounded-full blur-[120px] pointer-events-none z-0" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
-        
+
         {/* Header Area */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -93,9 +93,9 @@ export const Research: React.FC = () => {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          
+
           {/* Feature 1: Large Top Left */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
             className="md:col-span-8"
           >
@@ -116,7 +116,7 @@ export const Research: React.FC = () => {
           </motion.div>
 
           {/* Feature 2: Tall Top Right */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
             className="md:col-span-4"
           >
@@ -124,7 +124,7 @@ export const Research: React.FC = () => {
               <div className="p-4 rounded-2xl bg-orange-50 border border-orange-100 text-orange-600 w-fit mb-8">
                 <Printer size={32} strokeWidth={1.5} />
               </div>
-              <h3 className="font-orbitron text-2xl font-bold text-slate-900 mb-4 mt-auto">Additive<br/>Manufacturing</h3>
+              <h3 className="font-orbitron text-2xl font-bold text-slate-900 mb-4 mt-auto">Additive<br />Manufacturing</h3>
               <p className="text-slate-600 leading-relaxed">
                 Developing screwless, high-impact chassis structures using Carbon Fiber PETG. Our topologies are algorithmically optimized to withstand extreme atmospheric sheer.
               </p>
@@ -132,7 +132,7 @@ export const Research: React.FC = () => {
           </motion.div>
 
           {/* Feature 3: Bottom Left */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }}
             className="md:col-span-5"
           >
@@ -148,7 +148,7 @@ export const Research: React.FC = () => {
           </motion.div>
 
           {/* Feature 4: Bottom Right (Wide) */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.4 }}
             className="md:col-span-7"
           >
@@ -163,7 +163,7 @@ export const Research: React.FC = () => {
                     Next-generation mission control interfaces. Visualizing complex telemetry arrays—including real-time GPS coordinates, barometric pressure, and 3D orientation.
                   </p>
                 </div>
-                
+
                 {/* Minimalist Dashboard Decoration */}
                 <div className="hidden lg:flex w-48 shrink-0 flex-col gap-3 justify-end">
                   <div className="w-full h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center px-4 shadow-inner">

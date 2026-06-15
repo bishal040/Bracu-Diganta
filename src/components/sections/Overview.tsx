@@ -21,7 +21,7 @@ const MinimalStat: React.FC<{ end: number; suffix?: string; label: string }> = (
       onEnter: () => {
         if (hasAnimated.current) return;
         hasAnimated.current = true;
-        
+
         const counter = { val: 0 };
         gsap.to(counter, {
           val: end,
@@ -81,7 +81,7 @@ export const Overview: React.FC = () => {
 
   return (
     <section id="overview" ref={sectionRef} className="py-8 lg:py-24 relative z-10 bg-[#eef2f5] overflow-hidden h-full flex items-center">
-      
+
       {/* Massive Background Text */}
       <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-full overflow-hidden flex justify-center pointer-events-none opacity-[0.03] select-none">
         <h1 className="font-orbitron font-black text-[18vw] leading-none whitespace-nowrap text-gray-900 tracking-tighter">
@@ -90,24 +90,24 @@ export const Overview: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full mt-4 md:mt-12">
-        
+
         {/* Main Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12 lg:gap-20 items-center">
-          
+
           {/* Left Column: Narrative & Stats */}
           <div className="lg:col-span-5 flex flex-col justify-between h-full reveal-elem">
             <div>
               <h2 className="text-3xl md:text-5xl font-orbitron font-bold text-gray-900 leading-[1.1] mb-3 md:mb-6 uppercase tracking-tight">
-                Pioneering <br/>
+                Pioneering <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-cyan-500">
                   The Exosphere
                 </span>
               </h2>
-              
+
               <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-6 md:mb-10 max-w-md">
                 We are a student-led engineering team dedicated to democratizing space technology. By developing low-cost, high-reliability modular CanSats, we push the boundaries of atmospheric science and orbital mechanics.
               </p>
-              
+
               <MagneticButton className="inline-flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-6 py-3 md:px-8 md:py-4 rounded-full text-sm font-semibold transition-all group">
                 Download Portfolio
                 <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -126,19 +126,19 @@ export const Overview: React.FC = () => {
           {/* Right Column: Major Announcement & News Card */}
           <div className="lg:col-span-7 reveal-elem">
             <div className="relative w-full min-h-[400px] sm:aspect-[4/5] md:min-h-0 md:aspect-square bg-gray-900 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl group flex flex-col justify-end p-6 md:p-12">
-              
+
               {/* Background Image */}
-              <div 
+              <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
                 style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=2070&auto=format&fit=crop")' }}
               />
-              
+
               {/* Dark Gradient Overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900/10 opacity-90 transition-opacity duration-500 group-hover:opacity-80" />
 
               {/* Content Overlay */}
               <div className="relative z-10 w-full mt-auto pt-16">
-                
+
                 <div className="flex justify-between items-start mb-4 md:mb-6">
                   <div className="bg-[#2563EB]/80 backdrop-blur-md border border-[#2563EB] px-3 py-1.5 rounded-2xl flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
@@ -147,25 +147,25 @@ export const Overview: React.FC = () => {
                 </div>
 
                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-orbitron font-bold text-white mb-3 md:mb-4 uppercase leading-[1.1]">
-                  Diganta Selected for <br/>
+                  Diganta Selected for <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
                     CANSAT 2026
                   </span>
                 </h3>
-                
+
                 <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-6 max-w-md">
                   We are thrilled to announce that Team Diganta has officially qualified for the International CanSat Competition. Our latest modular payload design scored in the top 5% of global submissions.
                 </p>
 
                 {/* Glassmorphism Button */}
-                <MagneticButton 
-                  onClick={() => navigate('/news/cansat-2026')} 
+                <MagneticButton
+                  onClick={() => navigate('/news/cansat-2026')}
                   className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-xl text-white px-6 py-3 rounded-full text-sm font-semibold transition-all w-full sm:w-auto"
                 >
                   Read Full Story
                   <ArrowUpRight size={16} />
                 </MagneticButton>
-                
+
               </div>
             </div>
           </div>

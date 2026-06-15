@@ -47,12 +47,13 @@ export const MissionsPage: React.FC = () => {
           return (
             <section 
               key={mission.id} 
-              className="py-24 md:py-40 px-6 md:px-12 border-b border-slate-100"
+              onClick={() => mission.route && navigate(mission.route)}
+              className={`py-24 md:py-40 px-6 md:px-12 border-b border-slate-100 group transition-colors duration-500 ${mission.route ? 'cursor-pointer hover:bg-slate-50' : ''}`}
             >
               <div className={`max-w-[1400px] mx-auto flex flex-col gap-16 lg:gap-32 ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
                 
                 {/* Image Block */}
-                <div className="w-full lg:w-1/2 relative group">
+                <div className="w-full lg:w-1/2 relative">
                   <div className="aspect-[4/5] md:aspect-[4/3] lg:aspect-[4/5] w-full overflow-hidden bg-slate-100 relative">
                     <img 
                       src={mission.image} 
@@ -83,7 +84,7 @@ export const MissionsPage: React.FC = () => {
                     </span>
                   </div>
                   
-                  <h2 className="font-orbitron text-4xl md:text-6xl font-black text-slate-900 uppercase leading-[0.9] mb-8 tracking-tighter">
+                  <h2 className="font-orbitron text-4xl md:text-6xl font-black text-slate-900 uppercase leading-[0.9] mb-8 tracking-tighter group-hover:text-blue-600 transition-colors duration-300">
                     {mission.title}
                   </h2>
                   
@@ -95,15 +96,14 @@ export const MissionsPage: React.FC = () => {
                     {mission.stats.map((stat, idx) => (
                       <div key={idx} className="flex flex-col">
                         <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase mb-2">{stat.label}</span>
-                        <span className="font-orbitron text-2xl text-slate-900 font-bold">{stat.value}</span>
+                        <span className="font-orbitron text-2xl text-slate-900 font-bold group-hover:text-blue-600 transition-colors duration-300">{stat.value}</span>
                       </div>
                     ))}
                   </div>
 
                   {mission.route && (
                     <button 
-                      onClick={() => navigate(mission.route!)}
-                      className="w-max inline-flex items-center gap-4 bg-transparent text-slate-900 border-2 border-slate-900 px-8 py-4 font-mono text-xs tracking-widest uppercase font-bold hover:bg-slate-900 hover:text-white transition-colors duration-300 group"
+                      className="w-max inline-flex items-center gap-4 bg-transparent text-slate-900 border-2 border-slate-900 px-8 py-4 font-mono text-xs tracking-widest uppercase font-bold group-hover:bg-slate-900 group-hover:text-white transition-colors duration-300"
                     >
                       <span>Initiate Protocol</span>
                       <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

@@ -18,9 +18,9 @@ export const SectionReveal: React.FC<SectionRevealProps> = ({ children, id, clas
     if (!sectionRef.current || !contentRef.current) return;
 
     gsap.fromTo(contentRef.current,
-      { 
-        y: 60, 
-        opacity: 0 
+      {
+        y: 60,
+        opacity: 0
       },
       {
         y: 0,

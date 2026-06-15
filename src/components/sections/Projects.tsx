@@ -47,8 +47,8 @@ export const Projects: React.FC = () => {
     if (!activeContent) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo('.reveal-item', 
-        { opacity: 0, y: 20 }, 
+      gsap.fromTo('.reveal-item',
+        { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'power2.out', delay: 0.3 }
       );
     }, activeContent);
@@ -59,7 +59,7 @@ export const Projects: React.FC = () => {
   return (
     <section id="projects" ref={sectionRef} className="py-12 md:py-24 relative z-10 bg-[#eef2f5]">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        
+
         {/* Header */}
         <div className="archive-header flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-12 gap-4 md:gap-8">
           <div>
@@ -73,7 +73,7 @@ export const Projects: React.FC = () => {
               Project <br /> Showcase
             </h2>
           </div>
-          
+
           <MagneticButton className="hidden md:flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 rounded-full text-sm font-semibold transition-all">
             <button onClick={() => { navigate('/missions'); window.scrollTo(0, 0); }} className="flex items-center gap-3">
               View All Missions <ArrowUpRight size={16} />
@@ -85,9 +85,9 @@ export const Projects: React.FC = () => {
         <div className="w-full h-[80vh] md:h-[70vh] lg:h-[600px] flex flex-col lg:flex-row gap-3 md:gap-4 pb-4 md:pb-0">
           {projects.map((project, index) => {
             const isActive = activeIndex === index;
-            
+
             return (
-              <div 
+              <div
                 key={project.id}
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => {
@@ -101,12 +101,12 @@ export const Projects: React.FC = () => {
                   ${isActive ? 'lg:flex-[3] flex-[4] shadow-2xl' : 'lg:flex-[1] flex-[1] grayscale-[50%] hover:grayscale-0'}`}
               >
                 {/* Background Image */}
-                <img 
-                  src={project.image} 
+                <img
+                  src={project.image}
                   alt={project.title}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
-                
+
                 {/* Dark Overlays */}
                 <div className={`absolute inset-0 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/80 to-transparent lg:via-[#0a0a0c]/60" />
@@ -126,11 +126,11 @@ export const Projects: React.FC = () => {
                 </div>
 
                 {/* --- ACTIVE STATE CONTENT --- */}
-                <div 
+                <div
                   ref={el => { contentRefs.current[index] = el; }}
                   className={`absolute inset-0 p-4 md:p-8 lg:p-12 flex flex-col justify-end transition-opacity duration-500 ${isActive ? 'opacity-100 delay-200' : 'opacity-0 pointer-events-none'}`}
                 >
-                  
+
                   {/* Top Meta Data */}
                   <div className="reveal-item flex items-center gap-3 mb-auto">
                     <div className="bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 text-white">
@@ -141,7 +141,7 @@ export const Projects: React.FC = () => {
 
                   {/* Bottom Content Area */}
                   <div className="max-w-2xl mt-auto">
-                    
+
                     <div className="reveal-item flex items-center gap-3 mb-2 md:mb-4">
                       <span className="text-[9px] md:text-[10px] font-mono tracking-widest text-[#2563EB] uppercase font-bold">
                         {project.category}
@@ -151,17 +151,17 @@ export const Projects: React.FC = () => {
                         {project.date}
                       </span>
                     </div>
-                    
+
                     <h3 className="reveal-item font-orbitron text-2xl md:text-5xl lg:text-6xl font-black text-white mb-2 md:mb-4 uppercase tracking-tighter leading-none">
                       {project.title}
                     </h3>
-                    
+
                     <p className="reveal-item text-gray-300 text-xs md:text-base leading-relaxed mb-4 md:mb-8 max-w-lg hidden md:block">
                       {project.description}
                     </p>
 
                     <div className="reveal-item flex flex-col sm:flex-row sm:items-center gap-4 md:gap-6 justify-between border-t border-gray-800/60 pt-3 md:pt-6">
-                      
+
                       {/* Stats */}
                       <div className="flex items-center gap-4 md:gap-8">
                         {project.stats.map((stat, idx) => (
@@ -180,8 +180,8 @@ export const Projects: React.FC = () => {
                             {project.status}
                           </span>
                         </div>
-                        
-                        <button 
+
+                        <button
                           onClick={(e) => {
                             e.stopPropagation();
                             if (project.route) {
@@ -199,7 +199,7 @@ export const Projects: React.FC = () => {
                   </div>
 
                 </div>
-                
+
                 {/* Decorative Target crosshairs on Active */}
                 {isActive && (
                   <div className="absolute top-8 right-8 pointer-events-none hidden lg:block">
@@ -209,7 +209,7 @@ export const Projects: React.FC = () => {
                     </div>
                   </div>
                 )}
-                
+
               </div>
             );
           })}

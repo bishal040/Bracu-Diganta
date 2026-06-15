@@ -12,7 +12,7 @@ export const Media: React.FC = () => {
   return (
     <SectionReveal id="media" className="relative">
       <div className="relative z-10 w-full max-w-7xl mx-auto">
-        
+
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-16">
           <div className="flex items-center gap-4 mb-4">
@@ -22,20 +22,19 @@ export const Media: React.FC = () => {
           </div>
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight">Mission Logs</h2>
         </div>
-        
+
         {/* Masonry-style grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {IMAGES.map((img, idx) => (
-            <div 
-              key={idx} 
-              className={`relative rounded-2xl overflow-hidden group cursor-pointer ${
-                idx === 0 ? 'md:col-span-2 md:row-span-2 aspect-square' : 'aspect-video'
-              }`}
+            <div
+              key={idx}
+              className={`relative rounded-2xl overflow-hidden group cursor-pointer ${idx === 0 ? 'md:col-span-2 md:row-span-2 aspect-square' : 'aspect-video'
+                }`}
             >
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-              <img 
-                src={img} 
-                alt={`Mission Media ${idx + 1}`} 
+              <img
+                src={img}
+                alt={`Mission Media ${idx + 1}`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />

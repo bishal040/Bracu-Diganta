@@ -17,7 +17,7 @@ const NEWS_UPDATES = [
     icon: Award,
     image: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=1600&auto=format&fit=crop',
     color: 'from-blue-500 to-cyan-400',
-    maskClass: 'rounded-[2rem] md:rounded-[3rem] md:rounded-tr-[12rem]' // Sweeping top-right corner
+    maskClass: 'rounded-[2rem] md:rounded-[3rem] md:rounded-bl-[15rem]' // Dramatic bottom-left sweep
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const NEWS_UPDATES = [
     icon: Cpu,
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop',
     color: 'from-emerald-500 to-teal-400',
-    maskClass: 'rounded-[2rem] rounded-t-[8rem] md:rounded-t-[20rem]' // Arch window shape
+    maskClass: 'rounded-[3rem] md:rounded-[5rem]' // Smooth squircle
   },
   {
     id: 3,
@@ -43,7 +43,7 @@ const NEWS_UPDATES = [
     icon: Activity,
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop',
     color: 'from-purple-500 to-pink-400',
-    maskClass: 'rounded-[2rem] rounded-tl-[6rem] rounded-br-[6rem] md:rounded-tl-[12rem] md:rounded-br-[12rem]' // Aerodynamic leaf shape
+    maskClass: 'rounded-[2rem] md:rounded-tr-[12rem] md:rounded-bl-[12rem]' // Sharp diagonal leaf
   },
   {
     id: 4,
@@ -56,7 +56,7 @@ const NEWS_UPDATES = [
     icon: Radio,
     image: 'https://images.unsplash.com/photo-1506443432602-ac2fcd6f54e0?q=80&w=1600&auto=format&fit=crop',
     color: 'from-orange-500 to-red-400',
-    maskClass: 'rounded-[3rem] md:rounded-[10rem]' // Pill / capsule shape
+    maskClass: 'rounded-t-[8rem] rounded-b-[2rem] md:rounded-t-[18rem] md:rounded-b-[4rem]' // Tall archway
   }
 ];
 

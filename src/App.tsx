@@ -5,7 +5,7 @@ import { Navbar } from './components/Navbar';
 import { HomePage } from './components/pages/HomePage';
 import { CansatPage } from './components/pages/CansatPage';
 import { Footer } from './components/sections/Footer';
-import { LoadingPage, TeamPage, MissionsPage, ProjectDetailPage, ComingSoonPage, NewsCansat2026Page } from './components/pages';
+import { LoadingPage, TeamPage, MissionsPage, ProjectDetailPage, ComingSoonPage, NewsCansat2026Page, CareersPage } from './components/pages';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,6 +31,7 @@ function App() {
                 <Route path="/project/:slug" element={<ProjectDetailPage />} />
                 <Route path="/missions" element={<MissionsPage />} />
                 <Route path="/team" element={<TeamPage />} />
+                <Route path="/careers" element={<CareersPage />} />
               </Routes>
             </main>
             <Footer />

@@ -163,18 +163,28 @@ export const Team: React.FC = () => {
           ))}
         </div>
 
-        {/* View All Crew CTA */}
-        <div className="flex justify-center">
+        {/* CTAs */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
           <Link 
             to="/team" 
-            className="group relative inline-flex items-center justify-center px-10 py-5 font-mono text-sm font-bold tracking-[0.2em] text-white uppercase bg-blue-600 overflow-hidden shadow-[0_10px_40px_rgba(37,99,235,0.3)] hover:shadow-[0_10px_50px_rgba(37,99,235,0.5)] transition-all duration-300"
+            className="group relative inline-flex items-center justify-center px-8 py-4 md:px-10 md:py-5 font-mono text-xs md:text-sm font-bold tracking-[0.2em] text-slate-900 uppercase bg-white border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+            style={{ clipPath: 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)' }}
+          >
+            <span className="relative z-10 flex items-center gap-3">
+              View All Crew History
+              <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </span>
+          </Link>
+
+          <Link 
+            to="/careers"
+            className="group relative inline-flex items-center justify-center px-8 py-4 md:px-10 md:py-5 font-mono text-xs md:text-sm font-bold tracking-[0.2em] text-white uppercase bg-[#2563eb] overflow-hidden shadow-[0_10px_40px_rgba(37,99,235,0.3)] hover:shadow-[0_10px_50px_rgba(37,99,235,0.5)] transition-all duration-300 cursor-pointer"
             style={{ clipPath: 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)' }}
           >
             <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] group-hover:animate-[shimmer_1.5s_linear_infinite]" />
             <span className="relative z-10 flex items-center gap-3">
               <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-              View All Crew History
-              <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              Join the Crew
             </span>
           </Link>
         </div>
