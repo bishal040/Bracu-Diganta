@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, Orbit } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { MagneticButton } from '../ui/MagneticButton';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,6 +57,7 @@ const MinimalStat: React.FC<{ end: number; suffix?: string; label: string }> = (
 
 export const Overview: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -78,7 +80,7 @@ export const Overview: React.FC = () => {
   }, []);
 
   return (
-    <section id="overview" ref={sectionRef} className="py-24 relative z-10 bg-[#eef2f5] overflow-hidden min-h-screen flex items-center">
+    <section id="overview" ref={sectionRef} className="py-8 lg:py-24 relative z-10 bg-[#eef2f5] overflow-hidden h-full flex items-center">
       
       {/* Massive Background Text */}
       <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-full overflow-hidden flex justify-center pointer-events-none opacity-[0.03] select-none">
@@ -87,40 +89,33 @@ export const Overview: React.FC = () => {
         </h1>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full mt-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full mt-4 md:mt-12">
         
         {/* Main Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12 lg:gap-20 items-center">
           
           {/* Left Column: Narrative & Stats */}
           <div className="lg:col-span-5 flex flex-col justify-between h-full reveal-elem">
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm mb-8">
-                <Orbit size={14} className="text-[#2563EB] animate-spin-slow" />
-                <span className="text-[10px] font-mono tracking-widest text-gray-600 uppercase font-semibold">
-                  AEROSPACE RESEARCH
-                </span>
-              </div>
-              
-              <h2 className="text-4xl md:text-5xl font-orbitron font-bold text-gray-900 leading-[1.1] mb-6 uppercase tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-orbitron font-bold text-gray-900 leading-[1.1] mb-3 md:mb-6 uppercase tracking-tight">
                 Pioneering <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-cyan-500">
                   The Exosphere
                 </span>
               </h2>
               
-              <p className="text-gray-500 text-base leading-relaxed mb-10 max-w-md">
+              <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-6 md:mb-10 max-w-md">
                 We are a student-led engineering team dedicated to democratizing space technology. By developing low-cost, high-reliability modular CanSats, we push the boundaries of atmospheric science and orbital mechanics.
               </p>
               
-              <MagneticButton className="inline-flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 rounded-full font-semibold transition-all group">
+              <MagneticButton className="inline-flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-6 py-3 md:px-8 md:py-4 rounded-full text-sm font-semibold transition-all group">
                 Download Portfolio
                 <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </MagneticButton>
             </div>
 
             {/* 2x2 Grid for the Stats */}
-            <div className="mt-8 grid grid-cols-2 gap-x-8 gap-y-8">
+            <div className="mt-6 md:mt-8 grid grid-cols-2 gap-x-4 md:gap-x-8 gap-y-6 md:gap-y-8">
               <MinimalStat end={6} suffix="+" label="Successful Missions" />
               <MinimalStat end={32} label="Active Engineers" />
               <MinimalStat end={15} suffix="K" label="Altitude Reached (ft)" />
@@ -130,7 +125,7 @@ export const Overview: React.FC = () => {
 
           {/* Right Column: Major Announcement & News Card */}
           <div className="lg:col-span-7 reveal-elem">
-            <div className="relative w-full aspect-[4/5] md:aspect-square bg-gray-900 rounded-[2.5rem] overflow-hidden shadow-2xl group flex flex-col justify-end p-8 md:p-12">
+            <div className="relative w-full min-h-[400px] sm:aspect-[4/5] md:min-h-0 md:aspect-square bg-gray-900 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl group flex flex-col justify-end p-6 md:p-12">
               
               {/* Background Image */}
               <div 
@@ -139,19 +134,19 @@ export const Overview: React.FC = () => {
               />
               
               {/* Dark Gradient Overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-gray-900/10 opacity-90 transition-opacity duration-500 group-hover:opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900/10 opacity-90 transition-opacity duration-500 group-hover:opacity-80" />
 
               {/* Content Overlay */}
-              <div className="relative z-10 w-full">
+              <div className="relative z-10 w-full mt-auto pt-16">
                 
-                <div className="flex justify-between items-start mb-6">
+                <div className="flex justify-between items-start mb-4 md:mb-6">
                   <div className="bg-[#2563EB]/80 backdrop-blur-md border border-[#2563EB] px-3 py-1.5 rounded-2xl flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                     <span className="text-white text-[10px] font-mono tracking-widest uppercase font-semibold">Latest Announcement</span>
                   </div>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-orbitron font-bold text-white mb-3 uppercase leading-[1.1]">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-orbitron font-bold text-white mb-3 md:mb-4 uppercase leading-[1.1]">
                   Diganta Selected for <br/>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
                     CANSAT 2026
@@ -163,7 +158,10 @@ export const Overview: React.FC = () => {
                 </p>
 
                 {/* Glassmorphism Button */}
-                <MagneticButton className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-xl text-white px-6 py-3 rounded-full text-sm font-semibold transition-all w-full sm:w-auto">
+                <MagneticButton 
+                  onClick={() => navigate('/news/cansat-2026')} 
+                  className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-xl text-white px-6 py-3 rounded-full text-sm font-semibold transition-all w-full sm:w-auto"
+                >
                   Read Full Story
                   <ArrowUpRight size={16} />
                 </MagneticButton>

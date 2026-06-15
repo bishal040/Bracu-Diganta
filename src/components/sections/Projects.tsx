@@ -57,19 +57,19 @@ export const Projects: React.FC = () => {
   }, [activeIndex]);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-24 relative z-10 bg-[#eef2f5]">
+    <section id="projects" ref={sectionRef} className="py-12 md:py-24 relative z-10 bg-[#eef2f5]">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         
         {/* Header */}
-        <div className="archive-header flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8">
+        <div className="archive-header flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-12 gap-4 md:gap-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-2 md:mb-4">
               <div className="w-8 h-[1px] bg-[#2563EB]" />
               <span className="text-xs md:text-sm font-mono tracking-[0.4em] text-[#2563EB] uppercase font-semibold">
                 02 // Mission Archive
               </span>
             </div>
-            <h2 className="font-orbitron text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter uppercase leading-none">
+            <h2 className="font-orbitron text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter uppercase leading-none">
               Project <br /> Showcase
             </h2>
           </div>
@@ -82,7 +82,7 @@ export const Projects: React.FC = () => {
         </div>
 
         {/* Expanding Cards Layout */}
-        <div className="archive-header w-full h-[800px] lg:h-[600px] flex flex-col lg:flex-row gap-4">
+        <div className="w-full h-[80vh] md:h-[70vh] lg:h-[600px] flex flex-col lg:flex-row gap-3 md:gap-4 pb-4 md:pb-0">
           {projects.map((project, index) => {
             const isActive = activeIndex === index;
             
@@ -128,42 +128,42 @@ export const Projects: React.FC = () => {
                 {/* --- ACTIVE STATE CONTENT --- */}
                 <div 
                   ref={el => { contentRefs.current[index] = el; }}
-                  className={`absolute inset-0 p-6 md:p-8 lg:p-12 flex flex-col justify-end transition-opacity duration-500 ${isActive ? 'opacity-100 delay-200' : 'opacity-0 pointer-events-none'}`}
+                  className={`absolute inset-0 p-4 md:p-8 lg:p-12 flex flex-col justify-end transition-opacity duration-500 ${isActive ? 'opacity-100 delay-200' : 'opacity-0 pointer-events-none'}`}
                 >
                   
                   {/* Top Meta Data */}
                   <div className="reveal-item flex items-center gap-3 mb-auto">
                     <div className="bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 text-white">
                       <Activity size={14} className="text-[#2563EB]" />
-                      <span className="text-[10px] font-mono tracking-widest">SYS.ONLINE</span>
+                      <span className="text-[9px] md:text-[10px] font-mono tracking-widest">SYS.ONLINE</span>
                     </div>
                   </div>
 
                   {/* Bottom Content Area */}
                   <div className="max-w-2xl mt-auto">
                     
-                    <div className="reveal-item flex items-center gap-3 mb-4">
-                      <span className="text-[10px] font-mono tracking-widest text-[#2563EB] uppercase font-bold">
+                    <div className="reveal-item flex items-center gap-3 mb-2 md:mb-4">
+                      <span className="text-[9px] md:text-[10px] font-mono tracking-widest text-[#2563EB] uppercase font-bold">
                         {project.category}
                       </span>
                       <div className="w-8 h-[1px] bg-gray-600" />
-                      <span className="text-[10px] font-mono tracking-widest text-gray-400 uppercase">
+                      <span className="text-[9px] md:text-[10px] font-mono tracking-widest text-gray-400 uppercase">
                         {project.date}
                       </span>
                     </div>
                     
-                    <h3 className="reveal-item font-orbitron text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 uppercase tracking-tighter leading-none">
+                    <h3 className="reveal-item font-orbitron text-2xl md:text-5xl lg:text-6xl font-black text-white mb-2 md:mb-4 uppercase tracking-tighter leading-none">
                       {project.title}
                     </h3>
                     
-                    <p className="reveal-item text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-lg hidden md:block">
+                    <p className="reveal-item text-gray-300 text-xs md:text-base leading-relaxed mb-4 md:mb-8 max-w-lg hidden md:block">
                       {project.description}
                     </p>
 
-                    <div className="reveal-item flex flex-col sm:flex-row sm:items-center gap-6 justify-between border-t border-gray-800/60 pt-6">
+                    <div className="reveal-item flex flex-col sm:flex-row sm:items-center gap-4 md:gap-6 justify-between border-t border-gray-800/60 pt-3 md:pt-6">
                       
                       {/* Stats */}
-                      <div className="flex items-center gap-8">
+                      <div className="flex items-center gap-4 md:gap-8">
                         {project.stats.map((stat, idx) => (
                           <div key={idx} className="border-l-2 border-[#2563EB]/50 pl-3">
                             <div className="text-[9px] font-mono text-gray-500 tracking-widest uppercase mb-1">{stat.label}</div>
