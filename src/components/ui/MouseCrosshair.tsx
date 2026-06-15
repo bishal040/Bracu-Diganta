@@ -1,8 +1,9 @@
-import React, { useEffect, useState, RefObject } from 'react';
+import React, { useEffect, useState } from 'react';
+import type { RefObject } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 interface Props {
-  parentRef: RefObject<HTMLElement>;
+  parentRef: RefObject<HTMLElement | null>;
 }
 
 export const MouseCrosshair: React.FC<Props> = ({ parentRef }) => {

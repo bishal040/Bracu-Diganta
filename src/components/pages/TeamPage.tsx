@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ArrowRight, ArrowLeft } from 'lucide-react';
+import { ChevronDown, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { teamData, type TeamYearData, type TeamMember as TeamMemberType } from '../../data/team';
 import { TeamMemberModal } from '../ui/TeamMemberModal';
@@ -182,9 +182,6 @@ export const TeamPage: React.FC = () => {
                       {section.title}
                     </h2>
                     <div className="hidden md:block flex-1 h-[2px] bg-slate-900 mb-2 ml-4 opacity-10"></div>
-                    <span className="font-mono text-xs text-blue-600 font-bold uppercase tracking-[0.2em] md:mb-2">
-                      // TIER 0{sectionIdx + 1}
-                    </span>
                   </div>
 
                   {/* Creative Grid Layering */}

@@ -415,8 +415,8 @@ export const Navbar: React.FC = () => {
           </svg>
         </div>
 
-        <div className="relative flex flex-col gap-8 items-start text-left z-10">
-          <div className={`mb-4 flex items-center gap-3 transition-all duration-500 delay-100 ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
+        <div className="relative flex flex-col gap-6 md:gap-8 items-start text-left z-10">
+          <div className={`mb-2 md:mb-4 flex items-center gap-3 transition-all duration-500 delay-100 ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse shadow-[0_0_10px_#2563EB]"></span>
             <span className="font-mono text-[10px] text-[#2563EB] tracking-[0.4em] uppercase">Navigation Active</span>
           </div>
@@ -444,7 +444,7 @@ export const Navbar: React.FC = () => {
           )})}
 
           <div
-            className={`mt-12 transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
+            className={`mt-8 md:mt-12 flex flex-col gap-4 w-full transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
               }`}
             style={{ transitionDelay: `${(navLinks.length + 2) * 100}ms` }}
           >
@@ -461,12 +461,26 @@ export const Navbar: React.FC = () => {
                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="relative overflow-hidden group bg-transparent border border-[#2563EB] text-[#2563EB] hover:text-white px-10 py-5 rounded-none text-xs font-mono tracking-[0.2em] uppercase transition-all duration-300"
+              className="relative overflow-hidden group bg-transparent border border-[#2563EB] text-[#2563EB] hover:text-white px-8 py-4 w-full max-w-[280px] text-xs font-mono tracking-[0.2em] uppercase transition-all duration-300"
             >
               <div className="absolute inset-0 bg-[#2563EB] -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out z-0" />
-              <span className="relative z-10 flex items-center gap-3">
+              <span className="relative z-10 flex items-center justify-center gap-3">
                 <span className="w-1.5 h-1.5 bg-current rounded-full animate-ping"></span>
-                ENGAGE SUPPORT
+                SPONSORSHIP
+              </span>
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                navigate('/careers');
+              }}
+              className="relative overflow-hidden group bg-[#2563EB] text-white hover:bg-blue-700 px-8 py-4 w-full max-w-[280px] text-xs font-mono tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.3)]"
+            >
+              <span className="relative z-10 flex items-center justify-center gap-3">
+                <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
+                JOIN OUR TEAM
               </span>
             </button>
           </div>

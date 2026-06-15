@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, Orbit } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { MagneticButton } from '../ui/MagneticButton';
 
@@ -80,7 +80,7 @@ export const Overview: React.FC = () => {
   }, []);
 
   return (
-    <section id="overview" ref={sectionRef} className="py-8 lg:py-24 relative z-10 bg-[#eef2f5] overflow-hidden h-full flex items-center">
+    <section id="overview" ref={sectionRef} className="pt-28 pb-12 lg:py-24 relative z-10 bg-[#eef2f5] overflow-hidden h-full flex items-center">
 
       {/* Massive Background Text */}
       <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-full overflow-hidden flex justify-center pointer-events-none opacity-[0.03] select-none">

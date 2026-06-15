@@ -18,55 +18,84 @@ interface CrewCardProps {
   onClick: () => void;
 }
 
-const CrewCard = ({ member, layout, onClick }: CrewCardProps) => (
-  <div onClick={onClick} className={`crew-card ${layout.col} ${layout.height} relative group cursor-pointer`}>
+const CrewCard = ({ member, layout, onClick }: CrewCardProps) => {
+  // Collection of sci-fi/engineering quotes
+  const quotes = [
+    "Exploring the final frontier, one mission at a time.",
+    "Innovation happens when we push past the atmosphere.",
+    "Engineering the future of autonomous telemetry.",
+    "Our designs are forged in the fires of reentry.",
+    "Every payload is a step closer to the stars.",
+    "Defying gravity through rigorous testing and sheer will.",
+    "Precision in manufacturing means survival in orbit.",
+    "Space is not a void, it's a canvas for our engineering.",
+  ];
+  
+  // Stable random index based on name so it stays consistent
+  const quoteIndex = member.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % quotes.length;
+  const quote = quotes[quoteIndex];
+
+  return (
+  <div onClick={onClick} className={`crew-card ${layout.col} ${layout.height} absolute inset-0 w-full md:relative md:inset-auto md:w-auto group cursor-pointer`}>
     
-    {/* Border Wrapper (creates a 1px border that perfectly follows the clip-path) */}
-    <div 
-      className="absolute inset-0 bg-blue-200 group-hover:bg-blue-400 transition-colors duration-500 z-0"
-      style={{ clipPath: sciFiClip }}
-    />
-    
-    {/* Inner Content Container */}
-    <div 
-      className="absolute inset-[1px] bg-white z-10 overflow-hidden"
-      style={{ clipPath: sciFiClip }}
-    >
-      {/* Background Image */}
-      <img 
-        src={member.image} 
-        alt={member.name}
-        className="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 ease-out"
+    {/* Image / Main Card Container (shrinks slightly on mobile to leave space below, but stays large) */}
+    <div className="relative w-full h-[480px] md:h-full">
+      {/* Border Wrapper (creates a 1px border that perfectly follows the clip-path) */}
+      <div 
+        className="absolute inset-0 bg-blue-200 group-hover:bg-blue-400 transition-colors duration-500 z-0"
+        style={{ clipPath: sciFiClip }}
       />
       
-      {/* Gradient Overlay for Text Readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none transition-all duration-500 group-hover:from-black/70 group-hover:via-black/30" />
+      {/* Inner Content Container */}
+      <div 
+        className="absolute inset-[1px] bg-white z-10 overflow-hidden"
+        style={{ clipPath: sciFiClip }}
+      >
+        {/* Background Image */}
+        <img 
+          src={member.image} 
+          alt={member.name}
+          className="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 ease-out"
+        />
+        
+        {/* Gradient Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none transition-all duration-500 group-hover:from-black/70 group-hover:via-black/30" />
 
-      {/* Top Left Tier Badge (replacing dynamic tier with COMMAND CREW to match old aesthetic) */}
-      <div className="absolute top-4 left-4 flex gap-2 items-center z-20 bg-white/10 border border-white/20 backdrop-blur-md px-2 py-1 rounded shadow-sm">
-        <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
-        <span className="font-mono text-[9px] md:text-[10px] text-white tracking-widest uppercase font-bold">
-          COMMAND CREW
-        </span>
-      </div>
+        {/* Top Left Tier Badge (replacing dynamic tier with COMMAND CREW to match old aesthetic) */}
+        <div className="absolute top-4 left-4 flex gap-2 items-center z-20 bg-white/10 border border-white/20 backdrop-blur-md px-2 py-1 rounded shadow-sm">
+          <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
+          <span className="font-mono text-[9px] md:text-[10px] text-white tracking-widest uppercase font-bold">
+            COMMAND CREW
+          </span>
+        </div>
 
-      {/* Top Right Tech Detail Icon */}
-      <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-        <ArrowUpRight className="w-5 h-5 text-white drop-shadow-sm" />
-      </div>
+        {/* Top Right Tech Detail Icon */}
+        <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+          <ArrowUpRight className="w-5 h-5 text-white drop-shadow-sm" />
+        </div>
 
-      {/* Bottom Content Area */}
-      <div className="absolute bottom-0 left-0 w-full p-6 z-20 flex flex-col justify-end transition-all duration-300 transform group-hover:-translate-y-2">
-        <span className="block font-mono text-[10px] md:text-xs text-blue-300 font-bold tracking-[0.2em] uppercase mb-1">
-          {member.role}
-        </span>
-        <h3 className="font-orbitron font-black text-2xl md:text-3xl text-white uppercase tracking-wider mb-2">
-          {member.name}
-        </h3>
+        {/* Bottom Content Area */}
+        <div className="absolute bottom-0 left-0 w-full p-6 z-20 flex flex-col justify-end transition-all duration-300 transform group-hover:-translate-y-2">
+          <span className="block font-mono text-[10px] md:text-xs text-blue-300 font-bold tracking-[0.2em] uppercase mb-1">
+            {member.role || 'CREW MEMBER'}
+          </span>
+          <h3 className="font-orbitron font-black text-2xl md:text-3xl text-white uppercase tracking-wider mb-2 group-hover:text-blue-400 transition-colors">
+            {member.name}
+          </h3>
+        </div>
       </div>
     </div>
+
+    {/* Mobile Only: Random Quote Area utilizing the bottom space */}
+    <div className="absolute top-[500px] left-0 w-full md:hidden flex flex-col justify-start items-center px-6 text-center z-10">
+      <span className="text-[#2563EB] text-6xl font-serif leading-none mb-2 opacity-30">"</span>
+      <p className="font-serif text-lg md:text-xl text-slate-700 italic leading-relaxed">
+        {quote}
+      </p>
+    </div>
+
   </div>
-);
+)};
 
 export const Team: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -86,34 +115,96 @@ export const Team: React.FC = () => {
 
   // Original Bento Layout Maps
   const bentoLayouts = [
-    { col: "col-span-12 md:col-span-8", height: "h-[400px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-[400px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-[300px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-[300px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-[300px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-[350px]" },
-    { col: "col-span-12 md:col-span-8", height: "h-[350px]" },
+    { col: "col-span-12 md:col-span-8", height: "h-full md:h-[400px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[400px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[300px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[300px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[300px]" },
+    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[350px]" },
+    { col: "col-span-12 md:col-span-8", height: "h-full md:h-[350px]" },
   ];
 
   useEffect(() => {
     if (!sectionRef.current) return;
     
     const ctx = gsap.context(() => {
-      gsap.fromTo('.crew-card', 
-        { opacity: 0, y: 100, scale: 0.95 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          scale: 1, 
-          duration: 1, 
-          stagger: 0.1, 
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
+      let mm = gsap.matchMedia();
+
+      // Desktop: Elegant staggered reveal
+      mm.add("(min-width: 768px)", () => {
+        gsap.fromTo('.crew-card', 
+          { opacity: 0, y: 100, scale: 0.95 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1, 
+            duration: 1, 
+            stagger: 0.1, 
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 75%',
+            }
           }
-        }
-      );
+        );
+      });
+
+      // Mobile: Pinned Swap Animation
+      mm.add("(max-width: 767px)", () => {
+        const cards = gsap.utils.toArray('.crew-card') as HTMLElement[];
+        
+        // Initial setup for the stack
+        cards.forEach((card, i) => {
+          if (i === 0) {
+            gsap.set(card, { opacity: 1, xPercent: 0, rotation: 0, scale: 1, zIndex: 20 });
+          } else {
+            const isEven = i % 2 === 0;
+            gsap.set(card, { opacity: 0, xPercent: isEven ? 100 : -100, rotation: isEven ? 10 : -10, scale: 0.8, zIndex: 20 - i });
+          }
+        });
+
+        // Pinned container timeline
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '.crew-grid-container',
+            start: 'top 20%', // Pin slightly below the header
+            end: `+=${cards.length * 80}%`, // Scroll distance proportional to cards
+            pin: true,
+            scrub: 1,
+          }
+        });
+
+        // Sequence the swaps
+        cards.forEach((card, i) => {
+          if (i > 0) {
+            const isEven = i % 2 === 0;
+            const prevCard = cards[i - 1];
+
+            // Add a brief pause so users can actually see each card
+            tl.add(`swap${i}`, "+=0.3");
+
+            // Slide previous card out
+            tl.to(prevCard, {
+              xPercent: isEven ? -120 : 120, // Fly out opposite direction
+              rotation: isEven ? -15 : 15,
+              opacity: 0,
+              scale: 0.8,
+              ease: 'power2.inOut',
+              duration: 1
+            }, `swap${i}`);
+
+            // Slide new card in
+            tl.to(card, {
+              xPercent: 0,
+              rotation: 0,
+              opacity: 1,
+              scale: 1,
+              ease: 'power2.out',
+              duration: 1
+            }, `swap${i}`);
+          }
+        });
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -152,7 +243,7 @@ export const Team: React.FC = () => {
         </div>
 
         {/* The Bento Grid Container */}
-        <div className="grid grid-cols-12 gap-4 md:gap-6 mb-16">
+        <div className="crew-grid-container relative h-[650px] md:h-auto block md:grid grid-cols-12 gap-4 md:gap-6 mb-16">
           {crewData.map((member, i) => (
             <CrewCard 
               key={i} 

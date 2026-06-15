@@ -57,18 +57,13 @@ export const Projects: React.FC = () => {
   }, [activeIndex]);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-12 md:py-24 relative z-10 bg-[#eef2f5]">
+    <section id="projects" ref={sectionRef} className="pt-28 pb-12 md:pt-32 md:pb-24 relative z-10 bg-[#eef2f5]">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
 
         {/* Header */}
         <div className="archive-header flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-12 gap-4 md:gap-8">
           <div>
-            <div className="flex items-center gap-3 mb-2 md:mb-4">
-              <div className="w-8 h-[1px] bg-[#2563EB]" />
-              <span className="text-xs md:text-sm font-mono tracking-[0.4em] text-[#2563EB] uppercase font-semibold">
-                02 // Mission Archive
-              </span>
-            </div>
+            {/* "02 // Mission Archive" label removed per user request */}
             <h2 className="font-orbitron text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter uppercase leading-none">
               Project <br /> Showcase
             </h2>

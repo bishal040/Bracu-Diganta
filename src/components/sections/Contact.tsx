@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
-import { ArrowRight, Lock, Plus } from 'lucide-react';
+import { ArrowRight, Plus } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,7 +74,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="h-[100dvh] w-full relative bg-[#F4F4F6] overflow-hidden flex flex-col justify-center pt-20 lg:pt-24 pb-16 lg:pb-20 border-t border-slate-200/60 z-0">
+    <section id="contact" ref={sectionRef} className="min-h-screen lg:h-[100dvh] w-full relative bg-[#F4F4F6] overflow-hidden flex flex-col justify-center pt-24 lg:pt-24 pb-16 lg:pb-20 border-t border-slate-200/60 z-0">
 
       {/* ── MASSIVE CRAZY GLOWING ORBS (OPTIMIZED) ── */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10"
@@ -143,7 +143,7 @@ export const Contact: React.FC = () => {
 
             <form className="flex flex-col gap-3 lg:gap-4 h-full relative z-10 min-h-0" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-3 lg:gap-4 shrink-0">
-                <div className="flex gap-3 lg:gap-4">
+                <div className="flex flex-col md:flex-row gap-3 lg:gap-4">
                   <div className="flex flex-col gap-1.5 flex-1">
                     <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Organization</label>
                     <input type="text" required className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="Company Name" />
@@ -172,7 +172,7 @@ export const Contact: React.FC = () => {
 
               <div className="flex flex-col gap-1.5 flex-1 min-h-0">
                 <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2 shrink-0">Message / Proposal</label>
-                <textarea required className="w-full h-full min-h-0 bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="How would you like to collaborate with us?" />
+                <textarea required className="w-full h-full min-h-[120px] lg:min-h-0 bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="How would you like to collaborate with us?" />
               </div>
               <button type="submit" disabled={formStatus !== 'idle'} className="shrink-0 w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-orbitron font-bold text-sm lg:text-base uppercase tracking-widest py-3 rounded-xl transition-all duration-300 shadow-[0_10px_20px_rgba(37,99,235,0.2)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 flex items-center justify-center gap-3 disabled:bg-slate-300 disabled:shadow-none disabled:transform-none">
                 {formStatus === 'idle' && <>Submit Request <ArrowRight size={18} /></>}

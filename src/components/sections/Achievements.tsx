@@ -101,21 +101,19 @@ export const Achievements: React.FC = () => {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none opacity-50" />
 
       {/* Floating Global Header (Stays Fixed) */}
-      <div className="absolute top-8 left-6 md:top-16 md:left-16 z-50 pointer-events-none">
-        <h2 className="font-orbitron text-2xl md:text-4xl font-black text-slate-900 tracking-widest uppercase">Timeline</h2>
-        <div className="flex items-center gap-3 mt-3 bg-white/95 md:bg-white/80 md:backdrop-blur-md px-4 py-2 rounded-full border border-slate-200 w-max shadow-sm">
-          <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
-          <span className="font-mono text-[10px] md:text-xs text-blue-600 tracking-[0.3em] font-bold">LIVE TELEMETRY // SECURE</span>
-        </div>
+      <div className="sticky top-20 md:absolute md:top-16 left-0 md:left-16 z-0 md:z-50 pointer-events-none pl-6 md:pl-0 pb-4 md:pb-0 mb-4 md:mb-0">
+        <h2 className="font-orbitron text-3xl md:text-4xl font-black text-slate-900 tracking-widest uppercase md:bg-transparent bg-white/50 backdrop-blur-md inline-block px-4 py-2 -ml-4 md:ml-0 md:p-0 md:backdrop-blur-none rounded-r-xl md:rounded-none">
+          Timeline
+        </h2>
       </div>
 
       {/* Horizontal Scroll Wrapper */}
-      <div ref={scrollWrapperRef} className="flex flex-col md:flex-row h-auto md:h-full w-full md:w-[400vw] will-change-transform pb-[10vh] md:pb-0 relative">
+      <div ref={scrollWrapperRef} className="flex flex-col md:flex-row h-auto md:h-full w-full md:w-[400vw] will-change-transform md:pb-0 relative">
         {NEWS_UPDATES.map((item, index) => (
           <div 
             key={item.id} 
             className="h-slide w-full md:w-screen h-auto md:h-full flex flex-col md:flex-row items-center justify-center py-8 px-6 md:p-24 relative min-h-[85vh] md:min-h-0 bg-white md:bg-transparent rounded-t-[2.5rem] md:rounded-none shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-none border-t border-slate-200 md:border-none sticky md:static z-10"
-            style={{ top: `calc(10vh + ${index * 16}px)` }}
+            style={{ top: `calc(130px + ${index * 16}px)` }}
           >
 
             {/* Huge background number graphic */}
