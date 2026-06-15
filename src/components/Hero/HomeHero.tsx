@@ -92,27 +92,27 @@ export const HomeHero: React.FC = () => {
         className="hero-right-half relative w-full md:w-1/2 h-1/2 md:h-full bg-[#eef2f5] will-change-transform flex items-center justify-center p-8 sm:p-12 md:p-16 lg:p-24 overflow-hidden"
       >
         <div className="w-full h-full max-h-[50vh] lg:max-h-[60vh] max-w-[420px] lg:max-w-[500px] grid grid-cols-2 gap-3 lg:gap-5 relative group z-10">
-          
+
           {/* Left Column */}
           <div className="flex flex-col gap-3 lg:gap-5 h-full translate-y-4 md:translate-y-8 relative z-20">
             {/* Box 1: Left Top */}
             <div className={`flex-[3] w-full rounded-3xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-bottom-right ${isStacking ? 'translate-x-6 md:translate-x-10 translate-y-10 md:translate-y-20 scale-[0.8] rotate-[8deg] z-40 brightness-75' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
               {ALL_IMAGES.map((src, idx) => (
-                <img 
+                <img
                   key={src}
-                  src={src} 
+                  src={src}
                   alt="Aerospace"
                   className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out group-hover:scale-105 ${idx === currentIndices[0] ? 'opacity-100 relative' : 'opacity-0'}`}
                 />
               ))}
             </div>
-            
+
             {/* Box 2: Left Bottom */}
             <div className={`flex-[2] w-full rounded-3xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-top-right ${isStacking ? 'translate-x-6 md:translate-x-10 -translate-y-10 md:-translate-y-20 scale-[0.8] -rotate-[6deg] z-30 brightness-50' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
               {ALL_IMAGES.map((src, idx) => (
-                <img 
+                <img
                   key={src}
-                  src={src} 
+                  src={src}
                   alt="Aerospace"
                   className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out group-hover:scale-105 ${idx === currentIndices[1] ? 'opacity-100 relative' : 'opacity-0'}`}
                 />
@@ -125,9 +125,9 @@ export const HomeHero: React.FC = () => {
             {/* Box 3: Right Top */}
             <div className={`flex-[2] w-full rounded-3xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-bottom-left ${isStacking ? '-translate-x-6 md:-translate-x-10 translate-y-10 md:translate-y-20 scale-[0.8] -rotate-[8deg] z-50 brightness-100' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
               {ALL_IMAGES.map((src, idx) => (
-                <img 
+                <img
                   key={src}
-                  src={src} 
+                  src={src}
                   alt="Aerospace"
                   className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out group-hover:scale-105 ${idx === currentIndices[2] ? 'opacity-100 relative' : 'opacity-0'}`}
                 />
@@ -137,16 +137,16 @@ export const HomeHero: React.FC = () => {
             {/* Box 4: Right Bottom */}
             <div className={`flex-[3] w-full rounded-3xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-top-left ${isStacking ? '-translate-x-6 md:-translate-x-10 -translate-y-10 md:-translate-y-20 scale-[0.8] rotate-[6deg] z-20 brightness-75' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
               {ALL_IMAGES.map((src, idx) => (
-                <img 
+                <img
                   key={src}
-                  src={src} 
+                  src={src}
                   alt="Aerospace"
                   className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out group-hover:scale-105 ${idx === currentIndices[3] ? 'opacity-100 relative' : 'opacity-0'}`}
                 />
               ))}
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>
