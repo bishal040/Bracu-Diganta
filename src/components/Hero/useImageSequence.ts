@@ -18,7 +18,9 @@ export const useImageSequence = (folder: string) => {
       return new Promise((resolve) => {
         const img = new Image();
         const num = String(index + 1).padStart(3, '0');
-        img.src = `/${folder}/ezgif-frame-${num}.jpg`;
+        const base = import.meta.env.BASE_URL;
+        const normalizedBase = base.endsWith('/') ? base : base + '/';
+        img.src = `${normalizedBase}${folder}/ezgif-frame-${num}.jpg`;
         img.onload = () => {
           if (!cancelled) {
             frames[index] = img;

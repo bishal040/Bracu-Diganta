@@ -4,6 +4,48 @@ import gsap from 'gsap';
 import { ArrowLeft, Rocket, Target, Cpu, Activity } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 
+const ALL_GALLERY_IMAGES = [
+  "https://i.ibb.co.com/8DKLyHWS/Whats-App-Image-2026-06-17-at-01-47-35-1.jpg",
+  "https://i.ibb.co.com/WvJvYjYj/Whats-App-Image-2026-06-17-at-01-47-35-2.jpg",
+  "https://i.ibb.co.com/prbVZ8sb/Whats-App-Image-2026-06-17-at-01-47-35.jpg",
+  "https://i.ibb.co.com/KxThc0hN/Whats-App-Image-2026-06-17-at-01-47-36-1.jpg",
+  "https://i.ibb.co.com/bj7QSj2S/Whats-App-Image-2026-06-17-at-01-47-36-2.jpg",
+  "https://i.ibb.co.com/Gvr6YZ01/Whats-App-Image-2026-06-17-at-01-47-36.jpg",
+  "https://i.ibb.co.com/ynNs3gYr/Whats-App-Image-2026-06-17-at-01-47-37-1.jpg",
+  "https://i.ibb.co.com/7d2MTKMm/Whats-App-Image-2026-06-17-at-01-47-37-2.jpg",
+  "https://i.ibb.co.com/Kcbt4Y4t/Whats-App-Image-2026-06-17-at-01-47-37.jpg",
+  "https://i.ibb.co.com/JWZfrVXM/Whats-App-Image-2026-06-17-at-01-47-38-1.jpg",
+  "https://i.ibb.co.com/TD2hyM5k/Whats-App-Image-2026-06-17-at-01-47-38-2.jpg",
+  "https://i.ibb.co.com/qLyLQJ0Z/Whats-App-Image-2026-06-17-at-01-47-38.jpg",
+  "https://i.ibb.co.com/rKPR3N1h/Whats-App-Image-2026-06-17-at-01-47-39-1.jpg",
+  "https://i.ibb.co.com/C5PX8GNn/Whats-App-Image-2026-06-17-at-01-47-39-2.jpg",
+  "https://i.ibb.co.com/HD2KZ9Ns/Whats-App-Image-2026-06-17-at-01-47-40-1.jpg",
+  "https://i.ibb.co.com/n8PjhYjt/Whats-App-Image-2026-06-17-at-01-47-40.jpg",
+  "https://i.ibb.co.com/9k2RzPY7/Whats-App-Image-2026-06-17-at-01-47-41-1.jpg",
+  "https://i.ibb.co.com/LzP2f9TQ/Whats-App-Image-2026-06-17-at-01-47-41-2.jpg",
+  "https://i.ibb.co.com/HDBTyNRt/Whats-App-Image-2026-06-17-at-01-47-41.jpg",
+  "https://i.ibb.co.com/Ndzxfmbc/Whats-App-Image-2026-06-17-at-01-47-42-1.jpg",
+  "https://i.ibb.co.com/9QjdGvd/Whats-App-Image-2026-06-17-at-01-47-42-2.jpg",
+  "https://i.ibb.co.com/DfM7GPL5/Whats-App-Image-2026-06-17-at-01-47-43-1.jpg",
+  "https://i.ibb.co.com/jk1DyJtQ/Whats-App-Image-2026-06-17-at-01-47-43-2.jpg",
+  "https://i.ibb.co.com/wh0nz9mJ/Whats-App-Image-2026-06-17-at-01-47-44-2.jpg",
+  "https://i.ibb.co.com/qYfTDFjq/Whats-App-Image-2026-06-17-at-01-47-45.jpg",
+  "https://i.ibb.co.com/bVWCrBB/Whats-App-Image-2026-06-17-at-01-47-46.jpg",
+  "https://i.ibb.co.com/zW1YgbmM/Whats-App-Image-2026-06-17-at-01-47-47-2.jpg",
+  "https://i.ibb.co.com/0156Xkd/Whats-App-Image-2026-06-17-at-01-47-47.jpg",
+  "https://i.ibb.co.com/S4dZ9grx/Whats-App-Image-2026-06-17-at-01-47-48-1.jpg",
+  "https://i.ibb.co.com/W42n1dsP/Whats-App-Image-2026-06-17-at-01-47-48-2.jpg",
+  "https://i.ibb.co.com/35WZ6czz/Whats-App-Image-2026-06-17-at-01-47-49-1.jpg",
+  "https://i.ibb.co.com/20dfZ4gZ/Whats-App-Image-2026-06-17-at-01-47-49.jpg",
+  "https://i.ibb.co.com/k2t4Jp36/Whats-App-Image-2026-06-17-at-01-47-50-2.jpg",
+  "https://i.ibb.co.com/fYzBb6VQ/Whats-App-Image-2026-06-17-at-01-47-50.jpg",
+  "https://i.ibb.co.com/7NpXkRxq/Whats-App-Image-2026-06-17-at-01-47-51.jpg",
+  "https://i.ibb.co.com/20jJtBRY/Whats-App-Image-2026-06-17-at-01-47-52-1.jpg",
+  "https://i.ibb.co.com/SXWFygdT/Whats-App-Image-2026-06-17-at-01-47-52.jpg",
+  "https://i.ibb.co.com/Txyrz8CK/Whats-App-Image-2026-06-17-at-01-47-53-1.jpg",
+  "https://i.ibb.co.com/xnXnV6t/Whats-App-Image-2026-06-17-at-01-47-53-2.jpg"
+];
+
 export const NewsCansat2026Page: React.FC = () => {
   const navigate = useNavigate();
   const pageRef = useRef<HTMLDivElement>(null);
@@ -63,7 +105,7 @@ export const NewsCansat2026Page: React.FC = () => {
 
         {/* Hero Image */}
         <div className="reveal-anim relative w-full aspect-video md:aspect-[21/9] rounded-[2rem] overflow-hidden mb-16 shadow-[0_20px_60px_rgba(37,99,235,0.15)] group">
-          <div className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=2070&auto=format&fit=crop")' }} />
+          <div className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105" style={{ backgroundImage: 'url("https://i.ibb.co.com/W42n1dsP/Whats-App-Image-2026-06-17-at-01-47-48-2.jpg")' }} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-90" />
           
           <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
@@ -84,15 +126,37 @@ export const NewsCansat2026Page: React.FC = () => {
                 We are incredibly thrilled to announce that Team Diganta has officially qualified for the International CanSat Competition 2026. Following a rigorous Preliminary Design Review (PDR), our latest modular payload design scored in the top 5% of global submissions, securing our place on the launch pad.
               </p>
               
-              <h3 className="font-orbitron text-2xl font-bold uppercase text-slate-900 mt-12 mb-6">Mission Objective</h3>
-              <p className="leading-relaxed mb-6">
-                This year's mission simulates a planetary atmospheric entry probe. Our CanSat is tasked with ascending to an altitude of 750 meters, deploying a heat shield, and transmitting live telemetry data (including temperature, pressure, altitude, and GPS coordinates) at 1Hz directly to our ground control station during its controlled descent.
-              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-12 mb-12">
+                <div>
+                  <h3 className="font-orbitron text-2xl font-bold uppercase text-slate-900 mb-6">Mission Objective</h3>
+                  <p className="leading-relaxed">
+                    This year's mission simulates a planetary atmospheric entry probe. Our CanSat is tasked with ascending to an altitude of 750 meters, deploying a heat shield, and transmitting live telemetry data (including temperature, pressure, altitude, and GPS coordinates) at 1Hz directly to our ground control station during its controlled descent.
+                  </p>
+                </div>
+                <div className="rounded-3xl overflow-hidden shadow-2xl relative group h-64 md:h-80 w-full transform transition-all duration-500 hover:-translate-y-2">
+                  <img src="https://i.ibb.co.com/ynNs3gYr/Whats-App-Image-2026-06-17-at-01-47-37-1.jpg" alt="Mission Objective" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-blue-500/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500" />
+                  <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest text-blue-900 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Deployment Simulation
+                  </div>
+                </div>
+              </div>
               
-              <h3 className="font-orbitron text-2xl font-bold uppercase text-slate-900 mt-12 mb-6">Engineering Innovation</h3>
-              <p className="leading-relaxed mb-6">
-                To meet the strict weight limit of 600 grams and size constraints, our engineering team has developed a custom carbon-fiber chassis and a miniaturized avionics bay. The recovery system utilizes a novel bio-inspired parachute design that actively adjusts its drag coefficient based on barometric feedback.
-              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-12 mb-12">
+                <div className="order-2 md:order-1 rounded-3xl overflow-hidden shadow-2xl relative group h-64 md:h-80 w-full transform transition-all duration-500 hover:-translate-y-2">
+                  <img src="https://i.ibb.co.com/7d2MTKMm/Whats-App-Image-2026-06-17-at-01-47-37-2.jpg" alt="Engineering Innovation" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-cyan-500/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500" />
+                  <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest text-cyan-900 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Avionics Bay Testing
+                  </div>
+                </div>
+                <div className="order-1 md:order-2">
+                  <h3 className="font-orbitron text-2xl font-bold uppercase text-slate-900 mb-6">Engineering Innovation</h3>
+                  <p className="leading-relaxed">
+                    To meet the strict weight limit of 600 grams and size constraints, our engineering team has developed a custom carbon-fiber chassis and a miniaturized avionics bay. The recovery system utilizes a novel bio-inspired parachute design that actively adjusts its drag coefficient based on barometric feedback.
+                  </p>
+                </div>
+              </div>
               
               <div className="my-12 p-8 bg-white border border-slate-200 rounded-3xl relative overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
                 <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-500" />
@@ -100,6 +164,49 @@ export const NewsCansat2026Page: React.FC = () => {
                   "This qualification is a testament to the relentless late nights and engineering excellence of the entire Diganta team. We are not just building a payload; we are pushing the boundaries of student-led aerospace research."
                 </p>
                 <span className="block mt-4 font-bold text-blue-700 text-sm uppercase tracking-wider">— Lead Systems Engineer</span>
+              </div>
+              
+              {/* Interactive Group Images Gallery */}
+              <h3 className="font-orbitron text-2xl font-bold uppercase text-slate-900 mt-12 mb-6">The Team Behind the Mission</h3>
+              <div className="reveal-anim grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-8 mb-8 auto-rows-[160px] md:auto-rows-[200px]">
+                {/* Large Featured Image */}
+                <div className="col-span-2 row-span-2 rounded-3xl overflow-hidden relative group shadow-lg cursor-pointer">
+                  <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent z-10 transition-colors duration-500" />
+                  <img src="https://i.ibb.co.com/8DKLyHWS/Whats-App-Image-2026-06-17-at-01-47-35-1.jpg" alt="Team Work" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute bottom-4 left-4 right-4 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                    <div className="bg-white/90 backdrop-blur-md text-slate-900 text-xs font-bold px-3 py-2 rounded-lg inline-block uppercase tracking-widest shadow-xl">
+                      Late Night Assembly
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Small Top Right Image */}
+                <div className="rounded-3xl overflow-hidden relative group shadow-md cursor-pointer">
+                  <div className="absolute inset-0 bg-cyan-900/10 group-hover:bg-transparent z-10 transition-colors duration-500" />
+                  <img src="https://i.ibb.co.com/WvJvYjYj/Whats-App-Image-2026-06-17-at-01-47-35-2.jpg" alt="Team Planning" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
+                
+                {/* Small Middle Right Image */}
+                <div className="rounded-3xl overflow-hidden relative group shadow-md cursor-pointer">
+                  <div className="absolute inset-0 bg-indigo-900/10 group-hover:bg-transparent z-10 transition-colors duration-500" />
+                  <img src="https://i.ibb.co.com/prbVZ8sb/Whats-App-Image-2026-06-17-at-01-47-35.jpg" alt="Field Testing" className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
+                </div>
+
+                {/* Wide Bottom Image */}
+                <div className="col-span-2 rounded-3xl overflow-hidden relative group shadow-md cursor-pointer">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 z-10 transition-opacity duration-500" />
+                  <img src="https://i.ibb.co.com/KxThc0hN/Whats-App-Image-2026-06-17-at-01-47-36-1.jpg" alt="Team Discussion" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute bottom-4 left-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                    <div className="text-white text-xs font-bold uppercase tracking-widest shadow-xl">
+                      Strategy Session
+                    </div>
+                  </div>
+                </div>
+
+                {/* Small Bottom Right Image */}
+                <div className="rounded-3xl overflow-hidden relative group shadow-md cursor-pointer">
+                  <img src="https://i.ibb.co.com/bj7QSj2S/Whats-App-Image-2026-06-17-at-01-47-36-2.jpg" alt="Celebration" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
               </div>
             </div>
           </div>
@@ -166,6 +273,45 @@ export const NewsCansat2026Page: React.FC = () => {
         </div>
 
       </div>
+
+      {/* Massive Full-Width Gallery */}
+      <div className="reveal-anim w-full overflow-hidden relative bg-slate-900 py-16 mt-8">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/50 pointer-events-none z-10" />
+        
+        <div className="max-w-7xl mx-auto px-6 mb-12 relative z-20">
+          <h3 className="font-orbitron text-3xl md:text-5xl font-black uppercase text-white tracking-tighter text-center">
+            Mission <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Archives</span>
+          </h3>
+          <p className="text-center text-slate-400 mt-4 max-w-xl mx-auto font-mono text-sm uppercase tracking-widest">
+            A comprehensive look at the team behind the engineering
+          </p>
+        </div>
+
+        {/* Marquee Row 1 */}
+        <div className="relative flex overflow-x-hidden group mb-6">
+          <div className="animate-marquee whitespace-nowrap flex items-center group-hover:[animation-play-state:paused]">
+            {[...ALL_GALLERY_IMAGES.slice(0, 20), ...ALL_GALLERY_IMAGES.slice(0, 20)].map((img, i) => (
+              <div key={'row1'+i} className="w-[280px] md:w-[350px] h-[200px] md:h-[250px] mx-3 rounded-2xl overflow-hidden shrink-0 shadow-2xl relative cursor-pointer transform transition-transform duration-500 hover:scale-105 hover:z-30">
+                <img src={img} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" loading="lazy" />
+                <div className="absolute inset-0 bg-blue-500/20 opacity-0 hover:opacity-100 transition-opacity duration-300 mix-blend-overlay" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Marquee Row 2 (Reverse) */}
+        <div className="relative flex overflow-x-hidden group">
+          <div className="animate-marquee-reverse whitespace-nowrap flex items-center group-hover:[animation-play-state:paused]">
+            {[...ALL_GALLERY_IMAGES.slice(19), ...ALL_GALLERY_IMAGES.slice(19)].map((img, i) => (
+              <div key={'row2'+i} className="w-[280px] md:w-[350px] h-[200px] md:h-[250px] mx-3 rounded-2xl overflow-hidden shrink-0 shadow-2xl relative cursor-pointer transform transition-transform duration-500 hover:scale-105 hover:z-30">
+                <img src={img} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" loading="lazy" />
+                <div className="absolute inset-0 bg-cyan-500/20 opacity-0 hover:opacity-100 transition-opacity duration-300 mix-blend-overlay" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 };

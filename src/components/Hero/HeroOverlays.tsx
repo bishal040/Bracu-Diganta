@@ -510,13 +510,13 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
           <div className="flex flex-col gap-4 mt-12">
             <div ref={gridImg1Ref} className="pointer-events-auto relative" style={{ opacity: 0, visibility: 'hidden' }}>
               <img
-                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/9k2RzPY7/Whats-App-Image-2026-06-17-at-01-47-41-1.jpg"
                 alt="Earth from Space"
                 className="w-48 lg:w-56 h-64 lg:h-72 object-cover rounded-2xl shadow-2xl border border-white/20 hover:scale-[1.02] transition-transform duration-500"
                 style={{ opacity: 'calc(1 - var(--crossfade, 0))' }}
               />
               <img
-                src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/LzP2f9TQ/Whats-App-Image-2026-06-17-at-01-47-41-2.jpg"
                 alt="Avionics Circuit"
                 className="w-48 lg:w-56 h-64 lg:h-72 object-cover rounded-2xl shadow-2xl border border-white/20 hover:scale-[1.02] transition-transform duration-500 absolute inset-0"
                 style={{ opacity: 'var(--crossfade, 0)' }}
@@ -524,13 +524,13 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
             </div>
             <div ref={gridImg2Ref} className="pointer-events-auto relative" style={{ opacity: 0, visibility: 'hidden' }}>
               <img
-                src="https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/HDBTyNRt/Whats-App-Image-2026-06-17-at-01-47-41.jpg"
                 alt="Rocket Launch"
                 className="w-48 lg:w-56 h-48 lg:h-56 object-cover rounded-2xl shadow-2xl border border-white/20 hover:scale-[1.02] transition-transform duration-500"
                 style={{ opacity: 'calc(1 - var(--crossfade, 0))' }}
               />
               <img
-                src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/Ndzxfmbc/Whats-App-Image-2026-06-17-at-01-47-42-1.jpg"
                 alt="Mechanical Engineering"
                 className="w-48 lg:w-56 h-48 lg:h-56 object-cover rounded-2xl shadow-2xl border border-white/20 hover:scale-[1.02] transition-transform duration-500 absolute inset-0"
                 style={{ opacity: 'var(--crossfade, 0)' }}
@@ -541,13 +541,13 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
           <div className="flex flex-col gap-4 -mt-4">
             <div ref={gridImg3Ref} className="pointer-events-auto relative" style={{ opacity: 0, visibility: 'hidden' }}>
               <img
-                src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/9QjdGvd/Whats-App-Image-2026-06-17-at-01-47-42-2.jpg"
                 alt="Satellite"
                 className="w-48 lg:w-56 h-48 lg:h-56 object-cover rounded-2xl shadow-2xl border border-white/20 hover:scale-[1.02] transition-transform duration-500"
                 style={{ opacity: 'calc(1 - var(--crossfade, 0))' }}
               />
               <img
-                src="https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/DfM7GPL5/Whats-App-Image-2026-06-17-at-01-47-43-1.jpg"
                 alt="Code and Systems"
                 className="w-48 lg:w-56 h-48 lg:h-56 object-cover rounded-2xl shadow-2xl border border-white/20 hover:scale-[1.02] transition-transform duration-500 absolute inset-0"
                 style={{ opacity: 'var(--crossfade, 0)' }}
@@ -555,13 +555,13 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
             </div>
             <div ref={gridImg4Ref} className="pointer-events-auto relative" style={{ opacity: 0, visibility: 'hidden' }}>
               <img
-                src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/jk1DyJtQ/Whats-App-Image-2026-06-17-at-01-47-43-2.jpg"
                 alt="Astronaut"
                 className="w-48 lg:w-56 h-64 lg:h-72 object-cover rounded-2xl shadow-2xl border border-white/20 hover:scale-[1.02] transition-transform duration-500"
                 style={{ opacity: 'calc(1 - var(--crossfade, 0))' }}
               />
               <img
-                src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/wh0nz9mJ/Whats-App-Image-2026-06-17-at-01-47-44-2.jpg"
                 alt="Hardware Assembly"
                 className="w-48 lg:w-56 h-64 lg:h-72 object-cover rounded-2xl shadow-2xl border border-white/20 hover:scale-[1.02] transition-transform duration-500 absolute inset-0"
                 style={{ opacity: 'var(--crossfade, 0)' }}
@@ -627,14 +627,14 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
 
               {/* Background Image (Fills the full circle) */}
               <img
-                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/qYfTDFjq/Whats-App-Image-2026-06-17-at-01-47-45.jpg"
                 alt="Earth Orbit"
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-0"
               />
 
               {/* Foreground Image (Microchip) with mix-blend-multiply to drop the white background */}
               <img
-                src="https://images.unsplash.com/photo-1592505295051-54b9db3073e5?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/bVWCrBB/Whats-App-Image-2026-06-17-at-01-47-46.jpg"
                 alt="Microchip"
                 className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-110 transition-transform duration-700 z-10"
               />
@@ -647,7 +647,7 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
             {/* Tall Pill Shape (Fanned out to the left) */}
             <div ref={pillGraphicRef} className="absolute w-40 h-64 lg:w-48 lg:h-80 rounded-[4rem] overflow-hidden shadow-2xl border border-white/30 transform -translate-x-36 lg:-translate-x-48 -translate-y-8 lg:-translate-y-12 rotate-12 hover:rotate-0 hover:scale-110 hover:z-30 transition-all duration-500 z-0 group">
               <img
-                src="https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/zW1YgbmM/Whats-App-Image-2026-06-17-at-01-47-47-2.jpg"
                 alt="Sensor Array"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
@@ -656,7 +656,7 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
             {/* Tilted Floating Square (Fanned out further left) */}
             <div ref={squareGraphicRef} className="absolute w-48 h-48 lg:w-56 lg:h-56 rounded-3xl overflow-hidden shadow-2xl border border-telemetry-cyan/40 transform -translate-x-48 lg:-translate-x-64 translate-y-24 lg:translate-y-32 -rotate-6 hover:rotate-0 hover:scale-110 hover:z-30 transition-all duration-500 z-20 group">
               <img
-                src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?q=80&w=800&auto=format&fit=crop"
+                src="https://i.ibb.co.com/0156Xkd/Whats-App-Image-2026-06-17-at-01-47-47.jpg"
                 alt="Electronics"
                 className="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-700 group-hover:scale-110"
               />
@@ -776,7 +776,7 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
 
           {/* Card 1: Left Fanned (Image) */}
           <div id="prem-card-1" className="absolute inset-0 bg-[#0a0a0a] rounded-[2rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col justify-end p-6">
-            <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=800&auto=format&fit=crop" alt="Aerospace Recovery" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity grayscale" />
+            <img src="https://i.ibb.co.com/S4dZ9grx/Whats-App-Image-2026-06-17-at-01-47-48-1.jpg" alt="Aerospace Recovery" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity grayscale" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
             <div className="relative z-10">
               <div className="w-8 h-[1px] bg-white/40 mb-3" />

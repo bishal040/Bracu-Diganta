@@ -19,3 +19,4 @@ export interface TeamYearData {
 import teamDataJson from './team.json';
 
 export const teamData: TeamYearData[] = teamDataJson as TeamYearData[];
+// Trigger HMR
