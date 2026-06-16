@@ -3,12 +3,22 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import { ArrowRight, Plus } from 'lucide-react';
+import { useToast } from '../ui/ToastProvider';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    organization: '',
+    email: '',
+    type: '',
+    message: ''
+  });
+
+  const { showToast } = useToast();
 
   const initialSponsors = [
     { id: 'aerospace', name: 'Aerospace', color: 'blue', content: <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center font-orbitron font-black text-white text-3xl shadow-[0_10px_20px_rgba(37,99,235,0.3)] group-hover:scale-110 transition-transform duration-500 relative z-10">A</div> },
@@ -66,11 +76,30 @@ export const Contact: React.FC = () => {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
-    setTimeout(() => setFormStatus('sent'), 1500);
-    setTimeout(() => setFormStatus('idle'), 4000);
+
+    try {
+      const response = await fetch(`/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) throw new Error('Submission failed');
+
+      showToast('Transmission Successful. We will contact you soon.', 'success');
+      setFormStatus('sent');
+      setFormData({ name: '', organization: '', email: '', type: '', message: '' });
+      setTimeout(() => setFormStatus('idle'), 4000);
+    } catch (error) {
+      console.error('Submission error:', error);
+      showToast('Transmission Failed. Network Error Detected.', 'error');
+      setFormStatus('idle');
+    }
   };
 
   return (
@@ -145,13 +174,21 @@ export const Contact: React.FC = () => {
               <div className="flex flex-col gap-3 lg:gap-4 shrink-0">
                 <div className="flex flex-col md:flex-row gap-3 lg:gap-4">
                   <div className="flex flex-col gap-1.5 flex-1">
-                    <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Organization</label>
-                    <input type="text" required className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="Company Name" />
+                    <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Contact Name</label>
+                    <input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="John Doe" />
                   </div>
                   <div className="flex flex-col gap-1.5 flex-1">
-                    <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Email Address</label>
-                    <input type="email" required className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="contact@domain.com" />
+                    <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2 flex items-center gap-2">
+                      Organization / Company
+                      <span className="font-mono text-[8px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">OPTIONAL</span>
+                    </label>
+                    <input type="text" value={formData.organization} onChange={e => setFormData({...formData, organization: e.target.value})} className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="Acme Corp" />
                   </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Email Address</label>
+                  <input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="contact@domain.com" />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
@@ -159,7 +196,8 @@ export const Contact: React.FC = () => {
                   <select 
                     className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all appearance-none cursor-pointer" 
                     required 
-                    defaultValue=""
+                    value={formData.type}
+                    onChange={e => setFormData({...formData, type: e.target.value})}
                   >
                     <option value="" disabled>Select Interest...</option>
                     <option value="sponsor">Sponsorship & Brand Visibility</option>
@@ -172,7 +210,7 @@ export const Contact: React.FC = () => {
 
               <div className="flex flex-col gap-1.5 flex-1 min-h-0">
                 <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2 shrink-0">Message / Proposal</label>
-                <textarea required className="w-full h-full min-h-[120px] lg:min-h-0 bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="How would you like to collaborate with us?" />
+                <textarea required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} className="w-full h-full min-h-[120px] lg:min-h-0 bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="How would you like to collaborate with us?" />
               </div>
               <button type="submit" disabled={formStatus !== 'idle'} className="shrink-0 w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-orbitron font-bold text-sm lg:text-base uppercase tracking-widest py-3 rounded-xl transition-all duration-300 shadow-[0_10px_20px_rgba(37,99,235,0.2)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 flex items-center justify-center gap-3 disabled:bg-slate-300 disabled:shadow-none disabled:transform-none">
                 {formStatus === 'idle' && <>Submit Request <ArrowRight size={18} /></>}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Briefcase, Cpu, Database, Rocket } from 'lucide-react';
+import { useToast } from '../ui/ToastProvider';
 
 const OPEN_ROLES = [
   {
@@ -39,14 +40,44 @@ const OPEN_ROLES = [
 export const CareersPage: React.FC = () => {
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
   const [selectedRole, setSelectedRole] = useState<string>('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    link: '',
+    coverLetter: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { showToast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
-    // Simulated frontend delay for DB submission
-    setTimeout(() => {
+    
+    try {
+      const response = await fetch(`/api/careers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          role: selectedRole
+        })
+      });
+
+      if (!response.ok) throw new Error('Submission failed');
+
+      showToast('Application Uploaded Successfully.', 'success');
       setFormStatus('sent');
-    }, 1500);
+      setFormData({ name: '', email: '', phone: '', link: '', coverLetter: '' });
+      setSelectedRole('');
+      setTimeout(() => setFormStatus('idle'), 4000);
+    } catch (error) {
+      console.error('Submission error:', error);
+      showToast('Application Upload Failed. Please try again.', 'error');
+      setFormStatus('idle');
+    }
   };
 
   return (
@@ -116,18 +147,18 @@ export const CareersPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Full Name</label>
-                <input type="text" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="Jane Doe" />
+                <input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="John Doe" />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Email Address</label>
-                <input type="email" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="jane@example.com" />
+                <input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="john@example.com" />
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Contact Number</label>
-                <input type="tel" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="+1 (555) 000-0000" />
+                <input type="tel" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="+1 (555) 000-0000" />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Role of Interest</label>
@@ -148,12 +179,12 @@ export const CareersPage: React.FC = () => {
 
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Portfolio / LinkedIn / CV Link</label>
-              <input type="url" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="https://..." />
+              <input type="url" required value={formData.link} onChange={e => setFormData({...formData, link: e.target.value})} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="https://..." />
             </div>
 
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Cover Letter / Motivation</label>
-              <textarea required rows={6} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="Why do you want to build rockets with us? What makes you a good fit?" />
+              <textarea required rows={6} value={formData.coverLetter} onChange={e => setFormData({...formData, coverLetter: e.target.value})} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="Why do you want to build rockets with us? What makes you a good fit?" />
             </div>
 
             <button type="submit" disabled={formStatus !== 'idle'} className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-orbitron font-bold text-lg uppercase tracking-widest py-4 rounded-xl transition-all duration-300 shadow-[0_10px_30px_rgba(37,99,235,0.3)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.4)] hover:-translate-y-1 flex items-center justify-center gap-3 disabled:bg-slate-300 disabled:shadow-none disabled:transform-none">
