@@ -88,8 +88,14 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
 
   useEffect(() => {
     let rafId: number;
+    let lastProgress = -1;
 
     const animate = () => {
+      if (scrollData.current.progress === lastProgress) {
+        rafId = requestAnimationFrame(animate);
+        return;
+      }
+      lastProgress = scrollData.current.progress;
       let { progress } = scrollData.current;
       progress = Math.min(1.0, progress * 1.5);
 

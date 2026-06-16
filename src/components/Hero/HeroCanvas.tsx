@@ -26,8 +26,16 @@ export const HeroCanvas: React.FC<HeroCanvasProps> = ({ scrollData }) => {
     let cachedWidth = 0;
     let cachedHeight = 0;
 
+    let lastProgressForStyle = -1;
+
     const render = () => {
       const { progress, phase } = scrollData.current;
+
+      if (progress === lastProgressForStyle) {
+        rafId = requestAnimationFrame(render);
+        return;
+      }
+      lastProgressForStyle = progress;
 
       // ── Which sequence & frame? ──
       let seqId: number;

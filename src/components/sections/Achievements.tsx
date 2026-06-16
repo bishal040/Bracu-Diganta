@@ -61,11 +61,10 @@ export const Achievements: React.FC = () => {
         </h2>
       </div>
 
-      {/* Horizontal Scroll Wrapper — uses inline style for dynamic width since Tailwind can't resolve interpolated values */}
       <div
         ref={scrollWrapperRef}
         data-scroll-track=""
-        className="flex flex-col md:flex-row h-auto md:h-full w-full will-change-transform md:pb-0 relative"
+        className="flex flex-col md:flex-row h-auto md:h-full w-full will-change-transform md:pb-0 relative shrink-0"
         style={{ ['--tw-slides' as string]: TOTAL_SLIDES }}
       >
         {/* Inject responsive width via <style> since we need a media-query-scoped dynamic value */}
@@ -78,14 +77,11 @@ export const Achievements: React.FC = () => {
         {visibleItems.map((item, index) => (
           <div 
             key={item.id} 
-            className="h-slide w-full md:w-screen h-auto md:h-full flex flex-col md:flex-row items-center justify-center py-8 px-6 md:p-24 relative min-h-[85vh] md:min-h-0 bg-white md:bg-transparent rounded-t-[2.5rem] md:rounded-none shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-none border-t border-slate-200 md:border-none sticky md:static z-10"
+            className="h-slide shrink-0 w-full md:w-screen h-auto md:h-full flex flex-col md:flex-row items-center justify-center py-8 px-6 md:p-24 relative min-h-[85vh] md:min-h-0 bg-white md:bg-transparent rounded-t-[2.5rem] md:rounded-none shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-none border-t border-slate-200 md:border-none sticky md:static z-10 overflow-hidden"
             style={{ top: `calc(130px + ${index * 16}px)` }}
           >
 
-            {/* Huge background number graphic */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-orbitron text-[50vw] font-black text-slate-900/[0.03] pointer-events-none z-0 leading-none">
-              0{item.id}
-            </div>
+
 
             {/* Left Column: Cinematic Image Panel */}
             <div
