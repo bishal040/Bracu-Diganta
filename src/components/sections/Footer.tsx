@@ -204,13 +204,15 @@ export const Footer: React.FC = () => {
                 </h4>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { name: 'Facebook', icon: <FacebookIcon className="w-5 h-5" /> },
-                    { name: 'LinkedIn', icon: <LinkedinIcon className="w-5 h-5" /> },
-                    { name: 'Instagram', icon: <InstagramIcon className="w-5 h-5" /> }
+                    { name: 'Facebook', url: 'https://www.facebook.com/bishal040/', icon: <FacebookIcon className="w-5 h-5" /> },
+                    { name: 'LinkedIn', url: '#', icon: <LinkedinIcon className="w-5 h-5" /> },
+                    { name: 'Instagram', url: '#', icon: <InstagramIcon className="w-5 h-5" /> }
                   ].map((social) => (
                     <a
                       key={social.name}
-                      href="#"
+                      href={social.url}
+                      target={social.url !== '#' ? '_blank' : undefined}
+                      rel={social.url !== '#' ? 'noreferrer' : undefined}
                       className="flex flex-col items-center justify-center gap-3 p-4 rounded-2xl bg-slate-50 hover:bg-blue-50 text-slate-500 hover:text-blue-600 font-mono text-[10px] uppercase tracking-widest font-bold transition-all border border-transparent hover:border-blue-100"
                     >
                       {social.icon}
