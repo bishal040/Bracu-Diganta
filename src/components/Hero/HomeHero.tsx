@@ -64,24 +64,24 @@ export const HomeHero: React.FC = () => {
       <div
         className="hero-left-half relative w-full md:w-1/2 h-1/2 md:h-full bg-[#eef2f5] flex flex-col items-center justify-center p-6 md:p-12 will-change-transform z-10"
       >
-        <div className="relative z-10 text-center flex flex-col items-center">
-          <p className="text-telemetry-cyan font-mono tracking-[0.2em] md:tracking-[0.4em] text-sm md:text-base uppercase mb-4 md:mb-8">
-            BRAC University Aerospace Research
+        <div className="relative z-10 text-center flex flex-col items-center px-4 w-full max-w-[100vw]">
+          <p className="text-telemetry-cyan font-mono tracking-[0.1em] md:tracking-[0.2em] text-[10px] sm:text-xs md:text-sm uppercase mb-4 md:mb-8 max-w-xs md:max-w-md mx-auto leading-relaxed">
+            Small Satellite Research under LaSSET at BRAC University
           </p>
-          <h1 className="font-orbitron text-5xl sm:text-6xl md:text-6xl lg:text-[6rem] xl:text-[7rem] font-black text-gray-900 tracking-[-0.04em] leading-[0.9] uppercase whitespace-nowrap">
+          <h1 className="font-orbitron text-4xl sm:text-5xl md:text-6xl lg:text-[6rem] xl:text-[7rem] font-black text-gray-900 tracking-[-0.04em] leading-[0.9] uppercase">
             BRACU
             <br />
             DIGANTA
           </h1>
-          <div className="w-20 md:w-32 h-[4px] bg-telemetry-cyan my-8 md:my-10" />
-          <p className="text-xl md:text-2xl lg:text-3xl text-gray-600 max-w-lg font-medium">
-            Democratizing space, one launch at a time.
+          <div className="w-16 md:w-32 h-[3px] md:h-[4px] bg-telemetry-cyan my-6 md:my-10" />
+          <p className="text-lg md:text-xl lg:text-3xl text-gray-600 max-w-lg font-medium px-4">
+            Looking Over the Horizon
           </p>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce z-10">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-telemetry-cyan">
+        <div className="absolute bottom-4 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce z-10">
+          <svg width="24" height="24" md:width="32" md:height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-telemetry-cyan w-6 h-6 md:w-8 md:h-8">
             <path d="M12 5v14M19 12l-7 7-7-7" />
           </svg>
         </div>
