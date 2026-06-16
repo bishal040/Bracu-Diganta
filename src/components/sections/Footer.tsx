@@ -156,19 +156,19 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="relative z-10 w-full md:w-auto">
-                <h4 className="font-orbitron font-bold text-2xl text-slate-900 uppercase mb-2">Initialize Comm Link</h4>
-                <p className="text-slate-500 text-sm max-w-xs font-medium">Join our secure channel for mission updates and research breakthroughs.</p>
+                <h4 className="font-orbitron font-bold text-2xl text-slate-900 uppercase mb-2">Send Us A Message</h4>
+                <p className="text-slate-500 text-sm max-w-xs font-medium">Get in touch with us for mission updates and research breakthroughs.</p>
               </div>
 
               <div className="relative z-10 w-full md:w-auto flex-1 max-w-md">
-                <div className="flex p-1 bg-slate-50 border border-slate-200 rounded-2xl">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:p-1 bg-transparent sm:bg-slate-50 sm:border border-slate-200 rounded-2xl">
                   <input
                     type="email"
-                    placeholder="ENTER DESIGNATION (EMAIL)"
-                    className="w-full bg-transparent border-none outline-none px-4 py-3 font-mono text-xs text-slate-900 placeholder:text-slate-400 font-bold tracking-wider"
+                    placeholder="ENTER EMAIL ADDRESS"
+                    className="w-full bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-none rounded-xl sm:rounded-none outline-none px-4 py-4 sm:py-3 font-mono text-xs text-slate-900 placeholder:text-slate-400 font-bold tracking-wider focus:border-blue-500 transition-colors"
                   />
-                  <button className="bg-blue-600 hover:bg-slate-900 text-white rounded-xl px-6 py-3 font-mono text-[10px] tracking-widest font-bold uppercase transition-colors flex items-center gap-2">
-                    <Send size={14} /> Transmit
+                  <button className="w-full sm:w-auto justify-center bg-blue-600 hover:bg-slate-900 text-white rounded-xl px-6 py-4 sm:py-3 font-mono text-[10px] tracking-widest font-bold uppercase transition-colors flex items-center gap-2 shrink-0">
+                    <Send size={14} /> Send
                   </button>
                 </div>
               </div>
