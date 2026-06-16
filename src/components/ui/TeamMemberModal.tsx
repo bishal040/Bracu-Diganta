@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Link as LinkIcon, Globe } from 'lucide-react';
+import { X } from 'lucide-react';
 import type { TeamMember } from '../../data/team';
 
 interface TeamMemberModalProps {
@@ -109,17 +109,17 @@ export const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, onClos
                 </h4>
                 <div className="flex gap-4">
                   {member.linkedin ? (
-                    <a href={member.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors border border-blue-100 font-bold text-sm">
-                      <LinkIcon size={16} /> LinkedIn
+                    <a href={member.linkedin.startsWith('http') ? member.linkedin : `https://${member.linkedin}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors border border-blue-100 font-bold text-sm">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg> LinkedIn
                     </a>
                   ) : (
                     <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-400 rounded-lg border border-slate-100 font-bold text-sm cursor-not-allowed">
-                      <LinkIcon size={16} /> Offline
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg> Offline
                     </div>
                   )}
                   {member.facebook ? (
-                    <a href={member.facebook} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors border border-blue-100 font-bold text-sm">
-                      <Globe size={16} /> Web
+                    <a href={member.facebook.startsWith('http') ? member.facebook : `https://${member.facebook}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors border border-blue-100 font-bold text-sm">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg> Facebook
                     </a>
                   ) : null}
                 </div>

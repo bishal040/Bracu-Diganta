@@ -76,6 +76,30 @@ const CrewCard = ({ member, layout, onClick }: CrewCardProps) => {
           <h3 className="font-orbitron font-black text-2xl md:text-3xl text-white uppercase tracking-wider mb-2 group-hover:text-blue-400 transition-colors">
             {member.name}
           </h3>
+          <div className="flex items-center gap-3 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {member.linkedin && member.linkedin !== "N/A" && member.linkedin !== "" && (
+              <a 
+                href={member.linkedin.startsWith('http') ? member.linkedin : `https://${member.linkedin}`} 
+                target="_blank" 
+                rel="noreferrer" 
+                onClick={(e) => e.stopPropagation()}
+                className="text-slate-300 hover:text-white transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
+              </a>
+            )}
+            {member.facebook && member.facebook !== "N/A" && member.facebook !== "" && (
+              <a 
+                href={member.facebook.startsWith('http') ? member.facebook : `https://${member.facebook}`} 
+                target="_blank" 
+                rel="noreferrer" 
+                onClick={(e) => e.stopPropagation()}
+                className="text-slate-300 hover:text-white transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
