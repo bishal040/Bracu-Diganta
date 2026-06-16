@@ -63,7 +63,7 @@ export const Overview: React.FC = () => {
               <MagneticButton
                 onClick={() => {
                   const link = document.createElement('a');
-                  link.href = '/Diganta Portfolio 2026.pdf';
+                  link.href = `${import.meta.env.BASE_URL}Diganta Portfolio 2026.pdf`;
                   link.download = 'Diganta Portfolio 2026.pdf';
                   document.body.appendChild(link);
                   link.click();

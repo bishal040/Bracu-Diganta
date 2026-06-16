@@ -228,9 +228,9 @@ export const Footer: React.FC = () => {
         {/* Deep Footer Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 px-4">
           <div className="flex flex-wrap justify-center md:justify-start items-center gap-8 md:gap-12">
-            <img src="/Bracu%20Logo.png" alt="BRAC University Logo" className="h-14 md:h-16 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
-            <img src="/Lasset%20Logo.png" alt="Lasset Logo" className="h-14 md:h-16 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
-            <img src="/Diganta%20Logo.png" alt="Diganta Logo" className="h-20 md:h-24 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+            <img src={`${import.meta.env.BASE_URL}Bracu%20Logo.png`} alt="BRAC University Logo" className="h-14 md:h-16 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+            <img src={`${import.meta.env.BASE_URL}Lasset%20Logo.png`} alt="Lasset Logo" className="h-14 md:h-16 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+            <img src={`${import.meta.env.BASE_URL}Diganta%20Logo.png`} alt="Diganta Logo" className="h-20 md:h-24 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
           </div>
 
           <p className="font-mono text-[10px] text-slate-400 uppercase tracking-widest text-center">

@@ -217,7 +217,7 @@ export const Navbar: React.FC = () => {
             onClick={scrollToTop}
           >
             <img 
-              src="/Diganta%20Logo.png" 
+              src={`${import.meta.env.BASE_URL}Diganta%20Logo.png`} 
               alt="BRACU Diganta Logo" 
               className={`object-contain transition-all duration-500 ${scrolled ? 'h-10' : 'h-16'}`} 
             />
