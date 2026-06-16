@@ -19,21 +19,6 @@ interface CrewCardProps {
 }
 
 const CrewCard = ({ member, layout, onClick }: CrewCardProps) => {
-  // Collection of sci-fi/engineering quotes
-  const quotes = [
-    "Exploring the final frontier, one mission at a time.",
-    "Innovation happens when we push past the atmosphere.",
-    "Engineering the future of autonomous telemetry.",
-    "Our designs are forged in the fires of reentry.",
-    "Every payload is a step closer to the stars.",
-    "Defying gravity through rigorous testing and sheer will.",
-    "Precision in manufacturing means survival in orbit.",
-    "Space is not a void, it's a canvas for our engineering.",
-  ];
-  
-  // Stable random index based on name so it stays consistent
-  const quoteIndex = member.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % quotes.length;
-  const quote = quotes[quoteIndex];
 
   return (
   <div onClick={onClick} className={`crew-card ${layout.col} ${layout.height} absolute inset-0 w-full md:relative md:inset-auto md:w-auto group cursor-pointer`}>
@@ -104,12 +89,16 @@ const CrewCard = ({ member, layout, onClick }: CrewCardProps) => {
       </div>
     </div>
 
-    {/* Mobile Only: Random Quote Area utilizing the bottom space */}
+    {/* Mobile Only: Quote Area utilizing the bottom space */}
     <div className="absolute top-[500px] left-0 w-full md:hidden flex flex-col justify-start items-center px-6 text-center z-10">
-      <span className="text-[#2563EB] text-6xl font-serif leading-none mb-2 opacity-30">"</span>
-      <p className="font-serif text-lg md:text-xl text-slate-700 italic leading-relaxed">
-        {quote}
-      </p>
+      {member.quote ? (
+        <>
+          <span className="text-[#2563EB] text-6xl font-serif leading-none mb-2 opacity-30">"</span>
+          <p className="font-serif text-lg md:text-xl text-slate-700 italic leading-relaxed">
+            {member.quote}
+          </p>
+        </>
+      ) : null}
     </div>
 
   </div>
