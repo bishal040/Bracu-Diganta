@@ -58,11 +58,11 @@ export const HomeHero: React.FC = () => {
   const currentIndices = indices.length === 4 ? indices : [0, 1, 2, 3];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-transparent hero-cover-wrapper flex flex-col md:flex-row">
+    <div className="relative w-full h-[100dvh] overflow-hidden bg-transparent hero-cover-wrapper flex flex-col md:flex-row">
 
       {/* LEFT HALF (Top in mobile, Left in desktop) */}
       <div
-        className="hero-left-half relative w-full md:w-1/2 h-1/2 md:h-full bg-[#eef2f5] flex flex-col items-center justify-center p-6 md:p-12 will-change-transform z-10"
+        className="hero-left-half relative w-full md:w-1/2 h-1/2 md:h-full bg-[#eef2f5] flex flex-col items-center justify-center p-4 sm:p-6 md:p-12 will-change-transform z-10"
       >
         <div className="relative z-10 text-center flex flex-col items-center px-4 w-full max-w-[100vw]">
           <p className="text-telemetry-cyan font-mono tracking-[0.1em] md:tracking-[0.2em] text-xs sm:text-sm md:text-lg lg:text-xl uppercase mb-4 md:mb-8 max-w-sm md:max-w-2xl mx-auto leading-relaxed">
@@ -89,14 +89,14 @@ export const HomeHero: React.FC = () => {
 
       {/* RIGHT HALF (Bottom in mobile, Right in desktop) */}
       <div
-        className="hero-right-half relative w-full md:w-1/2 h-1/2 md:h-full bg-[#eef2f5] will-change-transform flex items-center justify-center p-8 sm:p-12 md:p-16 lg:p-24 overflow-hidden"
+        className="hero-right-half relative w-full md:w-1/2 h-1/2 md:h-full bg-[#eef2f5] will-change-transform flex items-center justify-center p-4 sm:p-8 md:p-16 lg:p-24 overflow-hidden"
       >
-        <div className="w-full h-full max-h-[50vh] lg:max-h-[60vh] max-w-[420px] lg:max-w-[500px] grid grid-cols-2 gap-3 lg:gap-5 relative group z-10">
+        <div className="w-full h-[85%] md:h-full max-h-[40vh] md:max-h-[50vh] lg:max-h-[60vh] max-w-[320px] sm:max-w-[420px] lg:max-w-[500px] grid grid-cols-2 gap-2 sm:gap-3 lg:gap-5 relative group z-10">
 
           {/* Left Column */}
-          <div className="flex flex-col gap-3 lg:gap-5 h-full translate-y-4 md:translate-y-8 relative z-20">
+          <div className="flex flex-col gap-2 sm:gap-3 lg:gap-5 h-full translate-y-2 md:translate-y-8 relative z-20">
             {/* Box 1: Left Top */}
-            <div className={`flex-[3] w-full rounded-3xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-bottom-right ${isStacking ? 'translate-x-6 md:translate-x-10 translate-y-10 md:translate-y-20 scale-[0.8] rotate-[8deg] z-40 brightness-75' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
+            <div className={`flex-[3] w-full rounded-2xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-bottom-right ${isStacking ? 'translate-x-4 md:translate-x-10 translate-y-6 md:translate-y-20 scale-[0.8] rotate-[8deg] z-40 brightness-75' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
               {ALL_IMAGES.map((src, idx) => (
                 <img
                   key={src}
@@ -108,7 +108,7 @@ export const HomeHero: React.FC = () => {
             </div>
 
             {/* Box 2: Left Bottom */}
-            <div className={`flex-[2] w-full rounded-3xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-top-right ${isStacking ? 'translate-x-6 md:translate-x-10 -translate-y-10 md:-translate-y-20 scale-[0.8] -rotate-[6deg] z-30 brightness-50' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
+            <div className={`flex-[2] w-full rounded-2xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-top-right ${isStacking ? 'translate-x-4 md:translate-x-10 -translate-y-6 md:-translate-y-20 scale-[0.8] -rotate-[6deg] z-30 brightness-50' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
               {ALL_IMAGES.map((src, idx) => (
                 <img
                   key={src}
@@ -121,9 +121,9 @@ export const HomeHero: React.FC = () => {
           </div>
 
           {/* Right Column */}
-          <div className="flex flex-col gap-3 lg:gap-5 h-full -translate-y-4 md:-translate-y-8 relative z-10">
+          <div className="flex flex-col gap-2 sm:gap-3 lg:gap-5 h-full -translate-y-2 md:-translate-y-8 relative z-10">
             {/* Box 3: Right Top */}
-            <div className={`flex-[2] w-full rounded-3xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-bottom-left ${isStacking ? '-translate-x-6 md:-translate-x-10 translate-y-10 md:translate-y-20 scale-[0.8] -rotate-[8deg] z-50 brightness-100' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
+            <div className={`flex-[2] w-full rounded-2xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-bottom-left ${isStacking ? '-translate-x-4 md:-translate-x-10 translate-y-6 md:translate-y-20 scale-[0.8] -rotate-[8deg] z-50 brightness-100' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
               {ALL_IMAGES.map((src, idx) => (
                 <img
                   key={src}
@@ -135,7 +135,7 @@ export const HomeHero: React.FC = () => {
             </div>
 
             {/* Box 4: Right Bottom */}
-            <div className={`flex-[3] w-full rounded-3xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-top-left ${isStacking ? '-translate-x-6 md:-translate-x-10 -translate-y-10 md:-translate-y-20 scale-[0.8] rotate-[6deg] z-20 brightness-75' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
+            <div className={`flex-[3] w-full rounded-2xl md:rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] relative transition-all duration-[700ms] ease-[cubic-bezier(0.87,0,0.13,1)] origin-top-left ${isStacking ? '-translate-x-4 md:-translate-x-10 -translate-y-6 md:-translate-y-20 scale-[0.8] rotate-[6deg] z-20 brightness-75' : 'translate-x-0 translate-y-0 scale-100 rotate-0 z-10 brightness-100'}`}>
               {ALL_IMAGES.map((src, idx) => (
                 <img
                   key={src}
