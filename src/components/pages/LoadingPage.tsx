@@ -28,7 +28,7 @@ export const LoadingPage: React.FC<{ onComplete?: () => void }> = ({ onComplete 
         }}
       >
         {/* Logo text */}
-        <h1 className="font-orbitron text-4xl md:text-5xl font-black text-gray-900 tracking-[0.2em] uppercase select-none">
+        <h1 className="font-orbitron text-center text-4xl md:text-5xl font-black text-gray-900 tracking-[0.2em] uppercase select-none">
           BRACU DIGANTA
         </h1>
 
@@ -43,8 +43,8 @@ export const LoadingPage: React.FC<{ onComplete?: () => void }> = ({ onComplete 
         </div>
 
         {/* Tagline */}
-        <p className="font-mono text-[10px] tracking-[0.4em] text-gray-400 uppercase">
-          Living Beyond the Horizon
+        <p className="font-mono text-center text-[10px] tracking-[0.4em] text-gray-400 uppercase">
+          Looking over the Horizon
         </p>
       </div>
 
