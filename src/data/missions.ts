@@ -29,7 +29,7 @@ export const missionsData: MissionData[] = [
   {
     id: 1,
     slug: 'cansat-v1',
-    title: 'Cansat V1.0',
+    title: 'Cansat V1 .0',
     category: 'Competition Payload',
     description: 'Our first iteration of the miniaturized satellite. Successfully demonstrated basic telemetry gathering and safe descent operations.',
     image: 'https://i.ibb.co.com/35WZ6czz/Whats-App-Image-2026-06-17-at-01-47-49-1.jpg',
