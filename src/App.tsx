@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { SmoothScroll } from './components/SmoothScroll';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './components/pages/HomePage';
