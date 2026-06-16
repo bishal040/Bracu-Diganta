@@ -98,7 +98,7 @@ export const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, onClos
                     </p>
                   </div>
                 ) : (
-                  <p className="text-slate-500 italic mb-8">No specific transmission recorded for this crew member.</p>
+                  <div className="mb-8"></div>
                 )}
               </div>
 
