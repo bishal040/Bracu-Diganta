@@ -1,18 +1,7 @@
 import React from 'react';
 import { SectionReveal } from '../ui/SectionReveal';
-import { Hexagon, Triangle, Circle, Square, Command, Anchor, Aperture, Globe } from 'lucide-react';
+import { sponsorsData } from '../../data/sponsors';
 import { MagneticButton } from '../ui/MagneticButton';
-
-const SPONSORS = [
-  { name: "AeroTech", icon: <Triangle size={32} strokeWidth={1.5} /> },
-  { name: "Nova Systems", icon: <Hexagon size={32} strokeWidth={1.5} /> },
-  { name: "Quantum Dynamics", icon: <Circle size={32} strokeWidth={1.5} /> },
-  { name: "NexGen", icon: <Square size={32} strokeWidth={1.5} /> },
-  { name: "Nexus", icon: <Command size={32} strokeWidth={1.5} /> },
-  { name: "Horizon", icon: <Anchor size={32} strokeWidth={1.5} /> },
-  { name: "Orbit Systems", icon: <Aperture size={32} strokeWidth={1.5} /> },
-  { name: "Stratos", icon: <Globe size={32} strokeWidth={1.5} /> },
-];
 
 export const SponsorUs: React.FC = () => {
   return (
@@ -59,17 +48,23 @@ export const SponsorUs: React.FC = () => {
           {/* Marquee Track */}
           <div className="flex whitespace-nowrap animate-marquee w-max items-center gap-16 md:gap-24 px-8">
             {/* Double the array to create seamless loop */}
-            {[...SPONSORS, ...SPONSORS].map((sponsor, idx) => (
+            {[...sponsorsData, ...sponsorsData].map((sponsor, idx) => (
               <div
                 key={idx}
                 className="flex items-center gap-4 text-gray-400 hover:text-[#2563EB] transition-colors duration-300 group cursor-pointer"
               >
-                <div className="text-gray-400 group-hover:text-[#2563EB] transition-colors duration-300">
-                  {sponsor.icon}
-                </div>
-                <span className="font-orbitron text-2xl md:text-3xl font-bold tracking-wider">
-                  {sponsor.name}
-                </span>
+                {sponsor.logoUrl ? (
+                  <img src={sponsor.logoUrl} alt={sponsor.name} className="h-10 md:h-12 w-auto max-w-[120px] md:max-w-[160px] object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 mix-blend-multiply" />
+                ) : (
+                  <>
+                    <div className="text-gray-400 group-hover:text-[#2563EB] transition-colors duration-300">
+                      {sponsor.icon}
+                    </div>
+                    <span className="font-orbitron text-2xl md:text-3xl font-bold tracking-wider">
+                      {sponsor.name}
+                    </span>
+                  </>
+                )}
               </div>
             ))}
           </div>

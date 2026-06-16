@@ -202,6 +202,27 @@ export const TeamPage: React.FC = () => {
           )}
         </div>
 
+        {/* Join the Crew CTA at bottom of TeamPage */}
+        <div className="mt-20 md:mt-32 pt-16 border-t border-slate-200 flex flex-col items-center justify-center text-center">
+          <h3 className="font-orbitron font-bold text-3xl md:text-5xl text-slate-900 uppercase tracking-tighter mb-4">
+            Think you have what it takes?
+          </h3>
+          <p className="font-serif text-slate-500 mb-10 max-w-xl">
+            We are always looking for visionary engineers, designers, and innovators to join our ranks. Apply now to become part of the next mission.
+          </p>
+          <Link 
+            to="/careers"
+            className="group relative inline-flex items-center justify-center px-8 py-4 md:px-10 md:py-5 font-mono text-xs md:text-sm font-bold tracking-[0.2em] text-white uppercase bg-[#2563eb] overflow-hidden shadow-[0_10px_40px_rgba(37,99,235,0.3)] hover:shadow-[0_10px_50px_rgba(37,99,235,0.5)] transition-all duration-300 cursor-pointer"
+            style={{ clipPath: 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)' }}
+          >
+            <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] group-hover:animate-[shimmer_1.5s_linear_infinite]" />
+            <span className="relative z-10 flex items-center gap-3">
+              <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
+              Join the Crew
+            </span>
+          </Link>
+        </div>
+
       </div>
       
       {/* Central Modal Dialog */}

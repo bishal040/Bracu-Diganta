@@ -19,7 +19,7 @@ export const TimelinePage: React.FC = () => {
   useEffect(() => {
     if (!pageRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.tl-card').forEach((card, i) => {
+      gsap.utils.toArray<HTMLElement>('.tl-card').forEach((card) => {
         gsap.fromTo(card,
           { opacity: 0, y: 60, scale: 0.97 },
           {

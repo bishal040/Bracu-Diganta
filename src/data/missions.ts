@@ -39,7 +39,8 @@ export const missionsData: MissionData[] = [
     stats: [
       { label: 'Apogee', value: '1,500 ft' },
       { label: 'Descent', value: '12 m/s' }
-    ]
+    ],
+    route: '/project/cansat-2024'
   },
   {
     id: 2,

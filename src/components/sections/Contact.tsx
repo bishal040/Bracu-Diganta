@@ -1,36 +1,48 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Plus, Building2, Cog, Zap, Activity, Network, Lightbulb, Layers, GraduationCap, Globe, CircuitBoard, Handshake, CheckCircle2, XCircle } from 'lucide-react';
-import { MissionToast } from '../ui/MissionToast';
+import { motion } from 'framer-motion';
+import { ArrowRight, Plus, Handshake, Activity, Zap } from 'lucide-react';
+import { useToast } from '../ui/ToastProvider';
+import { sponsorsData, type MappedSponsor } from '../../data/sponsors';
 
-const SPONSORS_AND_PARTNERS = [
-  { name: "BSRM", icon: <Building2 size={32} strokeWidth={1.5} /> },
-  { name: "SOE", icon: <Cog size={32} strokeWidth={1.5} /> },
-  { name: "DEPT EEE", icon: <Zap size={32} strokeWidth={1.5} /> },
-  { name: "Augmedix", icon: <Activity size={32} strokeWidth={1.5} /> },
-  { name: "ICT Division", icon: <Network size={32} strokeWidth={1.5} /> },
-  { name: "IDEA", icon: <Lightbulb size={32} strokeWidth={1.5} /> },
-  { name: "TK Group", icon: <Layers size={32} strokeWidth={1.5} /> },
-  { name: "BRACU", icon: <GraduationCap size={32} strokeWidth={1.5} /> },
-  { name: "WRDBd", icon: <Globe size={32} strokeWidth={1.5} /> },
-  { name: "PCBWay", icon: <CircuitBoard size={32} strokeWidth={1.5} /> },
-];
+const getSponsorContent = (sponsor: MappedSponsor) => {
+  const getColors = (color: string) => {
+    switch (color) {
+      case 'blue': return { bg: 'bg-blue-600', border: 'border-blue-500', text: 'text-blue-500', hoverBg: 'group-hover:bg-blue-50', shadow: 'shadow-[0_10px_20px_rgba(37,99,235,0.3)]' };
+      case 'indigo': return { bg: 'bg-indigo-600', border: 'border-indigo-500', text: 'text-indigo-500', hoverBg: 'group-hover:bg-indigo-50', shadow: 'shadow-[0_10px_20px_rgba(79,70,229,0.2)]' };
+      case 'cyan': return { bg: 'bg-cyan-600', border: 'border-cyan-500', text: 'text-cyan-500', hoverBg: 'group-hover:bg-cyan-50', shadow: 'shadow-[0_10px_20px_rgba(6,182,212,0.2)]' };
+      case 'violet': return { bg: 'bg-violet-600', border: 'border-violet-500', text: 'text-violet-500', hoverBg: 'group-hover:bg-violet-50', shadow: 'shadow-[0_10px_20px_rgba(139,92,246,0.3)]' };
+      case 'slate': default: return { bg: 'bg-slate-600', border: 'border-slate-500', text: 'text-slate-500', hoverBg: 'group-hover:bg-slate-50', shadow: 'shadow-[0_10px_20px_rgba(100,116,139,0.3)]' };
+    }
+  };
+  const c = getColors(sponsor.color);
+
+  if (sponsor.logoUrl) {
+    return (
+      <div className="w-24 h-20 sm:h-24 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 relative z-10">
+        <img src={sponsor.logoUrl} alt={sponsor.name} className="w-full h-full object-contain mix-blend-multiply" />
+      </div>
+    );
+  }
+
+  return (
+    <div className={`w-16 h-16 flex items-center justify-center ${c.text} group-hover:scale-110 transition-transform duration-500 relative z-10`}>
+      {sponsor.icon}
+    </div>
+  );
+};
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' }>({ show: false, message: '', type: 'success' });
-
-  const initialSponsors = [
-    { id: 'bsrm', name: 'BSRM', color: 'blue', content: <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-[0_10px_20px_rgba(37,99,235,0.3)] group-hover:scale-110 transition-transform duration-500 relative z-10"><Building2 size={28} /></div> },
-    { id: 'bracu', name: 'BRACU', color: 'indigo', content: <div className="w-16 h-16 rounded-full border-[4px] border-indigo-500 flex items-center justify-center text-indigo-500 shadow-[0_10px_20px_rgba(79,70,229,0.2)] group-hover:scale-110 group-hover:bg-indigo-50 transition-all duration-500 relative z-10"><GraduationCap size={28} /></div> },
-    { id: 'ict', name: 'ICT Div.', color: 'cyan', content: <div className="w-16 h-16 border-[4px] border-cyan-500 rotate-45 flex items-center justify-center text-cyan-500 shadow-[0_10px_20px_rgba(6,182,212,0.2)] group-hover:rotate-90 group-hover:bg-cyan-50 transition-all duration-500 relative z-10"><div className="-rotate-45 flex items-center justify-center"><Network size={28} /></div></div> },
-    { id: 'pcbway', name: 'PCBWay', color: 'violet', content: <div className="w-16 h-16 bg-violet-500 rounded-full flex items-center justify-center text-white shadow-[0_10px_20px_rgba(139,92,246,0.3)] group-hover:scale-110 transition-transform duration-500 relative z-10"><CircuitBoard size={28} /></div> }
-  ];
+  const { showToast } = useToast();
+  const initialSponsors = sponsorsData.slice(0, 4).map(s => ({
+    ...s,
+    content: getSponsorContent(s)
+  }));
 
   const [sponsors, setSponsors] = useState(initialSponsors);
 
@@ -81,20 +93,18 @@ export const Contact: React.FC = () => {
     };
   }, []);
 
-  const handleCloseToast = useCallback(() => {
-    setToast(prev => ({ ...prev, show: false }));
-  }, []);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
-    
+
     try {
       const formData = new FormData(e.target as HTMLFormElement);
       const data = Object.fromEntries(formData.entries());
-      
+
       const apiUrl = import.meta.env.VITE_API_URL;
-      
+
       if (apiUrl) {
         const response = await fetch(apiUrl, {
           method: 'POST',
@@ -110,17 +120,17 @@ export const Contact: React.FC = () => {
         // Fallback for testing without DB
         await new Promise(resolve => setTimeout(resolve, 1500));
       }
-      
+
       setFormStatus('sent');
-      setToast({ show: true, message: 'Partnership request transmitted successfully!', type: 'success' });
+      showToast('Partnership request transmitted successfully!', 'success');
       (e.target as HTMLFormElement).reset();
-      
+
       setTimeout(() => setFormStatus('idle'), 4000);
     } catch (error) {
       console.error('Contact form submission error:', error);
       setFormStatus('error');
-      setToast({ show: true, message: 'Transmission failed — please retry.', type: 'error' });
-      
+      showToast('Transmission failed — please retry.', 'error');
+
       setTimeout(() => setFormStatus('idle'), 4000);
     }
   };
@@ -160,7 +170,7 @@ export const Contact: React.FC = () => {
                 Gain premium brand visibility. Interact directly with our latest aerospace missions and secure your spot on our flagship rovers and satellites.
               </p>
             </div>
-            
+
             {/* Investment Space */}
             <div className="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white/50 shadow-[0_8px_30px_rgba(37,99,235,0.04)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.1)] transition-all">
               <div className="flex items-center gap-3 mb-3">
@@ -221,10 +231,10 @@ export const Contact: React.FC = () => {
 
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Partnership Type</label>
-                  <select 
+                  <select
                     name="type"
-                    className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all appearance-none cursor-pointer" 
-                    required 
+                    className="w-full bg-white/90 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm lg:text-base font-semibold text-slate-900 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all appearance-none cursor-pointer"
+                    required
                     defaultValue=""
                   >
                     <option value="" disabled>Select Interest...</option>
@@ -260,11 +270,12 @@ export const Contact: React.FC = () => {
                   layout
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                   key={sponsor.id}
-                  className="sponsor-item bento-reveal h-full bg-white/95 border border-white rounded-[1.5rem] p-4 flex flex-col items-center justify-center gap-2 transition-colors duration-300 hover:shadow-[0_20px_40px_rgba(37,99,235,0.1)] group relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] will-change-transform z-10 hover:z-20"
+                  className="sponsor-item bento-reveal h-full rounded-[1.5rem] p-4 flex flex-col items-center justify-center gap-2 transition-colors duration-300 group relative overflow-hidden will-change-transform z-10 hover:z-20"
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-b from-${sponsor.color}-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity`} />
-                  <div className="scale-75 lg:scale-100">{sponsor.content}</div>
-                  <span className="font-orbitron font-black text-[10px] tracking-widest uppercase text-slate-800 relative z-10">{sponsor.name}</span>
+                  <div className="w-full flex items-center justify-center">{sponsor.content}</div>
+                  {!sponsor.logoUrl && (
+                    <span className="font-orbitron font-black text-[10px] tracking-widest uppercase text-slate-800 relative z-10 mt-2">{sponsor.name}</span>
+                  )}
                 </motion.div>
               ))}
 
@@ -298,10 +309,16 @@ export const Contact: React.FC = () => {
               <div className="flex w-max animate-[marquee_20s_linear_infinite]">
                 {[1, 2].map((set) => (
                   <div key={set} className="flex items-center gap-10 px-6 shrink-0">
-                    {SPONSORS_AND_PARTNERS.map((sponsor, idx) => (
+                    {sponsorsData.slice(0, 10).map((sponsor, idx) => (
                       <div key={idx} className="flex items-center gap-3">
-                        <div className="text-blue-600 scale-75 lg:scale-100">{sponsor.icon}</div>
-                        <span className="font-orbitron font-black text-[11px] lg:text-[13px] tracking-widest uppercase text-slate-900">{sponsor.name}</span>
+                        {sponsor.logoUrl ? (
+                          <img src={sponsor.logoUrl} alt={sponsor.name} className="h-12 w-auto max-w-[120px] lg:max-w-[180px] object-contain mix-blend-multiply opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300" />
+                        ) : (
+                          <>
+                            <div className="text-blue-600 scale-75 lg:scale-100">{sponsor.icon}</div>
+                            <span className="font-orbitron font-black text-[11px] lg:text-[13px] tracking-widest uppercase text-slate-900">{sponsor.name}</span>
+                          </>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -312,14 +329,7 @@ export const Contact: React.FC = () => {
         </div>
       </div>
 
-      {/* Creative Aerospace Mission Toast */}
-      <MissionToast
-        show={toast.show}
-        message={toast.message}
-        type={toast.type}
-        onClose={handleCloseToast}
-        duration={5000}
-      />
+
     </section>
   );
 };

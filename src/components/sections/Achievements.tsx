@@ -26,6 +26,7 @@ export const Achievements: React.FC = () => {
       mm.add("(min-width: 768px)", () => {
         const sections = gsap.utils.toArray('.h-slide');
         const scrollWidth = scrollWrapperRef.current!.scrollWidth - window.innerWidth;
+        const snapPoints = sections.map((_, i) => Math.min(1, (i * window.innerWidth) / scrollWidth));
 
         gsap.to(scrollWrapperRef.current, {
           x: -scrollWidth,
@@ -34,7 +35,7 @@ export const Achievements: React.FC = () => {
             trigger: containerRef.current,
             pin: true,
             scrub: 1,
-            snap: 1 / (sections.length - 1),
+            snap: snapPoints,
             end: () => `+=${scrollWidth}`,
           }
         });
@@ -70,7 +71,7 @@ export const Achievements: React.FC = () => {
         {/* Inject responsive width via <style> since we need a media-query-scoped dynamic value */}
         <style>{`
           @media (min-width: 768px) {
-            [data-scroll-track] { width: ${TOTAL_SLIDES * 100}vw !important; }
+            [data-scroll-track] { width: ${(VISIBLE_COUNT * 100) + 40}vw !important; }
           }
         `}</style>
 
@@ -158,7 +159,7 @@ export const Achievements: React.FC = () => {
 
         {/* See More CTA Slide */}
         <div
-          className="h-slide w-full md:w-screen h-auto md:h-full flex items-center justify-center py-16 px-6 md:p-24 relative min-h-[60vh] md:min-h-0 bg-white md:bg-transparent rounded-t-[2.5rem] md:rounded-none shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-none border-t border-slate-200 md:border-none sticky md:static z-10"
+          className="h-slide w-full md:w-[40vw] h-auto md:h-full flex items-center justify-center py-8 px-6 md:p-12 relative min-h-[30vh] md:min-h-0 bg-white md:bg-transparent rounded-t-[2.5rem] md:rounded-none shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-none border-t border-slate-200 md:border-none sticky md:static z-10 shrink-0"
           style={{ top: `calc(130px + ${VISIBLE_COUNT * 16}px)` }}
         >
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-orbitron text-[40vw] font-black text-slate-900/[0.02] pointer-events-none z-0 leading-none select-none">

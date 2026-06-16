@@ -61,13 +61,7 @@ const CrewCard = ({ member, layout, onClick }: CrewCardProps) => {
         {/* Gradient Overlay for Text Readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none transition-all duration-500 group-hover:from-black/70 group-hover:via-black/30" />
 
-        {/* Top Left Tier Badge (replacing dynamic tier with COMMAND CREW to match old aesthetic) */}
-        <div className="absolute top-4 left-4 flex gap-2 items-center z-20 bg-white/10 border border-white/20 backdrop-blur-md px-2 py-1 rounded shadow-sm">
-          <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
-          <span className="font-mono text-[9px] md:text-[10px] text-white tracking-widest uppercase font-bold">
-            COMMAND CREW
-          </span>
-        </div>
+
 
         {/* Top Right Tech Detail Icon */}
         <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">

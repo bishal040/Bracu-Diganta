@@ -1,0 +1,79 @@
+[
+  {
+    "id": "bsrm",
+    "name": "BSRM",
+    "logoUrl": "https://i.ibb.co.com/LhCwwjpq/SL.png",
+    "iconName": "Building2",
+    "color": "blue",
+    "shape": "square"
+  },
+  {
+    "id": "bracu",
+    "name": "BRACU",
+    "logoUrl": "https://i.ibb.co.com/JWvKfXgr/SL1.jpg",
+    "iconName": "GraduationCap",
+    "color": "indigo",
+    "shape": "circle"
+  },
+  {
+    "id": "ict",
+    "name": "ICT Div.",
+    "logoUrl": "https://i.ibb.co.com/yFd01sDw/SL3.webp",
+    "iconName": "Network",
+    "color": "cyan",
+    "shape": "diamond"
+  },
+  {
+    "id": "pcbway",
+    "name": "PCBWay",
+    "logoUrl": "https://i.ibb.co.com/ZzJjV4ZF/SL4.png",
+    "iconName": "CircuitBoard",
+    "color": "violet",
+    "shape": "circle"
+  },
+  {
+    "id": "soe",
+    "name": "SOE",
+    "logoUrl": "https://i.ibb.co.com/9dDy4Fh/SL5.png",
+    "iconName": "Cog",
+    "color": "slate",
+    "shape": "square"
+  },
+  {
+    "id": "eee",
+    "name": "DEPT EEE",
+    "logoUrl": "https://i.ibb.co.com/GvBPY4SP/SL6.jpg",
+    "iconName": "Zap",
+    "color": "blue",
+    "shape": "circle"
+  },
+  {
+    "id": "augmedix",
+    "name": "Augmedix",
+    "logoUrl": "https://i.ibb.co.com/TMsr82kQ/SL7.png",
+    "iconName": "Activity",
+    "color": "indigo",
+    "shape": "diamond"
+  },
+  {
+    "id": "idea",
+    "name": "IDEA",
+    "iconName": "Lightbulb",
+    "color": "violet",
+    "shape": "square"
+  },
+  {
+    "id": "tk-group",
+    "name": "TK Group",
+    "iconName": "Layers",
+    "color": "slate",
+    "shape": "circle"
+  },
+  {
+    "id": "wrdbd",
+    "name": "WRDBd",
+    "iconName": "Globe",
+    "color": "cyan",
+    "shape": "square"
+  }
+]

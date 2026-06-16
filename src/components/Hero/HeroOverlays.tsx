@@ -1,16 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { Hexagon, Triangle, Circle, Square, Command, Anchor, Aperture, Globe } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const SPONSORS = [
-  { name: "AeroTech", icon: <Triangle size={32} strokeWidth={1.5} /> },
-  { name: "Nova Systems", icon: <Hexagon size={32} strokeWidth={1.5} /> },
-  { name: "Quantum Dynamics", icon: <Circle size={32} strokeWidth={1.5} /> },
-  { name: "NexGen", icon: <Square size={32} strokeWidth={1.5} /> },
-  { name: "Nexus", icon: <Command size={32} strokeWidth={1.5} /> },
-  { name: "Horizon", icon: <Anchor size={32} strokeWidth={1.5} /> },
-  { name: "Orbit Systems", icon: <Aperture size={32} strokeWidth={1.5} /> },
-  { name: "Stratos", icon: <Globe size={32} strokeWidth={1.5} /> },
-];
+import { sponsorsData } from '../../data/sponsors';
 
 interface HeroOverlaysProps {
   scrollData: React.MutableRefObject<{ progress: number }>;
@@ -68,6 +59,7 @@ const calculatePhase = (
 };
 
 export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
+  const navigate = useNavigate();
   const phase1Ref = useRef<HTMLDivElement>(null);
   const phase2Ref = useRef<HTMLDivElement>(null);
   const phase3Ref = useRef<HTMLDivElement>(null);
@@ -853,15 +845,15 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
           <p className="text-gray-600 text-sm md:text-base max-w-sm leading-relaxed mb-8">
             Explore our history of atmospheric data collection, recovery system testing, and full-scale CanSat competition launches.
           </p>
-          <div className="bg-white/60 backdrop-blur-md border border-gray-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer w-full max-w-sm group" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
+          <div className="bg-white/60 backdrop-blur-md border border-gray-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer w-full max-w-sm group pointer-events-auto" onClick={() => navigate('/missions')}>
             <div className="flex justify-between items-center mb-4">
               <span className="text-xs font-mono font-semibold text-[#2563EB] uppercase tracking-wider">Latest Mission</span>
               <span className="px-2 py-1 rounded-full text-[10px] font-mono bg-emerald-100 text-emerald-700 uppercase">Completed</span>
             </div>
-            <h4 className="font-orbitron text-xl font-bold text-gray-900 mb-2 group-hover:text-[#2563EB] transition-colors">CanSat 2024</h4>
+            <h4 className="font-orbitron text-xl font-bold text-gray-900 mb-2 group-hover:text-[#2563EB] transition-colors">CanSat 2025</h4>
             <p className="text-xs text-gray-500 mb-4">Autonomous atmospheric sensing payload.</p>
             <div className="flex items-center gap-2 text-xs font-bold uppercase text-gray-900 group-hover:gap-3 transition-all">
-              View Archive <span>→</span>
+              All Missions <span>→</span>
             </div>
           </div>
         </div>
@@ -884,7 +876,7 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
           <p className="text-gray-600 text-sm md:text-base max-w-sm leading-relaxed mb-8">
             Meet the brilliant multidisciplinary minds engineering our next generation of spaceflight systems.
           </p>
-          <div className="bg-gray-900 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer w-full max-w-sm group" onClick={() => document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' })}>
+          <div className="bg-gray-900 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer w-full max-w-sm group pointer-events-auto" onClick={() => navigate('/coming-soon')}>
             <div className="flex justify-between items-center mb-4">
               <span className="text-xs font-mono font-semibold text-gray-400 uppercase tracking-wider">Status</span>
               <span className="flex items-center gap-2 px-2 py-1 rounded-full text-[10px] font-mono bg-emerald-500/20 text-emerald-400 uppercase border border-emerald-500/30">
@@ -922,17 +914,23 @@ export const HeroOverlays: React.FC<HeroOverlaysProps> = ({ scrollData }) => {
           {/* Marquee Track */}
           <div className="flex whitespace-nowrap animate-marquee w-max items-center gap-16 md:gap-24 px-8">
             {/* Double the array to create seamless loop */}
-            {[...SPONSORS, ...SPONSORS].map((sponsor, idx) => (
+            {[...sponsorsData, ...sponsorsData].map((sponsor, idx) => (
               <div
                 key={idx}
                 className="flex items-center gap-4 text-gray-400 hover:text-[#2563EB] transition-colors duration-300 group cursor-pointer"
               >
-                <div className="text-gray-400 group-hover:text-[#2563EB] transition-colors duration-300">
-                  {sponsor.icon}
-                </div>
-                <span className="font-orbitron text-2xl md:text-3xl font-bold tracking-wider">
-                  {sponsor.name}
-                </span>
+                {sponsor.logoUrl ? (
+                  <img src={sponsor.logoUrl} alt={sponsor.name} className="h-10 md:h-12 w-auto max-w-[120px] md:max-w-[160px] object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 mix-blend-multiply" />
+                ) : (
+                  <>
+                    <div className="text-gray-400 group-hover:text-[#2563EB] transition-colors duration-300">
+                      {sponsor.icon}
+                    </div>
+                    <span className="font-orbitron text-2xl md:text-3xl font-bold tracking-wider">
+                      {sponsor.name}
+                    </span>
+                  </>
+                )}
               </div>
             ))}
           </div>

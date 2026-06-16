@@ -38,7 +38,7 @@ export const ComingSoonPage: React.FC = () => {
           className="flex items-center gap-3 px-4 py-2 border border-blue-200 bg-blue-50 text-blue-600 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold mb-12"
         >
           <Lock size={14} />
-          <span>Restricted Archive Access</span>
+          <span>Section Under Construction</span>
         </motion.div>
 
         <motion.h1
@@ -47,8 +47,8 @@ export const ComingSoonPage: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-orbitron text-5xl md:text-8xl text-slate-900 font-black tracking-tighter uppercase leading-[0.9] mb-8"
         >
-          Data<br />
-          <span className="text-slate-300">Classified</span>
+          Coming<br />
+          <span className="text-slate-300">Soon</span>
         </motion.h1>
 
         <motion.p
@@ -57,7 +57,7 @@ export const ComingSoonPage: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="font-serif text-lg md:text-2xl text-slate-500 max-w-2xl leading-relaxed mb-16"
         >
-          The archival data for this mission version is currently undergoing declassification. Telemetry, blueprints, and Timelines will be available in a future update.
+          We are currently preparing this module for deployment. Applications, telemetry, and updates will be available in a future transmission.
         </motion.p>
 
         <motion.div
