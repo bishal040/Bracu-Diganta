@@ -7,7 +7,8 @@
         "role": "Director",
         "image": "https://i.ibb.co.com/gZWMyb8k/team1.jpg",
         "linkedin": "https://www.bracu.ac.bd/about/people/abdulla-hil-kafi",
-        "facebook": "https://www.bracu.ac.bd/about/people/abdulla-hil-kafi"
+        "facebook": "https://www.bracu.ac.bd/about/people/abdulla-hil-kafi",
+        "quote": ""
       }
     ],
     "advisors": [
@@ -16,21 +17,24 @@
         "role": "Advisor",
         "image": "https://i.ibb.co.com/h1t3xSXp/team2.jpg",
         "linkedin": "https://www.bracu.ac.bd/about/people/raihana-shams-islam-antara",
-        "facebook": "https://www.bracu.ac.bd/about/people/raihana-shams-islam-antara"
+        "facebook": "https://www.bracu.ac.bd/about/people/raihana-shams-islam-antara",
+        "quote": ""
       },
       {
         "name": "Atib Mohammad Oni",
         "role": "Advisor",
         "image": "https://i.ibb.co.com/bMnMB65c/team3.jpg",
         "linkedin": "https://www.bracu.ac.bd/about/people/atib-mohammad-oni",
-        "facebook": "https://www.bracu.ac.bd/about/people/atib-mohammad-oni"
+        "facebook": "https://www.bracu.ac.bd/about/people/atib-mohammad-oni",
+        "quote": ""
       },
       {
         "name": "Chironjeet Das Joy",
         "role": "Research Assistant",
         "image": "https://i.ibb.co.com/2YhZxLjT/GOD-Chironjeet-Das-Joy.png",
         "linkedin": "https://chironjeetjoy.github.io",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       }
     ],
     "teamLeads": [
@@ -39,14 +43,16 @@
         "role": "PM",
         "image": "https://i.ibb.co.com/21v7tRX8/att-oq69-Mv-W0-Ob-tk-Wj-Zb-Hf-WXkd4-L7-JK56-H1-NME0-Krjp-4-Jui-Hena.jpg",
         "linkedin": "https://www.linkedin.com/in/hasna-hena-jui-8561a32aa?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
-        "facebook": "https://www.facebook.com/share/1CWATNKRUm/?mibextid=wwXIfr"
+        "facebook": "https://www.facebook.com/share/1CWATNKRUm/?mibextid=wwXIfr",
+        "quote": ""
       },
       {
         "name": "Md. Mountashiour Rahman",
         "role": "Team Leader",
         "image": "https://i.ibb.co.com/C331wGLj/IMG-20260617-WA0001-mountashiour-rahman.jpg",
         "linkedin": "https://www.linkedin.com/in/mountashiour-rahman?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-        "facebook": "https://www.facebook.com/share/18nFQJ1emN/"
+        "facebook": "https://www.facebook.com/share/18nFQJ1emN/",
+        "quote": ""
       }
     ],
     "subTeamLeads": [
@@ -55,21 +61,24 @@
         "role": "Electronics Sub-Team Lead",
         "image": "https://i.ibb.co.com/kszcjMbW/D0-D0-EEB8-70-CD-42-CB-A5-CC-30407-BA50010-Tanvir-Ahmed-Tonmoy.jpg",
         "linkedin": "https://www.linkedin.com/in/md-tanvir-ahmed-tonmoy-08203b328?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
-        "facebook": "https://www.facebook.com/share/17mBXpYvj1/?mibextid=wwXIfr"
+        "facebook": "https://www.facebook.com/share/17mBXpYvj1/?mibextid=wwXIfr",
+        "quote": ""
       },
       {
         "name": "Md. Sybeen Abrar Prohor",
         "role": "Software Team Lead",
         "image": "https://i.ibb.co.com/DfPpfzj3/Messenger-creation-AA18-EF57-D8-BD-4-C5-A-ACB7-EAC7-CFFB67-AF-Md-Sybeen-Abrar-Prohor-1.jpg",
         "linkedin": "https://www.linkedin.com/in/md-sybeen-abrar-prohor-241aa3241?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-        "facebook": "https://www.facebook.com/share/1Cx9rw72Da/"
+        "facebook": "https://www.facebook.com/share/1Cx9rw72Da/",
+        "quote": ""
       },
       {
         "name": "Md Shafinur Islam",
         "role": "Mechanical Lead",
         "image": "https://i.ibb.co.com/d0kdFptR/Messenger-creation-F6-E4-B605-0193-49-B5-AC65-DABDD3189578-MD-SHAFINUR-ISLAM.jpg",
         "linkedin": "https://www.linkedin.com/in/md-shafinur-islam-82992037b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-        "facebook": "https://www.facebook.com/share/1DA1397byq/"
+        "facebook": "https://www.facebook.com/share/1DA1397byq/",
+        "quote": ""
       }
     ],
     "teamMembers": [
@@ -78,56 +87,64 @@
         "role": "Flight-Software",
         "image": "https://i.ibb.co.com/hRLL1FHR/IMG-20241230-WA0005-2-ZAKWAN-BIN-ARIF.jpg",
         "linkedin": "https://www.linkedin.com/in/zakwanbinarif?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-        "facebook": "https://www.facebook.com/share/1FB7dVDysi/"
+        "facebook": "https://www.facebook.com/share/1FB7dVDysi/",
+        "quote": ""
       },
       {
         "name": "MD FUAD HASAN",
         "role": "Electronics Team member",
         "image": "https://i.ibb.co.com/3Y4TR5X7/IMG-7650-MD-FUAD-HASAN.jpg",
         "linkedin": "https://www.linkedin.com/in/md-fuad-hasan-4905772b7?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
-        "facebook": "https://www.facebook.com/fuad.def005"
+        "facebook": "https://www.facebook.com/fuad.def005",
+        "quote": ""
       },
       {
         "name": "Urnisha Chakma",
         "role": "Student / Non-Technical Member",
         "image": "https://i.ibb.co.com/x8HvrNLb/IMG-1291-Urnisha-Chakma.jpg",
         "linkedin": "N/A",
-        "facebook": "https://www.facebook.com/urnisha.chakma.1"
+        "facebook": "https://www.facebook.com/urnisha.chakma.1",
+        "quote": ""
       },
       {
         "name": "Sumehra Zaira Rashid",
         "role": "Non Technical (Strategy & Outreach) member",
         "image": "https://i.ibb.co.com/Y4XJ9WHc/IMG-0036-Sumehra-Zaira-Rashid.jpg",
         "linkedin": "www.linkedin.com/in/sumehra-rashid",
-        "facebook": "https://www.facebook.com/sumehra.rashid.3"
+        "facebook": "https://www.facebook.com/sumehra.rashid.3",
+        "quote": ""
       },
       {
         "name": "Fariha Tabassum Orpita",
         "role": "RnD Member",
         "image": "https://i.ibb.co.com/Q7xkYht2/profoto-01-Opis.jpg",
         "linkedin": "https://www.linkedin.com/in/fariha-tabassum-orpita-b51b3530b/",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       },
       {
         "name": "Syed Tanveer Islam",
         "role": "Electronics Team Member",
         "image": "https://i.ibb.co.com/jPsP72Wj/download-1-bracudiganta.jpg",
         "linkedin": "www.linkedin.com/in/ syed-tanveer-islam-58b581370",
-        "facebook": "https://www.facebook.com/share/1928LhyPsm/?mibextid=wwXIfr"
+        "facebook": "https://www.facebook.com/share/1928LhyPsm/?mibextid=wwXIfr",
+        "quote": ""
       },
       {
         "name": "Fariba Mir",
         "role": "Flight Software",
         "image": "https://i.ibb.co.com/MDQyzF4D/IMG-20260215-195542-FARIBA-MIR.jpg",
         "linkedin": "",
-        "facebook": "https://www.facebook.com/fariba.mir.2024"
+        "facebook": "https://www.facebook.com/fariba.mir.2024",
+        "quote": ""
       },
       {
         "name": "Kazi Nawshin Nur",
         "role": "Non Technical (Strategy & Outreach) member",
         "image": "https://i.ibb.co.com/Nnbjyg8V/kazi-nawshin-KAZI-NAWSHIN-NUR-FERDOUS.jpg",
         "linkedin": "",
-        "facebook": "https://www.facebook.com/share/18fTrnNsVN/"
+        "facebook": "https://www.facebook.com/share/18fTrnNsVN/",
+        "quote": ""
       }
     ]
   },
@@ -139,7 +156,8 @@
         "role": "Director",
         "image": "https://i.ibb.co.com/gZWMyb8k/team1.jpg",
         "linkedin": "https://www.bracu.ac.bd/about/people/abdulla-hil-kafi",
-        "facebook": "https://www.bracu.ac.bd/about/people/abdulla-hil-kafi"
+        "facebook": "https://www.bracu.ac.bd/about/people/abdulla-hil-kafi",
+        "quote": ""
       }
     ],
     "advisors": [
@@ -148,21 +166,24 @@
         "role": "Advisor",
         "image": "https://i.ibb.co.com/h1t3xSXp/team2.jpg",
         "linkedin": "https://www.bracu.ac.bd/about/people/raihana-shams-islam-antara",
-        "facebook": "https://www.bracu.ac.bd/about/people/raihana-shams-islam-antara"
+        "facebook": "https://www.bracu.ac.bd/about/people/raihana-shams-islam-antara",
+        "quote": ""
       },
       {
         "name": "Atib Mohammad Oni",
         "role": "Advisor",
         "image": "https://i.ibb.co.com/bMnMB65c/team3.jpg",
         "linkedin": "https://www.bracu.ac.bd/about/people/atib-mohammad-oni",
-        "facebook": "https://www.bracu.ac.bd/about/people/atib-mohammad-oni"
+        "facebook": "https://www.bracu.ac.bd/about/people/atib-mohammad-oni",
+        "quote": ""
       },
       {
         "name": "Chironjeet Das Joy (RA)",
         "role": "Advisor",
         "image": "https://i.ibb.co.com/2YhZxLjT/GOD-Chironjeet-Das-Joy.png",
         "linkedin": "https://chironjeetjoy.github.io",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       }
     ],
     "teamLeads": [
@@ -171,14 +192,16 @@
         "role": "Project Manager",
         "image": "https://i.ibb.co.com/21v7tRX8/att-oq69-Mv-W0-Ob-tk-Wj-Zb-Hf-WXkd4-L7-JK56-H1-NME0-Krjp-4-Jui-Hena.jpg",
         "linkedin": "https://www.linkedin.com/in/hasna-hena-jui-8561a32aa?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
-        "facebook": "https://www.facebook.com/share/1CWATNKRUm/?mibextid=wwXIfr"
+        "facebook": "https://www.facebook.com/share/1CWATNKRUm/?mibextid=wwXIfr",
+        "quote": ""
       },
       {
         "name": "Md. Mountashiour Rahman",
         "role": "Team Lead",
         "image": "https://i.ibb.co.com/C331wGLj/IMG-20260617-WA0001-mountashiour-rahman.jpg",
         "linkedin": "https://www.linkedin.com/in/mountashiour-rahman?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-        "facebook": "https://www.facebook.com/share/18nFQJ1emN/"
+        "facebook": "https://www.facebook.com/share/18nFQJ1emN/",
+        "quote": ""
       }
     ],
     "subTeamLeads": [
@@ -187,21 +210,24 @@
         "role": "Electronics Sub-Team Lead",
         "image": "https://i.ibb.co.com/kszcjMbW/D0-D0-EEB8-70-CD-42-CB-A5-CC-30407-BA50010-Tanvir-Ahmed-Tonmoy.jpg",
         "linkedin": "https://www.linkedin.com/in/md-tanvir-ahmed-tonmoy-08203b328?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
-        "facebook": "https://www.facebook.com/share/17mBXpYvj1/?mibextid=wwXIfr"
+        "facebook": "https://www.facebook.com/share/17mBXpYvj1/?mibextid=wwXIfr",
+        "quote": ""
       },
       {
         "name": "Abrar Jahin",
         "role": "Mechanical Sub-Team Lead",
         "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop",
         "linkedin": "",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       },
       {
         "name": "Kazi Abdur Rahim",
         "role": "GCS Sub-Team Lead",
         "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop",
         "linkedin": "",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       }
     ],
     "teamMembers": [
@@ -210,35 +236,40 @@
         "role": "Electronics Team Member",
         "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1974&auto=format&fit=crop",
         "linkedin": "",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       },
       {
         "name": "Muntaha Majed Chowdhury",
         "role": "Mechanical Team Member",
         "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop",
         "linkedin": "",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       },
       {
         "name": "Mehzabin Mahmud Naboni",
         "role": "Electronics Team Member",
         "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop",
         "linkedin": "",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       },
       {
         "name": "Anika Nawrin",
         "role": "Mechanical Team Member",
         "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop",
         "linkedin": "",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       },
       {
         "name": "K M Ramim Azim",
         "role": "Software Team Member",
         "image": "https://images.unsplash.com/photo-1566492031523-0c464e8e04b4?q=80&w=1974&auto=format&fit=crop",
         "linkedin": "",
-        "facebook": ""
+        "facebook": "",
+        "quote": ""
       }
     ]
   }
