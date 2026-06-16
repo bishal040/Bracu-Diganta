@@ -42,6 +42,7 @@ export const CareersPage: React.FC = () => {
   const [selectedRole, setSelectedRole] = useState<string>('');
   const { showToast } = useToast();
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
@@ -200,6 +201,7 @@ export const CareersPage: React.FC = () => {
             </div>
           ))}
         </div>
+
 
       </div>
 
