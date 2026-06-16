@@ -18,95 +18,185 @@ export interface TeamYearData {
 
 export const teamData: TeamYearData[] = [
   {
-    year: '2024',
-    supervisors: [
-      { 
-        name: 'Dr. John Doe', 
-        role: 'Supervisor', 
-        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop',
-        quote: "Guidance is the fuel of innovation.",
-      }
-    ],
-    advisors: [
-      { 
-        name: 'Dr. Jane Smith', 
-        role: 'Advisor', 
-        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop',
-        quote: "Pushing boundaries is what we do best.",
-      }
-    ],
+    year: '2026',
+    supervisors: [],
+    advisors: [],
     teamLeads: [
-      { 
-        name: 'Alex Johnson', 
-        role: 'Team Lead', 
+      {
+        name: 'Hasna Hena Jui',
+        role: 'Project Manager',
+        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop',
+      },
+      {
+        name: 'Md. Mountashiour Rahman',
+        role: 'Team Lead',
         image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop',
-        quote: "Command requires absolute precision.",
       }
     ],
     subTeamLeads: [
-      { 
-        name: 'Sarah Lee', 
-        role: 'Avionics Sub-Lead', 
-        image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop',
-      },
-      { 
-        name: 'Michael Chen', 
-        role: 'Structures Sub-Lead', 
+      {
+        name: 'Md. Tanvir Ahmed Tonmoy',
+        role: 'Electronics Sub-Team Lead',
         image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop',
       },
-      { 
-        name: 'Emily Davis', 
-        role: 'Recovery Sub-Lead', 
-        image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop',
+      {
+        name: 'Sybeen Abrar Prohor',
+        role: 'Software Sub-Team Lead',
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop',
       }
     ],
     teamMembers: [
-      { 
-        name: 'David Wilson', 
-        role: 'Team Member', 
-        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop',
+      {
+        name: 'Md. Shafinur Islam',
+        role: 'Mechanical Team Member',
+        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop',
       },
-      { 
-        name: 'Jessica Brown', 
-        role: 'Team Member', 
+      {
+        name: 'Md. Fuad Hasan',
+        role: 'Electronics Team Member',
+        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Zakwan Bin Arif',
+        role: 'Software Team Member',
+        image: 'https://images.unsplash.com/photo-1566492031523-0c464e8e04b4?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Syed Tanveer Islam',
+        role: 'Electronics Team Member',
+        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Fariba Mir',
+        role: 'Software Team Member',
+        image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop',
+      },
+      {
+        name: 'Urnisha Chakma',
+        role: 'Graphics Team Member',
+        image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop',
+      },
+      {
+        name: 'Fariha Tabassum Orpita',
+        role: 'RnD Member',
         image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop',
       },
       {
-        name: 'Chris Evans',
-        role: 'Team Member',
-        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop'
+        name: 'Sahil Sajjad',
+        role: 'Mechanical Team Member',
+        image: 'https://images.unsplash.com/photo-1463453091185-61582044d556?q=80&w=1970&auto=format&fit=crop',
+      },
+      {
+        name: 'Jeerin Agnes Rozario',
+        role: 'Communication Team Member',
+        image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1970&auto=format&fit=crop',
+      },
+      {
+        name: 'Sumehra Zaira Rashid',
+        role: 'Sponsorship Team Member',
+        image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Kazi Nawshin Nur',
+        role: 'Sponsorship Team Member',
+        image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Monazir Muhammad Doha',
+        role: 'Software Team Member',
+        image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Istiak Ahmmed Bishal',
+        role: 'Software Team Member',
+        image: 'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Shiham Mahdin',
+        role: 'Software Team Member',
+        image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=1948&auto=format&fit=crop',
+      },
+      {
+        name: 'Jannatul Nayem Naba',
+        role: 'Electronics Team Member',
+        image: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Mohammad Nisarul Ahmed',
+        role: 'Electronics Team Member',
+        image: 'https://images.unsplash.com/photo-1504257432389-52343af06ae3?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Shahriar Hossain',
+        role: 'Communication Team Member',
+        image: 'https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Rafid Abrar Ahmed',
+        role: 'Communication Team Member',
+        image: 'https://images.unsplash.com/photo-1507591064344-4c6ce005b128?q=80&w=1970&auto=format&fit=crop',
       }
     ]
   },
   {
-    year: '2023',
-    supervisors: [
-      { 
-        name: 'Dr. Alan Grant', 
-        role: 'Supervisor', 
-        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1974&auto=format&fit=crop',
-      }
-    ],
+    year: '2025',
+    supervisors: [],
     advisors: [],
     teamLeads: [
-      { 
-        name: 'Robert Fox', 
-        role: 'Team Lead', 
-        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop',
+      {
+        name: 'Hasna Hena Jui',
+        role: 'Project Manager',
+        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop',
+      },
+      {
+        name: 'Md. Mountashiour Rahman',
+        role: 'Team Lead',
+        image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop',
       }
     ],
     subTeamLeads: [
-      { 
-        name: 'Wade Warren', 
-        role: 'Avionics Sub-Lead', 
-        image: 'https://images.unsplash.com/photo-1566492031523-0c464e8e04b4?q=80&w=1974&auto=format&fit=crop',
+      {
+        name: 'Md. Tanvir Ahmed Tonmoy',
+        role: 'Electronics Sub-Team Lead',
+        image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop',
       },
-      { 
-        name: 'Esther Howard', 
-        role: 'Structures Sub-Lead', 
-        image: 'https://images.unsplash.com/photo-1531123897727-8f129e1bf08c?q=80&w=1974&auto=format&fit=crop',
+      {
+        name: 'Abrar Jahin',
+        role: 'Mechanical Sub-Team Lead',
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Kazi Abdur Rahim',
+        role: 'GCS Sub-Team Lead',
+        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop',
       }
     ],
-    teamMembers: []
+    teamMembers: [
+      {
+        name: 'Ezhar Hossain Ifty',
+        role: 'Electronics Team Member',
+        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1974&auto=format&fit=crop',
+      },
+      {
+        name: 'Muntaha Majed Chowdhury',
+        role: 'Mechanical Team Member',
+        image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop',
+      },
+      {
+        name: 'Mehzabin Mahmud Naboni',
+        role: 'Electronics Team Member',
+        image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop',
+      },
+      {
+        name: 'Anika Nawrin',
+        role: 'Mechanical Team Member',
+        image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop',
+      },
+      {
+        name: 'K M Ramim Azim',
+        role: 'Software Team Member',
+        image: 'https://images.unsplash.com/photo-1566492031523-0c464e8e04b4?q=80&w=1974&auto=format&fit=crop',
+      }
+    ]
   }
 ];

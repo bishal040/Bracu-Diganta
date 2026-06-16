@@ -69,10 +69,13 @@ export const Projects: React.FC = () => {
             </h2>
           </div>
 
-          <MagneticButton className="hidden md:flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 rounded-full text-sm font-semibold transition-all">
-            <button onClick={() => { navigate('/missions'); window.scrollTo(0, 0); }} className="flex items-center gap-3">
+          <MagneticButton 
+            className="hidden md:flex items-center gap-3 bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 rounded-full text-sm font-semibold transition-all"
+            onClick={() => { navigate('/missions'); window.scrollTo(0, 0); }}
+          >
+            <span className="flex items-center gap-3">
               View All Missions <ArrowUpRight size={16} />
-            </button>
+            </span>
           </MagneticButton>
         </div>
 

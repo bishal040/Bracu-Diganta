@@ -101,8 +101,8 @@ export const Team: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [selectedMember, setSelectedMember] = useState<TeamMemberType | null>(null);
   
-  // Get 2024 data for the home page showcase
-  const currentYearData = teamData.find(d => d.year === '2024') || teamData[0];
+  // Get 2026 data for the home page showcase
+  const currentYearData = teamData.find(d => d.year === '2026') || teamData[0];
   
   // Reconstruct a subset of crew for the Home page bento grid
   const crewData = [

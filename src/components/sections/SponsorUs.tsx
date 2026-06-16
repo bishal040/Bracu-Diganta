@@ -20,19 +20,35 @@ export const SponsorUs: React.FC = () => {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
 
         {/* Header */}
-        <div className="flex flex-col items-center text-center mb-6">
+        <div className="flex flex-col items-center text-center mb-12">
           <div className="flex items-center gap-4 mb-4">
             <div className="h-[2px] w-8 bg-[#E11D48]" />
             <span className="text-[#E11D48] font-mono tracking-widest text-sm uppercase">Partnerships</span>
             <div className="h-[2px] w-8 bg-[#E11D48]" />
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight">Our Beloved Sponsors</h2>
+          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight font-orbitron uppercase">Fuel Our Next Breakthrough</h2>
         </div>
 
-        <p className="text-lg text-gray-500 text-center max-w-2xl mx-auto mb-16">
-          Building spacecraft requires capital, materials, and mentorship. By partnering with BRACU Diganta,
-          you invest in the next generation of engineers.
-        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16">
+          <div className="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
+            <h3 className="text-xl font-bold text-gray-900 mb-3 font-orbitron uppercase group-hover:text-[#2563EB] transition-colors">Sponsorship</h3>
+            <p className="text-gray-500 leading-relaxed text-sm md:text-base">
+              Gain premium brand visibility. Interact directly with our latest aerospace missions and secure your spot on our flagship rovers and satellites.
+            </p>
+          </div>
+          <div className="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
+            <h3 className="text-xl font-bold text-gray-900 mb-3 font-orbitron uppercase group-hover:text-[#2563EB] transition-colors">Investment & Support</h3>
+            <p className="text-gray-500 leading-relaxed text-sm md:text-base">
+              Drive our research forward. We invite companies to provide technological resources, financial investments, and collaborative expertise.
+            </p>
+          </div>
+          <div className="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
+            <h3 className="text-xl font-bold text-gray-900 mb-3 font-orbitron uppercase group-hover:text-[#2563EB] transition-colors">Partners</h3>
+            <p className="text-gray-500 leading-relaxed text-sm md:text-base">
+              Join our network of industry leaders. Collaborate on cutting-edge space technology and foster the growth of STEM education in Bangladesh.
+            </p>
+          </div>
+        </div>
 
         {/* Marquee Section */}
         <div className="relative w-full max-w-[100vw] overflow-hidden -mx-6 md:mx-0 py-10">

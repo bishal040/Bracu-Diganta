@@ -29,7 +29,7 @@ export const LoadingPage: React.FC<{ onComplete?: () => void }> = ({ onComplete 
       >
         {/* Logo text */}
         <h1 className="font-orbitron text-4xl md:text-5xl font-black text-gray-900 tracking-[0.2em] uppercase select-none">
-          DIGANTA
+          BRACU DIGANTA
         </h1>
 
         {/* Minimal line loader */}
@@ -44,7 +44,7 @@ export const LoadingPage: React.FC<{ onComplete?: () => void }> = ({ onComplete 
 
         {/* Tagline */}
         <p className="font-mono text-[10px] tracking-[0.4em] text-gray-400 uppercase">
-          Beyond the Horizon
+          Living Beyond the Horizon
         </p>
       </div>
 

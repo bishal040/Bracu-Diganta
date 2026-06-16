@@ -1,68 +1,21 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Activity, Radio, Cpu, Award } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { NEWS_UPDATES } from '../../data/timeline';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const NEWS_UPDATES = [
-  {
-    id: 1,
-    day: '24',
-    month: 'OCT',
-    year: '2024',
-    category: 'COMPETITION',
-    title: 'National CanSat Champions',
-    desc: 'Bracu-Diganta secures 1st place overall, demonstrating unprecedented telemetry accuracy and perfect payload recovery.',
-    icon: Award,
-    image: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=1600&auto=format&fit=crop',
-    color: 'from-blue-500 to-cyan-400',
-    maskClass: 'rounded-[2rem] md:rounded-[3rem] md:rounded-bl-[15rem]' // Dramatic bottom-left sweep
-  },
-  {
-    id: 2,
-    day: '12',
-    month: 'SEP',
-    year: '2024',
-    category: 'ENGINEERING',
-    title: 'Next-Gen Avionics Tested',
-    desc: 'Successfully integrated our proprietary flight computer featuring dual-redundant sensors and a long-range LoRa module.',
-    icon: Cpu,
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop',
-    color: 'from-emerald-500 to-teal-400',
-    maskClass: 'rounded-[3rem] md:rounded-[5rem]' // Smooth squircle
-  },
-  {
-    id: 3,
-    day: '05',
-    month: 'AUG',
-    year: '2024',
-    category: 'LAUNCH LOG',
-    title: 'Sub-Orbital Flight Alpha',
-    desc: 'Atmospheric deployment executed perfectly at 10,000 ft. Parachutes deployed nominally with 100% data retention.',
-    icon: Activity,
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop',
-    color: 'from-purple-500 to-pink-400',
-    maskClass: 'rounded-[2rem] md:rounded-tr-[12rem] md:rounded-bl-[12rem]' // Sharp diagonal leaf
-  },
-  {
-    id: 4,
-    day: '18',
-    month: 'JUN',
-    year: '2024',
-    category: 'COMMUNITY',
-    title: 'Global Aerospace Summit',
-    desc: 'Our leads presented Diganta’s modular rocket architecture to international researchers, earning the prestigious Innovation Award.',
-    icon: Radio,
-    image: 'https://images.unsplash.com/photo-1506443432602-ac2fcd6f54e0?q=80&w=1600&auto=format&fit=crop',
-    color: 'from-orange-500 to-red-400',
-    maskClass: 'rounded-t-[8rem] rounded-b-[2rem] md:rounded-t-[18rem] md:rounded-b-[4rem]' // Tall archway
-  }
-];
+const VISIBLE_COUNT = 4;
+const TOTAL_SLIDES = VISIBLE_COUNT + 1; // 4 cards + 1 CTA
 
 export const Achievements: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  const visibleItems = NEWS_UPDATES.slice(0, VISIBLE_COUNT);
 
   useEffect(() => {
     if (!containerRef.current || !scrollWrapperRef.current) return;
@@ -107,9 +60,21 @@ export const Achievements: React.FC = () => {
         </h2>
       </div>
 
-      {/* Horizontal Scroll Wrapper */}
-      <div ref={scrollWrapperRef} className="flex flex-col md:flex-row h-auto md:h-full w-full md:w-[400vw] will-change-transform md:pb-0 relative">
-        {NEWS_UPDATES.map((item, index) => (
+      {/* Horizontal Scroll Wrapper — uses inline style for dynamic width since Tailwind can't resolve interpolated values */}
+      <div
+        ref={scrollWrapperRef}
+        data-scroll-track=""
+        className="flex flex-col md:flex-row h-auto md:h-full w-full will-change-transform md:pb-0 relative"
+        style={{ ['--tw-slides' as string]: TOTAL_SLIDES }}
+      >
+        {/* Inject responsive width via <style> since we need a media-query-scoped dynamic value */}
+        <style>{`
+          @media (min-width: 768px) {
+            [data-scroll-track] { width: ${TOTAL_SLIDES * 100}vw !important; }
+          }
+        `}</style>
+
+        {visibleItems.map((item, index) => (
           <div 
             key={item.id} 
             className="h-slide w-full md:w-screen h-auto md:h-full flex flex-col md:flex-row items-center justify-center py-8 px-6 md:p-24 relative min-h-[85vh] md:min-h-0 bg-white md:bg-transparent rounded-t-[2.5rem] md:rounded-none shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-none border-t border-slate-200 md:border-none sticky md:static z-10"
@@ -125,12 +90,11 @@ export const Achievements: React.FC = () => {
             <div
               className={`w-full md:w-[45%] h-[25vh] md:h-[70vh] relative z-10 overflow-hidden border border-slate-200 group shadow-[0_30px_60px_rgba(0,0,0,0.1)] mt-4 md:mt-0 ${item.maskClass}`}
               style={{
-                // Fixes WebKit bug where border-radius disappears during child transform transitions
                 transform: 'translateZ(0)',
                 WebkitMaskImage: '-webkit-radial-gradient(white, black)'
               }}
             >
-              <img src={item.image} className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s] grayscale opacity-90 md:mix-blend-multiply" />
+              <img src={item.image} className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s] opacity-90" />
               <div className={`absolute inset-0 bg-gradient-to-tr ${item.color} opacity-20 md:opacity-10 md:mix-blend-multiply`} />
 
               {/* Image Overlay HUD */}
@@ -191,6 +155,37 @@ export const Achievements: React.FC = () => {
             </div>
           </div>
         ))}
+
+        {/* See More CTA Slide */}
+        <div
+          className="h-slide w-full md:w-screen h-auto md:h-full flex items-center justify-center py-16 px-6 md:p-24 relative min-h-[60vh] md:min-h-0 bg-white md:bg-transparent rounded-t-[2.5rem] md:rounded-none shadow-[0_-10px_40px_rgba(0,0,0,0.05)] md:shadow-none border-t border-slate-200 md:border-none sticky md:static z-10"
+          style={{ top: `calc(130px + ${VISIBLE_COUNT * 16}px)` }}
+        >
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-orbitron text-[40vw] font-black text-slate-900/[0.02] pointer-events-none z-0 leading-none select-none">
+            ...
+          </div>
+          <div className="relative z-10 text-center max-w-xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded-full mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+              <span className="text-blue-700 font-mono text-[10px] tracking-[0.2em] uppercase font-bold">
+                {NEWS_UPDATES.length - VISIBLE_COUNT} More Entries
+              </span>
+            </div>
+            <h3 className="font-orbitron text-3xl md:text-5xl font-bold text-slate-900 mb-4 uppercase tracking-tight">
+              Explore Full<br />Timeline
+            </h3>
+            <p className="text-slate-500 text-sm md:text-lg leading-relaxed mb-8 max-w-md mx-auto">
+              Discover every milestone, conference, and breakthrough in BRACU Diganta's journey from 2017 to today.
+            </p>
+            <button
+              onClick={() => navigate('/timeline')}
+              className="group inline-flex items-center gap-3 bg-slate-900 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm md:text-base font-semibold transition-all duration-300 shadow-lg hover:shadow-blue-500/25 hover:shadow-2xl"
+            >
+              See All Milestones
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );

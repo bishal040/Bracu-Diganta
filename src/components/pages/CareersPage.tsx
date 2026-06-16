@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ArrowRight, Briefcase, Cpu, Database, Rocket } from 'lucide-react';
+import { ArrowRight, Briefcase, Cpu, Database, Rocket, Globe, Activity, CheckCircle2, XCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const OPEN_ROLES = [
   {
@@ -37,16 +38,45 @@ const OPEN_ROLES = [
 ];
 
 export const CareersPage: React.FC = () => {
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [selectedRole, setSelectedRole] = useState<string>('');
+  const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' }>({ show: false, message: '', type: 'success' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
-    // Simulated frontend delay for DB submission
-    setTimeout(() => {
+    
+    try {
+      const form = e.target as HTMLFormElement;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      
+      const apiUrl = import.meta.env.VITE_CAREERS_API_URL;
+      
+      if (apiUrl) {
+        await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } else {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+      }
+      
       setFormStatus('sent');
-    }, 1500);
+      setToast({ show: true, message: 'Application received securely!', type: 'success' });
+      form.reset();
+      setSelectedRole('');
+      
+      setTimeout(() => setFormStatus('idle'), 4000);
+      setTimeout(() => setToast(prev => ({ ...prev, show: false })), 5000);
+    } catch (error) {
+      setFormStatus('error');
+      setToast({ show: true, message: 'Critical Error: Transmission Failed!', type: 'error' });
+      
+      setTimeout(() => setFormStatus('idle'), 4000);
+      setTimeout(() => setToast(prev => ({ ...prev, show: false })), 5000);
+    }
   };
 
   return (
@@ -116,24 +146,25 @@ export const CareersPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Full Name</label>
-                <input type="text" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="Jane Doe" />
+                <input type="text" name="fullName" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="Jane Doe" />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Email Address</label>
-                <input type="email" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="jane@example.com" />
+                <input type="email" name="email" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="jane@example.com" />
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Contact Number</label>
-                <input type="tel" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="+1 (555) 000-0000" />
+                <input type="tel" name="contactNumber" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="+1 (555) 000-0000" />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Role of Interest</label>
-                <select 
-                  required 
-                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all appearance-none cursor-pointer"
+                  <select 
+                    name="roleOfInterest"
+                    required 
+                    className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all appearance-none cursor-pointer"
                   value={selectedRole}
                   onChange={(e) => setSelectedRole(e.target.value)}
                 >
@@ -148,23 +179,102 @@ export const CareersPage: React.FC = () => {
 
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Portfolio / LinkedIn / CV Link</label>
-              <input type="url" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="https://..." />
+              <input type="url" name="portfolioLink" required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder="https://..." />
             </div>
 
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Cover Letter / Motivation</label>
-              <textarea required rows={6} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="Why do you want to build rockets with us? What makes you a good fit?" />
+              <textarea name="motivation" required rows={6} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none resize-none transition-all" placeholder="Why do you want to build rockets with us? What makes you a good fit?" />
             </div>
 
             <button type="submit" disabled={formStatus !== 'idle'} className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-orbitron font-bold text-lg uppercase tracking-widest py-4 rounded-xl transition-all duration-300 shadow-[0_10px_30px_rgba(37,99,235,0.3)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.4)] hover:-translate-y-1 flex items-center justify-center gap-3 disabled:bg-slate-300 disabled:shadow-none disabled:transform-none">
               {formStatus === 'idle' && <>Submit Application <ArrowRight size={20} /></>}
               {formStatus === 'sending' && <><div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Sending to MongoDB...</>}
               {formStatus === 'sent' && '✓ Application Received'}
+              {formStatus === 'error' && '✕ Transmission Failed'}
             </button>
           </form>
         </div>
 
       </div>
+
+      {/* Theme-Friendly Aerospace HUD Toast Notification */}
+      <AnimatePresence>
+        {toast.show && (
+          <motion.div
+            initial={
+              toast.type === 'success'
+                // Hyperdrive / HUD Deployment Entry
+                ? { opacity: 0, y: -50, scaleY: 0, scaleX: 0.5, filter: "blur(10px)" }
+                // Critical Error / Glitch Entry
+                : { opacity: 0, x: -100, scale: 1.5, filter: "blur(10px) invert(1)" }
+            }
+            animate={
+              toast.type === 'success'
+                ? {
+                    opacity: 1,
+                    y: 0,
+                    scaleY: 1,
+                    scaleX: 1,
+                    filter: "blur(0px)",
+                    boxShadow: ["0px 0px 0px rgba(37, 99, 235, 0)", "0px 0px 100px rgba(37, 99, 235, 0.8)", "0px 0px 20px rgba(37, 99, 235, 0.5)"],
+                    transition: { duration: 0.5, type: 'spring', bounce: 0.4 }
+                  }
+                : {
+                    opacity: [0, 1, 0, 1, 1],
+                    x: [ -50, 20, -20, 10, -10, 0 ],
+                    scale: 1,
+                    filter: ["blur(10px) invert(1)", "blur(0px) invert(0)"],
+                    boxShadow: ["0px 0px 0px rgba(225, 29, 72, 0)", "0px 0px 100px rgba(225, 29, 72, 1)", "0px 0px 30px rgba(225, 29, 72, 0.6)"],
+                    transition: { duration: 0.5, times: [0, 0.2, 0.4, 0.6, 1], ease: "anticipate" }
+                  }
+            }
+            exit={
+              toast.type === 'success'
+                // Light speed exit
+                ? { opacity: 0, scaleX: 3, scaleY: 0, filter: "blur(10px)", transition: { duration: 0.3 } }
+                // System shutdown exit
+                : { opacity: 0, scaleY: 0, filter: "brightness(0)", transition: { duration: 0.3 } }
+            }
+            className={`fixed top-24 lg:top-28 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-4 px-8 py-4 rounded-none border-l-4 border-r-4 backdrop-blur-xl uppercase font-orbitron tracking-widest ${
+              toast.type === 'success' 
+                ? 'bg-slate-900/90 border-blue-500 text-blue-100 shadow-blue-500/50' 
+                : 'bg-slate-900/95 border-rose-600 text-rose-100 shadow-rose-600/50'
+            }`}
+          >
+            {/* Tech Scanline effect */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
+              <div className="w-full h-[2px] bg-white absolute animate-[scanline_2s_linear_infinite]" />
+            </div>
+
+            <motion.div
+              animate={
+                toast.type === 'success'
+                  // Radar sweep
+                  ? { rotate: 360 }
+                  // Warning flash
+                  : { opacity: [1, 0, 1, 0, 1] }
+              }
+              transition={
+                toast.type === 'success'
+                  ? { repeat: Infinity, duration: 3, ease: "linear" }
+                  : { repeat: Infinity, duration: 1.5 }
+              }
+            >
+              {toast.type === 'success' ? <Globe size={28} className="text-blue-400 drop-shadow-[0_0_10px_rgba(96,165,250,0.8)]" /> : <Activity size={28} className="text-rose-500 drop-shadow-[0_0_10px_rgba(244,63,94,0.8)]" />}
+            </motion.div>
+            
+            <div className="flex flex-col">
+              <span className="font-mono text-[10px] text-slate-400">
+                {toast.type === 'success' ? 'SYSTEM.TRANSMISSION_SECURE' : 'SYSTEM.CRITICAL_ERROR'}
+              </span>
+              <span className="font-bold text-sm lg:text-base drop-shadow-[0_0_8px_currentColor]">
+                {toast.message}
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

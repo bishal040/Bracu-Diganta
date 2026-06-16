@@ -213,19 +213,14 @@ export const Navbar: React.FC = () => {
         >
           {/* Logo */}
           <div
-            className={`cursor-pointer flex items-center gap-3 shrink-0 transition-all duration-700 rounded-full ${
-              scrolled ? 'bg-white/30 backdrop-blur-2xl backdrop-saturate-[2.0] border border-white/50 shadow-[0_8px_32px_rgba(37,99,235,0.15)] px-4 py-2' : 'px-5 py-3'
-            }`}
+            className="cursor-pointer flex items-center shrink-0 transition-all duration-700"
             onClick={scrollToTop}
           >
             <img 
               src="/Diganta%20Logo.png" 
               alt="BRACU Diganta Logo" 
-              className={`object-contain transition-all duration-500 ${scrolled ? 'h-8' : 'h-12 brightness-0'}`} 
+              className={`object-contain transition-all duration-500 ${scrolled ? 'h-10' : 'h-16'}`} 
             />
-            <span className={`font-orbitron font-black tracking-widest uppercase transition-all duration-500 ${scrolled ? 'text-sm text-slate-900' : 'text-lg text-gray-900'}`}>
-              Diganta
-            </span>
           </div>
         </div>
 
