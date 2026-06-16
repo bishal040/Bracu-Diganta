@@ -65,7 +65,7 @@ export const HomeHero: React.FC = () => {
         className="hero-left-half relative w-full md:w-1/2 h-1/2 md:h-full bg-[#eef2f5] flex flex-col items-center justify-center p-6 md:p-12 will-change-transform z-10"
       >
         <div className="relative z-10 text-center flex flex-col items-center px-4 w-full max-w-[100vw]">
-          <p className="text-telemetry-cyan font-mono tracking-[0.1em] md:tracking-[0.2em] text-[10px] sm:text-xs md:text-sm uppercase mb-4 md:mb-8 max-w-xs md:max-w-md mx-auto leading-relaxed">
+          <p className="text-telemetry-cyan font-mono tracking-[0.1em] md:tracking-[0.2em] text-xs sm:text-sm md:text-lg lg:text-xl uppercase mb-4 md:mb-8 max-w-sm md:max-w-2xl mx-auto leading-relaxed">
             Small Satellite Research under LaSSET at BRAC University
           </p>
           <h1 className="font-orbitron text-4xl sm:text-5xl md:text-6xl lg:text-[6rem] xl:text-[7rem] font-black text-gray-900 tracking-[-0.04em] leading-[0.9] uppercase">
