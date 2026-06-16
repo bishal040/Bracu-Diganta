@@ -154,9 +154,16 @@ export const Contact: React.FC = () => {
 
         {/* ── TOP: Horizontal Hook Texts ── */}
         <div className="bento-reveal flex flex-col gap-4 mb-6 lg:mb-8 shrink-0 relative z-20 will-change-transform">
-          <h2 className="font-orbitron text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 tracking-tighter leading-[1.1]">
-            Fuel Our Next <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 pb-1">Breakthrough</span>
-          </h2>
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <h2 className="font-orbitron text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 tracking-tighter leading-[1.1]">
+              Fuel Our Next <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 pb-1">Breakthrough</span>
+            </h2>
+            <div className="flex items-center gap-6 lg:gap-10 shrink-0">
+              <img src={`${import.meta.env.BASE_URL}Bracu%20Logo.png`} alt="BRAC University Logo" className="h-10 lg:h-12 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+              <img src={`${import.meta.env.BASE_URL}Lasset%20Logo.png`} alt="Lasset Logo" className="h-10 lg:h-12 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+              <img src={`${import.meta.env.BASE_URL}Diganta%20Logo.png`} alt="Diganta Logo" className="h-14 lg:h-16 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 mix-blend-multiply" />
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 w-full">
             {/* Sponsors Space */}
             <div className="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white/50 shadow-[0_8px_30px_rgba(37,99,235,0.04)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.1)] transition-all">
