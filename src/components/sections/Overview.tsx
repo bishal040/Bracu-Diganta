@@ -53,7 +53,7 @@ export const Overview: React.FC = () => {
 
               <div className="text-gray-600 text-xs md:text-sm leading-relaxed mb-3 md:mb-4 max-w-md space-y-1.5">
                 <p>
-                  BRACU Diganta is a student-led initiative under LaSSET at BRAC University, advancing space education in Bangladesh by designing and launching CanSats.
+                  BRACU Diganta is a student-led initiative under LaSSET (Laboratory of Space System Engineering & Technology) at department of EEE, BSRM School of Engineering, BRAC University, advancing space education in Bangladesh by designing and building small satellite through system engineering.
                 </p>
                 <p>
                   We provide hands-on experience in real-world satellite missions. Through our custom Learning Kit, we empower students with practical knowledge in embedded systems across universities and STEM programs.
