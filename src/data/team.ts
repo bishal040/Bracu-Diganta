@@ -11,6 +11,7 @@ export interface TeamYearData {
   year: string;
   supervisors: TeamMember[];
   advisors: TeamMember[];
+  management?: TeamMember[];
   teamLeads: TeamMember[];
   subTeamLeads: TeamMember[];
   teamMembers: TeamMember[];

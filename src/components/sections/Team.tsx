@@ -115,6 +115,7 @@ export const Team: React.FC = () => {
   const crewData = [
     ...currentYearData.supervisors,
     ...currentYearData.advisors,
+    ...(currentYearData.management || []),
     ...currentYearData.teamLeads,
     ...currentYearData.subTeamLeads,
     ...currentYearData.teamMembers

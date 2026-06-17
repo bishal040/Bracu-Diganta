@@ -102,6 +102,7 @@ export const TeamPage: React.FC = () => {
   const hierarchySections = [
     { title: 'Supervisors', data: activeData.supervisors },
     { title: 'Advisors', data: activeData.advisors },
+    { title: 'Management', data: activeData.management || [] },
     { title: 'Team Leads', data: activeData.teamLeads },
     { title: 'Sub-Team Leads', data: activeData.subTeamLeads },
     { title: 'Team Members', data: activeData.teamMembers }
