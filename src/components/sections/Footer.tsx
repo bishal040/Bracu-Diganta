@@ -149,9 +149,9 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-7 flex flex-col gap-4 md:gap-6">
 
             {/* Top Wide Bento: Newsletter / Contact */}
-            <div className="bg-white rounded-3xl p-8 md:p-10 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 flex flex-col md:flex-row gap-8 items-center justify-between relative overflow-hidden">
+            <div className="bg-white rounded-3xl p-8 md:p-10 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between relative">
               {/* Decorative graphic inside the card */}
-              <div className="absolute -right-10 -top-10 text-slate-50 opacity-50 pointer-events-none transform rotate-12">
+              <div className="absolute -right-10 -top-10 text-slate-50 opacity-50 pointer-events-none transform rotate-12 overflow-hidden">
                 <Send size={180} strokeWidth={0.5} />
               </div>
 
