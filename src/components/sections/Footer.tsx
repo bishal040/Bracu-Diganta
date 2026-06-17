@@ -160,14 +160,14 @@ export const Footer: React.FC = () => {
                 <p className="text-slate-500 text-sm max-w-xs font-medium">Get in touch with us for mission updates and research breakthroughs.</p>
               </div>
 
-              <div className="relative z-10 w-full md:w-auto flex-1 max-w-md">
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:p-1 bg-transparent sm:bg-slate-50 sm:border border-slate-200 rounded-2xl">
+              <div className="relative z-10 w-full md:w-auto flex-1 max-w-md mt-2 md:mt-0">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-1.5 sm:p-1.5 bg-transparent sm:bg-slate-50 sm:border border-slate-200 rounded-2xl w-full">
                   <input
                     type="email"
                     placeholder="ENTER EMAIL ADDRESS"
-                    className="w-full bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-none rounded-xl sm:rounded-none outline-none px-4 py-4 sm:py-3 font-mono text-xs text-slate-900 placeholder:text-slate-400 font-bold tracking-wider focus:border-blue-500 transition-colors"
+                    className="w-full bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-transparent rounded-xl outline-none px-5 py-4 font-mono text-xs text-slate-900 placeholder:text-slate-400 font-bold tracking-wider focus:bg-white focus:border-blue-500 transition-all"
                   />
-                  <button className="w-full sm:w-auto justify-center bg-blue-600 hover:bg-slate-900 text-white rounded-xl px-6 py-4 sm:py-3 font-mono text-[10px] tracking-widest font-bold uppercase transition-colors flex items-center gap-2 shrink-0">
+                  <button className="w-full sm:w-auto flex justify-center items-center bg-blue-600 hover:bg-slate-900 text-white rounded-xl px-8 py-4 font-mono text-[11px] tracking-widest font-bold uppercase transition-all gap-2 shrink-0 shadow-lg shadow-blue-600/20 sm:shadow-none">
                     <Send size={14} /> Send
                   </button>
                 </div>
