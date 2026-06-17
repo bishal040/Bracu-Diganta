@@ -160,14 +160,14 @@ export const Footer: React.FC = () => {
                 <p className="text-slate-500 text-sm max-w-xs font-medium">Get in touch with us for mission updates and research breakthroughs.</p>
               </div>
 
-              <div className="relative z-10 w-full md:w-auto flex-1 max-w-md mt-2 md:mt-0">
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-1.5 sm:p-1.5 bg-transparent sm:bg-slate-50 sm:border border-slate-200 rounded-2xl w-full">
+              <div className="relative z-20 w-full md:w-auto flex-1 max-w-md mt-4 md:mt-0">
+                <div className="grid grid-cols-1 sm:flex sm:flex-row gap-4 sm:gap-1.5 sm:p-1.5 bg-transparent sm:bg-slate-50 sm:border border-slate-200 rounded-2xl w-full">
                   <input
                     type="email"
                     placeholder="ENTER EMAIL ADDRESS"
-                    className="w-full bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-transparent rounded-xl outline-none px-5 py-4 font-mono text-xs text-slate-900 placeholder:text-slate-400 font-bold tracking-wider focus:bg-white focus:border-blue-500 transition-all"
+                    className="w-full bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-transparent rounded-xl outline-none px-5 py-4 sm:py-3 font-mono text-xs text-slate-900 placeholder:text-slate-400 font-bold tracking-wider focus:bg-white focus:border-blue-500 transition-all z-10"
                   />
-                  <button className="w-full sm:w-auto flex justify-center items-center bg-blue-600 hover:bg-slate-900 text-white rounded-xl px-8 py-4 font-mono text-[11px] tracking-widest font-bold uppercase transition-all gap-2 shrink-0 shadow-lg shadow-blue-600/20 sm:shadow-none">
+                  <button className="w-full sm:w-auto flex justify-center items-center bg-blue-600 hover:bg-slate-900 text-white rounded-xl px-8 py-4 sm:py-3 font-mono text-[11px] tracking-widest font-bold uppercase transition-all gap-2 shadow-lg shadow-blue-600/20 sm:shadow-none z-10 min-h-[50px]">
                     <Send size={14} /> Send
                   </button>
                 </div>
@@ -204,7 +204,7 @@ export const Footer: React.FC = () => {
                 </h4>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { name: 'Facebook', url: 'https://www.facebook.com/bishal040/', icon: <FacebookIcon className="w-5 h-5" /> },
+                    { name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61574161791951', icon: <FacebookIcon className="w-5 h-5" /> },
                     { name: 'LinkedIn', url: '#', icon: <LinkedinIcon className="w-5 h-5" /> },
                     { name: 'Instagram', url: '#', icon: <InstagramIcon className="w-5 h-5" /> }
                   ].map((social) => (
