@@ -29,7 +29,7 @@ export const missionsData: MissionData[] = [
   {
     id: 1,
     slug: 'cansat-v1',
-    title: 'Cansat V1 .0',
+    title: 'Cansat V1-0',
     category: 'Competition Payload',
     description: 'Our first iteration of the miniaturized satellite. Successfully demonstrated basic telemetry gathering and safe descent operations.',
     image: 'https://i.ibb.co.com/35WZ6czz/Whats-App-Image-2026-06-17-at-01-47-49-1.jpg',
@@ -48,7 +48,7 @@ export const missionsData: MissionData[] = [
     title: 'Cansat V2.0',
     category: 'Competition Payload',
     description: 'Second generation payload featuring an improved auto-rotation mechanism and enhanced sensor suite for atmospheric data collection.',
-    image: 'https://i.ibb.co.com/hFxymM2n/Whats-App-Image-2026-06-17-at-01-47-53.jpg',
+    image: 'https://i.ibb.co.com/nsZYQ3nV/Whats-App-Image-2026-06-17-at-04-58-15.jpg',
     status: 'Mission Complete',
     statusColor: 'text-emerald-400',
     date: 'Spring 2022',
@@ -63,7 +63,7 @@ export const missionsData: MissionData[] = [
     title: 'Cansat V3.0',
     category: 'Competition Payload',
     description: 'Introduced autonomous trajectory correction and real-time machine learning inference during high-velocity descent.',
-    image: 'https://i.ibb.co.com/TDBDschC/Whats-App-Image-2026-06-17-at-01-47-42.jpg',
+    image: 'https://i.ibb.co.com/nsZYQ3nV/Whats-App-Image-2026-06-17-at-04-58-15.jpg',
     status: 'Mission Complete',
     statusColor: 'text-emerald-400',
     date: 'Spring 2023',
@@ -74,11 +74,11 @@ export const missionsData: MissionData[] = [
   },
   {
     id: 4,
-    slug: 'cansat-v4',
-    title: 'Cansat V4.0',
+    slug: 'Learning Kit',
+    title: 'Learning Kit',
     category: 'Competition Payload',
     description: 'Our most advanced deployed model to date. Featured dual-core flight computing and 30km maximum range telemetry downlink.',
-    image: 'https://i.ibb.co.com/mpsRJxN/Whats-App-Image-2026-06-17-at-01-48-41.jpg',
+    image: 'https://i.ibb.co.com/BKYhNVmN/Screenshot-2026-06-17-at-5-08-47-AM.png',
     status: 'Mission Complete',
     statusColor: 'text-emerald-400',
     date: 'Spring 2024',
@@ -87,20 +87,21 @@ export const missionsData: MissionData[] = [
       { label: 'Descent', value: '14 m/s' }
     ],
     route: '/project/cansat-2024'
-  },
-  {
-    id: 5,
-    slug: 'cansat-v5',
-    title: 'Cansat V5.0',
-    category: 'Competition Payload',
-    description: 'The next evolution of our CanSat platform. Currently in active development with new groundbreaking features.',
-    image: 'https://i.ibb.co.com/VcYd1JfM/Whats-App-Image-2026-06-17-at-01-47-43.jpg',
-    status: 'Coming Soon',
-    statusColor: 'text-amber-400',
-    date: 'Spring 2025',
-    stats: [
-      { label: 'Target Alt', value: '3,000 ft' },
-      { label: 'Status', value: 'In Design' }
-    ]
   }
+  // ,
+  // {
+  //   id: 5,
+  //   slug: 'cansat-v5',
+  //   title: 'Cansat V5.0',
+  //   category: 'Competition Payload',
+  //   description: 'The next evolution of our CanSat platform. Currently in active development with new groundbreaking features.',
+  //   image: 'https://i.ibb.co.com/VcYd1JfM/Whats-App-Image-2026-06-17-at-01-47-43.jpg',
+  //   status: 'Coming Soon',
+  //   statusColor: 'text-amber-400',
+  //   date: 'Spring 2025',
+  //   stats: [
+  //     { label: 'Target Alt', value: '3,000 ft' },
+  //     { label: 'Status', value: 'In Design' }
+  //   ]
+  // }
 ];
