@@ -82,16 +82,13 @@ export const HomeHero: React.FC = () => {
           <div className="mt-8 md:mt-12 pointer-events-auto z-50">
             <button
               onClick={() => navigate('/careers')}
-              className="relative overflow-hidden group bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full px-8 py-4 text-xs md:text-sm font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(16,185,129,0.4)] flex items-center gap-3 border border-emerald-400/50"
+              className="group bg-[#10B981] text-white rounded-full px-10 py-4 md:py-5 text-sm md:text-base font-mono font-black tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#059669] hover:scale-110 shadow-[0_10px_30px_rgba(16,185,129,0.5)] flex items-center gap-3"
             >
-              <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.4)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] animate-[shimmer_2s_linear_infinite]" />
-              <span className="relative z-10 flex items-center gap-3">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
-                </span>
-                Join Our Team
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
               </span>
+              We Are Hiring
             </button>
           </div>
         </div>

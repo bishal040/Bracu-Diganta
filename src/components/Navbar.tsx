@@ -216,10 +216,10 @@ export const Navbar: React.FC = () => {
             className="cursor-pointer flex items-center shrink-0 transition-all duration-700"
             onClick={scrollToTop}
           >
-            <img 
-              src={`${import.meta.env.BASE_URL}Diganta%20Logo.png`} 
-              alt="BRACU Diganta Logo" 
-              className={`object-contain transition-all duration-500 ${scrolled ? 'h-10' : 'h-16'}`} 
+            <img
+              src={`${import.meta.env.BASE_URL}Diganta%20Logo.png`}
+              alt="BRACU Diganta Logo"
+              className={`object-contain transition-all duration-500 ${scrolled ? 'h-10' : 'h-16'}`}
             />
           </div>
         </div>
@@ -253,8 +253,8 @@ export const Navbar: React.FC = () => {
                 onClick={(e) => handleLinkClick(e, link)}
                 onMouseEnter={handleLinkHover}
                 className={`group relative px-6 py-2.5 text-[11px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden ${scrolled
-                    ? active ? 'text-[#2563EB]' : 'text-gray-700 hover:text-[#2563EB]'
-                    : active ? 'text-[#2563EB]' : 'text-gray-900 hover:text-[#2563EB]'
+                  ? active ? 'text-[#2563EB]' : 'text-gray-700 hover:text-[#2563EB]'
+                  : active ? 'text-[#2563EB]' : 'text-gray-900 hover:text-[#2563EB]'
                   }`}
               >
                 <span className="relative z-10 flex items-center gap-2">
@@ -268,19 +268,19 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* 3. CTA PILLS */}
-        <div className="pointer-events-auto hidden lg:flex items-center gap-3 transition-all duration-700 opacity-100 translate-y-0">
+        <div className="pointer-events-auto hidden lg:flex items-center gap-4 transition-all duration-700 opacity-100 translate-y-0">
           <button
             onClick={(e) => {
               e.preventDefault();
               navigate('/careers');
             }}
-            className="relative overflow-hidden group bg-gradient-to-r from-emerald-500 to-teal-400 text-white rounded-full px-6 py-3 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] flex items-center gap-3 border border-emerald-400/50"
+            className="group bg-[#10B981] text-white rounded-full px-7 py-3 text-[12px] font-mono font-black tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#059669] hover:scale-110 shadow-[0_10px_20px_rgba(16,185,129,0.5)] flex items-center gap-3"
           >
-            <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.4)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] animate-[shimmer_2s_linear_infinite]" />
-            <span className="relative z-10 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              Recruitment
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
             </span>
+            Apply Now
           </button>
 
           <div
