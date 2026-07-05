@@ -4,8 +4,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import multer from 'multer';
+import fs from 'fs';
 import Contact from './models/Contact.js';
-
 import Application from './models/Application.js';
 
 // Get current directory for dotenv
@@ -16,9 +17,14 @@ dotenv.config({ path: path.join(__dirname, '../.env') });
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Setup Multer for CV uploads using Memory Storage for MongoDB
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage, limits: { fileSize: 5 * 1024 * 1024 } }); // 5MB limit
+
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // MongoDB Connection
 const connectDB = async () => {
@@ -59,30 +65,70 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-app.post('/api/careers', async (req, res) => {
+app.post('/api/careers', upload.single('cvFile'), async (req, res) => {
   try {
-    const { fullName, email, contactNumber, roleOfInterest, portfolioLink, motivation } = req.body;
+    const data = req.body;
 
-    if (!fullName || !email || !contactNumber || !roleOfInterest || !portfolioLink || !motivation) {
-      return res.status(400).json({ error: 'All fields are required' });
+    // Parse array strings coming from FormData
+    if (data.softwareTools && typeof data.softwareTools === 'string') {
+      try { data.softwareTools = JSON.parse(data.softwareTools); } catch (e) {}
+    }
+    if (data.comfortableTasks && typeof data.comfortableTasks === 'string') {
+      try { data.comfortableTasks = JSON.parse(data.comfortableTasks); } catch (e) {}
+    }
+
+    const requiredFields = [
+      'universityEmail', 'fullName', 'studentId', 'personalEmail', 'department', 'currentSemester',
+      'teamType', 'firstPreference', 'secondPreference', 'whyDiganta', 'aspectsOfInterest',
+      'skillsOrStrengths', 'relevantExperiences', 'hopeToLearn'
+    ];
+
+    for (const field of requiredFields) {
+      if (!data[field]) {
+        return res.status(400).json({ error: `Field ${field} is required` });
+      }
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ error: 'CV file is required' });
     }
 
     const newApplication = new Application({
-      fullName,
-      email,
-      contactNumber,
-      roleOfInterest,
-      portfolioLink,
-      motivation
+      ...data,
+      softwareTools: data.softwareTools || [],
+      comfortableTasks: data.comfortableTasks || [],
+      cvFile: {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+        filename: req.file.originalname
+      }
     });
 
     await newApplication.save();
     
-    console.log('New Careers Application Saved!');
+    console.log('New Recruitment Application Saved!');
     res.status(201).json({ success: true, message: 'Application submitted successfully!' });
   } catch (error) {
     console.error('Error saving application:', error);
     res.status(500).json({ error: 'Failed to process application' });
+  }
+});
+
+// Route to view CV directly from MongoDB
+app.get('/api/careers/cv/:id', async (req, res) => {
+  try {
+    const application = await Application.findById(req.params.id);
+    if (!application || !application.cvFile || !application.cvFile.data) {
+      return res.status(404).json({ error: 'CV not found' });
+    }
+    
+    // Set headers so the browser displays the PDF natively instead of downloading it
+    res.set('Content-Type', application.cvFile.contentType);
+    res.set('Content-Disposition', `inline; filename="${application.cvFile.filename}"`);
+    res.send(application.cvFile.data);
+  } catch (error) {
+    console.error('Error fetching CV:', error);
+    res.status(500).json({ error: 'Failed to retrieve CV' });
   }
 });
 

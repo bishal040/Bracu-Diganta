@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ALL_IMAGES = [
   "https://i.ibb.co.com/bj7QSj2S/Whats-App-Image-2026-06-17-at-01-47-36-2.jpg",
@@ -16,6 +17,7 @@ const ALL_IMAGES = [
 ];
 
 export const HomeHero: React.FC = () => {
+  const navigate = useNavigate();
   const [shuffledPool, setShuffledPool] = useState<number[]>([]);
   const [poolIndex, setPoolIndex] = useState(0);
   const [isStacking, setIsStacking] = useState(false);
@@ -77,6 +79,21 @@ export const HomeHero: React.FC = () => {
           <p className="text-xl md:text-2xl lg:text-3xl text-gray-600 max-w-lg font-medium">
             Democratizing space, one launch at a time.
           </p>
+          <div className="mt-8 md:mt-12 pointer-events-auto z-50">
+            <button
+              onClick={() => navigate('/careers')}
+              className="relative overflow-hidden group bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full px-8 py-4 text-xs md:text-sm font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(16,185,129,0.4)] flex items-center gap-3 border border-emerald-400/50"
+            >
+              <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.4)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] animate-[shimmer_2s_linear_infinite]" />
+              <span className="relative z-10 flex items-center gap-3">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                </span>
+                Join Our Team
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Scroll indicator */}

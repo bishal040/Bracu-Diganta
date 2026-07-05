@@ -267,8 +267,22 @@ export const Navbar: React.FC = () => {
           })}
         </div>
 
-        {/* 3. CTA PILL */}
-        <div className="pointer-events-auto hidden lg:block transition-all duration-700 opacity-100 translate-y-0">
+        {/* 3. CTA PILLS */}
+        <div className="pointer-events-auto hidden lg:flex items-center gap-3 transition-all duration-700 opacity-100 translate-y-0">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/careers');
+            }}
+            className="relative overflow-hidden group bg-gradient-to-r from-emerald-500 to-teal-400 text-white rounded-full px-6 py-3 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] flex items-center gap-3 border border-emerald-400/50"
+          >
+            <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.4)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] animate-[shimmer_2s_linear_infinite]" />
+            <span className="relative z-10 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              Recruitment
+            </span>
+          </button>
+
           <div
             ref={ctaMagnetic.ref}
             onMouseMove={ctaMagnetic.handleMouseMove}
