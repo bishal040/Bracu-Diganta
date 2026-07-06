@@ -35,6 +35,9 @@ jobs:
         
       - name: Build project
         run: npx vite build
+        env:
+          VITE_CAREERS_API_URL: https://bracu-diganta.onrender.com/api/careers
+          VITE_API_URL: https://bracu-diganta.onrender.com/api/contact
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
