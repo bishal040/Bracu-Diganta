@@ -7,6 +7,9 @@ import { CansatPage } from './components/pages/CansatPage';
 import { Footer } from './components/sections/Footer';
 import { LoadingPage, TeamPage, MissionsPage, ProjectDetailPage, ComingSoonPage, NewsCansat2026Page, CareersPage, NewsTeknofest2026Page, TimelinePage } from './components/pages';
 import { ToastProvider } from './components/ui/ToastProvider';
+import { AuthProvider } from './context/AuthContext';
+import { AdminLogin } from './components/pages/AdminLogin';
+import { AdminDashboard } from './components/pages/AdminDashboard';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,8 +19,9 @@ function App() {
   }, []);
 
   return (
-    <ToastProvider>
-      <Router>
+    <AuthProvider>
+      <ToastProvider>
+        <Router>
         {isLoading && <LoadingPage onComplete={handleLoadingComplete} />}
 
         <div className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
@@ -36,6 +40,8 @@ function App() {
                   <Route path="/team" element={<TeamPage />} />
                   <Route path="/careers" element={<CareersPage />} />
                   <Route path="/timeline" element={<TimelinePage />} />
+                  <Route path="/admin/login" element={<AdminLogin />} />
+                  <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 </Routes>
               </main>
               <Footer />
@@ -43,7 +49,8 @@ function App() {
           </SmoothScroll>
         </div>
       </Router>
-    </ToastProvider>
+      </ToastProvider>
+    </AuthProvider>
   );
 }
 

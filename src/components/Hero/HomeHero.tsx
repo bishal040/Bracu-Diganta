@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ALL_IMAGES = [
   "https://i.ibb.co.com/bj7QSj2S/Whats-App-Image-2026-06-17-at-01-47-36-2.jpg",
@@ -16,6 +17,7 @@ const ALL_IMAGES = [
 ];
 
 export const HomeHero: React.FC = () => {
+  const navigate = useNavigate();
   const [shuffledPool, setShuffledPool] = useState<number[]>([]);
   const [poolIndex, setPoolIndex] = useState(0);
   const [isStacking, setIsStacking] = useState(false);
@@ -77,6 +79,18 @@ export const HomeHero: React.FC = () => {
           <p className="text-lg md:text-xl lg:text-3xl text-gray-600 max-w-lg font-medium px-4">
             Looking Over the Horizon
           </p>
+          <div className="mt-8 md:mt-12 pointer-events-auto z-50">
+            <button
+              onClick={() => navigate('/careers')}
+              className="group bg-[#10B981] text-white rounded-full px-10 py-4 md:py-5 text-sm md:text-base font-mono font-black tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#059669] hover:scale-110 shadow-[0_10px_30px_rgba(16,185,129,0.5)] flex items-center gap-3"
+            >
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+              </span>
+              We Are Hiring
+            </button>
+          </div>
         </div>
 
         {/* Scroll indicator */}

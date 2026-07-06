@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { MagneticButton } from '../ui/MagneticButton';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -31,7 +32,7 @@ export const Overview: React.FC = () => {
     <section id="overview" ref={sectionRef} className="pt-20 pb-4 md:pb-6 relative z-10 bg-[#eef2f5] overflow-hidden h-full flex flex-col justify-center">
 
       {/* Massive Background Text */}
-      <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-full overflow-hidden flex justify-center pointer-events-none opacity-[0.03] select-none">
+      <div className="hidden md:flex absolute -top-12 left-1/2 -translate-x-1/2 w-full overflow-hidden justify-center pointer-events-none opacity-[0.03] select-none">
         <h1 className="font-orbitron font-black text-[18vw] leading-none whitespace-nowrap text-gray-900 tracking-tighter">
           DIGANTA
         </h1>
@@ -149,6 +150,36 @@ export const Overview: React.FC = () => {
           </div>
 
         </div>
+
+        {/* Animated Sponsors Marquee */}
+        <div className="mt-4 md:mt-auto pt-4 md:pt-8 border-t border-gray-300/50 w-full overflow-hidden relative shrink-0">
+          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#eef2f5] to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#eef2f5] to-transparent z-10" />
+          
+          <motion.div
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
+            className="flex items-center gap-8 md:gap-24 w-max pr-8 md:pr-24"
+          >
+            {[...Array(2)].map((_, i) => (
+              <React.Fragment key={i}>
+                <div className="text-base sm:text-lg md:text-2xl font-orbitron font-bold text-gray-400 uppercase tracking-widest">BRAC University</div>
+                <div className="text-base sm:text-lg md:text-2xl font-orbitron font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2 md:gap-3">
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-blue-500" />
+                  Aerospace Corp
+                </div>
+                <div className="text-base sm:text-lg md:text-2xl font-orbitron font-bold text-gray-400 uppercase tracking-widest">Orbital Dynamics</div>
+                <div className="text-base sm:text-lg md:text-2xl font-orbitron font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2 md:gap-3">
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-cyan-500" />
+                  Quantum Systems
+                </div>
+                <div className="text-base sm:text-lg md:text-2xl font-orbitron font-bold text-gray-400 uppercase tracking-widest">Nexus Labs</div>
+                <div className="text-base sm:text-lg md:text-2xl font-orbitron font-bold text-gray-400 uppercase tracking-widest">Stellar Engineering</div>
+              </React.Fragment>
+            ))}
+          </motion.div>
+        </div>
+
       </div>
     </section>
   );
