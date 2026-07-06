@@ -132,6 +132,18 @@ app.get('/api/careers/cv/:id', async (req, res) => {
   }
 });
 
+// Route to fetch all applications (for Admin panel)
+app.get('/api/careers/applications', async (req, res) => {
+  try {
+    // Select all fields except cvFile.data to avoid downloading massive binary data
+    const applications = await Application.find({}).select('-cvFile.data').sort({ createdAt: -1 });
+    res.status(200).json({ success: true, applications });
+  } catch (error) {
+    console.error('Error fetching applications:', error);
+    res.status(500).json({ error: 'Failed to retrieve applications' });
+  }
+});
+
 // Start Server
 connectDB().then(() => {
   app.listen(PORT, () => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, ChevronRight, Check, ChevronDown, UploadCloud, FileCheck } from 'lucide-react';
+import { ChevronRight, Check, ChevronDown, UploadCloud } from 'lucide-react';
 import { useToast } from '../ui/ToastProvider';
 
 const TECH_SUBSYSTEMS = [
@@ -111,7 +111,7 @@ export const CareersPage: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => {
+    setFormData((prev: any) => {
       const newData = { ...prev, [name]: value };
       if (name === 'firstPreference') newData.firstPreferenceSubsection = '';
       if (name === 'secondPreference') newData.secondPreferenceSubsection = '';
@@ -120,10 +120,10 @@ export const CareersPage: React.FC = () => {
   };
 
   const handleCheckboxChange = (field: 'softwareTools' | 'comfortableTasks', value: string) => {
-    setFormData(prev => {
+    setFormData((prev: any) => {
       const list = prev[field];
       if (list.includes(value)) {
-        return { ...prev, [field]: list.filter(item => item !== value) };
+        return { ...prev, [field]: list.filter((item: any) => item !== value) };
       } else {
         return { ...prev, [field]: [...list, value] };
       }
@@ -147,10 +147,10 @@ export const CareersPage: React.FC = () => {
       
       // Merge 'Other' fields
       if (submitData.softwareTools.includes('Other') && submitData.softwareToolsOther) {
-        submitData.softwareTools = submitData.softwareTools.map(t => t === 'Other' ? `Other: ${submitData.softwareToolsOther}` : t);
+        submitData.softwareTools = submitData.softwareTools.map((t: string) => t === 'Other' ? `Other: ${submitData.softwareToolsOther}` : t);
       }
       if (submitData.comfortableTasks.includes('Other') && submitData.comfortableTasksOther) {
-        submitData.comfortableTasks = submitData.comfortableTasks.map(t => t === 'Other' ? `Other: ${submitData.comfortableTasksOther}` : t);
+        submitData.comfortableTasks = submitData.comfortableTasks.map((t: string) => t === 'Other' ? `Other: ${submitData.comfortableTasksOther}` : t);
       }
 
       const formPayload = new FormData();
@@ -256,7 +256,7 @@ export const CareersPage: React.FC = () => {
                       key={type}
                       type="button"
                       onClick={() => {
-                        setFormData(prev => ({ ...prev, teamType: type, firstPreference: '', secondPreference: '' }));
+                        setFormData((prev: any) => ({ ...prev, teamType: type, firstPreference: '', secondPreference: '' }));
                       }}
                       className={`py-4 rounded-xl font-orbitron font-bold text-sm tracking-widest uppercase transition-all duration-300 border-2 ${formData.teamType === type ? 'bg-blue-600 border-blue-600 text-white shadow-[0_8px_20px_rgba(37,99,235,0.25)] scale-[1.02]' : 'bg-slate-50 border-slate-200 text-slate-500 hover:border-blue-300 hover:bg-slate-100 hover:text-blue-500'}`}
                     >
@@ -417,7 +417,7 @@ export const CareersPage: React.FC = () => {
                       e.preventDefault();
                       setIsDragging(false);
                       if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-                        setFormData(prev => ({ ...prev, cvFile: e.dataTransfer.files[0] }));
+                        setFormData((prev: any) => ({ ...prev, cvFile: e.dataTransfer.files[0] }));
                       }
                     }}
                     className={`relative w-full border-2 border-dashed rounded-[2rem] p-8 flex flex-col items-center justify-center transition-all duration-300 ${
@@ -429,7 +429,7 @@ export const CareersPage: React.FC = () => {
                       accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                       onChange={(e) => {
                         const file = e.target.files ? e.target.files[0] : null;
-                        setFormData(prev => ({ ...prev, cvFile: file }));
+                        setFormData((prev: any) => ({ ...prev, cvFile: file }));
                       }}
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       required={!formData.cvFile}
@@ -450,7 +450,7 @@ export const CareersPage: React.FC = () => {
                         </div>
                         <span 
                           className="text-[10px] font-bold text-rose-500 bg-rose-50 px-4 py-2 rounded-full uppercase tracking-widest mt-1 hover:bg-rose-500 hover:text-white transition-all duration-300 cursor-pointer pointer-events-auto shadow-sm" 
-                          onClick={() => setFormData(prev => ({ ...prev, cvFile: null }))}
+                          onClick={() => setFormData((prev: any) => ({ ...prev, cvFile: null }))}
                         >
                           Remove File
                         </span>
