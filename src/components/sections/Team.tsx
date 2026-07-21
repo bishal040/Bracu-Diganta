@@ -121,16 +121,14 @@ export const Team: React.FC = () => {
     ...currentYearData.teamMembers
   ].slice(0, 7);
 
-  // Original Bento Layout Maps
-  const bentoLayouts = [
-    { col: "col-span-12 md:col-span-8", height: "h-full md:h-[400px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[400px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[300px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[300px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[300px]" },
-    { col: "col-span-12 md:col-span-4", height: "h-full md:h-[350px]" },
-    { col: "col-span-12 md:col-span-8", height: "h-full md:h-[350px]" },
-  ];
+  // Uniform Layout for all crew members
+  const uniformLayout = { 
+    col: "col-span-12 sm:col-span-6 lg:col-span-3", 
+    height: "h-[450px] md:h-[400px]" 
+  };
+  
+  // Create an array of the same layout to match the original map logic
+  const bentoLayouts = Array(7).fill(uniformLayout);
 
   useEffect(() => {
     if (!sectionRef.current) return;

@@ -269,7 +269,7 @@ export const Navbar: React.FC = () => {
 
         {/* 3. CTA PILLS */}
         <div className="pointer-events-auto hidden lg:flex items-center gap-4 transition-all duration-700 opacity-100 translate-y-0">
-          <button
+            <button
             onClick={(e) => {
               e.preventDefault();
               navigate('/careers');
@@ -280,7 +280,7 @@ export const Navbar: React.FC = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
             </span>
-            Apply Now
+            We Are Hiring
           </button>
 
           <div
@@ -482,11 +482,14 @@ export const Navbar: React.FC = () => {
                 setMobileMenuOpen(false);
                 navigate('/careers');
               }}
-              className="relative overflow-hidden group bg-[#2563EB] text-white hover:bg-blue-700 px-8 py-4 w-full max-w-[280px] text-xs font-mono tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.3)]"
+              className="relative overflow-hidden group bg-[#10B981] text-white hover:bg-[#059669] px-8 py-4 w-full max-w-[280px] text-xs font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
             >
               <span className="relative z-10 flex items-center justify-center gap-3">
-                <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
-                JOIN OUR TEAM
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                We Are Hiring
               </span>
             </button>
           </div>
