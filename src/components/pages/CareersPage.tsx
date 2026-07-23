@@ -96,48 +96,6 @@ const SEMESTERS = [
 // Recruitment deadline — change this date to control the countdown
 const RECRUITMENT_DEADLINE = new Date('2026-08-15T23:59:59+06:00');
 
-const WHY_JOIN_BENEFITS = [
-  {
-    icon: Rocket,
-    title: 'Real Missions',
-    description: 'Work on actual aerospace projects — from CanSats to rocketry — competing at international events.',
-    accent: 'text-blue-600',
-    bg: 'bg-blue-50',
-    border: 'border-blue-200'
-  },
-  {
-    icon: Users,
-    title: 'Elite Community',
-    description: 'Collaborate with 50+ passionate engineers, designers, and strategists across multiple disciplines.',
-    accent: 'text-sky-600',
-    bg: 'bg-sky-50',
-    border: 'border-sky-200'
-  },
-  {
-    icon: Cpu,
-    title: 'Hands-On Learning',
-    description: 'Gain practical skills in embedded systems, AI/ML, CAD design, and cutting-edge space tech.',
-    accent: 'text-cyan-600',
-    bg: 'bg-cyan-50',
-    border: 'border-cyan-200'
-  },
-  {
-    icon: Trophy,
-    title: 'Compete Globally',
-    description: 'Represent BRACU at international competitions like TEKNOFEST, European CanSat, and more.',
-    accent: 'text-rose-600',
-    bg: 'bg-rose-50',
-    border: 'border-rose-200'
-  },
-  {
-    icon: BookOpen,
-    title: 'Research & Publish',
-    description: 'Contribute to aerospace research papers and build an impressive academic portfolio.',
-    accent: 'text-indigo-600',
-    bg: 'bg-indigo-50',
-    border: 'border-indigo-200'
-  },
-];
 
 interface InputFieldProps {
   label: string;
@@ -403,71 +361,6 @@ const CountdownBanner: React.FC = () => {
 };
 
 // ── Why Join Us Section ──
-const WhyJoinSection: React.FC = () => {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-
-  return (
-    <div className="w-full mb-16 md:mb-20">
-      <div className="text-center mb-8 md:mb-12 relative">
-        <div className="inline-flex items-center justify-center gap-2 mb-4">
-          <span className="w-8 h-px bg-blue-600/30" />
-          <span className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-blue-600 uppercase font-bold">
-            Why Diganta?
-          </span>
-          <span className="w-8 h-px bg-blue-600/30" />
-        </div>
-        <h2 className="font-orbitron text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tight mb-4">
-          More Than a Club
-        </h2>
-        <p className="text-sm sm:text-base md:text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
-          Join a team where ambition meets execution. Experience hands-on engineering and represent BRACU on the global stage.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
-        {/* First row: 3 cards on lg, 2+1 on sm */}
-        {WHY_JOIN_BENEFITS.map((benefit, idx) => {
-          const Icon = benefit.icon;
-          const isHovered = hoveredIdx === idx;
-          return (
-            <div
-              key={benefit.title}
-              className={`group relative bg-white rounded-2xl sm:rounded-[2rem] border-2 transition-all duration-500 p-8 sm:p-10 cursor-default overflow-hidden ${isHovered
-                ? 'border-blue-300 shadow-[0_20px_50px_rgba(37,99,235,0.12)] -translate-y-1'
-                : 'border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-blue-200'
-                } ${idx === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
-              onMouseEnter={() => setHoveredIdx(idx)}
-              onMouseLeave={() => setHoveredIdx(null)}
-            >
-              {/* Subtle background tech pattern on hover */}
-              <div className={`absolute inset-0 opacity-0 group-hover:opacity-[0.02] transition-opacity duration-500`} style={{
-                backgroundImage: 'radial-gradient(circle, rgba(37,99,235,1) 1px, transparent 1px)',
-                backgroundSize: '16px 16px'
-              }} />
-
-              <div className="relative z-10 flex flex-col items-center text-center">
-                <div className={`w-16 h-16 rounded-[1.25rem] ${benefit.bg} border ${benefit.border} flex items-center justify-center mb-6 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:rotate-[5deg]`}>
-                  <Icon size={28} className={benefit.accent} strokeWidth={2.5} />
-                </div>
-                <h3 className="font-orbitron text-lg sm:text-xl font-bold text-slate-900 uppercase tracking-wide mb-3">
-                  {benefit.title}
-                </h3>
-                <p className="text-sm text-slate-500 leading-relaxed font-medium">
-                  {benefit.description}
-                </p>
-              </div>
-
-              {/* Corner accent line */}
-              <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className={`absolute top-0 right-0 w-8 h-8 ${benefit.bg} border-b ${benefit.border} border-l rounded-bl-[1.25rem] -translate-y-full translate-x-full group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-500 delay-100`} />
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
 
 const LOCAL_STORAGE_KEY = 'diganta_recruitment_form_draft';
 
