@@ -165,7 +165,7 @@ export const Footer: React.FC = () => {
                   <input
                     type="email"
                     placeholder="ENTER EMAIL ADDRESS"
-                    className="w-full shrink-0 bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-transparent rounded-xl outline-none px-5 py-4 font-mono text-xs text-slate-900 placeholder:text-slate-400 font-bold tracking-wider focus:bg-white focus:border-blue-500 transition-all z-10"
+                    className="w-full sm:flex-1 bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-transparent rounded-xl outline-none px-5 py-4 font-mono text-xs text-slate-900 placeholder:text-slate-400 font-bold tracking-wider focus:bg-white focus:border-blue-500 transition-all z-10"
                   />
                   <button className="w-full shrink-0 sm:w-auto flex justify-center items-center bg-blue-600 hover:bg-slate-900 text-white rounded-xl px-8 py-4 font-mono text-[11px] tracking-widest font-bold uppercase transition-all gap-2 shadow-lg shadow-blue-600/20 sm:shadow-none z-10">
                     <Send size={14} /> Send

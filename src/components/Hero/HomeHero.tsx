@@ -95,7 +95,7 @@ export const HomeHero: React.FC = () => {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-4 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce z-10">
-          <svg width="24" height="24" md:width="32" md:height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-telemetry-cyan w-6 h-6 md:w-8 md:h-8">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-telemetry-cyan w-6 h-6 md:w-8 md:h-8">
             <path d="M12 5v14M19 12l-7 7-7-7" />
           </svg>
         </div>

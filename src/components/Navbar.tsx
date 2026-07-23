@@ -228,7 +228,7 @@ export const Navbar: React.FC = () => {
         <div
           ref={dockRef}
           onMouseLeave={handleLinkLeave}
-          className={`pointer-events-auto hidden lg:flex items-center gap-1 transition-all duration-700 rounded-full p-1.5 relative opacity-100 translate-y-0 ${scrolled
+          className={`pointer-events-auto hidden lg:flex items-center gap-1 transition-all duration-700 rounded-full p-1.5 absolute left-1/2 -translate-x-1/2 opacity-100 translate-y-0 ${scrolled
             ? 'bg-white/30 backdrop-blur-2xl backdrop-saturate-[2.0] border border-white/50 shadow-[0_8px_32px_rgba(37,99,235,0.15)]'
             : 'bg-transparent border-transparent'
             }`}
@@ -252,7 +252,7 @@ export const Navbar: React.FC = () => {
                 href={link.type === 'route' ? link.target : `#${link.target}`}
                 onClick={(e) => handleLinkClick(e, link)}
                 onMouseEnter={handleLinkHover}
-                className={`group relative px-6 py-2.5 text-[11px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden ${scrolled
+                className={`group relative px-6 py-2.5 text-xs xl:text-[13px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden ${scrolled
                   ? active ? 'text-[#2563EB]' : 'text-gray-700 hover:text-[#2563EB]'
                   : active ? 'text-[#2563EB]' : 'text-gray-900 hover:text-[#2563EB]'
                   }`}
@@ -268,28 +268,14 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* 3. CTA PILLS */}
-        <div className="pointer-events-auto hidden lg:flex items-center gap-4 transition-all duration-700 opacity-100 translate-y-0">
-            <button
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/careers');
-            }}
-            className="group bg-[#10B981] text-white rounded-full px-7 py-3 text-[12px] font-mono font-black tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#059669] hover:scale-110 shadow-[0_10px_20px_rgba(16,185,129,0.5)] flex items-center gap-3"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-            </span>
-            We Are Hiring
-          </button>
-
+        <div className="pointer-events-auto hidden lg:flex flex-col items-end gap-3 transition-all duration-700 opacity-100 translate-y-0">
           <div
             ref={ctaMagnetic.ref}
             onMouseMove={ctaMagnetic.handleMouseMove}
             onMouseLeave={ctaMagnetic.handleMouseLeave}
           >
             <button
-              className="relative overflow-hidden group bg-[#2563EB] text-white rounded-full px-8 py-3 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-blue-700 shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] flex items-center gap-3"
+              className="relative overflow-hidden group bg-[#2563EB] text-white rounded-full px-8 py-3 text-xs xl:text-[13px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-blue-700 shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] flex items-center gap-3"
               onClick={(e) => {
                 e.preventDefault();
                 if (!isHomePage) {
@@ -309,6 +295,20 @@ export const Navbar: React.FC = () => {
               </span>
             </button>
           </div>
+
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/careers');
+            }}
+            className="group bg-[#10B981] text-white rounded-full px-7 py-2.5 text-xs xl:text-[13px] font-mono font-black tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#059669] hover:scale-105 shadow-[0_10px_20px_rgba(16,185,129,0.5)] flex items-center justify-center gap-3 w-full"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+            </span>
+            We Are Hiring
+          </button>
         </div>
 
         {/* Mobile Menu Toggle */}

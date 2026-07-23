@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronRight, Check, ChevronDown, UploadCloud, Clock, Rocket, Users, Cpu, Trophy, BookOpen, AlertCircle } from 'lucide-react';
+import { ChevronRight, Check, ChevronDown, UploadCloud, Clock, Rocket, Users, Cpu, Trophy, BookOpen, AlertCircle, X, FileText } from 'lucide-react';
 import { useToast } from '../ui/ToastProvider';
 
 const MAX_FILE_SIZE_MB = 5;
@@ -35,6 +35,48 @@ const TASKS = [
   'Other'
 ];
 
+const TECHNICAL_SKILLS_CATEGORIES = [
+  {
+    title: '1. Embedded Systems',
+    subsystem: 'Embedded Systems Subsystem',
+    skills: [
+      'C/C++, Python (firmware)',
+      'Arduino IDE, PlatformIO, STM32CubeIDE (firmware)',
+      'KiCad/EasyEDA/Altium Designer (PCB Design)',
+      'Proteus (circuit simulation)'
+    ]
+  },
+  {
+    title: '2. Mechanical Systems',
+    subsystem: 'Mechanical Subsystem',
+    skills: [
+      'SolidWorks/Fusion 360',
+      'ANSYS Mechanical',
+      'ANSYS Fluent (CFD)'
+    ]
+  },
+  {
+    title: '3. Communication & Data Handling',
+    subsystem: 'Communications & Data Subsystem',
+    skills: [
+      'LoRa, XBee, ESP-NOW',
+      'CST Studio/HFSS (Antenna Design)',
+      'MATLAB'
+    ]
+  },
+  {
+    title: '4. Software',
+    subsystem: 'Computational Intelligence Subsystem',
+    skills: [
+      'Python, C++, JavaScript',
+      'Git & GitHub',
+      'MATLAB (Software)',
+      'OpenCV (Basic)',
+      'Linux (Basic)'
+    ]
+  }
+];
+
 const SUBSECTIONS: Record<string, string[]> = {
   'Embedded Systems Subsystem': ['Hardware Design', 'Firmware Development'],
   'Mechanical Subsystem': ['Physics & Analysis', 'CAD & Manufacturing'],
@@ -44,8 +86,7 @@ const SUBSECTIONS: Record<string, string[]> = {
 };
 
 const DEPARTMENTS = [
-  'CSE', 'EEE', 'ECE', 'MCE', 'CEE', 'ARC', 'PHR', 'BBA', 'ECO',
-  'ENG', 'ANT', 'LLB', 'MNS', 'BIO', 'MAT', 'PHY', 'ESS', 'Other'
+  'CSE', 'EEE', 'ECE', 'BBA', 'Other'
 ];
 
 const SEMESTERS = [
@@ -110,7 +151,7 @@ interface InputFieldProps {
 
 const InputField: React.FC<InputFieldProps> = ({ label, name, value, onChange, type = 'text', required = true, placeholder = '' }) => (
   <div className="flex flex-col gap-2">
-    <label htmlFor={`field-${name}`} className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">
+    <label htmlFor={`field-${name}`} className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">
       {label} {required && <span className="text-blue-500">*</span>}
     </label>
     <input id={`field-${name}`} type={type} name={name} value={value} onChange={onChange} required={required} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-sm lg:text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:bg-white outline-none transition-all" placeholder={placeholder} />
@@ -129,7 +170,7 @@ interface SelectFieldProps {
 
 const SelectField: React.FC<SelectFieldProps> = ({ label, name, value, onChange, options, required = true, placeholder = 'Select...' }) => (
   <div className="flex flex-col gap-2">
-    <label htmlFor={`field-${name}`} className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">
+    <label htmlFor={`field-${name}`} className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">
       {label} {required && <span className="text-blue-500">*</span>}
     </label>
     <div className="relative">
@@ -180,7 +221,7 @@ const TextAreaField: React.FC<TextAreaFieldProps> = ({ label, name, value, onCha
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={`field-${name}`} className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2 flex items-center justify-between">
+      <label htmlFor={`field-${name}`} className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2 flex items-center justify-between">
         <span>{label} {required && <span className="text-blue-500">*</span>}</span>
         {hint && <span className="text-slate-400 text-[9px] normal-case tracking-normal font-medium">{hint}</span>}
       </label>
@@ -317,7 +358,7 @@ const CountdownBanner: React.FC = () => {
           {/* Status bar */}
           <div className="flex items-center justify-center gap-2.5 mb-5">
             <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" />
-            <span className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-blue-600 uppercase font-bold">
+            <span className="font-mono text-xs sm:text-sm md:text-base tracking-[0.3em] text-blue-600 uppercase font-bold">
               Applications Closing In
             </span>
             <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" />
@@ -350,7 +391,7 @@ const CountdownBanner: React.FC = () => {
           {/* Deadline line */}
           <div className="flex items-center justify-center gap-3 mt-5 sm:mt-6">
             <div className="h-px flex-1 max-w-16 bg-gradient-to-r from-transparent to-slate-200" />
-            <p className="text-[10px] sm:text-xs font-mono text-slate-400 tracking-wider">
+            <p className="text-xs sm:text-sm md:text-base font-mono text-slate-400 tracking-wider">
               DEADLINE: {RECRUITMENT_DEADLINE.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase()} • {RECRUITMENT_DEADLINE.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
             </p>
             <div className="h-px flex-1 max-w-16 bg-gradient-to-l from-transparent to-slate-200" />
@@ -436,7 +477,9 @@ const defaultFormData = {
   studentId: '',
   personalEmail: '',
   department: '',
+  departmentOther: '',
   currentSemester: '',
+  completedCredits: '',
   teamType: '', // Technical | Non-Technical
   firstPreference: '',
   firstPreferenceSubsection: '',
@@ -449,6 +492,8 @@ const defaultFormData = {
   softwareToolsOther: '',
   comfortableTasks: [] as string[],
   comfortableTasksOther: '',
+  technicalSkills: [] as string[],
+  technicalSkillsOtherMap: {} as Record<string, string>,
   portfolioLinks: '',
   skillsOrStrengths: '',
   relevantExperiences: '',
@@ -501,7 +546,7 @@ export const CareersPage: React.FC = () => {
     });
   };
 
-  const handleCheckboxChange = (field: 'softwareTools' | 'comfortableTasks', value: string) => {
+  const handleCheckboxChange = (field: 'softwareTools' | 'comfortableTasks' | 'technicalSkills', value: string) => {
     setFormData((prev: typeof defaultFormData) => {
       const list = prev[field];
       if (list.includes(value)) {
@@ -510,6 +555,16 @@ export const CareersPage: React.FC = () => {
         return { ...prev, [field]: [...list, value] };
       }
     });
+  };
+
+  const handleTechnicalOtherChange = (category: string, value: string) => {
+    setFormData((prev: typeof defaultFormData) => ({
+      ...prev,
+      technicalSkillsOtherMap: {
+        ...prev.technicalSkillsOtherMap,
+        [category]: value
+      }
+    }));
   };
 
   const validateFile = useCallback((file: File): boolean => {
@@ -570,18 +625,27 @@ export const CareersPage: React.FC = () => {
       const submitData = { ...formData };
 
       // Merge 'Other' fields
+      if (submitData.department === 'Other' && submitData.departmentOther) {
+        submitData.department = `Other: ${submitData.departmentOther}`;
+      }
       if (submitData.softwareTools.includes('Other') && submitData.softwareToolsOther) {
         submitData.softwareTools = submitData.softwareTools.map((t: string) => t === 'Other' ? `Other: ${submitData.softwareToolsOther}` : t);
       }
       if (submitData.comfortableTasks.includes('Other') && submitData.comfortableTasksOther) {
         submitData.comfortableTasks = submitData.comfortableTasks.map((t: string) => t === 'Other' ? `Other: ${submitData.comfortableTasksOther}` : t);
       }
+      submitData.technicalSkills = submitData.technicalSkills.map((t: string) => {
+        if (t.startsWith('Other (') && submitData.technicalSkillsOtherMap[t]) {
+          return `${t}: ${submitData.technicalSkillsOtherMap[t]}`;
+        }
+        return t;
+      });
 
       const formPayload = new FormData();
       Object.entries(submitData).forEach(([key, value]) => {
         if (key === 'cvFile' && value instanceof File) {
           formPayload.append('cvFile', value);
-        } else if (key === 'softwareTools' || key === 'comfortableTasks') {
+        } else if (key === 'softwareTools' || key === 'comfortableTasks' || key === 'technicalSkills') {
           formPayload.append(key, JSON.stringify(value));
         } else if (value !== null && value !== undefined && key !== 'cvFile') {
           formPayload.append(key, (value as string).toString());
@@ -661,18 +725,15 @@ export const CareersPage: React.FC = () => {
           null
         ) : (
           <>
-            {/* Why Join Us Section */}
-            <WhyJoinSection />
-
             {/* Application Form */}
-            <div className="w-full bg-white border border-slate-200 rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-8 md:p-12 lg:p-16 shadow-[0_20px_40px_rgba(0,0,0,0.05)] mb-24">
+            <div className="w-full mb-24 max-w-5xl mx-auto">
 
-              <form className="flex flex-col gap-10" onSubmit={handleSubmit} noValidate>
+              <form className="flex flex-col gap-6 sm:gap-8" onSubmit={handleSubmit} noValidate>
 
                 {/* Section A */}
-                <div className="space-y-6">
-                  <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-3 flex items-center gap-3">
-                    <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm">A</span> Basic Information
+                <div className="space-y-6 bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
+                  <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider bg-slate-100 p-3 sm:p-4 rounded-xl border border-slate-200 flex items-center gap-3 shadow-sm">
+                    <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm shadow-sm">A</span> Basic Information
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
                     <InputField label="Full Name" name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Jane Doe" />
@@ -680,18 +741,22 @@ export const CareersPage: React.FC = () => {
                     <InputField label="University Email" name="universityEmail" value={formData.universityEmail} onChange={handleChange} type="email" placeholder="jane.doe@g.bracu.ac.bd" />
                     <InputField label="Personal Email" name="personalEmail" value={formData.personalEmail} onChange={handleChange} type="email" placeholder="jane@example.com" />
                     <SelectField label="Department" name="department" value={formData.department} onChange={handleChange} options={DEPARTMENTS} placeholder="Select your department..." />
+                    {formData.department === 'Other' && (
+                      <InputField label="Specify Department" name="departmentOther" value={formData.departmentOther} onChange={handleChange} placeholder="Please specify your department..." />
+                    )}
                     <SelectField label="Current Semester" name="currentSemester" value={formData.currentSemester} onChange={handleChange} options={SEMESTERS} placeholder="Select your semester..." />
+                    <InputField label="Completed Credit" name="completedCredits" value={formData.completedCredits} onChange={handleChange} type="number" placeholder="e.g. 45" />
                   </div>
                 </div>
 
                 {/* Section B */}
-                <div className="space-y-6">
-                  <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-3 flex items-center gap-3">
-                    <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm">B</span> Application Preference
+                <div className="space-y-6 bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
+                  <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider bg-slate-100 p-3 sm:p-4 rounded-xl border border-slate-200 flex items-center gap-3 shadow-sm">
+                    <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm shadow-sm">B</span> Application Preference
                   </h2>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Which team are you applying for? <span className="text-blue-500">*</span></label>
+                    <label className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">Which team are you applying for? <span className="text-blue-500">*</span></label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {['Technical', 'Non-Technical'].map(type => (
                         <button
@@ -712,7 +777,7 @@ export const CareersPage: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 animate-in slide-in-from-top-2 fade-in duration-300">
                       <div className="flex flex-col gap-5 sm:gap-6">
                         <div className="flex flex-col gap-2">
-                          <label htmlFor="field-firstPreference" className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Preferred {formData.teamType === 'Technical' ? 'Subsystem' : 'Division'} <span className="text-blue-500">*</span></label>
+                          <label htmlFor="field-firstPreference" className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">Preferred {formData.teamType === 'Technical' ? 'Subsystem' : 'Division'} <span className="text-blue-500">*</span></label>
                           <div className="relative">
                             <select id="field-firstPreference" name="firstPreference" value={formData.firstPreference} onChange={handleChange} required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-sm lg:text-base font-semibold text-slate-900 focus:border-blue-500 outline-none appearance-none cursor-pointer">
                               <option value="" disabled>Select primary choice...</option>
@@ -727,7 +792,7 @@ export const CareersPage: React.FC = () => {
                         </div>
                         {formData.firstPreference && SUBSECTIONS[formData.firstPreference] && (
                           <div className="flex flex-col gap-2 animate-in slide-in-from-top-2 fade-in duration-300">
-                            <label htmlFor="field-firstPreferenceSubsection" className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Specific Field <span className="text-blue-500">*</span></label>
+                            <label htmlFor="field-firstPreferenceSubsection" className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">Specific Field <span className="text-blue-500">*</span></label>
                             <div className="relative">
                               <select id="field-firstPreferenceSubsection" name="firstPreferenceSubsection" value={formData.firstPreferenceSubsection} onChange={handleChange} required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-sm lg:text-base font-semibold text-slate-900 focus:border-blue-500 outline-none appearance-none cursor-pointer">
                                 <option value="" disabled>Select specific field...</option>
@@ -744,7 +809,7 @@ export const CareersPage: React.FC = () => {
                       </div>
                       <div className="flex flex-col gap-5 sm:gap-6">
                         <div className="flex flex-col gap-2">
-                          <label htmlFor="field-secondPreference" className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Second Preference <span className="text-blue-500">*</span></label>
+                          <label htmlFor="field-secondPreference" className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">Second Preference <span className="text-blue-500">*</span></label>
                           <div className="relative">
                             <select id="field-secondPreference" name="secondPreference" value={formData.secondPreference} onChange={handleChange} required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-sm lg:text-base font-semibold text-slate-900 focus:border-blue-500 outline-none appearance-none cursor-pointer">
                               <option value="" disabled>Select secondary choice...</option>
@@ -759,7 +824,7 @@ export const CareersPage: React.FC = () => {
                         </div>
                         {formData.secondPreference && SUBSECTIONS[formData.secondPreference] && (
                           <div className="flex flex-col gap-2 animate-in slide-in-from-top-2 fade-in duration-300">
-                            <label htmlFor="field-secondPreferenceSubsection" className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Specific Field <span className="text-blue-500">*</span></label>
+                            <label htmlFor="field-secondPreferenceSubsection" className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">Specific Field <span className="text-blue-500">*</span></label>
                             <div className="relative">
                               <select id="field-secondPreferenceSubsection" name="secondPreferenceSubsection" value={formData.secondPreferenceSubsection} onChange={handleChange} required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 text-sm lg:text-base font-semibold text-slate-900 focus:border-blue-500 outline-none appearance-none cursor-pointer">
                                 <option value="" disabled>Select specific field...</option>
@@ -779,69 +844,115 @@ export const CareersPage: React.FC = () => {
                 </div>
 
                 {/* Section C */}
-                <div className="space-y-6">
-                  <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-3 flex items-center gap-3">
-                    <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm">C</span> General Questions
+                <div className="space-y-6 bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
+                  <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider bg-slate-100 p-3 sm:p-4 rounded-xl border border-slate-200 flex items-center gap-3 shadow-sm">
+                    <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm shadow-sm">C</span> General Questions
                   </h2>
                   <TextAreaField label="Why do you want to join Diganta?" name="whyDiganta" value={formData.whyDiganta} onChange={handleChange} hint="80-120 words" minWords={80} maxWords={120} />
                   <TextAreaField label="What aspects of the division you selected interest you the most and why?" name="aspectsOfInterest" value={formData.aspectsOfInterest} onChange={handleChange} hint="80-120 words" minWords={80} maxWords={120} />
                   <TextAreaField label="Are you currently involved in any club, lab or organization? If yes, please mention the organization and your role." name="clubInvolvement" value={formData.clubInvolvement} onChange={handleChange} required={false} rows={2} />
                 </div>
 
-                {/* Section D (Non-Technical) */}
-                {formData.teamType === 'Non-Technical' && (
-                  <div className="space-y-6 animate-in slide-in-from-top-2 fade-in duration-300">
-                    <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-3 flex items-center gap-3">
-                      <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm">D</span> Non-Technical Details
+                {/* Section D (Technical) */}
+                {formData.teamType === 'Technical' && (
+                  <div className="space-y-6 animate-in slide-in-from-top-2 fade-in duration-300 bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
+                    <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider bg-slate-100 p-3 sm:p-4 rounded-xl border border-slate-200 flex items-center gap-3 shadow-sm">
+                      <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm shadow-sm">D</span> Technical Details
                     </h2>
 
                     <div className="flex flex-col gap-3">
-                      <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">What software or tools are you comfortable using?</label>
+                      <label className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">What technical skills or tools are you comfortable using? (Select all that apply)</label>
+
+                      <div className="flex flex-col gap-6 mt-2">
+                        {TECHNICAL_SKILLS_CATEGORIES.filter(c =>
+                          c.subsystem === formData.firstPreference ||
+                          c.subsystem === formData.secondPreference
+                        ).map(category => (
+                          <div key={category.title} className="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5">
+                            <h3 className="font-orbitron text-sm sm:text-base font-bold text-slate-800 uppercase tracking-wide mb-3">{category.title}</h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              {category.skills.map(skill => (
+                                <label key={skill} className="flex items-start gap-3 cursor-pointer group">
+                                  <div className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors ${formData.technicalSkills.includes(skill) ? 'bg-blue-600 border-blue-600' : 'border-slate-300 group-hover:border-blue-400'}`}>
+                                    {formData.technicalSkills.includes(skill) && <Check size={14} className="text-white" />}
+                                  </div>
+                                  <span className="text-sm sm:text-base font-semibold text-slate-700 leading-tight pt-[2px]">{skill}</span>
+                                  <input type="checkbox" className="sr-only" checked={formData.technicalSkills.includes(skill)} onChange={() => handleCheckboxChange('technicalSkills', skill)} />
+                                </label>
+                              ))}
+
+                              <label key="Other" className="flex items-start gap-3 cursor-pointer group mt-2 col-span-1 sm:col-span-2">
+                                <div className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors ${formData.technicalSkills.includes('Other (' + category.title + ')') ? 'bg-blue-600 border-blue-600' : 'border-slate-300 group-hover:border-blue-400'}`}>
+                                  {formData.technicalSkills.includes('Other (' + category.title + ')') && <Check size={14} className="text-white" />}
+                                </div>
+                                <span className="text-sm sm:text-base font-semibold text-slate-700 leading-tight pt-[2px]">Other (Please specify)</span>
+                                <input type="checkbox" className="sr-only" checked={formData.technicalSkills.includes('Other (' + category.title + ')')} onChange={() => handleCheckboxChange('technicalSkills', 'Other (' + category.title + ')')} />
+                              </label>
+                              {formData.technicalSkills.includes('Other (' + category.title + ')') && (
+                                <div className="col-span-1 sm:col-span-2 mb-1">
+                                  <input type="text" value={formData.technicalSkillsOtherMap['Other (' + category.title + ')'] || ''} onChange={(e) => handleTechnicalOtherChange('Other (' + category.title + ')', e.target.value)} placeholder="Please specify..." className="mt-1 w-full bg-white border-2 border-slate-200 rounded-xl px-4 py-2 text-sm sm:text-base font-semibold text-slate-900 focus:border-blue-500 outline-none" />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                  </div>
+                )}
+
+                {/* Section D (Non-Technical) */}
+                {formData.teamType === 'Non-Technical' && (
+                  <div className="space-y-6 animate-in slide-in-from-top-2 fade-in duration-300 bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
+                    <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider bg-slate-100 p-3 sm:p-4 rounded-xl border border-slate-200 flex items-center gap-3 shadow-sm">
+                      <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm shadow-sm">D</span> Non-Technical Details
+                    </h2>
+
+                    <div className="flex flex-col gap-3">
+                      <label className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">What software or tools are you comfortable using?</label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 px-2">
                         {SOFTWARE_TOOLS.map(tool => (
                           <label key={tool} className="flex items-center gap-3 cursor-pointer group">
                             <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${formData.softwareTools.includes(tool) ? 'bg-blue-600 border-blue-600' : 'border-slate-300 group-hover:border-blue-400'}`}>
                               {formData.softwareTools.includes(tool) && <Check size={14} className="text-white" />}
                             </div>
-                            <span className="text-sm font-semibold text-slate-700">{tool}</span>
+                            <span className="text-sm sm:text-base font-semibold text-slate-700">{tool}</span>
                             <input type="checkbox" className="sr-only" checked={formData.softwareTools.includes(tool)} onChange={() => handleCheckboxChange('softwareTools', tool)} />
                           </label>
                         ))}
                       </div>
                       {formData.softwareTools.includes('Other') && (
-                        <input type="text" name="softwareToolsOther" value={formData.softwareToolsOther} onChange={handleChange} placeholder="Please specify..." className="mt-2 w-full max-w-sm bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm font-semibold text-slate-900 focus:border-blue-500 outline-none" />
+                        <input type="text" name="softwareToolsOther" value={formData.softwareToolsOther} onChange={handleChange} placeholder="Please specify..." className="mt-2 w-full max-w-sm bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm sm:text-base font-semibold text-slate-900 focus:border-blue-500 outline-none" />
                       )}
                     </div>
 
                     <div className="flex flex-col gap-3 pt-4">
-                      <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Which tasks would you be most comfortable taking responsibility for? (Select all that apply)</label>
+                      <label className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">Which tasks would you be most comfortable taking responsibility for? (Select all that apply)</label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 px-2">
                         {TASKS.map(task => (
                           <label key={task} className="flex items-center gap-3 cursor-pointer group">
                             <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${formData.comfortableTasks.includes(task) ? 'bg-blue-600 border-blue-600' : 'border-slate-300 group-hover:border-blue-400'}`}>
                               {formData.comfortableTasks.includes(task) && <Check size={14} className="text-white" />}
                             </div>
-                            <span className="text-sm font-semibold text-slate-700">{task}</span>
+                            <span className="text-sm sm:text-base font-semibold text-slate-700">{task}</span>
                             <input type="checkbox" className="sr-only" checked={formData.comfortableTasks.includes(task)} onChange={() => handleCheckboxChange('comfortableTasks', task)} />
                           </label>
                         ))}
                       </div>
                       {formData.comfortableTasks.includes('Other') && (
-                        <input type="text" name="comfortableTasksOther" value={formData.comfortableTasksOther} onChange={handleChange} placeholder="Please specify..." className="mt-2 w-full max-w-sm bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm font-semibold text-slate-900 focus:border-blue-500 outline-none" />
+                        <input type="text" name="comfortableTasksOther" value={formData.comfortableTasksOther} onChange={handleChange} placeholder="Please specify..." className="mt-2 w-full max-w-sm bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2 text-sm sm:text-base font-semibold text-slate-900 focus:border-blue-500 outline-none" />
                       )}
                     </div>
 
-                    <div className="pt-4 border-t border-slate-100">
-                      <TextAreaField label="Please share links to any relevant work (writing samples, designs, social media pages, event photos, certificates, etc.)." name="portfolioLinks" value={formData.portfolioLinks} onChange={handleChange} required={false} hint="Optional" rows={3} />
-                    </div>
                   </div>
                 )}
 
                 {/* Section E / Shared */}
                 {formData.teamType && (
-                  <div className="space-y-6 animate-in slide-in-from-top-2 fade-in duration-300">
-                    <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-3 flex items-center gap-3">
-                      <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm">{formData.teamType === 'Technical' ? 'D' : 'E'}</span> Qualifications
+                  <div className="space-y-6 animate-in slide-in-from-top-2 fade-in duration-300 bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
+                    <h2 className="font-orbitron text-xl sm:text-2xl font-bold text-slate-900 uppercase tracking-wider bg-slate-100 p-3 sm:p-4 rounded-xl border border-slate-200 flex items-center gap-3 shadow-sm">
+                      <span className="w-6 h-6 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-sm shadow-sm">E</span> Qualifications
                     </h2>
 
                     <TextAreaField label="What skills or strengths do you currently have that would help you contribute to the division you selected?" name="skillsOrStrengths" value={formData.skillsOrStrengths} onChange={handleChange} hint="80-120 words" minWords={80} maxWords={120} />
@@ -849,7 +960,7 @@ export const CareersPage: React.FC = () => {
                     <TextAreaField label="What do you hope to learn or gain from your experience at Diganta?" name="hopeToLearn" value={formData.hopeToLearn} onChange={handleChange} hint="80-120 words" rows={3} minWords={80} maxWords={120} />
 
                     <div className="flex flex-col gap-2">
-                      <label className="text-[10px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">
+                      <label className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-wider ml-2">
                         CV / Resume <span className="text-blue-500">*</span>
                       </label>
                       <div
@@ -872,29 +983,37 @@ export const CareersPage: React.FC = () => {
                             const file = e.target.files ? e.target.files[0] : null;
                             handleFileChange(file);
                           }}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          className={`absolute inset-0 w-full h-full opacity-0 cursor-pointer ${formData.cvFile ? 'hidden' : ''}`}
                           required={!formData.cvFile}
                         />
                         {formData.cvFile ? (
-                          <div className="flex flex-col items-center gap-3 text-blue-600 pointer-events-none animate-in zoom-in-95 fade-in duration-300 w-full max-w-sm mx-auto">
-                            <div className="relative flex items-center justify-center mb-1">
-                              <div className="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-20" style={{ animationDuration: '2s' }} />
-                              <div className="relative w-14 h-14 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-full flex items-center justify-center text-white shadow-[0_0_20px_rgba(37,99,235,0.4)]">
-                                <Check size={28} className="animate-in zoom-in duration-300 delay-150" />
+                          <div className="flex items-center gap-4 bg-white border-2 border-green-100 p-4 rounded-2xl shadow-sm w-full max-w-md mx-auto animate-in slide-in-from-bottom-2 fade-in duration-300">
+                            <div className="w-12 h-12 rounded-xl bg-green-50 text-green-500 flex items-center justify-center shrink-0">
+                              <FileText size={24} className="animate-in zoom-in duration-300 delay-100" />
+                            </div>
+                            <div className="flex flex-col flex-grow min-w-0 text-left">
+                              <span className="font-bold text-sm text-slate-800 truncate">{formData.cvFile.name}</span>
+                              <div className="flex items-center gap-2 mt-0.5">
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                  {((formData.cvFile.size || 0) / 1024 / 1024).toFixed(2)} MB
+                                </span>
+                                <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                                <span className="text-[10px] font-bold text-green-500 uppercase tracking-widest flex items-center gap-1">
+                                  <Check size={10} strokeWidth={3} /> Uploaded
+                                </span>
                               </div>
                             </div>
-                            <div className="flex flex-col items-center bg-white/60 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-blue-100 shadow-sm mt-2">
-                              <span className="font-bold text-sm text-center text-slate-800 line-clamp-1">{formData.cvFile.name}</span>
-                              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-                                {((formData.cvFile.size || 0) / 1024 / 1024).toFixed(2)} MB • Ready
-                              </span>
-                            </div>
-                            <span
-                              className="text-[10px] font-bold text-rose-500 bg-rose-50 px-4 py-2 rounded-full uppercase tracking-widest mt-1 hover:bg-rose-500 hover:text-white transition-all duration-300 cursor-pointer pointer-events-auto shadow-sm"
-                              onClick={() => setFormData((prev: typeof defaultFormData) => ({ ...prev, cvFile: null }))}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setFormData((prev: typeof defaultFormData) => ({ ...prev, cvFile: null }));
+                              }}
+                              className="relative z-10 p-2 rounded-full hover:bg-rose-50 text-slate-400 hover:text-rose-500 transition-colors pointer-events-auto shrink-0"
                             >
-                              Remove File
-                            </span>
+                              <X size={20} />
+                            </button>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center text-slate-500 gap-2 pointer-events-none">
@@ -906,6 +1025,10 @@ export const CareersPage: React.FC = () => {
                           </div>
                         )}
                       </div>
+                    </div>
+
+                    <div className="pt-2">
+                      <InputField label="Portfolio Link (Optional)" name="portfolioLinks" value={formData.portfolioLinks} onChange={handleChange} required={false} />
                     </div>
                   </div>
                 )}
