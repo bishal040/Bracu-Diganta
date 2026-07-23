@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronRight, Check, ChevronDown, UploadCloud, Clock, Rocket, Users, Cpu, Trophy, BookOpen, AlertCircle, X, FileText } from 'lucide-react';
+import { ChevronRight, Check, ChevronDown, UploadCloud, Clock, AlertCircle, X, FileText } from 'lucide-react';
 import { useToast } from '../ui/ToastProvider';
 
 const MAX_FILE_SIZE_MB = 5;
