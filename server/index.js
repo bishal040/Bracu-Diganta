@@ -26,6 +26,9 @@ app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Health check endpoint for Cron-job to prevent Render sleep
+app.get('/', (req, res) => res.status(200).send('API is running. Render server is awake!'));
+
 // MongoDB Connection
 const connectDB = async () => {
   try {
