@@ -83,8 +83,8 @@ export const AdminDashboard: React.FC = () => {
 
   // Derived Statistics
   const totalApps = applications.length;
-  const techApps = applications.filter(a => a.teamType === 'Technical Team').length;
-  const nonTechApps = applications.filter(a => a.teamType === 'Non-Technical Team').length;
+  const techApps = applications.filter(a => a.teamType === 'Technical' || a.teamType === 'Technical Team').length;
+  const nonTechApps = applications.filter(a => a.teamType === 'Non-Technical' || a.teamType === 'Non-Technical Team').length;
   
   const deptCount = applications.reduce((acc, app) => {
     acc[app.department] = (acc[app.department] || 0) + 1;
@@ -95,9 +95,9 @@ export const AdminDashboard: React.FC = () => {
   // Derived Filtered List
   const filteredApplications = applications.filter(app => {
     const matchesSearch = 
-      app.fullName.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      app.studentId.includes(searchQuery) ||
-      app.universityEmail.toLowerCase().includes(searchQuery.toLowerCase());
+      (app.fullName || '').toLowerCase().includes(searchQuery.toLowerCase()) || 
+      (app.studentId || '').includes(searchQuery) ||
+      (app.universityEmail || '').toLowerCase().includes(searchQuery.toLowerCase());
     
     const matchesDept = departmentFilter === 'All' ? true : app.department === departmentFilter;
     const matchesTeam = teamFilter === 'All' ? true : app.teamType === teamFilter;
@@ -253,8 +253,8 @@ export const AdminDashboard: React.FC = () => {
                   className="w-full pl-10 pr-8 py-3 bg-gray-50 border border-gray-100 rounded-full text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium cursor-pointer"
                 >
                   <option value="All">All Teams</option>
-                  <option value="Technical Team">Technical</option>
-                  <option value="Non-Technical Team">Non-Technical</option>
+                  <option value="Technical">Technical</option>
+                  <option value="Non-Technical">Non-Technical</option>
                 </select>
               </div>
             </div>
