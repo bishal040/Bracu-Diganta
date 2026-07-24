@@ -76,6 +76,9 @@ app.post('/api/careers', upload.single('cvFile'), async (req, res) => {
     if (data.comfortableTasks && typeof data.comfortableTasks === 'string') {
       try { data.comfortableTasks = JSON.parse(data.comfortableTasks); } catch (e) {}
     }
+    if (data.technicalSkills && typeof data.technicalSkills === 'string') {
+      try { data.technicalSkills = JSON.parse(data.technicalSkills); } catch (e) {}
+    }
 
     const requiredFields = [
       'universityEmail', 'fullName', 'studentId', 'personalEmail', 'department', 'currentSemester',
@@ -97,6 +100,8 @@ app.post('/api/careers', upload.single('cvFile'), async (req, res) => {
       ...data,
       softwareTools: data.softwareTools || [],
       comfortableTasks: data.comfortableTasks || [],
+      completedCredits: data.completedCredits,
+      technicalSkills: data.technicalSkills,
       cvFile: {
         data: req.file.buffer,
         contentType: req.file.mimetype,
@@ -125,6 +130,7 @@ app.get('/api/careers/cv/:id', async (req, res) => {
     // Set headers so the browser displays the PDF natively instead of downloading it
     res.set('Content-Type', application.cvFile.contentType);
     res.set('Content-Disposition', `inline; filename="${application.cvFile.filename}"`);
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.send(application.cvFile.data);
   } catch (error) {
     console.error('Error fetching CV:', error);

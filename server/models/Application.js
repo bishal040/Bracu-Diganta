@@ -8,6 +8,7 @@ const applicationSchema = new mongoose.Schema({
   personalEmail: { type: String, required: true, trim: true, lowercase: true },
   department: { type: String, required: true, trim: true },
   currentSemester: { type: String, required: true, trim: true },
+  completedCredits: { type: String, default: '' },
 
   // Section B: Application Preference
   teamType: { type: String, required: true, enum: ['Technical', 'Non-Technical'] },
@@ -25,6 +26,9 @@ const applicationSchema = new mongoose.Schema({
   softwareTools: { type: [String], default: [] },
   comfortableTasks: { type: [String], default: [] },
   portfolioLinks: { type: String, default: '' },
+
+  // Section: Technical Specific
+  technicalSkills: { type: [String], default: [] },
 
   // Section E / Shared Questions
   skillsOrStrengths: { type: String, required: true },
