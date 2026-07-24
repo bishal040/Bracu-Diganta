@@ -59,7 +59,7 @@ export const AdminDashboard: React.FC = () => {
     // Fetch applications from the backend
     const fetchApplications = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_CAREERS_API_URL || 'http://localhost:5001/api/careers';
+        const apiUrl = import.meta.env.VITE_CAREERS_API_URL;
         const response = await fetch(`${apiUrl}/applications`);
         const data = await response.json();
         if (data.success) {
@@ -338,7 +338,7 @@ export const AdminDashboard: React.FC = () => {
                             </button>
                             {/* Mobile Button - Opens in new tab */}
                             <a
-                              href={`${import.meta.env.VITE_CAREERS_API_URL || 'http://localhost:5001/api/careers'}/cv/${app._id}`}
+                              href={`${import.meta.env.VITE_CAREERS_API_URL}/cv/${app._id}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
@@ -379,7 +379,7 @@ export const AdminDashboard: React.FC = () => {
                   <button onClick={() => setIsCvVisible(false)} className="p-2 hover:bg-slate-700 rounded-full transition-colors text-slate-300 hover:text-white"><X size={20}/></button>
                </div>
                <iframe 
-                 src={`${import.meta.env.VITE_CAREERS_API_URL || 'http://localhost:5001/api/careers'}/cv/${selectedApp._id}`} 
+                 src={`${import.meta.env.VITE_CAREERS_API_URL}/cv/${selectedApp._id}`} 
                  className="w-full h-full rounded-xl shadow-2xl bg-white" 
                  title="CV Preview"
                ></iframe>
@@ -412,7 +412,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     {/* Mobile New Tab Button */}
                     <a
-                      href={`${import.meta.env.VITE_CAREERS_API_URL || 'http://localhost:5001/api/careers'}/cv/${selectedApp._id}`}
+                      href={`${import.meta.env.VITE_CAREERS_API_URL}/cv/${selectedApp._id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex lg:hidden items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-full font-mono text-[11px] font-bold tracking-widest uppercase hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20"
