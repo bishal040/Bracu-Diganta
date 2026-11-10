@@ -320,8 +320,8 @@ export const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#eef2f5] text-gray-900 px-8 py-24 md:px-16 md:pt-32 md:pb-16">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-[#eef2f5] text-gray-900 px-3 sm:px-6 lg:px-10 pt-24 md:pt-28 pb-16">
+      <div className="w-full max-w-[1600px] mx-auto">
 
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">

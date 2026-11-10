@@ -8,6 +8,7 @@ import {
   Activity,
   Sparkles,
   User,
+  BookOpen,
 } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 import {
@@ -22,12 +23,14 @@ gsap.registerPlugin(ScrollTrigger);
 interface BlogCardProps {
   post: BlogPost;
   featuredLayout?: boolean;
+  chapterNumber?: number;
   onClick: () => void;
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({
   post,
   featuredLayout = false,
+  chapterNumber,
   onClick,
 }) => {
   const coverSrc = resolveBlogImageUrl(post.coverImage);
@@ -36,10 +39,13 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     return (
       <article
         onClick={onClick}
-        className="group relative bg-white rounded-[2rem] border border-slate-200/80 shadow-[0_15px_45px_rgba(15,23,42,0.05)] hover:shadow-[0_25px_65px_rgba(37,99,235,0.14)] hover:border-blue-300/80 transition-all duration-500 overflow-hidden cursor-pointer grid grid-cols-1 lg:grid-cols-12 mb-10"
+        className="group relative bg-white rounded-3xl border border-slate-200/90 shadow-[0_15px_45px_rgba(15,23,42,0.05)] hover:shadow-[0_25px_65px_rgba(37,99,235,0.14)] hover:border-blue-300 transition-all duration-500 overflow-hidden cursor-pointer grid grid-cols-1 lg:grid-cols-12"
       >
+        {/* Left Spine Accent */}
+        <div className="hidden lg:block absolute top-0 bottom-0 left-0 w-1.5 bg-gradient-to-b from-[#2563EB] via-cyan-400 to-blue-600 z-20" />
+
         {/* Left Image Column */}
-        <div className="lg:col-span-7 relative min-h-[260px] md:min-h-[360px] overflow-hidden bg-slate-900">
+        <div className="lg:col-span-6 xl:col-span-7 relative min-h-[240px] sm:min-h-[300px] lg:min-h-[360px] overflow-hidden bg-slate-900">
           <img
             src={coverSrc}
             alt={post.title}
@@ -49,25 +55,27 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/20 to-transparent" />
 
           {/* Top Floating Telemetry Pills */}
-          <div className="absolute top-5 left-5 right-5 flex flex-wrap items-center justify-between gap-2">
-            <div className="bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm border border-white/60">
+          <div className="absolute top-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
+            <div className="bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full flex items-center gap-2 shadow-sm border border-white/60">
               <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
               <span className="font-mono text-xs tracking-wider uppercase text-blue-700 font-bold">
                 {post.category}
               </span>
             </div>
 
-            <div className="bg-slate-900/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 flex items-center gap-2 text-white">
+            <div className="bg-slate-900/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 flex items-center gap-2 text-white">
               <Sparkles size={13} className="text-cyan-400" />
               <span className="font-mono text-xs tracking-wider uppercase font-bold">
-                FEATURED ARTICLE
+                {chapterNumber
+                  ? `CHAPTER ${String(chapterNumber).padStart(2, '0')} • LEAD`
+                  : 'LEAD CHAPTER'}
               </span>
             </div>
           </div>
 
           {/* Bottom Image HUD */}
-          <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white/90">
-            <div className="flex items-center gap-2 bg-black/45 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/15">
+          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white/90">
+            <div className="flex items-center gap-2 bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/15">
               <Activity size={14} className="text-cyan-400" />
               <span className="font-mono text-xs tracking-wider uppercase font-bold">
                 {post.recordId || 'LOG-VERIFIED'}
@@ -76,37 +84,39 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           </div>
         </div>
 
-        {/* Right Editorial Content Column */}
-        <div className="lg:col-span-5 p-7 md:p-9 lg:p-10 flex flex-col justify-between relative">
+        {/* Right Editorial Book Chapter Column */}
+        <div className="lg:col-span-6 xl:col-span-5 p-5 sm:p-7 lg:p-8 flex flex-col justify-between relative">
           <div>
-            {/* Date & Read Time */}
-            <div className="flex flex-wrap items-center gap-3 mb-3 font-mono text-xs tracking-wider uppercase text-slate-500 font-bold">
-              <span className="text-blue-600">{formatDisplayDate(post.date)}</span>
-              <span>•</span>
-              <span className="flex items-center gap-1.5">
+            {/* Running Folio Header */}
+            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-100 font-mono text-xs tracking-wider uppercase text-slate-500 font-bold">
+              <span className="text-blue-600 flex items-center gap-1.5">
+                <BookOpen size={13} />
+                {formatDisplayDate(post.date)}
+              </span>
+              <span className="flex items-center gap-1.5 text-slate-500">
                 <Clock size={13} className="text-slate-400" />
                 {post.readTime}
               </span>
             </div>
 
             {/* Title */}
-            <h3 className="font-orbitron text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 uppercase tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors">
+            <h3 className="font-orbitron text-xl sm:text-2xl lg:text-[26px] font-bold text-slate-900 uppercase tracking-tight leading-snug mb-2.5 group-hover:text-blue-600 transition-colors">
               {post.title}
             </h3>
 
             {post.subtitle && (
-              <p className="font-orbitron text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">
+              <p className="font-orbitron text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">
                 {post.subtitle}
               </p>
             )}
 
-            <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-6 line-clamp-3">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-5 line-clamp-3">
               {post.excerpt}
             </p>
 
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-1.5 mb-5">
                 {post.tags.slice(0, 4).map((tag) => (
                   <span
                     key={tag}
@@ -120,26 +130,26 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           </div>
 
           {/* Author & Read CTA */}
-          <div className="pt-5 border-t border-slate-100 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-                <User size={16} />
+          <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                <User size={15} />
               </div>
-              <div>
-                <div className="text-sm font-bold text-slate-900">
+              <div className="truncate">
+                <div className="text-sm font-bold text-slate-900 truncate">
                   {post.author}
                 </div>
-                <div className="font-mono text-xs text-slate-500">
+                <div className="font-mono text-xs text-slate-500 truncate">
                   {post.authorRole || post.category}
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-blue-600 group-hover:text-slate-900 transition-colors shrink-0">
-              <span className="hidden sm:inline">Read Article</span>
-              <div className="w-10 h-10 rounded-full bg-blue-50 group-hover:bg-blue-600 text-blue-600 group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm">
+              <span className="hidden sm:inline">Open Chapter</span>
+              <div className="w-9 h-9 rounded-full bg-blue-50 group-hover:bg-blue-600 text-blue-600 group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm">
                 <ArrowUpRight
-                  size={18}
+                  size={17}
                   className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                 />
               </div>
@@ -153,7 +163,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   return (
     <article
       onClick={onClick}
-      className="group relative bg-white rounded-[2rem] border border-slate-200/80 shadow-[0_12px_35px_rgba(15,23,42,0.04)] hover:shadow-[0_25px_55px_rgba(37,99,235,0.12)] hover:-translate-y-1.5 hover:border-blue-300/80 transition-all duration-500 overflow-hidden cursor-pointer flex flex-col justify-between"
+      className="group relative bg-white rounded-3xl border border-slate-200/90 shadow-[0_12px_35px_rgba(15,23,42,0.04)] hover:shadow-[0_25px_55px_rgba(37,99,235,0.12)] hover:-translate-y-1 hover:border-blue-300 transition-all duration-500 overflow-hidden cursor-pointer flex flex-col justify-between"
     >
       {/* Top Hover Accent Bar */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2563EB] to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
@@ -164,42 +174,50 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           <img
             src={coverSrc}
             alt={post.title}
-            className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/15 to-transparent" />
 
           {/* Category Badge */}
-          <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full flex items-center gap-2 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
-            <span className="font-mono text-xs tracking-wider uppercase text-blue-700 font-bold">
-              {post.category}
-            </span>
+          <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2">
+            <div className="bg-white/95 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+              <span className="font-mono text-xs tracking-wider uppercase text-blue-700 font-bold">
+                {post.category}
+              </span>
+            </div>
+
+            {chapterNumber && (
+              <span className="font-mono text-xs tracking-wider uppercase bg-slate-900/80 backdrop-blur-md text-white px-2.5 py-1 rounded-full border border-white/15 font-bold">
+                CH. {String(chapterNumber).padStart(2, '0')}
+              </span>
+            )}
           </div>
 
           {/* Record ID & Read Time Badge */}
-          <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
-            <span className="font-mono text-xs tracking-wider uppercase bg-black/50 backdrop-blur-md px-3 py-1 rounded-lg border border-white/15 font-semibold flex items-center gap-1.5">
+          <div className="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between text-white">
+            <span className="font-mono text-xs tracking-wider uppercase bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/15 font-semibold flex items-center gap-1.5">
               <Activity size={12} className="text-cyan-400" />
               {post.recordId || 'SYS.LOG'}
             </span>
-            <span className="font-mono text-xs tracking-wider uppercase bg-black/50 backdrop-blur-md px-3 py-1 rounded-lg border border-white/15 text-slate-200">
+            <span className="font-mono text-xs tracking-wider uppercase bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/15 text-slate-200">
               {post.readTime}
             </span>
           </div>
         </div>
 
         {/* Text Content */}
-        <div className="p-6 md:p-7">
-          <div className="flex items-center gap-2 font-mono text-xs tracking-wider uppercase text-blue-600 font-bold mb-2.5">
+        <div className="p-5 sm:p-6">
+          <div className="flex items-center justify-between font-mono text-xs tracking-wider uppercase text-blue-600 font-bold mb-2">
             <span>{formatDisplayDate(post.date)}</span>
           </div>
 
-          <h3 className="font-orbitron text-lg md:text-xl font-bold text-slate-900 uppercase tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+          <h3 className="font-orbitron text-lg sm:text-xl font-bold text-slate-900 uppercase tracking-tight leading-snug mb-2.5 group-hover:text-blue-600 transition-colors line-clamp-2">
             {post.title}
           </h3>
 
-          <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-5 line-clamp-3">
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 line-clamp-3">
             {post.excerpt}
           </p>
 
@@ -220,7 +238,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       </div>
 
       {/* Card Footer */}
-      <div className="px-6 md:px-7 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
+      <div className="px-5 sm:px-6 py-3.5 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
         <div className="truncate pr-2">
           <span className="block text-sm font-bold text-slate-800 truncate">
             {post.author}
@@ -301,7 +319,7 @@ export const BlogSection: React.FC = () => {
     <section
       id="blog"
       ref={sectionRef}
-      className="py-24 md:py-32 relative z-10 bg-[#eef2f5] border-t border-slate-200/60"
+      className="py-20 md:py-28 relative z-10 bg-[#eef2f5] border-t border-slate-200/60"
     >
       {/* Subtle Telemetry Grid Overlay */}
       <div
@@ -309,39 +327,39 @@ export const BlogSection: React.FC = () => {
         style={{
           backgroundImage:
             'radial-gradient(circle at center, #94a3b8 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
+          backgroundSize: '36px 36px',
         }}
       />
 
-      <div className="max-w-[90rem] mx-auto px-4 md:px-8 relative z-10">
+      <div className="w-full max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-10 relative z-10">
         {/* Section Header */}
-        <div className="blog-section-reveal flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-14 gap-6">
+        <div className="blog-section-reveal flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-10 gap-6">
           <div>
-            <div className="flex gap-1 mb-4">
+            <div className="flex gap-1 mb-3">
               <div className="w-2 h-2 bg-blue-600" />
               <div className="w-2 h-2 bg-blue-400" />
               <div className="w-2 h-2 bg-blue-200" />
             </div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="font-mono text-xs md:text-sm tracking-[0.25em] uppercase text-blue-600 font-bold">
-                Mission Updates & Insights
+              <span className="font-mono text-xs md:text-sm tracking-[0.22em] uppercase text-blue-600 font-bold">
+                Technical Publications & Mission Logs
               </span>
             </div>
             <h2 className="font-orbitron text-3xl sm:text-4xl md:text-5xl font-black tracking-wide uppercase drop-shadow-sm text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-cyan-500">
-              Engineering Blog
+              Engineering Journal
             </h2>
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
             <MagneticButton
-              className="inline-flex items-center gap-3 bg-gray-900 text-white hover:bg-blue-600 px-7 py-3.5 rounded-full text-xs md:text-sm font-mono uppercase tracking-wider font-bold transition-all shadow-lg"
+              className="inline-flex items-center gap-3 bg-gray-900 text-white hover:bg-blue-600 px-6 py-3.5 rounded-full text-xs md:text-sm font-mono uppercase tracking-wider font-bold transition-all shadow-lg"
               onClick={() => {
                 navigate('/blog');
                 window.scrollTo(0, 0);
               }}
             >
-              <span className="flex items-center gap-3">
-                View All Articles <ArrowUpRight size={16} />
+              <span className="flex items-center gap-2.5">
+                Open Full Journal <ArrowUpRight size={16} />
               </span>
             </MagneticButton>
           </div>
@@ -349,14 +367,14 @@ export const BlogSection: React.FC = () => {
 
         {/* Category Filter Pills */}
         {categories.length > 1 && (
-          <div className="blog-section-reveal flex flex-wrap gap-2.5 mb-10">
+          <div className="blog-section-reveal flex flex-wrap gap-2 mb-8">
             {categories.map((cat) => {
               const isActive = activeCategory === cat;
               return (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2.5 rounded-full font-mono text-xs font-bold tracking-wider uppercase transition-all ${
+                  className={`px-4 sm:px-5 py-2 rounded-full font-mono text-xs font-bold tracking-wider uppercase transition-all ${
                     isActive
                       ? 'bg-[#2563EB] text-white shadow-[0_8px_20px_rgba(37,99,235,0.3)]'
                       : 'bg-white/90 text-slate-600 hover:bg-white hover:text-blue-600 border border-slate-200/80'
@@ -371,10 +389,11 @@ export const BlogSection: React.FC = () => {
 
         {/* Featured Post Card */}
         {featuredPost && (
-          <div className="blog-section-reveal">
+          <div className="blog-section-reveal mb-8">
             <BlogCard
               post={featuredPost}
               featuredLayout={true}
+              chapterNumber={1}
               onClick={() => {
                 navigate(`/blog/${featuredPost.slug}`);
                 window.scrollTo(0, 0);
@@ -385,11 +404,12 @@ export const BlogSection: React.FC = () => {
 
         {/* Blog Cards Grid */}
         {gridPosts.length > 0 && (
-          <div className="blog-section-reveal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {gridPosts.map((post) => (
+          <div className="blog-section-reveal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {gridPosts.map((post, idx) => (
               <BlogCard
                 key={post.slug}
                 post={post}
+                chapterNumber={idx + 2}
                 onClick={() => {
                   navigate(`/blog/${post.slug}`);
                   window.scrollTo(0, 0);
