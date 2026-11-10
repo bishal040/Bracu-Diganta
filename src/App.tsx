@@ -5,7 +5,7 @@ import { Navbar } from './components/Navbar';
 import { HomePage } from './components/pages/HomePage';
 import { CansatPage } from './components/pages/CansatPage';
 import { Footer } from './components/sections/Footer';
-import { LoadingPage, TeamPage, MissionsPage, ProjectDetailPage, ComingSoonPage, NewsCansat2026Page, CareersPage, NewsTeknofest2026Page, TimelinePage } from './components/pages';
+import { LoadingPage, TeamPage, MissionsPage, ProjectDetailPage, ComingSoonPage, NewsCansat2026Page, CareersPage, NewsTeknofest2026Page, TimelinePage, BlogPage, BlogDetailPage } from './components/pages';
 import { ToastProvider } from './components/ui/ToastProvider';
 import { AuthProvider } from './context/AuthContext';
 import { AdminLogin } from './components/pages/AdminLogin';
@@ -38,10 +38,13 @@ function App() {
                   <Route path="/project/:slug" element={<ProjectDetailPage />} />
                   <Route path="/missions" element={<MissionsPage />} />
                   <Route path="/team" element={<TeamPage />} />
+                  <Route path="/blog" element={<BlogPage />} />
+                  <Route path="/blog/:slug" element={<BlogDetailPage />} />
                   <Route path="/careers" element={<CareersPage />} />
                   <Route path="/timeline" element={<TimelinePage />} />
                   <Route path="/admin/login" element={<AdminLogin />} />
                   <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                  <Route path="/admin/blogs" element={<AdminDashboard />} />
                 </Routes>
               </main>
               <Footer />

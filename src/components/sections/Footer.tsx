@@ -43,7 +43,8 @@ export const Footer: React.FC = () => {
     { label: 'Mission Overview', type: 'route', target: '/' },
     { label: 'Project Archive', type: 'route', target: '/missions' },
     { label: 'CanSat 2025', type: 'route', target: '/project/cansat-2024' },
-    { label: 'Crew Directory', type: 'route', target: '/team' }
+    { label: 'Crew Directory', type: 'route', target: '/team' },
+    { label: 'Engineering Blog', type: 'route', target: '/blog' }
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {

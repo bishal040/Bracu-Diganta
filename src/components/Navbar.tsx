@@ -83,6 +83,7 @@ export const Navbar: React.FC = () => {
     { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
     { label: 'Timeline', type: 'hash', target: 'achievements' },
     { label: 'Team', type: 'route', target: '/team' },
+    { label: 'Blog', type: 'route', target: '/blog' },
     { label: 'Contact', type: 'hash', target: 'contact' }
   ];
 
