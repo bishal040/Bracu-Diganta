@@ -8,7 +8,7 @@ author: "Computational Intelligence & Comms"
 authorRole: "Ground Station & RF Subsystem"
 category: "Communications & Telemetry"
 tags: ["Telemetry", "Ground Station", "LoRa", "RF Engineering", "Software"]
-coverImage: "https://i.ibb.co.com/KxThc0hN/Whats-App-Image-2026-06-17-at-01-47-36-1.jpg"
+coverImage: "/blogs/images/ground-station-cover.jpg"
 readTime: "7 MIN READ"
 featured: false
 recordId: "LOG-COMMS-03"
@@ -23,8 +23,8 @@ specs:
   - label: "UI Frame Rate"
     value: "60 FPS WebGL Telemetry"
 gallery:
-  - "https://i.ibb.co.com/prbVZ8sb/Whats-App-Image-2026-06-17-at-01-47-35.jpg"
-  - "https://i.ibb.co.com/bj7QSj2S/Whats-App-Image-2026-06-17-at-01-47-36-2.jpg"
+  - "/blogs/images/mission-planning.jpg"
+  - "/blogs/images/team-assembly.jpg"
 ---
 
 ## Why Ground Station Reliability Matters
@@ -33,7 +33,7 @@ In competitive aerospace missions like **CanSat** and **TEKNOFEST**, a payload i
 
 Our Communications & Data Handling and Computational Intelligence subsystems collaborated to build a fault-tolerant telemetry pipeline from the antenna feedline all the way to the 3D WebGL ground control dashboard.
 
-![Strategy & Ground Station Session](https://i.ibb.co.com/KxThc0hN/Whats-App-Image-2026-06-17-at-01-47-36-1.jpg)
+![Strategy & Ground Station Session](/blogs/images/ground-station-cover.jpg)
 
 ## Binary Framing & Forward Error Correction
 
@@ -73,9 +73,8 @@ Using **CST Studio Suite**, our RF engineers designed and tuned a custom 5-eleme
 
 > "During line-of-sight field tests across 2.6 kilometers in Dhaka, our receiver maintained an RSSI above -88 dBm with a 99.8% packet delivery ratio." — Communications Subsystem Lead
 
-![Field Range Testing](https://i.ibb.co.com/prbVZ8sb/Whats-App-Image-2026-06-17-at-01-47-35.jpg)
+![Mission Field Planning](/blogs/images/mission-planning.jpg)
 
 ## Real-Time 3D Attitude & Trajectory Visualization
 
 The Ground Control Station software renders live 60 FPS plots of altitude, descent rate, battery voltage, and GPS trajectory alongside a 3D CAD twin of the payload driven by live quaternion telemetry. Even if serial cables are accidentally unplugged mid-flight, automatic port reconnection and ring-buffer replay ensure zero visual interruption.
-

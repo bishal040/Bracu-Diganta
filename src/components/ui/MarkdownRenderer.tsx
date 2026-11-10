@@ -7,8 +7,23 @@ interface MarkdownRendererProps {
   className?: string;
 }
 
+function resolveImageUrl(src: string): string {
+  if (!src) return '';
+  if (
+    src.startsWith('http://') ||
+    src.startsWith('https://') ||
+    src.startsWith('data:')
+  ) {
+    return src;
+  }
+  const base = import.meta.env.BASE_URL || '/';
+  if (src.startsWith('/')) {
+    return `${base.replace(/\/$/, '')}${src}`;
+  }
+  return `${base}${src}`;
+}
+
 function renderInline(text: string): React.ReactNode[] {
-  // Tokenize inline markdown: inline code, images, links, bold, italic
   const tokens: React.ReactNode[] = [];
   let remaining = text;
   let keyIdx = 0;
@@ -30,20 +45,18 @@ function renderInline(text: string): React.ReactNode[] {
     const fullMatch = match[0];
 
     if (match[1]) {
-      // Inline code `code`
       const codeText = match[1].slice(1, -1);
       tokens.push(
         <code
           key={`code-${keyIdx++}`}
-          className="font-mono text-[0.85em] bg-blue-50/90 text-blue-700 border border-blue-200/70 px-2 py-0.5 rounded-md font-semibold"
+          className="font-mono text-sm bg-blue-50/90 text-blue-700 border border-blue-200/70 px-2 py-0.5 rounded-md font-semibold"
         >
           {codeText}
         </code>
       );
     } else if (match[2]) {
-      // Inline image ![alt](src)
       const alt = match[3] || '';
-      const src = match[4] || '';
+      const src = resolveImageUrl(match[4] || '');
       tokens.push(
         <img
           key={`img-${keyIdx++}`}
@@ -53,7 +66,6 @@ function renderInline(text: string): React.ReactNode[] {
         />
       );
     } else if (match[5]) {
-      // Link [label](url)
       const label = match[6];
       const url = match[7];
       tokens.push(
@@ -68,14 +80,12 @@ function renderInline(text: string): React.ReactNode[] {
         </a>
       );
     } else if (match[8]) {
-      // Bold **text**
       tokens.push(
         <strong key={`bold-${keyIdx++}`} className="font-bold text-slate-900">
           {match[9]}
         </strong>
       );
     } else if (match[10]) {
-      // Italic *text*
       tokens.push(
         <em key={`em-${keyIdx++}`} className="italic text-slate-800">
           {match[11]}
@@ -110,28 +120,28 @@ const CodeBlock: React.FC<{ language: string; code: string }> = ({
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
           </div>
-          <span className="ml-2 font-mono text-[10px] tracking-[0.2em] uppercase text-blue-400 font-bold flex items-center gap-1.5">
-            <Terminal size={12} />
-            {language || 'TELEMETRY.SRC'}
+          <span className="ml-2 font-mono text-xs tracking-wider uppercase text-blue-400 font-bold flex items-center gap-1.5">
+            <Terminal size={13} />
+            {language || 'CODE'}
           </span>
         </div>
         <button
           type="button"
           onClick={handleCopy}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-[10px] uppercase tracking-wider transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-xs uppercase tracking-wider transition-colors"
         >
           {copied ? (
             <>
-              <Check size={12} className="text-emerald-400" /> Copied
+              <Check size={13} className="text-emerald-400" /> Copied
             </>
           ) : (
             <>
-              <Copy size={12} /> Copy
+              <Copy size={13} /> Copy
             </>
           )}
         </button>
       </div>
-      <pre className="p-5 overflow-x-auto font-mono text-xs md:text-sm leading-relaxed text-slate-200">
+      <pre className="p-5 overflow-x-auto font-mono text-sm leading-relaxed text-slate-200">
         <code>{code}</code>
       </pre>
     </div>
@@ -166,7 +176,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         codeLines.push(lines[i]);
         i++;
       }
-      i++; // skip closing ```
+      i++;
       elements.push(
         <CodeBlock
           key={`cb-${blockKey++}`}
@@ -182,14 +192,14 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       elements.push(
         <hr
           key={`hr-${blockKey++}`}
-          className="my-10 border-t border-slate-200"
+          className="my-8 border-t border-slate-200"
         />
       );
       i++;
       continue;
     }
 
-    // 3. Headings (#, ##, ###, ####)
+    // 3. Headings (#, ##, ###, ####) — Balanced & harmonious sizing
     const headingMatch = trimmed.match(/^(#{1,4})\s+(.+)$/);
     if (headingMatch) {
       const level = headingMatch[1].length;
@@ -201,19 +211,23 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
           <h2
             id={id}
             key={`h1-${blockKey++}`}
-            className="font-orbitron text-3xl md:text-4xl font-black uppercase text-slate-900 tracking-tight mt-12 mb-6 scroll-mt-28"
+            className="font-orbitron text-2xl md:text-3xl font-bold uppercase text-slate-900 tracking-tight mt-10 mb-4 scroll-mt-28"
           >
             {renderInline(text)}
           </h2>
         );
       } else if (level === 2) {
         elements.push(
-          <div key={`h2-${blockKey++}`} id={id} className="mt-12 mb-6 scroll-mt-28">
+          <div
+            key={`h2-${blockKey++}`}
+            id={id}
+            className="mt-10 mb-4 scroll-mt-28"
+          >
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 bg-blue-600 rounded-sm" />
               <span className="w-1.5 h-1.5 bg-cyan-400 rounded-sm" />
             </div>
-            <h2 className="font-orbitron text-2xl md:text-3xl font-bold uppercase text-slate-900 tracking-tight">
+            <h2 className="font-orbitron text-xl md:text-2xl font-bold uppercase text-slate-900 tracking-tight leading-snug">
               {renderInline(text)}
             </h2>
           </div>
@@ -223,7 +237,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
           <h3
             id={id}
             key={`h3-${blockKey++}`}
-            className="font-orbitron text-lg md:text-xl font-bold uppercase text-slate-800 tracking-wide mt-8 mb-4 scroll-mt-28"
+            className="font-orbitron text-lg md:text-xl font-bold uppercase text-slate-800 tracking-wide mt-8 mb-3 scroll-mt-28 leading-snug"
           >
             {renderInline(text)}
           </h3>
@@ -237,28 +251,27 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
     const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (imgMatch) {
       const caption = imgMatch[1].trim();
-      const src = imgMatch[2].trim();
+      const src = resolveImageUrl(imgMatch[2].trim());
       elements.push(
         <figure
           key={`fig-${blockKey++}`}
-          className="my-10 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(15,23,42,0.1)] relative group border border-slate-200/80 bg-slate-900"
+          className="my-8 rounded-3xl overflow-hidden shadow-[0_15px_40px_rgba(15,23,42,0.08)] relative group border border-slate-200/80 bg-slate-900"
         >
-          <div className="max-h-[480px] overflow-hidden relative">
+          <div className="max-h-[440px] overflow-hidden relative">
             <img
               src={src}
               alt={caption || 'Mission visual'}
               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500" />
           </div>
           {caption && (
             <figcaption className="px-6 py-3.5 bg-white border-t border-slate-100 flex items-center justify-between">
               <span className="font-mono text-xs text-slate-600 font-semibold tracking-wider uppercase">
                 {caption}
               </span>
-              <span className="font-mono text-[10px] text-blue-600 uppercase tracking-widest font-bold">
-                FIG // VISUAL LOG
+              <span className="font-mono text-xs text-blue-600 uppercase tracking-widest font-bold">
+                VISUAL LOG
               </span>
             </figcaption>
           )}
@@ -276,7 +289,6 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         i++;
       }
       const fullQuote = quoteLines.join(' ');
-      // Separate optional attribution (e.g., "— Author")
       const dashSplit = fullQuote.split(/\s+—\s+/);
       const quoteBody = dashSplit[0].replace(/^"|"$/g, '');
       const quoteAuthor = dashSplit[1];
@@ -284,14 +296,14 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       elements.push(
         <div
           key={`quote-${blockKey++}`}
-          className="my-10 p-8 bg-white border border-slate-200 rounded-3xl relative overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.04)]"
+          className="my-8 p-6 md:p-8 bg-white border border-slate-200 rounded-3xl relative overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
         >
           <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-blue-600 to-cyan-500" />
-          <p className="font-mono text-sm md:text-base text-slate-700 italic leading-relaxed font-medium">
+          <p className="text-base text-slate-700 italic leading-relaxed font-medium">
             "{renderInline(quoteBody)}"
           </p>
           {quoteAuthor && (
-            <span className="block mt-4 font-bold text-blue-700 text-xs font-mono uppercase tracking-[0.2em]">
+            <span className="block mt-3 font-bold text-blue-700 text-xs font-mono uppercase tracking-wider">
               — {quoteAuthor}
             </span>
           )}
@@ -308,13 +320,13 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         i++;
       }
       elements.push(
-        <ul key={`ul-${blockKey++}`} className="my-6 space-y-3">
+        <ul key={`ul-${blockKey++}`} className="my-5 space-y-2.5">
           {items.map((item, idx) => (
             <li
               key={idx}
-              className="flex items-start gap-3.5 text-slate-600 text-base md:text-lg leading-relaxed"
+              className="flex items-start gap-3 text-slate-600 text-base leading-relaxed"
             >
-              <span className="mt-2.5 w-2 h-2 rounded-full bg-blue-600 shrink-0 shadow-[0_0_8px_rgba(37,99,235,0.4)]" />
+              <span className="mt-2.5 w-2 h-2 rounded-full bg-blue-600 shrink-0" />
               <span>{renderInline(item)}</span>
             </li>
           ))}
@@ -331,13 +343,13 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         i++;
       }
       elements.push(
-        <ol key={`ol-${blockKey++}`} className="my-6 space-y-4">
+        <ol key={`ol-${blockKey++}`} className="my-6 space-y-3">
           {items.map((item, idx) => (
             <li
               key={idx}
-              className="flex items-start gap-4 text-slate-600 text-base md:text-lg leading-relaxed bg-white/80 border border-slate-200/70 rounded-2xl p-4 shadow-sm"
+              className="flex items-start gap-3.5 text-slate-600 text-base leading-relaxed bg-white/90 border border-slate-200/80 rounded-2xl p-4 shadow-sm"
             >
-              <span className="font-orbitron font-black text-xs text-blue-600 bg-blue-50 border border-blue-200 rounded-lg px-2.5 py-1 shrink-0 mt-0.5">
+              <span className="font-orbitron font-bold text-xs text-blue-600 bg-blue-50 border border-blue-200 rounded-lg px-2.5 py-1 shrink-0 mt-0.5">
                 0{idx + 1}
               </span>
               <span className="flex-1">{renderInline(item)}</span>
@@ -398,7 +410,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
                     {row.map((cell, cIdx) => (
                       <td
                         key={cIdx}
-                        className="px-5 py-3.5 text-sm text-slate-600"
+                        className="px-5 py-3.5 text-sm md:text-base text-slate-600"
                       >
                         {renderInline(cell)}
                       </td>
@@ -433,7 +445,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
     elements.push(
       <p
         key={`p-${blockKey++}`}
-        className="text-slate-600 text-base md:text-lg leading-relaxed mb-6 font-normal"
+        className="text-slate-600 text-base leading-relaxed mb-5 font-normal"
       >
         {renderInline(paraText)}
       </p>

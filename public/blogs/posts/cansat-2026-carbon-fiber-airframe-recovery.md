@@ -8,7 +8,7 @@ author: "Mechanical Subsystem"
 authorRole: "Structures & Aerodynamics Division"
 category: "Mechanical Systems"
 tags: ["CanSat 2026", "Composites", "CFD", "Aerodynamics", "Recovery System"]
-coverImage: "https://i.ibb.co.com/W42n1dsP/Whats-App-Image-2026-06-17-at-01-47-48-2.jpg"
+coverImage: "/blogs/images/cansat-airframe-cover.jpg"
 readTime: "5 MIN READ"
 featured: false
 recordId: "LOG-MECH-02"
@@ -23,9 +23,9 @@ specs:
   - label: "Structural Factor"
     value: "2.8x Safety Margin"
 gallery:
-  - "https://i.ibb.co.com/ynNs3gYr/Whats-App-Image-2026-06-17-at-01-47-37-1.jpg"
-  - "https://i.ibb.co.com/7d2MTKMm/Whats-App-Image-2026-06-17-at-01-47-37-2.jpg"
-  - "https://i.ibb.co.com/WvJvYjYj/Whats-App-Image-2026-06-17-at-01-47-35-2.jpg"
+  - "/blogs/images/deployment-simulation.jpg"
+  - "/blogs/images/hardware-fabrication.jpg"
+  - "/blogs/images/mission-planning.jpg"
 ---
 
 ## The 600-Gram Engineering Challenge
@@ -34,7 +34,7 @@ Qualifying in the top 5% globally for the **International CanSat Competition 202
 
 Early prototypes fabricated entirely from 3D-printed PETG exceeded our structural mass allocation by 85 grams and exhibited flex during `15 G` rocket deployment shock simulations.
 
-![Deployment Simulation](https://i.ibb.co.com/ynNs3gYr/Whats-App-Image-2026-06-17-at-01-47-37-1.jpg)
+![Deployment Simulation](/blogs/images/deployment-simulation.jpg)
 
 ## Hybrid Carbon-Fiber & SLA Chassis Architecture
 
@@ -58,7 +58,7 @@ Using **ANSYS Fluent**, we simulated transient wake turbulence behind the blunt-
 - **Recovery Parachute & Kevlar Harness:** `78 g`
 - **Margin Reserve:** `78 g` (Total: `522 g`, well below the `600 g` threshold)
 
-![Hardware Fabrication](https://i.ibb.co.com/7d2MTKMm/Whats-App-Image-2026-06-17-at-01-47-37-2.jpg)
+![Hardware Fabrication](/blogs/images/hardware-fabrication.jpg)
 
 ## Environmental & Drop Testing
 

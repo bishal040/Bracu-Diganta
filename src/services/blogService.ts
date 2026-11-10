@@ -12,9 +12,55 @@ const bundledMarkdownModules = import.meta.glob('/src/content/blogs/*.md', {
   eager: true,
 }) as Record<string, string>;
 
-const OVERRIDES_STORAGE_KEY = 'diganta_blog_md_overrides_v1';
-const DELETED_STORAGE_KEY = 'diganta_blog_md_deleted_v1';
+const OVERRIDES_STORAGE_KEY = 'diganta_blog_md_overrides_v2';
+const DELETED_STORAGE_KEY = 'diganta_blog_md_deleted_v2';
 const GITHUB_CONFIG_STORAGE_KEY = 'diganta_github_cms_config_v1';
+
+export const BUILTIN_BLOG_IMAGES: { filename: string; url: string }[] = [
+  { filename: 'sigma-guidance-cover.jpg', url: '/blogs/images/sigma-guidance-cover.jpg' },
+  { filename: 'sigma-prototype.jpg', url: '/blogs/images/sigma-prototype.jpg' },
+  { filename: 'avionics-bay-testing.jpg', url: '/blogs/images/avionics-bay-testing.jpg' },
+  { filename: 'cansat-airframe-cover.jpg', url: '/blogs/images/cansat-airframe-cover.jpg' },
+  { filename: 'deployment-simulation.jpg', url: '/blogs/images/deployment-simulation.jpg' },
+  { filename: 'hardware-fabrication.jpg', url: '/blogs/images/hardware-fabrication.jpg' },
+  { filename: 'ground-station-cover.jpg', url: '/blogs/images/ground-station-cover.jpg' },
+  { filename: 'mission-planning.jpg', url: '/blogs/images/mission-planning.jpg' },
+  { filename: 'team-assembly.jpg', url: '/blogs/images/team-assembly.jpg' },
+];
+
+export function resolveBlogImageUrl(url: string): string {
+  if (!url) return '/blogs/images/cansat-airframe-cover.jpg';
+  if (
+    url.startsWith('http://') ||
+    url.startsWith('https://') ||
+    url.startsWith('data:')
+  ) {
+    return url;
+  }
+  const base = import.meta.env.BASE_URL || '/';
+  if (url.startsWith('/')) {
+    return `${base.replace(/\/$/, '')}${url}`;
+  }
+  return `${base}${url}`;
+}
+
+export async function fetchStoredBlogImages(): Promise<
+  { filename: string; url: string }[]
+> {
+  try {
+    const apiBase = getApiBaseUrl();
+    const res = await fetch(`${apiBase}/images`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && Array.isArray(data.images)) {
+        return data.images;
+      }
+    }
+  } catch {
+    // fallback to builtin list
+  }
+  return BUILTIN_BLOG_IMAGES;
+}
 
 export interface GitHubCMSConfig {
   owner: string;

@@ -46,11 +46,14 @@ import {
 import {
   type GitHubCMSConfig,
   type GitStatusInfo,
+  BUILTIN_BLOG_IMAGES,
   deleteBlogPost,
   fetchAllBlogs,
   fetchGitStatus,
+  fetchStoredBlogImages,
   getAllBlogsSync,
   getGitHubConfig,
+  resolveBlogImageUrl,
   saveBlogPost,
   saveGitHubConfig,
   triggerGitSync,
@@ -141,6 +144,10 @@ export const AdminBlogManager: React.FC = () => {
   // GitHub Settings Modal
   const [isGhModalOpen, setIsGhModalOpen] = useState(false);
   const [ghConfig, setGhConfig] = useState<GitHubCMSConfig>(() => getGitHubConfig());
+  const [storedImages, setStoredImages] = useState<{ filename: string; url: string }[]>(
+    BUILTIN_BLOG_IMAGES
+  );
+  const [showCoverLibrary, setShowCoverLibrary] = useState(false);
 
   // Refs for file inputs and markdown textarea
   const mdFileInputRef = useRef<HTMLInputElement>(null);
@@ -152,8 +159,12 @@ export const AdminBlogManager: React.FC = () => {
   const refreshBlogsAndGit = async () => {
     setLoading(true);
     try {
-      const freshPosts = await fetchAllBlogs(true);
+      const [freshPosts, imgs] = await Promise.all([
+        fetchAllBlogs(true),
+        fetchStoredBlogImages(),
+      ]);
       setPosts(freshPosts);
+      setStoredImages(imgs);
       if (user) {
         const token = await user.getIdToken();
         const gs = await fetchGitStatus(token);
@@ -432,6 +443,10 @@ export const AdminBlogManager: React.FC = () => {
         autoPush,
       });
       setDraftPost((prev) => ({ ...prev, coverImage: uploaded.url }));
+      setStoredImages((prev) => [
+        { filename: uploaded.filename, url: uploaded.url },
+        ...prev.filter((i) => i.url !== uploaded.url),
+      ]);
       showToast(`Uploaded cover image: ${uploaded.filename}`, 'success');
     } catch (err: any) {
       showToast(err.message || 'Image upload failed', 'error');
@@ -500,6 +515,10 @@ export const AdminBlogManager: React.FC = () => {
         ...prev,
         gallery: [...(prev.gallery || []), uploaded.url],
       }));
+      setStoredImages((prev) => [
+        { filename: uploaded.filename, url: uploaded.url },
+        ...prev.filter((i) => i.url !== uploaded.url),
+      ]);
       showToast(`Added ${uploaded.filename} to gallery!`, 'success');
     } catch (err: any) {
       showToast(err.message || 'Gallery upload failed', 'error');
@@ -854,7 +873,7 @@ export const AdminBlogManager: React.FC = () => {
               >
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1 min-w-0">
                   <img
-                    src={post.coverImage}
+                    src={resolveBlogImageUrl(post.coverImage)}
                     alt={post.title}
                     className="w-full sm:w-28 h-20 rounded-xl object-cover shrink-0 bg-slate-900 border border-slate-200"
                   />
@@ -1285,31 +1304,80 @@ export const AdminBlogManager: React.FC = () => {
                         </div>
 
                         <div className="md:col-span-2">
-                          <label className="block font-mono text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-1">
-                            Cover Image (Upload File or Paste URL)
+                          <label className="block font-mono text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-2">
+                            Cover Image (Stored in public/blogs/images/)
                           </label>
-                          <div className="flex flex-col sm:flex-row gap-2.5">
-                            <input
-                              type="text"
-                              value={draftPost.coverImage}
-                              onChange={(e) =>
-                                setDraftPost((prev) => ({
-                                  ...prev,
-                                  coverImage: e.target.value,
-                                }))
-                              }
-                              placeholder="https://... or /blogs/images/..."
-                              className="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:bg-white focus:border-blue-500 outline-none"
-                            />
-                            <button
-                              type="button"
-                              onClick={() => coverImageInputRef.current?.click()}
-                              disabled={isUploadingImage}
-                              className="px-4 py-2.5 bg-slate-900 hover:bg-blue-600 text-white rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shrink-0 transition-colors"
-                            >
-                              <Upload size={14} />
-                              {isUploadingImage ? 'Uploading...' : 'Upload Image'}
-                            </button>
+                          <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                              <img
+                                src={resolveBlogImageUrl(draftPost.coverImage)}
+                                alt="Cover preview"
+                                className="w-full sm:w-36 h-24 rounded-xl object-cover bg-slate-900 border border-slate-200 shrink-0"
+                              />
+                              <div className="space-y-2 flex-1">
+                                <div className="flex flex-wrap gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => coverImageInputRef.current?.click()}
+                                    disabled={isUploadingImage}
+                                    className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors shadow-sm"
+                                  >
+                                    <Upload size={14} />
+                                    {isUploadingImage
+                                      ? 'Uploading Image...'
+                                      : 'Upload Image from Computer'}
+                                  </button>
+
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setShowCoverLibrary((prev) => !prev)
+                                    }
+                                    className="px-4 py-2.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors"
+                                  >
+                                    <ImageIcon size={14} />
+                                    {showCoverLibrary
+                                      ? 'Hide Stored Images'
+                                      : `Choose Stored Image (${storedImages.length})`}
+                                  </button>
+                                </div>
+                                <p className="font-mono text-xs text-slate-500 truncate">
+                                  Active file: <strong className="text-slate-700">{draftPost.coverImage}</strong>
+                                </p>
+                              </div>
+                            </div>
+
+                            {showCoverLibrary && storedImages.length > 0 && (
+                              <div className="pt-3 border-t border-slate-200 grid grid-cols-3 sm:grid-cols-5 gap-2.5 max-h-48 overflow-y-auto">
+                                {storedImages.map((img) => {
+                                  const isSelected = draftPost.coverImage === img.url;
+                                  return (
+                                    <button
+                                      key={img.url}
+                                      type="button"
+                                      onClick={() => {
+                                        setDraftPost((prev) => ({
+                                          ...prev,
+                                          coverImage: img.url,
+                                        }));
+                                        setShowCoverLibrary(false);
+                                      }}
+                                      className={`relative aspect-video rounded-xl overflow-hidden border-2 transition-all group ${
+                                        isSelected
+                                          ? 'border-blue-600 ring-2 ring-blue-500/30'
+                                          : 'border-slate-200 hover:border-blue-400'
+                                      }`}
+                                    >
+                                      <img
+                                        src={resolveBlogImageUrl(img.url)}
+                                        alt={img.filename}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
                           </div>
                         </div>
 
@@ -1542,7 +1610,7 @@ export const AdminBlogManager: React.FC = () => {
                                 className="relative group aspect-video rounded-xl overflow-hidden border border-slate-200 bg-slate-900"
                               >
                                 <img
-                                  src={imgUrl}
+                                  src={resolveBlogImageUrl(imgUrl)}
                                   alt=""
                                   className="w-full h-full object-cover"
                                 />
@@ -1645,7 +1713,7 @@ export const AdminBlogManager: React.FC = () => {
                       {draftPost.coverImage && (
                         <div className="rounded-2xl overflow-hidden aspect-video mb-6 bg-slate-900">
                           <img
-                            src={draftPost.coverImage}
+                            src={resolveBlogImageUrl(draftPost.coverImage)}
                             alt="Cover"
                             className="w-full h-full object-cover"
                           />

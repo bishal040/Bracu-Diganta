@@ -25,8 +25,7 @@ export interface BlogPost {
   updatedAt?: string;
 }
 
-export const DEFAULT_COVER_IMAGE =
-  'https://i.ibb.co.com/W42n1dsP/Whats-App-Image-2026-06-17-at-01-47-48-2.jpg';
+export const DEFAULT_COVER_IMAGE = '/blogs/images/cansat-airframe-cover.jpg';
 
 export function slugify(text: string): string {
   return text
@@ -348,3 +347,4 @@ export function extractHeadings(markdown: string): HeadingItem[] {
   }
   return headings;
 }
+

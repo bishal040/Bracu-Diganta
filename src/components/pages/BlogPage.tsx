@@ -6,18 +6,13 @@ import {
   Search,
   BookOpen,
   X,
-  FileCode2,
-  Settings,
 } from 'lucide-react';
-import { MagneticButton } from '../ui/MagneticButton';
 import { BlogCard } from '../sections/BlogSection';
 import { fetchAllBlogs, getAllBlogsSync } from '../../services/blogService';
 import { type BlogPost } from '../../utils/markdown';
-import { useAuth } from '../../context/AuthContext';
 
 export const BlogPage: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const pageRef = useRef<HTMLDivElement>(null);
 
   const [posts, setPosts] = useState<BlogPost[]>(() => getAllBlogsSync(false));
@@ -105,47 +100,34 @@ export const BlogPage: React.FC = () => {
 
       <div className="max-w-[90rem] mx-auto relative z-10">
         {/* Top Bar Navigation */}
-        <div className="blog-page-reveal flex flex-wrap items-center justify-between gap-4 mb-10">
+        <div className="blog-page-reveal flex items-center justify-between mb-8">
           <button
             onClick={() => navigate('/')}
-            className="group flex items-center gap-3 text-slate-500 hover:text-slate-900 transition-colors"
+            className="group flex items-center gap-3 text-slate-600 hover:text-slate-900 transition-colors"
           >
             <div className="w-10 h-10 rounded-full border border-slate-300 bg-white flex items-center justify-center group-hover:border-blue-500 group-hover:bg-blue-50 transition-all shadow-sm">
               <ArrowLeft size={16} />
             </div>
-            <span className="font-mono text-xs tracking-widest uppercase font-bold">
-              Return to Base
+            <span className="font-mono text-xs md:text-sm tracking-wider uppercase font-bold">
+              Return to Hub
             </span>
           </button>
-
-          {user && (
-            <MagneticButton
-              onClick={() => navigate('/admin/dashboard?tab=blogs')}
-              className="inline-flex items-center gap-2 bg-slate-900 text-white hover:bg-blue-600 px-5 py-2.5 rounded-full font-mono text-[11px] uppercase tracking-widest font-bold transition-all shadow-md"
-            >
-              <Settings size={14} /> Manage Blogs in Admin
-            </MagneticButton>
-          )}
         </div>
 
         {/* Hero Header */}
-        <div className="blog-page-reveal pb-12 mb-12 border-b border-slate-200/80 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+        <div className="blog-page-reveal pb-10 mb-10 border-b border-slate-200/80 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-blue-100 border border-blue-200 px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm">
                 <BookOpen size={14} className="text-blue-600" />
-                <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-blue-700 font-bold">
+                <span className="text-xs font-mono tracking-wider uppercase text-blue-700 font-bold">
                   Technical Publications & Mission Logs
                 </span>
               </div>
-              <span className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] text-slate-500 uppercase tracking-widest">
-                <FileCode2 size={14} className="text-blue-500" />
-                {posts.length} Markdown Articles
-              </span>
             </div>
 
-            <h1 className="font-orbitron text-5xl md:text-7xl font-black text-slate-900 tracking-tighter uppercase leading-[0.95]">
-              Diganta <br />
+            <h1 className="font-orbitron text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight uppercase leading-tight">
+              Diganta{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-cyan-500">
                 Engineering Blog
               </span>
@@ -163,7 +145,7 @@ export const BlogPage: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search logs, tags, subsystems..."
+                placeholder="Search articles, topics, subsystems..."
                 className="w-full pl-12 pr-10 py-3.5 bg-white border border-slate-200 rounded-full text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-sm transition-all"
               />
               {searchQuery && (
@@ -179,14 +161,14 @@ export const BlogPage: React.FC = () => {
         </div>
 
         {/* Category Filter Pills */}
-        <div className="blog-page-reveal flex flex-wrap items-center gap-2 mb-12">
+        <div className="blog-page-reveal flex flex-wrap items-center gap-2.5 mb-10">
           {categories.map((cat) => {
             const isActive = activeCategory === cat;
             return (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full font-mono text-xs font-bold tracking-[0.15em] uppercase transition-all ${
+                className={`px-5 py-2.5 rounded-full font-mono text-xs font-bold tracking-wider uppercase transition-all ${
                   isActive
                     ? 'bg-[#2563EB] text-white shadow-[0_8px_20px_rgba(37,99,235,0.3)]'
                     : 'bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 border border-slate-200/80 shadow-sm'
@@ -224,17 +206,17 @@ export const BlogPage: React.FC = () => {
           !featuredPost && (
             <div className="bg-white rounded-3xl p-12 text-center border border-slate-200/80 shadow-sm">
               <p className="font-orbitron text-xl font-bold text-slate-800 uppercase mb-2">
-                No matching mission logs found
+                No matching articles found
               </p>
-              <p className="text-slate-500 text-sm mb-6">
-                Try clearing your search query or selecting a different subsystem category.
+              <p className="text-slate-500 text-sm md:text-base mb-6">
+                Try clearing your search query or selecting a different category.
               </p>
               <button
                 onClick={() => {
                   setSearchQuery('');
                   setActiveCategory('ALL');
                 }}
-                className="px-6 py-2.5 bg-blue-600 text-white rounded-full font-mono text-xs uppercase tracking-widest font-bold hover:bg-blue-700 transition-colors"
+                className="px-6 py-2.5 bg-blue-600 text-white rounded-full font-mono text-xs uppercase tracking-wider font-bold hover:bg-blue-700 transition-colors"
               >
                 Reset Filters
               </button>

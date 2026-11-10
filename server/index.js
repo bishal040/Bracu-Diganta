@@ -297,11 +297,38 @@ function sanitizeSlug(slug) {
 }
 
 async function runGitCommand(args) {
+  const enhancedPath = `/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:${process.env.PATH || ''}`;
   const { stdout, stderr } = await execFileAsync('git', args, {
     cwd: PROJECT_ROOT,
-    env: { ...process.env }
+    env: { ...process.env, PATH: enhancedPath }
   });
   return { stdout: stdout.trim(), stderr: stderr.trim() };
+}
+
+async function rebuildBlogManifest() {
+  try {
+    const files = await fs.readdir(SRC_BLOGS_DIR);
+    const mdFiles = files.filter(f => f.endsWith('.md')).sort();
+    const posts = await Promise.all(
+      mdFiles.map(async (filename) => {
+        const filePath = path.join(SRC_BLOGS_DIR, filename);
+        const rawMarkdown = await fs.readFile(filePath, 'utf-8');
+        return {
+          filename,
+          slug: filename.replace(/\.md$/i, ''),
+          rawMarkdown
+        };
+      })
+    );
+    const manifestPath = path.join(PROJECT_ROOT, 'public/blogs/manifest.json');
+    await fs.writeFile(
+      manifestPath,
+      JSON.stringify({ updatedAt: new Date().toISOString(), posts }, null, 2),
+      'utf-8'
+    );
+  } catch (err) {
+    console.warn('Failed to rebuild blog manifest:', err.message);
+  }
 }
 
 async function commitAndOptionallyPush({ commitMessage, autoPush = false, remote = 'origin', branch }) {
@@ -465,7 +492,22 @@ app.delete('/api/blogs/:slug', requireAdmin, async (req, res) => {
   }
 });
 
-// 4. UPLOAD IMAGE for blog post (saved to public/blogs/images/)
+// 4. LIST stored blog images in public/blogs/images/
+app.get('/api/blogs/images', async (req, res) => {
+  try {
+    const files = await fs.readdir(PUBLIC_IMAGES_DIR);
+    const imageFiles = files.filter(f => /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(f));
+    const images = imageFiles.map(filename => ({
+      filename,
+      url: `/blogs/images/${filename}`
+    }));
+    res.status(200).json({ success: true, images });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to list blog images' });
+  }
+});
+
+// 5. UPLOAD IMAGE for blog post (saved to public/blogs/images/)
 app.post('/api/blogs/upload-image', requireAdmin, blogUpload.single('image'), async (req, res) => {
   try {
     if (!req.file) {

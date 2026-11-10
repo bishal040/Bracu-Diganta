@@ -8,7 +8,7 @@ author: "Avionics & GNC Division"
 authorRole: "Flight Control & Embedded Systems"
 category: "Avionics & GNC"
 tags: ["TEKNOFEST 2026", "SIGMA", "Active Guidance", "Flight Control", "Telemetry"]
-coverImage: "https://i.ibb.co.com/9k2RzPY7/Whats-App-Image-2026-06-17-at-01-47-41-1.jpg"
+coverImage: "/blogs/images/sigma-guidance-cover.jpg"
 readTime: "6 MIN READ"
 featured: true
 recordId: "LOG-SIGMA-01"
@@ -23,10 +23,10 @@ specs:
   - label: "Downlink Link"
     value: "Dual-Band RF + Video"
 gallery:
-  - "https://i.ibb.co.com/Ndzxfmbc/Whats-App-Image-2026-06-17-at-01-47-42-1.jpg"
-  - "https://i.ibb.co.com/wh0nz9mJ/Whats-App-Image-2026-06-17-at-01-47-44-2.jpg"
-  - "https://i.ibb.co.com/8DKLyHWS/Whats-App-Image-2026-06-17-at-01-47-35-1.jpg"
-  - "https://i.ibb.co.com/KxThc0hN/Whats-App-Image-2026-06-17-at-01-47-36-1.jpg"
+  - "/blogs/images/sigma-prototype.jpg"
+  - "/blogs/images/avionics-bay-testing.jpg"
+  - "/blogs/images/team-assembly.jpg"
+  - "/blogs/images/ground-station-cover.jpg"
 ---
 
 ## Mission Architecture Overview
@@ -35,7 +35,7 @@ Advancing to the Project Design Review (PDR) stage of **TEKNOFEST 2026** require
 
 Unlike passive parachute-only recovery architectures, SIGMA incorporates an active mechanical actuator coupled with a propulsion-assisted descent module. This ensures attitude stabilization while maintaining continuous line-of-sight video and sensor telemetry with the ground station.
 
-![SIGMA Prototype Integration](https://i.ibb.co.com/Ndzxfmbc/Whats-App-Image-2026-06-17-at-01-47-42-1.jpg)
+![SIGMA Prototype Integration](/blogs/images/sigma-prototype.jpg)
 
 ## Sensor Fusion & Attitude Estimation
 
@@ -74,9 +74,8 @@ The mission timeline is governed by an autonomous finite state machine (FSM) sto
 
 > "Integrating active mechanical guidance into a compact satellite envelope forced our mechanical and avionics divisions to co-design every millimeter of the internal bay. Every gram saved in the structure went directly into actuator torque margin." — BRACU Diganta Avionics Lead
 
-![Avionics Bay Testing](https://i.ibb.co.com/wh0nz9mJ/Whats-App-Image-2026-06-17-at-01-47-44-2.jpg)
+![Avionics Bay Testing](/blogs/images/avionics-bay-testing.jpg)
 
 ## Next Steps Toward Flight Readiness
 
 With the PDR milestone cleared, our focus now shifts to closed-loop wind-tunnel characterization and drop-tower validation at BRAC University. Full-scale RF range tests for the simultaneous HD video and telemetry downlink are scheduled for next month.
-
