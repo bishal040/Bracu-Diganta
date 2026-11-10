@@ -63,3 +63,4 @@ Using **ANSYS Fluent**, we simulated transient wake turbulence behind the blunt-
 ## Environmental & Drop Testing
 
 All structural assemblies have now cleared thermal cycling (`-10°C to +55°C`), vacuum chamber barometric sweeps, and `20 G` shock load testing. The final flight unit is currently undergoing full-stack integration with the Embedded Systems team.
+

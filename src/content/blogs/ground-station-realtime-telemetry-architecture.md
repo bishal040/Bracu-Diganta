@@ -78,3 +78,4 @@ Using **CST Studio Suite**, our RF engineers designed and tuned a custom 5-eleme
 ## Real-Time 3D Attitude & Trajectory Visualization
 
 The Ground Control Station software renders live 60 FPS plots of altitude, descent rate, battery voltage, and GPS trajectory alongside a 3D CAD twin of the payload driven by live quaternion telemetry. Even if serial cables are accidentally unplugged mid-flight, automatic port reconnection and ring-buffer replay ensure zero visual interruption.
+

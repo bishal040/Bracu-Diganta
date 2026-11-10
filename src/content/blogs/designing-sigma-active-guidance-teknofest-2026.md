@@ -79,3 +79,4 @@ The mission timeline is governed by an autonomous finite state machine (FSM) sto
 ## Next Steps Toward Flight Readiness
 
 With the PDR milestone cleared, our focus now shifts to closed-loop wind-tunnel characterization and drop-tower validation at BRAC University. Full-scale RF range tests for the simultaneous HD video and telemetry downlink are scheduled for next month.
+
