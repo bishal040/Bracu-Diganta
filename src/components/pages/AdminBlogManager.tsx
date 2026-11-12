@@ -4,7 +4,6 @@ import {
   Plus,
   Upload,
   Trash2,
-  Edit3,
   ExternalLink,
   GitBranch,
   GitCommit,
@@ -13,11 +12,9 @@ import {
   AlertCircle,
   FileCode2,
   Image as ImageIcon,
-  Download,
   Eye,
   Code2,
   Columns,
-  Sparkles,
   Settings,
   X,
   Search,
@@ -609,354 +606,250 @@ export const AdminBlogManager: React.FC = () => {
         className="hidden"
       />
 
-      {/* Git / GitHub Terminal-Free Status & Control Bar */}
-      <div className="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-800 relative overflow-hidden">
-        <div className="absolute -right-12 -top-12 w-48 h-48 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 font-mono text-[10px] uppercase tracking-widest font-bold">
-                <GitBranch size={12} />
-                Branch: {gitStatus?.branch || ghConfig.branch || 'feature/blog'}
+      {/* Minimalist Action & Git Control Bar */}
+      <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-500">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-bold">
+            <GitBranch size={13} className="text-blue-600" />
+            {gitStatus?.branch || ghConfig.branch || 'feature/blog'}
+          </span>
+          <span>•</span>
+          <span>
+            <strong className="text-slate-900">{publishedCount}</strong> Published
+          </span>
+          {draftCount > 0 && (
+            <>
+              <span>•</span>
+              <span>
+                <strong className="text-slate-900">{draftCount}</strong> Drafts
               </span>
-
-              {gitStatus?.backendConnected ? (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 font-mono text-[10px] uppercase tracking-widest font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Local Git + Filesystem Active
-                </span>
-              ) : null}
-
-              {ghConfig.token ? (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 font-mono text-[10px] uppercase tracking-widest font-bold">
-                  <CheckCircle2 size={12} />
-                  GitHub REST API Ready ({ghConfig.owner}/{ghConfig.repo})
-                </span>
-              ) : null}
-            </div>
-
-            <h2 className="font-orbitron text-xl md:text-2xl font-bold uppercase tracking-wide">
-              Markdown (.md) Blog Engine & GitHub Auto-Commit
-            </h2>
-
-            {gitStatus?.lastCommit ? (
-              <p className="font-mono text-xs text-slate-400 flex items-center gap-2">
-                <GitCommit size={14} className="text-blue-400 shrink-0" />
-                <span>
-                  Latest Commit:{' '}
-                  <strong className="text-white">{gitStatus.lastCommit.hash}</strong> —{' '}
-                  {gitStatus.lastCommit.subject} ({gitStatus.lastCommit.relativeDate})
-                </span>
-              </p>
-            ) : (
-              <p className="font-mono text-xs text-slate-400">
-                Zero-MongoDB static Markdown architecture • O(1) read time • Direct GitHub commit from Admin Panel
-              </p>
-            )}
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <button
-              onClick={() => setIsGhModalOpen(true)}
-              className="px-4 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors"
-            >
-              <Settings size={15} />
-              GitHub Config
-            </button>
-
-            <button
-              onClick={handleManualGitSync}
-              disabled={isSyncingGit}
-              className="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-blue-600/30 transition-all disabled:opacity-50"
-            >
-              {isSyncingGit ? (
-                <>
-                  <RefreshCw size={15} className="animate-spin" />
-                  Committing & Pushing...
-                </>
-              ) : (
-                <>
-                  <CloudUpload size={16} />
-                  Commit & Push to GitHub
-                </>
-              )}
-            </button>
-          </div>
+            </>
+          )}
+          {gitStatus?.lastCommit && (
+            <>
+              <span className="hidden sm:inline">•</span>
+              <span className="hidden sm:inline-flex items-center gap-1.5 text-slate-400">
+                <GitCommit size={13} />
+                {gitStatus.lastCommit.hash} ({gitStatus.lastCommit.relativeDate})
+              </span>
+            </>
+          )}
         </div>
 
-        {/* Last Git Operation Notification Banner */}
-        {lastGitBanner && (
-          <div
-            className={`mt-5 p-4 rounded-2xl border flex items-center justify-between gap-4 font-mono text-xs ${
-              lastGitBanner.type === 'success'
-                ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-200'
-                : lastGitBanner.type === 'error'
-                ? 'bg-rose-950/60 border-rose-500/40 text-rose-200'
-                : 'bg-blue-950/60 border-blue-500/40 text-blue-200'
-            }`}
+        <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={openCreateNew}
+            className="px-4 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition-colors"
           >
-            <div className="flex items-center gap-2.5">
-              <CheckCircle2 size={16} className="shrink-0" />
-              <span>{lastGitBanner.text}</span>
-              {lastGitBanner.commitUrl && (
-                <a
-                  href={lastGitBanner.commitUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline font-bold hover:text-white inline-flex items-center gap-1 ml-2"
-                >
-                  View Commit on GitHub <ExternalLink size={12} />
-                </a>
-              )}
-            </div>
-            <button
-              onClick={() => setLastGitBanner(null)}
-              className="text-slate-400 hover:text-white"
-            >
-              <X size={15} />
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Stats & Primary Action Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center gap-4">
-          <div className="p-4 bg-blue-50 text-blue-600 rounded-2xl">
-            <FileCode2 size={24} />
-          </div>
-          <div>
-            <p className="text-xs font-mono text-gray-400 uppercase tracking-wider">
-              Total .MD Files
-            </p>
-            <p className="text-2xl font-bold text-gray-900">{posts.length}</p>
-          </div>
-        </div>
-
-        <div className="bg-white p-6 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center gap-4">
-          <div className="p-4 bg-emerald-50 text-emerald-600 rounded-2xl">
-            <CheckCircle2 size={24} />
-          </div>
-          <div>
-            <p className="text-xs font-mono text-gray-400 uppercase tracking-wider">
-              Published
-            </p>
-            <p className="text-2xl font-bold text-emerald-600">
-              {publishedCount}
-            </p>
-          </div>
-        </div>
-
-        {/* Write New Blog Card Button */}
-        <button
-          onClick={openCreateNew}
-          className="bg-blue-600 hover:bg-blue-700 text-white p-6 rounded-3xl shadow-[0_12px_30px_rgba(37,99,235,0.25)] flex items-center justify-between group transition-all text-left"
-        >
-          <div>
-            <p className="text-[10px] font-mono text-blue-200 uppercase tracking-widest font-bold mb-1">
-              CREATE FROM ADMIN
-            </p>
-            <p className="font-orbitron text-lg font-bold uppercase">
-              Write New Blog
-            </p>
-          </div>
-          <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Plus size={24} />
-          </div>
-        </button>
-
-        {/* Direct Upload .MD File Button */}
-        <button
-          onClick={() => mdFileInputRef.current?.click()}
-          className="bg-white hover:bg-slate-50 text-slate-900 p-6 rounded-3xl border-2 border-dashed border-blue-300 hover:border-blue-600 shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-between group transition-all text-left"
-        >
-          <div>
-            <p className="text-[10px] font-mono text-blue-600 uppercase tracking-widest font-bold mb-1">
-              DIRECT FILE UPLOAD
-            </p>
-            <p className="font-orbitron text-lg font-bold uppercase">
-              Upload .MD File
-            </p>
-          </div>
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Upload size={22} />
-          </div>
-        </button>
-      </div>
-
-      {/* Search & Filter Toolbar */}
-      <div className="bg-white rounded-3xl p-4 md:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 justify-between items-center">
-        <div className="flex flex-wrap gap-2">
-          {(['ALL', 'PUBLISHED', 'DRAFT'] as const).map((st) => {
-            const count =
-              st === 'ALL'
-                ? posts.length
-                : st === 'PUBLISHED'
-                ? publishedCount
-                : draftCount;
-            return (
-              <button
-                key={st}
-                onClick={() => setStatusFilter(st)}
-                className={`px-5 py-2.5 rounded-full font-mono text-xs font-bold tracking-wider uppercase transition-all ${
-                  statusFilter === st
-                    ? 'bg-gray-900 text-white shadow-md'
-                    : 'bg-slate-100 text-gray-600 hover:bg-slate-200'
-                }`}
-              >
-                {st} ({count})
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center gap-3 w-full md:w-auto">
-          <div className="relative flex-1 md:w-80">
-            <Search
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-              size={18}
-            />
-            <input
-              type="text"
-              placeholder="Search by title, slug.md, category..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-            />
-          </div>
+            <Plus size={15} /> New Post
+          </button>
 
           <button
-            onClick={() => navigate('/blog')}
-            className="px-5 py-2.5 bg-[#eef2f5] hover:bg-blue-50 text-slate-800 hover:text-blue-600 rounded-full font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors shrink-0"
+            onClick={() => mdFileInputRef.current?.click()}
+            className="px-4 py-2.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition-colors"
           >
-            <ExternalLink size={14} /> View Public Blog
+            <Upload size={14} /> Upload .MD
+          </button>
+
+          <button
+            onClick={handleManualGitSync}
+            disabled={isSyncingGit}
+            className="px-4 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition-colors disabled:opacity-50"
+          >
+            {isSyncingGit ? (
+              <>
+                <RefreshCw size={14} className="animate-spin" />
+                Syncing...
+              </>
+            ) : (
+              <>
+                <CloudUpload size={14} />
+                Push to GitHub
+              </>
+            )}
+          </button>
+
+          <button
+            onClick={() => setIsGhModalOpen(true)}
+            className="p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
+            title="GitHub Settings"
+          >
+            <Settings size={15} />
           </button>
         </div>
       </div>
 
-      {/* Blog Posts List */}
-      <div className="bg-white rounded-3xl p-6 md:p-8 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
+      {/* Last Git Operation Notification Banner */}
+      {lastGitBanner && (
+        <div
+          className={`p-4 rounded-2xl border flex items-center justify-between gap-4 font-mono text-xs ${
+            lastGitBanner.type === 'success'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : lastGitBanner.type === 'error'
+              ? 'bg-rose-50 border-rose-200 text-rose-800'
+              : 'bg-blue-50 border-blue-200 text-blue-800'
+          }`}
+        >
+          <div className="flex items-center gap-2.5">
+            <CheckCircle2 size={15} className="shrink-0" />
+            <span>{lastGitBanner.text}</span>
+            {lastGitBanner.commitUrl && (
+              <a
+                href={lastGitBanner.commitUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline font-bold inline-flex items-center gap-1 ml-2"
+              >
+                View Commit <ExternalLink size={12} />
+              </a>
+            )}
+          </div>
+          <button
+            onClick={() => setLastGitBanner(null)}
+            className="text-slate-400 hover:text-slate-700"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+
+      {/* Minimalist Filter & Posts List Card */}
+      <div className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden">
+        {/* Filter & Search Header */}
+        <div className="p-4 sm:p-6 border-b border-slate-100 flex flex-col md:flex-row gap-4 justify-between items-center">
+          <div className="flex flex-wrap gap-1.5">
+            {(['ALL', 'PUBLISHED', 'DRAFT'] as const).map((st) => {
+              const count =
+                st === 'ALL'
+                  ? posts.length
+                  : st === 'PUBLISHED'
+                  ? publishedCount
+                  : draftCount;
+              return (
+                <button
+                  key={st}
+                  onClick={() => setStatusFilter(st)}
+                  className={`px-4 py-1.5 rounded-full font-mono text-xs font-bold tracking-wider uppercase transition-all ${
+                    statusFilter === st
+                      ? 'bg-slate-900 text-white'
+                      : 'text-slate-500 hover:bg-slate-100'
+                  }`}
+                >
+                  {st} ({count})
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <div className="relative flex-1 md:w-72">
+              <Search
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                size={15}
+              />
+              <input
+                type="text"
+                placeholder="Search posts..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+              />
+            </div>
+
+            <button
+              onClick={() => navigate('/blog')}
+              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition-colors shrink-0"
+            >
+              <ExternalLink size={13} /> Public Blog
+            </button>
+          </div>
+        </div>
+
+        {/* Posts List */}
         {loading && posts.length === 0 ? (
-          <div className="text-center py-12 font-mono text-slate-400">
-            Loading Markdown blog files...
+          <div className="text-center py-12 font-mono text-sm text-slate-400">
+            Loading posts...
           </div>
         ) : filteredPosts.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="font-orbitron text-lg font-bold text-slate-700 uppercase mb-2">
-              No Markdown Blog Posts Found
+          <div className="text-center py-12 px-4">
+            <p className="font-orbitron text-base font-bold text-slate-700 uppercase mb-2">
+              No blog posts found
             </p>
             <p className="text-slate-500 text-sm mb-6">
-              Create a new blog post in the editor or upload an existing .md file.
+              Create a new post or upload an existing .md file.
             </p>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={openCreateNew}
-                className="px-6 py-3 bg-blue-600 text-white rounded-full font-mono text-xs font-bold uppercase tracking-widest"
-              >
-                + Write New Blog
-              </button>
-              <button
-                onClick={() => mdFileInputRef.current?.click()}
-                className="px-6 py-3 bg-slate-900 text-white rounded-full font-mono text-xs font-bold uppercase tracking-widest"
-              >
-                Upload .MD File
-              </button>
-            </div>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="divide-y divide-slate-100">
             {filteredPosts.map((post) => (
               <div
                 key={post.slug}
-                className="border border-slate-100 hover:border-blue-200 rounded-2xl p-4 md:p-5 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 hover:bg-blue-50/20 transition-all group"
+                className="p-4 sm:p-6 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 hover:bg-slate-50/60 transition-colors group"
               >
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1 min-w-0">
+                <div className="flex items-center gap-4 flex-1 min-w-0">
                   <img
                     src={resolveBlogImageUrl(post.coverImage)}
                     alt={post.title}
-                    className="w-full sm:w-28 h-20 rounded-xl object-cover shrink-0 bg-slate-900 border border-slate-200"
+                    className="w-20 h-14 sm:w-24 sm:h-16 rounded-xl object-cover shrink-0 bg-slate-100 border border-slate-200/80"
                   />
                   <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                    <div className="flex flex-wrap items-center gap-2 mb-1 font-mono text-xs text-slate-400">
                       <span
-                        className={`px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider ${
+                        className={`font-bold uppercase ${
                           post.status === 'DRAFT'
-                            ? 'bg-amber-100 text-amber-800 border border-amber-200'
-                            : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            ? 'text-amber-600'
+                            : 'text-emerald-600'
                         }`}
                       >
                         {post.status}
                       </span>
-
-                      <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-mono text-[10px] font-bold uppercase tracking-wider">
+                      <span>•</span>
+                      <span className="text-blue-600 font-semibold">
                         {post.category}
                       </span>
-
-                      <span className="px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-600 font-mono text-[10px] font-semibold flex items-center gap-1">
-                        <FileCode2 size={11} className="text-blue-600" />
-                        {post.slug}.md
-                      </span>
-
-                      {post.featured && (
-                        <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-mono text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
-                          <Sparkles size={10} /> Featured
-                        </span>
-                      )}
+                      <span>•</span>
+                      <span>{formatDisplayDate(post.date)}</span>
                     </div>
 
                     <h3
                       onClick={() => openEditPost(post)}
-                      className="font-orbitron text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors cursor-pointer truncate"
+                      className="font-orbitron text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors cursor-pointer truncate"
                     >
                       {post.title}
                     </h3>
-
-                    <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="flex flex-wrap items-center gap-3 mt-2 font-mono text-[10px] text-slate-400 uppercase tracking-wider">
-                      <span>{formatDisplayDate(post.date)}</span>
-                      <span>•</span>
-                      <span>{post.author}</span>
-                      <span>•</span>
-                      <span>{post.readTime}</span>
-                    </div>
                   </div>
                 </div>
 
-                {/* Action Buttons: View, Edit/Update, Download .md, Delete */}
-                <div className="flex flex-wrap items-center gap-2 shrink-0 w-full lg:w-auto justify-end border-t lg:border-t-0 pt-3 lg:pt-0 border-slate-100">
+                {/* Clean Action Buttons */}
+                <div className="flex items-center gap-2 shrink-0 w-full lg:w-auto justify-end">
                   <button
                     onClick={() => navigate(`/blog/${post.slug}`)}
-                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
-                    title="View Detailed Blog Page"
+                    className="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-mono text-xs font-semibold transition-colors"
                   >
-                    <Eye size={14} /> View
+                    View
                   </button>
 
                   <button
                     onClick={() => openEditPost(post)}
-                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors shadow-sm"
+                    className="px-3.5 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white font-mono text-xs font-bold transition-colors"
                   >
-                    <Edit3 size={14} /> Edit / Update
+                    Edit
                   </button>
 
                   <button
                     onClick={() => handleDownloadMdFile(post)}
-                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
+                    className="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 font-mono text-xs font-semibold transition-colors"
                     title="Download .md file"
                   >
-                    <Download size={14} /> .MD
+                    .MD
                   </button>
 
                   <button
                     onClick={() => setDeleteTarget(post)}
-                    className="px-3.5 py-2 rounded-xl bg-red-50 hover:bg-red-600 text-red-600 hover:text-white font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
-                    title="Delete .md file & commit to GitHub"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                    title="Delete post"
                   >
-                    <Trash2 size={14} /> Delete
+                    <Trash2 size={15} />
                   </button>
                 </div>
               </div>

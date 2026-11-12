@@ -2,14 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  ArrowUpRight,
-  Clock,
-  Activity,
-  Sparkles,
-  User,
-  BookOpen,
-} from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 import {
   fetchAllBlogs,
@@ -23,14 +16,12 @@ gsap.registerPlugin(ScrollTrigger);
 interface BlogCardProps {
   post: BlogPost;
   featuredLayout?: boolean;
-  chapterNumber?: number;
   onClick: () => void;
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({
   post,
   featuredLayout = false,
-  chapterNumber,
   onClick,
 }) => {
   const coverSrc = resolveBlogImageUrl(post.coverImage);
@@ -39,121 +30,55 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     return (
       <article
         onClick={onClick}
-        className="group relative bg-white rounded-3xl border border-slate-200/90 shadow-[0_15px_45px_rgba(15,23,42,0.05)] hover:shadow-[0_25px_65px_rgba(37,99,235,0.14)] hover:border-blue-300 transition-all duration-500 overflow-hidden cursor-pointer grid grid-cols-1 lg:grid-cols-12"
+        className="group bg-white rounded-3xl border border-slate-200/80 shadow-[0_8px_30px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.08)] hover:border-blue-200 transition-all duration-300 overflow-hidden cursor-pointer grid grid-cols-1 lg:grid-cols-12"
       >
-        {/* Left Spine Accent */}
-        <div className="hidden lg:block absolute top-0 bottom-0 left-0 w-1.5 bg-gradient-to-b from-[#2563EB] via-cyan-400 to-blue-600 z-20" />
-
-        {/* Left Image Column */}
-        <div className="lg:col-span-6 xl:col-span-7 relative min-h-[240px] sm:min-h-[300px] lg:min-h-[360px] overflow-hidden bg-slate-900">
+        {/* Image Side */}
+        <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto lg:min-h-[380px] overflow-hidden bg-slate-100">
           <img
             src={coverSrc}
             alt={post.title}
-            className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/20 to-transparent" />
-
-          {/* Top Floating Telemetry Pills */}
-          <div className="absolute top-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
-            <div className="bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full flex items-center gap-2 shadow-sm border border-white/60">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-              <span className="font-mono text-xs tracking-wider uppercase text-blue-700 font-bold">
-                {post.category}
-              </span>
-            </div>
-
-            <div className="bg-slate-900/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 flex items-center gap-2 text-white">
-              <Sparkles size={13} className="text-cyan-400" />
-              <span className="font-mono text-xs tracking-wider uppercase font-bold">
-                {chapterNumber
-                  ? `CHAPTER ${String(chapterNumber).padStart(2, '0')} • LEAD`
-                  : 'LEAD CHAPTER'}
-              </span>
-            </div>
-          </div>
-
-          {/* Bottom Image HUD */}
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white/90">
-            <div className="flex items-center gap-2 bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/15">
-              <Activity size={14} className="text-cyan-400" />
-              <span className="font-mono text-xs tracking-wider uppercase font-bold">
-                {post.recordId || 'LOG-VERIFIED'}
-              </span>
-            </div>
-          </div>
         </div>
 
-        {/* Right Editorial Book Chapter Column */}
-        <div className="lg:col-span-6 xl:col-span-5 p-5 sm:p-7 lg:p-8 flex flex-col justify-between relative">
+        {/* Content Side */}
+        <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
           <div>
-            {/* Running Folio Header */}
-            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-100 font-mono text-xs tracking-wider uppercase text-slate-500 font-bold">
-              <span className="text-blue-600 flex items-center gap-1.5">
-                <BookOpen size={13} />
-                {formatDisplayDate(post.date)}
+            <div className="flex flex-wrap items-center gap-2.5 mb-4 font-mono text-xs text-slate-500">
+              <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-600 font-bold uppercase tracking-wider">
+                {post.category}
               </span>
-              <span className="flex items-center gap-1.5 text-slate-500">
-                <Clock size={13} className="text-slate-400" />
-                {post.readTime}
-              </span>
+              <span>•</span>
+              <span>{formatDisplayDate(post.date)}</span>
+              <span>•</span>
+              <span>{post.readTime}</span>
             </div>
 
-            {/* Title */}
-            <h3 className="font-orbitron text-xl sm:text-2xl lg:text-[26px] font-bold text-slate-900 uppercase tracking-tight leading-snug mb-2.5 group-hover:text-blue-600 transition-colors">
+            <h3 className="font-orbitron text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors">
               {post.title}
             </h3>
 
-            {post.subtitle && (
-              <p className="font-orbitron text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">
-                {post.subtitle}
-              </p>
-            )}
-
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-5 line-clamp-3">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed line-clamp-3">
               {post.excerpt}
             </p>
-
-            {/* Tags */}
-            {post.tags && post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mb-5">
-                {post.tags.slice(0, 4).map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 rounded-full bg-[#eef2f5] text-slate-600 font-mono text-xs tracking-wide uppercase font-semibold"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
 
-          {/* Author & Read CTA */}
-          <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-                <User size={15} />
+          <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between gap-4">
+            <div className="min-w-0">
+              <div className="text-sm font-semibold text-slate-900 truncate">
+                {post.author}
               </div>
-              <div className="truncate">
-                <div className="text-sm font-bold text-slate-900 truncate">
-                  {post.author}
+              {post.authorRole && (
+                <div className="text-xs text-slate-400 truncate">
+                  {post.authorRole}
                 </div>
-                <div className="font-mono text-xs text-slate-500 truncate">
-                  {post.authorRole || post.category}
-                </div>
-              </div>
+              )}
             </div>
 
-            <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-blue-600 group-hover:text-slate-900 transition-colors shrink-0">
-              <span className="hidden sm:inline">Open Chapter</span>
-              <div className="w-9 h-9 rounded-full bg-blue-50 group-hover:bg-blue-600 text-blue-600 group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm">
-                <ArrowUpRight
-                  size={17}
-                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-                />
-              </div>
-            </div>
+            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-blue-600 group-hover:translate-x-0.5 transition-transform shrink-0">
+              Read Article <ArrowUpRight size={15} />
+            </span>
           </div>
         </div>
       </article>
@@ -163,97 +88,51 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   return (
     <article
       onClick={onClick}
-      className="group relative bg-white rounded-3xl border border-slate-200/90 shadow-[0_12px_35px_rgba(15,23,42,0.04)] hover:shadow-[0_25px_55px_rgba(37,99,235,0.12)] hover:-translate-y-1 hover:border-blue-300 transition-all duration-500 overflow-hidden cursor-pointer flex flex-col justify-between"
+      className="group bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_rgba(15,23,42,0.03)] hover:shadow-[0_16px_40px_rgba(37,99,235,0.08)] hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 overflow-hidden cursor-pointer flex flex-col justify-between"
     >
-      {/* Top Hover Accent Bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2563EB] to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
-
       <div>
-        {/* Image Container */}
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+        {/* Clean Image without cluttered overlays */}
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
           <img
             src={coverSrc}
             alt={post.title}
-            className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/15 to-transparent" />
-
-          {/* Category Badge */}
-          <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2">
-            <div className="bg-white/95 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
-              <span className="font-mono text-xs tracking-wider uppercase text-blue-700 font-bold">
-                {post.category}
-              </span>
-            </div>
-
-            {chapterNumber && (
-              <span className="font-mono text-xs tracking-wider uppercase bg-slate-900/80 backdrop-blur-md text-white px-2.5 py-1 rounded-full border border-white/15 font-bold">
-                CH. {String(chapterNumber).padStart(2, '0')}
-              </span>
-            )}
-          </div>
-
-          {/* Record ID & Read Time Badge */}
-          <div className="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between text-white">
-            <span className="font-mono text-xs tracking-wider uppercase bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/15 font-semibold flex items-center gap-1.5">
-              <Activity size={12} className="text-cyan-400" />
-              {post.recordId || 'SYS.LOG'}
-            </span>
-            <span className="font-mono text-xs tracking-wider uppercase bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/15 text-slate-200">
-              {post.readTime}
+          <div className="absolute top-3.5 left-3.5">
+            <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-xs text-blue-600 font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
+              {post.category}
             </span>
           </div>
         </div>
 
-        {/* Text Content */}
-        <div className="p-5 sm:p-6">
-          <div className="flex items-center justify-between font-mono text-xs tracking-wider uppercase text-blue-600 font-bold mb-2">
+        {/* Clean Minimalist Body */}
+        <div className="p-6">
+          <div className="flex items-center gap-2 font-mono text-xs text-slate-400 mb-2.5">
             <span>{formatDisplayDate(post.date)}</span>
+            <span>•</span>
+            <span>{post.readTime}</span>
           </div>
 
-          <h3 className="font-orbitron text-lg sm:text-xl font-bold text-slate-900 uppercase tracking-tight leading-snug mb-2.5 group-hover:text-blue-600 transition-colors line-clamp-2">
+          <h3 className="font-orbitron text-lg font-bold text-slate-900 tracking-tight leading-snug mb-2.5 group-hover:text-blue-600 transition-colors line-clamp-2">
             {post.title}
           </h3>
 
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 line-clamp-3">
+          <p className="text-slate-600 text-sm leading-relaxed line-clamp-2">
             {post.excerpt}
           </p>
-
-          {/* Tags */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {post.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2.5 py-1 rounded-full bg-[#eef2f5] text-slate-600 font-mono text-xs tracking-wide font-semibold"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </div>
 
-      {/* Card Footer */}
-      <div className="px-5 sm:px-6 py-3.5 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
-        <div className="truncate pr-2">
-          <span className="block text-sm font-bold text-slate-800 truncate">
-            {post.author}
-          </span>
-          <span className="block font-mono text-xs text-slate-500 truncate">
-            {post.authorRole || 'Engineering Team'}
-          </span>
-        </div>
+      {/* Minimal Footer */}
+      <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs">
+        <span className="font-medium text-slate-700 truncate pr-3">
+          {post.author}
+        </span>
 
-        <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-blue-600 group-hover:text-slate-900 transition-colors shrink-0">
-          <span>Read</span>
-          <div className="w-8 h-8 rounded-full bg-white border border-slate-200 group-hover:bg-blue-600 group-hover:border-blue-600 text-slate-700 group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm">
-            <ArrowUpRight size={14} />
-          </div>
-        </div>
+        <span className="inline-flex items-center gap-1 font-mono font-bold uppercase tracking-wider text-blue-600 shrink-0 group-hover:translate-x-0.5 transition-transform">
+          Read <ArrowUpRight size={14} />
+        </span>
       </div>
     </article>
   );
@@ -282,12 +161,12 @@ export const BlogSection: React.FC = () => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.blog-section-reveal',
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 24 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.1,
+          duration: 0.7,
+          stagger: 0.08,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -319,53 +198,37 @@ export const BlogSection: React.FC = () => {
     <section
       id="blog"
       ref={sectionRef}
-      className="py-20 md:py-28 relative z-10 bg-[#eef2f5] border-t border-slate-200/60"
+      className="py-24 md:py-32 relative z-10 bg-[#f8fafc] border-t border-slate-200/60"
     >
-      {/* Subtle Telemetry Grid Overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-35"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at center, #94a3b8 1px, transparent 1px)',
-          backgroundSize: '36px 36px',
-        }}
-      />
-
-      <div className="w-full max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-10 relative z-10">
-        {/* Section Header */}
-        <div className="blog-section-reveal flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-10 gap-6">
+      <div className="w-full max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
+        {/* Clean Minimalist Header */}
+        <div className="blog-section-reveal flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <div className="flex gap-1 mb-3">
-              <div className="w-2 h-2 bg-blue-600" />
-              <div className="w-2 h-2 bg-blue-400" />
-              <div className="w-2 h-2 bg-blue-200" />
-            </div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="font-mono text-xs md:text-sm tracking-[0.22em] uppercase text-blue-600 font-bold">
-                Technical Publications & Mission Logs
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-blue-600 font-bold block mb-2">
+              Mission Logs & Publications
+            </span>
+            <h2 className="font-orbitron text-3xl sm:text-4xl font-black tracking-tight uppercase text-slate-900">
+              Engineering{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-cyan-500">
+                Blog
               </span>
-            </div>
-            <h2 className="font-orbitron text-3xl sm:text-4xl md:text-5xl font-black tracking-wide uppercase drop-shadow-sm text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-cyan-500">
-              Engineering Journal
             </h2>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <MagneticButton
-              className="inline-flex items-center gap-3 bg-gray-900 text-white hover:bg-blue-600 px-6 py-3.5 rounded-full text-xs md:text-sm font-mono uppercase tracking-wider font-bold transition-all shadow-lg"
-              onClick={() => {
-                navigate('/blog');
-                window.scrollTo(0, 0);
-              }}
-            >
-              <span className="flex items-center gap-2.5">
-                Open Full Journal <ArrowUpRight size={16} />
-              </span>
-            </MagneticButton>
-          </div>
+          <MagneticButton
+            className="inline-flex items-center gap-2.5 bg-slate-900 text-white hover:bg-blue-600 px-6 py-3 rounded-full text-xs font-mono uppercase tracking-wider font-bold transition-all"
+            onClick={() => {
+              navigate('/blog');
+              window.scrollTo(0, 0);
+            }}
+          >
+            <span className="flex items-center gap-2">
+              All Articles <ArrowUpRight size={15} />
+            </span>
+          </MagneticButton>
         </div>
 
-        {/* Category Filter Pills */}
+        {/* Minimal Category Filter Pills */}
         {categories.length > 1 && (
           <div className="blog-section-reveal flex flex-wrap gap-2 mb-8">
             {categories.map((cat) => {
@@ -374,10 +237,10 @@ export const BlogSection: React.FC = () => {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 sm:px-5 py-2 rounded-full font-mono text-xs font-bold tracking-wider uppercase transition-all ${
+                  className={`px-4 py-2 rounded-full font-mono text-xs font-bold tracking-wider uppercase transition-all ${
                     isActive
-                      ? 'bg-[#2563EB] text-white shadow-[0_8px_20px_rgba(37,99,235,0.3)]'
-                      : 'bg-white/90 text-slate-600 hover:bg-white hover:text-blue-600 border border-slate-200/80'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white text-slate-600 hover:text-blue-600 border border-slate-200/80'
                   }`}
                 >
                   {cat}
@@ -387,13 +250,12 @@ export const BlogSection: React.FC = () => {
           </div>
         )}
 
-        {/* Featured Post Card */}
+        {/* Featured Post */}
         {featuredPost && (
           <div className="blog-section-reveal mb-8">
             <BlogCard
               post={featuredPost}
               featuredLayout={true}
-              chapterNumber={1}
               onClick={() => {
                 navigate(`/blog/${featuredPost.slug}`);
                 window.scrollTo(0, 0);
@@ -402,14 +264,13 @@ export const BlogSection: React.FC = () => {
           </div>
         )}
 
-        {/* Blog Cards Grid */}
+        {/* 3-Column Post Grid */}
         {gridPosts.length > 0 && (
-          <div className="blog-section-reveal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {gridPosts.map((post, idx) => (
+          <div className="blog-section-reveal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {gridPosts.map((post) => (
               <BlogCard
                 key={post.slug}
                 post={post}
-                chapterNumber={idx + 2}
                 onClick={() => {
                   navigate(`/blog/${post.slug}`);
                   window.scrollTo(0, 0);
