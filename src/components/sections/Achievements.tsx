@@ -50,7 +50,12 @@ export const Achievements: React.FC = () => {
             trigger: containerRef.current,
             pin: true,
             scrub: 1,
-            snap: snapPoints,
+            snap: {
+              snapTo: snapPoints,
+              duration: { min: 0.15, max: 0.4 },
+              delay: 0.15,
+              ease: 'power1.inOut',
+            },
             end: () => `+=${scrollWidth}`,
           }
         });
@@ -115,7 +120,7 @@ export const Achievements: React.FC = () => {
                 WebkitMaskImage: '-webkit-radial-gradient(white, black)'
               }}
             >
-              <img src={item.image} className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s] opacity-90" />
+              <img src={item.image} loading="lazy" decoding="async" className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s] opacity-90" />
               <div className={`absolute inset-0 bg-gradient-to-tr ${item.color} opacity-20 md:opacity-10 md:mix-blend-multiply`} />
 
               {/* Image Overlay HUD */}

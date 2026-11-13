@@ -1,9 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { scrollToTarget } from './SmoothScroll';
 
-gsap.registerPlugin(ScrollTrigger);
+const NAV_LINKS_LIST = [
+  { label: 'Home', type: 'route', target: '/' },
+  { label: 'Blog', type: 'route', target: '/blog' },
+  { label: 'Projects', type: 'hash', target: 'projects' },
+  { label: 'Missions', type: 'route', target: '/missions' },
+  { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
+  { label: 'Timeline', type: 'hash', target: 'achievements' },
+  { label: 'Team', type: 'route', target: '/team' },
+  { label: 'Contact', type: 'hash', target: 'contact' }
+];
 
 // Custom hook for magnetic effect
 function useMagnetic(strength = 0.2) {
@@ -48,56 +57,25 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeHash, setActiveHash] = useState<string>('');
 
-  useEffect(() => {
-    if (!navRef.current) return;
+  const navLinksList = NAV_LINKS_LIST;
 
-    if (!isHomePage) {
-      setScrolled(true);
-      return;
-    }
-
-    // On homepage, check initial scroll position
-    if (window.scrollY > window.innerHeight) {
-      setScrolled(true);
-    } else {
-      setScrolled(false);
-    }
-
-    // Show solid navbar after scrolling past the hero sequence on homepage
-    const st = ScrollTrigger.create({
-      trigger: document.body,
-      start: '100vh top',
-      onEnter: () => setScrolled(true),
-      onLeaveBack: () => setScrolled(false),
-    });
-
-    return () => {
-      if (st) st.kill();
-    };
-  }, [isHomePage]);
-
-  const navLinksList = [
-    { label: 'Home', type: 'route', target: '/' },
-    { label: 'Blog', type: 'route', target: '/blog' },
-    { label: 'Projects', type: 'hash', target: 'projects' },
-    { label: 'Missions', type: 'route', target: '/missions' },
-    { label: 'CanSat', type: 'route', target: '/project/cansat-2024' },
-    { label: 'Timeline', type: 'hash', target: 'achievements' },
-    { label: 'Team', type: 'route', target: '/team' },
-    { label: 'Contact', type: 'hash', target: 'contact' }
-  ];
-
-  // ScrollSpy for Active Hash
   useEffect(() => {
     if (!isHomePage) {
+      setScrolled(true);
       setActiveHash('');
       return;
     }
 
-    const handleScroll = () => {
-      const hashTargets = navLinksList.filter(l => l.type === 'hash').map(l => l.target);
-      let current = '';
+    const hashTargets = navLinksList
+      .filter((l) => l.type === 'hash')
+      .map((l) => l.target);
 
+    let ticking = false;
+    const updateNavOnScroll = () => {
+      ticking = false;
+      setScrolled(window.scrollY > window.innerHeight * 0.9);
+
+      let current = '';
       for (const target of hashTargets) {
         const element = document.getElementById(target);
         if (element) {
@@ -110,9 +88,15 @@ export const Navbar: React.FC = () => {
       setActiveHash(current);
     };
 
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateNavOnScroll);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Run once on mount
-    handleScroll();
+    updateNavOnScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHomePage]);
@@ -147,9 +131,17 @@ export const Navbar: React.FC = () => {
     if (!isHomePage) {
       navigate('/');
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      scrollToTarget(0);
     }
     setMobileMenuOpen(false);
+  };
+
+  const navigateToSection = (sectionId: string) => {
+    if (!isHomePage) {
+      navigate('/', { state: { scrollTo: sectionId } });
+    } else {
+      scrollToTarget(`#${sectionId}`);
+    }
   };
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
@@ -159,22 +151,14 @@ export const Navbar: React.FC = () => {
     if (link.type === 'route') {
       navigate(link.target);
       if (link.target === '/') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollToTarget(0);
       } else {
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        scrollToTarget(0, { immediate: true });
       }
       return;
     }
 
-    if (!isHomePage) {
-      navigate('/');
-      // Delay scrolling to allow homepage to mount
-      setTimeout(() => {
-        document.getElementById(link.target)?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      document.getElementById(link.target)?.scrollIntoView({ behavior: 'smooth' });
-    }
+    navigateToSection(link.target);
   };
 
   const dockRef = useRef<HTMLDivElement>(null);
@@ -279,14 +263,7 @@ export const Navbar: React.FC = () => {
               className="relative overflow-hidden group bg-[#2563EB] text-white rounded-full px-8 py-3 text-xs xl:text-[13px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-blue-700 shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] flex items-center gap-3"
               onClick={(e) => {
                 e.preventDefault();
-                if (!isHomePage) {
-                  navigate('/');
-                  setTimeout(() => {
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                } else {
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }
+                navigateToSection('contact');
               }}
             >
               <div className="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.3)_50%,transparent_75%)] bg-[length:250%_250%,100%_100%] animate-[shimmer_2.5s_linear_infinite]" />
@@ -459,14 +436,7 @@ export const Navbar: React.FC = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setMobileMenuOpen(false);
-                if (!isHomePage) {
-                  navigate('/');
-                  setTimeout(() => {
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                } else {
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }
+                navigateToSection('contact');
               }}
               className="relative overflow-hidden group bg-transparent border border-[#2563EB] text-[#2563EB] hover:text-white px-8 py-4 w-full max-w-[280px] text-xs font-mono tracking-[0.2em] uppercase transition-all duration-300"
             >

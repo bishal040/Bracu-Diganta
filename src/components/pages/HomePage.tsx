@@ -66,7 +66,14 @@ export const HomePage: React.FC = () => {
       }
     });
 
-    return () => ctx.revert();
+    const raf = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ctx.revert();
+    };
   }, []);
 
   return (
