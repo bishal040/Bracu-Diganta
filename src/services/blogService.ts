@@ -239,6 +239,19 @@ export function getBlogBySlugSync(slug: string): BlogPost | undefined {
   return all.find((p) => p.slug === clean);
 }
 
+function syncOverridesWithServer(items: { slug: string; rawMarkdown: string }[]) {
+  try {
+    const nextOverrides: Record<string, string> = {};
+    for (const item of items) {
+      nextOverrides[item.slug] = item.rawMarkdown;
+    }
+    localStorage.setItem(OVERRIDES_STORAGE_KEY, JSON.stringify(nextOverrides));
+    localStorage.removeItem(DELETED_STORAGE_KEY);
+  } catch {
+    // ignore storage errors
+  }
+}
+
 /**
  * Fetches latest .md files from the backend filesystem (or GitHub API if configured)
  * and syncs local state, returning the fresh list of BlogPost items.
@@ -251,12 +264,14 @@ export async function fetchAllBlogs(includeDrafts = false): Promise<BlogPost[]> 
       const data = await res.json();
       if (data.success && Array.isArray(data.posts)) {
         const postsMap = new Map<string, BlogPost>();
+        const syncedItems: { slug: string; rawMarkdown: string }[] = [];
         for (const item of data.posts) {
           const parsed = parseMarkdownFile(item.rawMarkdown, item.filename);
           parsed.updatedAt = item.updatedAt;
           postsMap.set(parsed.slug, parsed);
-          setLocalOverride(parsed.slug, item.rawMarkdown);
+          syncedItems.push({ slug: parsed.slug, rawMarkdown: item.rawMarkdown });
         }
+        syncOverridesWithServer(syncedItems);
         const list = Array.from(postsMap.values()).filter((p) =>
           includeDrafts ? true : p.status !== 'DRAFT'
         );
@@ -483,9 +498,13 @@ export async function saveBlogPost(params: {
             via: 'local-git',
           };
         }
+      } else {
+        const errBody = await res.json().catch(() => ({}));
+        const msg = errBody.error || `Backend rejected save (${res.status})`;
+        if (!ghConfig.token) throw Object.assign(new Error(msg), { fromServer: true });
       }
-    } catch {
-      // Backend not reachable (e.g. static deployment); fall through to direct GitHub API
+    } catch (err: any) {
+      if (err?.fromServer) throw err;
     }
   }
 
@@ -590,9 +609,13 @@ export async function deleteBlogPost(params: {
         if (data.git) {
           gitResult = { ...data.git, via: 'local-git' };
         }
+      } else {
+        const errBody = await res.json().catch(() => ({}));
+        const msg = errBody.error || `Backend rejected delete (${res.status})`;
+        if (!ghConfig.token) throw Object.assign(new Error(msg), { fromServer: true });
       }
-    } catch {
-      // Fall through to GitHub API
+    } catch (err: any) {
+      if (err?.fromServer) throw err;
     }
   }
 
@@ -669,9 +692,13 @@ export async function uploadBlogImage(params: {
           filename: data.filename,
           git: data.git,
         };
+      } else {
+        const errBody = await res.json().catch(() => ({}));
+        const msg = errBody.error || `Backend rejected image upload (${res.status})`;
+        if (!ghConfig.token) throw Object.assign(new Error(msg), { fromServer: true });
       }
-    } catch {
-      // Fall through to GitHub API or Data URL
+    } catch (err: any) {
+      if (err?.fromServer) throw err;
     }
   }
 

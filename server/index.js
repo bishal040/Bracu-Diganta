@@ -435,6 +435,7 @@ app.post('/api/blogs', requireAdmin, async (req, res) => {
     const pubFilePath = path.join(PUBLIC_BLOGS_DIR, `${cleanSlug}.md`);
     await fs.writeFile(srcFilePath, rawMarkdown, 'utf-8');
     await fs.writeFile(pubFilePath, rawMarkdown, 'utf-8');
+    await rebuildBlogManifest();
 
     let gitStatus = null;
     if (autoCommit) {
@@ -471,6 +472,7 @@ app.delete('/api/blogs/:slug', requireAdmin, async (req, res) => {
     const pubFilePath = path.join(PUBLIC_BLOGS_DIR, `${cleanSlug}.md`);
     await fs.rm(srcFilePath, { force: true });
     await fs.rm(pubFilePath, { force: true });
+    await rebuildBlogManifest();
 
     let gitStatus = null;
     if (autoCommit) {

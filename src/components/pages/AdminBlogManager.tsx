@@ -487,6 +487,10 @@ export const AdminBlogManager: React.FC = () => {
           }));
         }
       }
+      setStoredImages((prev) => [
+        { filename: uploaded.filename, url: uploaded.url },
+        ...prev.filter((i) => i.url !== uploaded.url),
+      ]);
       showToast(`Inserted image ${uploaded.filename} into Markdown!`, 'success');
     } catch (err: any) {
       showToast(err.message || 'Image upload failed', 'error');
@@ -613,6 +617,29 @@ export const AdminBlogManager: React.FC = () => {
             <GitBranch size={13} className="text-blue-600" />
             {gitStatus?.branch || ghConfig.branch || 'feature/blog'}
           </span>
+
+          {gitStatus?.backendConnected ? (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Backend Connected
+            </span>
+          ) : ghConfig.token ? (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+              GitHub API Ready
+            </span>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsGhModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 font-semibold hover:bg-amber-100 transition-colors"
+              title="Start local backend (npm run dev) or configure GitHub Token"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+              Browser Only (Set Token or Run Backend)
+            </button>
+          )}
+
           <span>•</span>
           <span>
             <strong className="text-slate-900">{publishedCount}</strong> Published
@@ -1022,7 +1049,7 @@ export const AdminBlogManager: React.FC = () => {
                       </p>
                     )}
                     <img
-                      src={draftPost.coverImage || DEFAULT_COVER_IMAGE}
+                      src={resolveBlogImageUrl(draftPost.coverImage)}
                       alt="Cover preview"
                       className="w-full aspect-[21/9] object-cover rounded-3xl mb-8"
                     />
