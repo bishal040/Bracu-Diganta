@@ -1,5 +1,10 @@
 import { useRef, useEffect } from 'react';
-import { useImageSequence } from './Hero/useImageSequence';
+import {
+  startCanSatPreload,
+  getSequenceFrames,
+  getSequenceVersion,
+  getNearestLoadedFrame,
+} from './Hero/useImageSequence';
 
 const TOTAL_FRAMES = 240;
 
@@ -11,26 +16,72 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const seq1 = useImageSequence('Heroimages');
-  const seq2 = useImageSequence('Heroimages2');
-  const seq3 = useImageSequence('Heroimages3');
-
-  const cachedDims = useRef({ w: 0, h: 0 });
+  const cachedDims = useRef({ w: 0, h: 0, dpr: 1 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    startCanSatPreload();
+    const seq1Frames = getSequenceFrames('Heroimages', 240);
+    const seq2Frames = getSequenceFrames('Heroimages2', 240);
+    const seq3Frames = getSequenceFrames('Heroimages3', 114);
+
     const ctx = canvas.getContext('2d', { alpha: false })!;
     let rafId: number;
+    let lastProgress = -1;
+    let lastVersion = -1;
+    let lastW = 0;
+    let lastH = 0;
 
-    const render = () => {
+    const updateCanvasDimensions = () => {
       const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const w = Math.round(rect.width);
       const h = Math.round(rect.height);
+      if (w <= 0 || h <= 0) return;
+
+      if (cachedDims.current.w !== w || cachedDims.current.h !== h || cachedDims.current.dpr !== dpr) {
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        cachedDims.current = { w, h, dpr };
+      }
+    };
+
+    updateCanvasDimensions();
+    const resizeObserver = new ResizeObserver(updateCanvasDimensions);
+    resizeObserver.observe(canvas);
+
+    const render = () => {
+      const { w, h } = cachedDims.current;
+      if (w <= 0 || h <= 0) {
+        rafId = requestAnimationFrame(render);
+        return;
+      }
 
       const rawProgress = scrollData.current.progress;
+      const version =
+        getSequenceVersion('Heroimages') +
+        getSequenceVersion('Heroimages2') +
+        getSequenceVersion('Heroimages3');
+
+      // Skip idle canvas redraws when scroll progress, size, and decoded frames are unchanged
+      if (
+        rawProgress === lastProgress &&
+        version === lastVersion &&
+        w === lastW &&
+        h === lastH
+      ) {
+        rafId = requestAnimationFrame(render);
+        return;
+      }
+
+      lastProgress = rawProgress;
+      lastVersion = version;
+      lastW = w;
+      lastH = h;
+
       // Preserve exact identical visual timing for seq1 and seq2 from the original 700vh setup
       const virtualProg12 = Math.min(1.0, rawProgress * 1.5); 
 
@@ -137,21 +188,14 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
       }
 
       if (wrapperRef.current) {
-        wrapperRef.current.style.transform = `translate(${translateX}px, ${translateY}px)`;
-      }
-
-      if (cachedDims.current.w !== w || cachedDims.current.h !== h) {
-        canvas.width = w * dpr;
-        canvas.height = h * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        cachedDims.current = { w, h };
+        wrapperRef.current.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
       }
 
       ctx.fillStyle = '#eef2f5';
       ctx.fillRect(0, 0, w, h);
 
       const drawImage = (img: HTMLImageElement | null, alpha: number) => {
-        if (!img || alpha <= 0) return;
+        if (!img || alpha <= 0 || !img.naturalWidth || !img.naturalHeight) return;
         const imgRatio = img.naturalWidth / img.naturalHeight;
         const canvasRatio = w / h;
         let drawW: number, drawH: number;
@@ -180,9 +224,9 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
       };
 
-      drawImage(seq1.current[frameIdx1], alpha1);
-      drawImage(seq2.current[frameIdx2], alpha2);
-      drawImage(seq3.current[frameIdx3], alpha3);
+      if (alpha1 > 0) drawImage(getNearestLoadedFrame(seq1Frames, frameIdx1), alpha1);
+      if (alpha2 > 0) drawImage(getNearestLoadedFrame(seq2Frames, frameIdx2), alpha2);
+      if (alpha3 > 0) drawImage(getNearestLoadedFrame(seq3Frames, frameIdx3), alpha3);
 
       ctx.globalAlpha = 1.0;
 
@@ -190,13 +234,16 @@ export const GlobalCanvas: React.FC<GlobalCanvasProps> = ({ scrollData }) => {
     };
 
     render();
-    return () => cancelAnimationFrame(rafId);
-  }, [scrollData, seq1, seq2, seq3]);
+    return () => {
+      cancelAnimationFrame(rafId);
+      resizeObserver.disconnect();
+    };
+  }, [scrollData]);
 
   return (
     <div
       ref={wrapperRef}
-      className="absolute top-0 left-0 w-full h-[50dvh] md:inset-0 md:h-full overflow-hidden"
+      className="absolute top-0 left-0 w-full h-[50dvh] md:inset-0 md:h-full overflow-hidden will-change-transform"
     >
       <canvas
         ref={canvasRef}
