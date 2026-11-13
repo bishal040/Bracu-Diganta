@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { scrollToTarget } from './SmoothScroll';
+import { startCanSatPreload } from './Hero/useImageSequence';
 
 const NAV_LINKS_LIST = [
   { label: 'Home', type: 'route', target: '/' },
@@ -164,7 +165,10 @@ export const Navbar: React.FC = () => {
   const dockRef = useRef<HTMLDivElement>(null);
   const [hoverRect, setHoverRect] = useState({ left: 0, width: 0, opacity: 0 });
 
-  const handleLinkHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkHover = (e: React.MouseEvent<HTMLAnchorElement>, linkTarget?: string) => {
+    if (linkTarget === '/project/cansat-2024') {
+      startCanSatPreload();
+    }
     if (!dockRef.current) return;
     const linkRect = e.currentTarget.getBoundingClientRect();
     const dockRect = dockRef.current.getBoundingClientRect();
@@ -236,7 +240,12 @@ export const Navbar: React.FC = () => {
                 key={link.label}
                 href={link.type === 'route' ? link.target : `#${link.target}`}
                 onClick={(e) => handleLinkClick(e, link)}
-                onMouseEnter={handleLinkHover}
+                onMouseEnter={(e) => handleLinkHover(e, link.target)}
+                onFocus={() => {
+                  if (link.target === '/project/cansat-2024') {
+                    startCanSatPreload();
+                  }
+                }}
                 className={`group relative px-6 py-2.5 text-xs xl:text-[13px] font-mono font-bold transition-colors duration-300 tracking-[0.15em] uppercase rounded-full overflow-hidden ${scrolled
                   ? active ? 'text-[#2563EB]' : 'text-gray-700 hover:text-[#2563EB]'
                   : active ? 'text-[#2563EB]' : 'text-gray-900 hover:text-[#2563EB]'
