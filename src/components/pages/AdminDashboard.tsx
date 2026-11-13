@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { Search, Filter, Download, Users, X, FileText, ExternalLink, ChevronDown, CheckCircle2, Star, XCircle, RotateCcw, CheckSquare, Square } from 'lucide-react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Search, Filter, Download, Users, X, FileText, ExternalLink, ChevronDown, CheckCircle2, Star, XCircle, RotateCcw, CheckSquare, Square, BookOpen } from 'lucide-react';
+import { AdminBlogManager } from './AdminBlogManager';
 
 type ApplicationStatus = 'applied' | 'shortlisted' | 'selected' | 'rejected';
 
@@ -56,11 +57,21 @@ const TAB_LIST: { key: 'all' | ApplicationStatus; label: string }[] = [
 export const AdminDashboard: React.FC = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [adminSection, setAdminSection] = useState<'recruitment' | 'blogs'>(() =>
+    searchParams.get('tab') === 'recruitment' ? 'recruitment' : 'blogs'
+  );
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedApp, setSelectedApp] = useState<Application | null>(null);
   const [isCvVisible, setIsCvVisible] = useState(false);
   const [cvUrls, setCvUrls] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab === 'blogs') setAdminSection('blogs');
+    else if (tab === 'recruitment') setAdminSection('recruitment');
+  }, [searchParams]);
 
   // Filtering and Search State
   const [searchQuery, setSearchQuery] = useState('');
@@ -225,7 +236,7 @@ export const AdminDashboard: React.FC = () => {
     }
   };
 
-  if (loading) {
+  if (loading && adminSection === 'recruitment') {
     return <div className="min-h-screen bg-[#eef2f5] flex items-center justify-center font-mono text-gray-500">Loading Dashboard...</div>;
   }
 
@@ -309,22 +320,63 @@ export const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#eef2f5] text-gray-900 px-8 py-24 md:px-16 md:pt-32 md:pb-16">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-[#eef2f5] text-gray-900 px-3 sm:px-6 lg:px-10 pt-24 md:pt-28 pb-16">
+      <div className="w-full max-w-[1600px] mx-auto">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h1 className="text-4xl font-orbitron font-black text-gray-900 uppercase">Admin Dashboard</h1>
-            <p className="text-gray-500 font-mono text-sm mt-2">Recruitment Pipeline</p>
+            <p className="text-gray-500 font-mono text-sm mt-2">
+              {adminSection === 'blogs' ? 'Markdown (.md) Blog & GitHub CMS' : 'Recruitment Pipeline'}
+            </p>
           </div>
-          <button
-            onClick={() => signOut()}
-            className="mt-4 md:mt-0 px-6 py-2 bg-gray-900 text-white rounded-full font-mono text-xs font-bold tracking-[0.15em] uppercase hover:bg-red-600 transition-colors shadow-sm"
-          >
-            Sign Out
-          </button>
+
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Section Switcher: Blog Manager vs Recruitment */}
+            <div className="flex items-center gap-1.5 bg-white p-1.5 rounded-full shadow-sm border border-gray-200">
+              <button
+                onClick={() => {
+                  setAdminSection('blogs');
+                  setSearchParams({ tab: 'blogs' }, { replace: true });
+                }}
+                className={`px-5 py-2 rounded-full font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all ${
+                  adminSection === 'blogs'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/25'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <BookOpen size={14} /> Blog Manager (.MD)
+              </button>
+
+              <button
+                onClick={() => {
+                  setAdminSection('recruitment');
+                  setSearchParams({ tab: 'recruitment' }, { replace: true });
+                }}
+                className={`px-5 py-2 rounded-full font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all ${
+                  adminSection === 'recruitment'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/25'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <Users size={14} /> Recruitment ({totalApps})
+              </button>
+            </div>
+
+            <button
+              onClick={() => signOut()}
+              className="px-6 py-2.5 bg-gray-900 text-white rounded-full font-mono text-xs font-bold tracking-[0.15em] uppercase hover:bg-red-600 transition-colors shadow-sm"
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
+
+        {adminSection === 'blogs' ? (
+          <AdminBlogManager />
+        ) : (
+          <>
 
         {/* Analytics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -600,6 +652,8 @@ export const AdminDashboard: React.FC = () => {
             </table>
           )}
         </div>
+        </>
+        )}
       </div>
 
       {/* Slide-over Modal for Application Details */}

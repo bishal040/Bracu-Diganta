@@ -6,6 +6,7 @@ import { Overview } from '../sections/Overview';
 import { Projects } from '../sections/Projects';
 import { Achievements } from '../sections/Achievements';
 import { Team } from '../sections/Team';
+import { BlogSection } from '../sections/BlogSection';
 import { Contact } from '../sections/Contact';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -110,6 +111,7 @@ export const HomePage: React.FC = () => {
         <Projects />
         <Achievements />
         <Team />
+        <BlogSection />
         <Contact />
       </div>
 
