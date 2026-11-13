@@ -18,34 +18,43 @@ export function scrollToTarget(
 ) {
   const { immediate = false, offset = 0 } = options;
 
+  let resolvedTarget: number | HTMLElement;
+
   if (typeof target === 'string') {
     const cleanId = target.startsWith('#') ? target.slice(1) : target;
     const el = document.getElementById(cleanId);
     if (!el) return;
-    if (activeLenis) {
-      activeLenis.scrollTo(el, {
-        immediate,
-        offset,
-        duration: immediate ? 0 : 0.85,
-        lock: !immediate,
-      });
-    } else {
-      el.scrollIntoView({ behavior: immediate ? 'auto' : 'smooth' });
+    resolvedTarget = el;
+  } else {
+    resolvedTarget = target;
+  }
+
+  // If the target element is pinned by GSAP ScrollTrigger, its pin-spacer
+  // shifts its bounding box when scrolled past; jump directly to trigger.start.
+  if (resolvedTarget instanceof HTMLElement) {
+    const pinnedTrigger = ScrollTrigger.getAll().find(
+      (st) => st.trigger === resolvedTarget && st.pin
+    );
+    if (pinnedTrigger) {
+      resolvedTarget = pinnedTrigger.start + offset;
     }
-    return;
   }
 
   if (activeLenis) {
-    activeLenis.scrollTo(target, {
+    // Recompute Lenis bounds before scrolling so route transitions from shorter pages
+    // never clamp against a stale scroll limit.
+    activeLenis.resize();
+    activeLenis.scrollTo(resolvedTarget, {
       immediate,
-      offset,
+      offset: typeof resolvedTarget === 'number' ? 0 : offset,
       duration: immediate ? 0 : 0.85,
-      lock: !immediate,
+      lock: false,
+      force: true,
     });
-  } else if (typeof target === 'number') {
-    window.scrollTo({ top: target, behavior: immediate ? 'auto' : 'smooth' });
+  } else if (typeof resolvedTarget === 'number') {
+    window.scrollTo({ top: resolvedTarget, behavior: immediate ? 'auto' : 'smooth' });
   } else {
-    target.scrollIntoView({ behavior: immediate ? 'auto' : 'smooth' });
+    resolvedTarget.scrollIntoView({ behavior: immediate ? 'auto' : 'smooth' });
   }
 }
 
@@ -90,6 +99,13 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   useEffect(() => {
     const scrollTo = (state as { scrollTo?: string } | null)?.scrollTo;
 
+    if (lenisRef.current) {
+      lenisRef.current.resize();
+      lenisRef.current.scrollTo(0, { immediate: true, force: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+
     if (scrollTo) {
       let raf1 = 0;
       let raf2 = 0;
@@ -97,6 +113,7 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
 
       const performJump = () => {
         ScrollTrigger.refresh();
+        activeLenis?.resize();
         const el = document.getElementById(scrollTo);
         if (el) {
           scrollToTarget(el, { immediate: true });
@@ -120,12 +137,6 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
         cancelAnimationFrame(raf2);
         if (fallbackTimer) clearTimeout(fallbackTimer);
       };
-    }
-
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo(0, 0);
     }
   }, [pathname, state]);
 
