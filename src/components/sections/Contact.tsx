@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
-import { ArrowRight, Plus, Handshake, Activity, Zap } from 'lucide-react';
+import { ArrowRight, Plus, Handshake, Activity, Zap, Mail } from 'lucide-react';
 import { useToast } from '../ui/ToastProvider';
 import { sponsorsData, type MappedSponsor } from '../../data/sponsors';
 
@@ -219,13 +219,23 @@ export const Contact: React.FC = () => {
             {/* Glossy highlight */}
             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/80 to-transparent pointer-events-none rounded-t-[2rem]" />
 
-            <div className="flex items-center gap-3 mb-4 lg:mb-6 border-b border-blue-100 pb-3 relative z-10 shrink-0">
-              <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center">
-                <svg className="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 lg:mb-6 border-b border-blue-100 pb-3 relative z-10 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center">
+                  <svg className="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                </div>
+                <h3 className="font-orbitron font-bold text-xs lg:text-sm text-slate-900 uppercase tracking-widest">
+                  Initiate Partnership
+                </h3>
               </div>
-              <h3 className="font-orbitron font-bold text-xs lg:text-sm text-slate-900 uppercase tracking-widest">
-                Initiate Partnership
-              </h3>
+
+              <a
+                href="mailto:bracudiganta@gmail.com"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200/70 font-mono text-[11px] lg:text-xs font-semibold tracking-wide transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5 shrink-0" />
+                <span>bracudiganta@gmail.com</span>
+              </a>
             </div>
 
             <form className="flex flex-col gap-3 lg:gap-4 h-full relative z-10" onSubmit={handleSubmit}>
