@@ -113,7 +113,7 @@ const DIVISION_DUTIES: Record<string, string> = {
 };
 
 // Recruitment deadline — change this date to control the countdown
-const RECRUITMENT_DEADLINE = new Date('2026-12-15T23:59:59+06:00');
+const RECRUITMENT_DEADLINE = new Date('2026-11-20T23:59:59+06:00');
 
 
 interface InputFieldProps {
