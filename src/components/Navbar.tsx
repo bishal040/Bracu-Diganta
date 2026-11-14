@@ -283,7 +283,7 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
 
-          {/* <button
+          <button
             onClick={(e) => {
               e.preventDefault();
               navigate('/careers');
@@ -295,7 +295,7 @@ export const Navbar: React.FC = () => {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
             </span>
             Join Us
-          </button> */}
+          </button>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -456,7 +456,7 @@ export const Navbar: React.FC = () => {
               </span>
             </button>
 
-            {/* <button
+            <button
               onClick={(e) => {
                 e.preventDefault();
                 setMobileMenuOpen(false);
@@ -471,7 +471,7 @@ export const Navbar: React.FC = () => {
                 </span>
                 Join Us
               </span>
-            </button> */}
+            </button>
           </div>
         </div>
       </div>
